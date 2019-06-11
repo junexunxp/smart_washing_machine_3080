@@ -1,0 +1,4166 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         06/Jun/2019  11:30:41
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\middleware\csdk\wifi\mk3060\wifi_atcmd.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EWEF08.tmp
+#        (C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\middleware\csdk\wifi\mk3060\wifi_atcmd.c
+#        -D DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D
+#        XIP_BOOT_HEADER_ENABLE=1 -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS
+#        -D "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\list
+#        -lA
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../boards\evkbimxrt1050\rtos_examples\csdk\app_preinclude.h
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../rtos/amazon-freertos/lib/FreeRTOS/portable/IAR/ARM_CM4F\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/..\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../..\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../CMSIS/Include\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../rtos/amazon-freertos/lib/include\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../rtos/amazon-freertos/lib/include/private\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/drivers\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/utilities\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/utilities/str\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/utilities/debug_console\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../components/uart\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../components/serial_manager\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../components/kv\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../components/kv/include\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/drivers\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../components/lists\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/drivers\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/drivers\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../../../devices/MIMXRT1052/xip\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../../xip\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\atm\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\dev_model\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\dev_sign\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\infra\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\mqtt\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\wrappers\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\wrappers\external_libs\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\wifi\mk3060\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\coap_cloud\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\coap_server\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\coap_server\server\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\dev_bind\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\dev_bind\impl\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\csdk\eng\dev_bind\impl\awss_reset\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\mbedtls\include\mbedtls\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\mbedtls\include\
+#        -I
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\..\..\..\..\..\middleware\mbedtls\port\ksdk\
+#        -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\list\wifi_atcmd.lst
+#    Object file  =  
+#        C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\obj\wifi_atcmd.o
+#
+###############################################################################
+
+C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\middleware\csdk\wifi\mk3060\wifi_atcmd.c
+      1          /*
+      2           * Copyright (C) 2015-2017 Alibaba Group Holding Limited
+      3           */
+      4          
+      5          #include <stdio.h>
+      6          #include <stdlib.h>
+      7          #include <string.h>
+      8          #include "infra_types.h"
+      9          
+     10          #include "atcmd_config_module.h"
+     11          #include "at_parser.h"
+     12          #define TAG "wifi_port"
+     13          
+     14          #define AT_RSP_SUCCESS "OK"
+     15          #define AT_RSP_FAIL "ERROR"
+     16          #ifndef LOGE
+     17          #define LOGE(mod,...) 	HAL_Printf(__VA_ARGS__)
+     18          #define LOGI(mod,...)	HAL_Printf(__VA_ARGS__)
+     19          #define LOGD(mod,...)	HAL_Printf(__VA_ARGS__)
+     20          
+     21          #endif
+     22          
+     23          static int get_mac_helper(char *mac);
+     24          static int get_ip_stat_helper(hal_wifi_ip_stat_t *result);
+     25          
+
+   \                                 In section .text, align 2, keep-with-next
+     26          static void fetch_ip_stat(void *arg)
+     27          {
+   \                     fetch_ip_stat: (+1)
+   \        0x0   0xB518             PUSH     {R3,R4,LR}
+   \        0x2   0xB099             SUB      SP,SP,#+100
+   \        0x4   0x4604             MOV      R4,R0
+     28              hal_wifi_ip_stat_t ip_stat = {0};
+   \        0x6   0x4668             MOV      R0,SP
+   \        0x8   0x2164             MOVS     R1,#+100
+   \        0xA   0x....'....        BL       __aeabi_memclr4
+     29              hal_wifi_module_t *m;
+     30          
+     31              if (!arg) {
+   \        0xE   0x2C00             CMP      R4,#+0
+   \       0x10   0xD106             BNE.N    ??fetch_ip_stat_0
+     32                  LOGE(TAG, "%s failed, invalid argument\r\n", __func__);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x12   0x....'....        LDR.W    R1,??DataTable8_2
+   \       0x16   0x....'....        LDR.W    R0,??DataTable8_3
+   \       0x1A   0x....'....        BL       HAL_Printf
+     33                  return;
+   \       0x1E   0xE00C             B.N      ??fetch_ip_stat_1
+     34              }
+     35          
+     36              m = (hal_wifi_module_t *)arg;
+     37          
+     38              get_ip_stat_helper(&ip_stat);
+   \                     ??fetch_ip_stat_0: (+1)
+   \       0x20   0x4668             MOV      R0,SP
+   \       0x22   0x....'....        BL       get_ip_stat_helper
+     39          
+     40              if (m->ev_cb->ip_got != NULL) {
+   \       0x26   0x6960             LDR      R0,[R4, #+20]
+   \       0x28   0x6840             LDR      R0,[R0, #+4]
+   \       0x2A   0x2800             CMP      R0,#+0
+   \       0x2C   0xD005             BEQ.N    ??fetch_ip_stat_1
+     41                  m->ev_cb->ip_got(m, &ip_stat, NULL);
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x4669             MOV      R1,SP
+   \       0x32   0x4620             MOV      R0,R4
+   \       0x34   0x6963             LDR      R3,[R4, #+20]
+   \       0x36   0x685B             LDR      R3,[R3, #+4]
+   \       0x38   0x4798             BLX      R3
+     42              }
+     43          }
+   \                     ??fetch_ip_stat_1: (+1)
+   \       0x3A   0xB01A             ADD      SP,SP,#+104
+   \       0x3C   0xBD10             POP      {R4,PC}          ;; return
+     44          
+
+   \                                 In section .text, align 2, keep-with-next
+     45          void at_wevent_handler(void *arg, char *buf, int buflen)
+     46          {
+   \                     at_wevent_handler: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+     47              hal_wifi_module_t *m;
+     48          
+     49              if (NULL == arg){
+   \        0x4   0xD102             BNE.N    ??at_wevent_handler_0
+     50                  m = (hal_wifi_module_t *)hal_wifi_get_default_module();
+                                                  ^
+Warning[Pe223]: function "hal_wifi_get_default_module" declared implicitly
+   \        0x6   0x....'....        BL       hal_wifi_get_default_module
+   \        0xA   0x4604             MOV      R4,R0
+     51              } else {
+     52                  m = (hal_wifi_module_t *)arg;
+     53              }
+     54          
+     55              if (NULL == m) {
+   \                     ??at_wevent_handler_0: (+1)
+   \        0xC   0x2C00             CMP      R4,#+0
+   \        0xE   0xD00F             BEQ.N    ??at_wevent_handler_1
+     56                  return;
+     57              }
+     58          
+     59              if (NULL == m->ev_cb) {
+   \       0x10   0x6960             LDR      R0,[R4, #+20]
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD00C             BEQ.N    ??at_wevent_handler_1
+     60                  return;
+     61              }
+     62          
+     63              if (m->ev_cb->stat_chg != NULL) {
+   \       0x16   0x6880             LDR      R0,[R0, #+8]
+   \       0x18   0x2800             CMP      R0,#+0
+   \       0x1A   0xD005             BEQ.N    ??at_wevent_handler_2
+     64                  m->ev_cb->stat_chg(m, NOTIFY_STATION_UP, NULL);
+   \       0x1C   0x2200             MOVS     R2,#+0
+   \       0x1E   0x2101             MOVS     R1,#+1
+   \       0x20   0x4620             MOV      R0,R4
+   \       0x22   0x6963             LDR      R3,[R4, #+20]
+   \       0x24   0x689B             LDR      R3,[R3, #+8]
+   \       0x26   0x4798             BLX      R3
+     65              }
+     66          
+     67              fetch_ip_stat(m);
+   \                     ??at_wevent_handler_2: (+1)
+   \       0x28   0x4620             MOV      R0,R4
+   \       0x2A   0xE8BD 0x4010      POP      {R4,LR}
+   \       0x2E   0x....             B.N      fetch_ip_stat
+   \                     ??at_wevent_handler_1: (+1)
+   \       0x30   0xBD10             POP      {R4,PC}          ;; return
+     68          }
+     69          
+
+   \                                 In section .text, align 2, keep-with-next
+     70          static int wifi_init(hal_wifi_module_t *m)
+     71          {
+   \                     wifi_init: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+     72              LOGI(TAG, "wifi init success!!\n");
+                     ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \        0x2   0x....'....        LDR.W    R0,??DataTable8_4
+   \        0x6   0x....'....        BL       HAL_Printf
+     73              return 0;
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0xBD02             POP      {R1,PC}          ;; return
+     74          };
+     75          
+     76          #define MAC_STR_LEN 12
+     77          // str: char[12], mac: hex[6]
+
+   \                                 In section .text, align 2, keep-with-next
+     78          static void mac_str_to_hex(char *str, uint8_t *mac)
+     79          {
+   \                     mac_str_to_hex: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+   \        0x2   0x4604             MOV      R4,R0
+   \        0x4   0x460D             MOV      R5,R1
+     80              int i;
+     81              char c;
+     82              uint8_t j;
+     83          
+     84              if (!str || !mac) return;
+   \        0x6   0x2C00             CMP      R4,#+0
+   \        0x8   0xD032             BEQ.N    ??mac_str_to_hex_0
+   \        0xA   0x2D00             CMP      R5,#+0
+   \        0xC   0xD030             BEQ.N    ??mac_str_to_hex_0
+     85          
+     86              memset(mac, 0, MAC_STR_LEN >> 1);
+   \        0xE   0x2200             MOVS     R2,#+0
+   \       0x10   0x2106             MOVS     R1,#+6
+   \       0x12   0x4628             MOV      R0,R5
+   \       0x14   0x....'....        BL       __aeabi_memset
+     87              for (i = 0; i < MAC_STR_LEN; i++) {
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0xE014             B.N      ??mac_str_to_hex_1
+     88                  c = str[i];
+     89                  if (c >= '0' && c <= '9') j = c - '0';
+     90                  else if (c >= 'A' && c <= 'F') j = c - 'A' + 0xa;
+     91                  else if (c >= 'a' && c <= 'f') j = c - 'a' + 0xa;
+     92                  else j = c % 0xf;
+     93                  j <<= i & 1 ? 0 : 4;
+   \                     ??mac_str_to_hex_2: (+1)
+   \       0x1C   0x2104             MOVS     R1,#+4
+   \       0x1E   0xE008             B.N      ??mac_str_to_hex_3
+   \                     ??mac_str_to_hex_4: (+1)
+   \       0x20   0x220F             MOVS     R2,#+15
+   \       0x22   0xFB91 0xF2F2      SDIV     R2,R1,R2
+   \       0x26   0xEBC2 0x1202      RSB      R2,R2,R2, LSL #+4
+   \       0x2A   0x1A8A             SUBS     R2,R1,R2
+   \                     ??mac_str_to_hex_5: (+1)
+   \       0x2C   0x07C1             LSLS     R1,R0,#+31
+   \       0x2E   0xD5F5             BPL.N    ??mac_str_to_hex_2
+   \       0x30   0x2100             MOVS     R1,#+0
+   \                     ??mac_str_to_hex_3: (+1)
+   \       0x32   0xFA02 0xF101      LSL      R1,R2,R1
+     94                  mac[i>>1] |= j;
+   \       0x36   0x4602             MOV      R2,R0
+   \       0x38   0x1052             ASRS     R2,R2,#+1
+   \       0x3A   0x5CAA             LDRB     R2,[R5, R2]
+   \       0x3C   0x4311             ORRS     R1,R1,R2
+   \       0x3E   0x4602             MOV      R2,R0
+   \       0x40   0x1052             ASRS     R2,R2,#+1
+   \       0x42   0x54A9             STRB     R1,[R5, R2]
+   \       0x44   0x1C40             ADDS     R0,R0,#+1
+   \                     ??mac_str_to_hex_1: (+1)
+   \       0x46   0x280C             CMP      R0,#+12
+   \       0x48   0xDA12             BGE.N    ??mac_str_to_hex_0
+   \       0x4A   0x5C21             LDRB     R1,[R4, R0]
+   \       0x4C   0xF1A1 0x0230      SUB      R2,R1,#+48
+   \       0x50   0x2A0A             CMP      R2,#+10
+   \       0x52   0xD3EB             BCC.N    ??mac_str_to_hex_5
+   \       0x54   0xF1A1 0x0241      SUB      R2,R1,#+65
+   \       0x58   0x2A06             CMP      R2,#+6
+   \       0x5A   0xD202             BCS.N    ??mac_str_to_hex_6
+   \       0x5C   0xF1A1 0x0237      SUB      R2,R1,#+55
+   \       0x60   0xE7E4             B.N      ??mac_str_to_hex_5
+   \                     ??mac_str_to_hex_6: (+1)
+   \       0x62   0xF1A1 0x0261      SUB      R2,R1,#+97
+   \       0x66   0x2A06             CMP      R2,#+6
+   \       0x68   0xD2DA             BCS.N    ??mac_str_to_hex_4
+   \       0x6A   0xF1A1 0x0257      SUB      R2,R1,#+87
+   \       0x6E   0xE7DD             B.N      ??mac_str_to_hex_5
+     95              }
+     96          }
+   \                     ??mac_str_to_hex_0: (+1)
+   \       0x70   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+     97          
+     98          // mac - hex[6]
+
+   \                                 In section .text, align 2, keep-with-next
+     99          static void wifi_get_mac_addr(hal_wifi_module_t *m, uint8_t *mac)
+    100          {
+   \                     wifi_get_mac_addr: (+1)
+   \        0x0   0xB518             PUSH     {R3,R4,LR}
+   \        0x2   0xB087             SUB      SP,SP,#+28
+   \        0x4   0x460C             MOV      R4,R1
+    101              char mac_str[MAC_STR_LEN+1] = {0};
+   \        0x6   0xA803             ADD      R0,SP,#+12
+   \        0x8   0x2110             MOVS     R1,#+16
+   \        0xA   0x....'....        BL       __aeabi_memclr4
+    102          
+    103              if (!mac) return;
+   \        0xE   0x2C00             CMP      R4,#+0
+   \       0x10   0xD017             BEQ.N    ??wifi_get_mac_addr_0
+    104          
+    105              (void)m;
+    106              LOGD(TAG, "wifi_get_mac_addr!!\n");
+                     ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x12   0x....'....        LDR.W    R0,??DataTable8_5
+   \       0x16   0x....'....        BL       HAL_Printf
+    107          
+    108              get_mac_helper(mac_str);
+   \       0x1A   0xA803             ADD      R0,SP,#+12
+   \       0x1C   0x....'....        BL       get_mac_helper
+    109              mac_str_to_hex(mac_str, mac);
+   \       0x20   0x4621             MOV      R1,R4
+   \       0x22   0xA803             ADD      R0,SP,#+12
+   \       0x24   0x....'....        BL       mac_str_to_hex
+    110              LOGI(TAG, "mac in hex: %02x%02x%02x%02x%02x%02x",
+    111                mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
+   \       0x28   0x7960             LDRB     R0,[R4, #+5]
+   \       0x2A   0x9002             STR      R0,[SP, #+8]
+   \       0x2C   0x7920             LDRB     R0,[R4, #+4]
+   \       0x2E   0x9001             STR      R0,[SP, #+4]
+   \       0x30   0x78E0             LDRB     R0,[R4, #+3]
+   \       0x32   0x9000             STR      R0,[SP, #+0]
+   \       0x34   0x78A3             LDRB     R3,[R4, #+2]
+   \       0x36   0x7862             LDRB     R2,[R4, #+1]
+   \       0x38   0x7821             LDRB     R1,[R4, #+0]
+   \       0x3A   0x....'....        LDR.W    R0,??DataTable8_6
+   \       0x3E   0x....'....        BL       HAL_Printf
+    112          };
+   \                     ??wifi_get_mac_addr_0: (+1)
+   \       0x42   0xB008             ADD      SP,SP,#+32
+   \       0x44   0xBD10             POP      {R4,PC}          ;; return
+    113          
+    114          #define AT_CMD_CONNECT_AP "AT+WJAP"
+
+   \                                 In section .text, align 2, keep-with-next
+    115          static int wifi_start(hal_wifi_module_t *m, hal_wifi_init_type_t *init_para)
+    116          {
+   \                     wifi_start: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0xB0C4             SUB      SP,SP,#+272
+   \        0x4   0x460C             MOV      R4,R1
+    117              char in[128] = {0};
+   \        0x6   0xA824             ADD      R0,SP,#+144
+   \        0x8   0x2180             MOVS     R1,#+128
+   \        0xA   0x....'....        BL       __aeabi_memclr4
+    118              char out[128] = {0};
+   \        0xE   0xA804             ADD      R0,SP,#+16
+   \       0x10   0x2180             MOVS     R1,#+128
+   \       0x12   0x....'....        BL       __aeabi_memclr4
+    119          
+    120              (void)init_para;
+    121          
+    122          
+    123              if (strcmp(init_para->wifi_key, "open") == 0) {
+   \       0x16   0x....'....        LDR.W    R1,??DataTable8_7
+   \       0x1A   0xF104 0x0022      ADD      R0,R4,#+34
+   \       0x1E   0x....'....        BL       strcmp
+   \       0x22   0x2800             CMP      R0,#+0
+   \       0x24   0xD107             BNE.N    ??wifi_start_0
+    124                  snprintf(in, sizeof(in), AT_CMD_CONNECT_AP"=%s",
+    125                    init_para->wifi_ssid);
+   \       0x26   0x1C63             ADDS     R3,R4,#+1
+   \       0x28   0x....'....        LDR.W    R2,??DataTable8_8
+   \       0x2C   0x2180             MOVS     R1,#+128
+   \       0x2E   0xA824             ADD      R0,SP,#+144
+   \       0x30   0x....'....        BL       snprintf
+   \       0x34   0xE009             B.N      ??wifi_start_1
+    126              } else {
+    127                  snprintf(in, sizeof(in), AT_CMD_CONNECT_AP"=%s,%s",
+    128                    init_para->wifi_ssid, init_para->wifi_key);
+   \                     ??wifi_start_0: (+1)
+   \       0x36   0xF104 0x0022      ADD      R0,R4,#+34
+   \       0x3A   0x9000             STR      R0,[SP, #+0]
+   \       0x3C   0x1C63             ADDS     R3,R4,#+1
+   \       0x3E   0x....'....        LDR.W    R2,??DataTable8_9
+   \       0x42   0x2180             MOVS     R1,#+128
+   \       0x44   0xA824             ADD      R0,SP,#+144
+   \       0x46   0x....'....        BL       snprintf
+    129              }
+    130          
+    131              LOGI(TAG, "Will connect via at cmd: %s\r\n", in);
+                     ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??wifi_start_1: (+1)
+   \       0x4A   0xA924             ADD      R1,SP,#+144
+   \       0x4C   0x....'....        LDR.W    R0,??DataTable8_10
+   \       0x50   0x....'....        BL       HAL_Printf
+    132          
+    133              if (at_send_wait_reply(in, strlen(in), true, NULL, 0, out, sizeof(out), NULL) == 0)
+   \       0x54   0xA824             ADD      R0,SP,#+144
+   \       0x56   0x....'....        BL       strlen
+   \       0x5A   0x2100             MOVS     R1,#+0
+   \       0x5C   0x9103             STR      R1,[SP, #+12]
+   \       0x5E   0x2180             MOVS     R1,#+128
+   \       0x60   0x9102             STR      R1,[SP, #+8]
+   \       0x62   0xA904             ADD      R1,SP,#+16
+   \       0x64   0x9101             STR      R1,[SP, #+4]
+   \       0x66   0x2100             MOVS     R1,#+0
+   \       0x68   0x9100             STR      R1,[SP, #+0]
+   \       0x6A   0x460B             MOV      R3,R1
+   \       0x6C   0x2201             MOVS     R2,#+1
+   \       0x6E   0x4601             MOV      R1,R0
+   \       0x70   0xA824             ADD      R0,SP,#+144
+   \       0x72   0x....'....        BL       at_send_wait_reply
+   \       0x76   0x2800             CMP      R0,#+0
+   \       0x78   0xD106             BNE.N    ??wifi_start_2
+    134                  LOGI(TAG, "AT command %s succeed, rsp: %s\r\n", in, out);
+   \       0x7A   0xAA04             ADD      R2,SP,#+16
+   \       0x7C   0xA924             ADD      R1,SP,#+144
+   \       0x7E   0x....'....        LDR.W    R0,??DataTable8_11
+   \       0x82   0x....'....        BL       HAL_Printf
+   \       0x86   0xE004             B.N      ??wifi_start_3
+    135              else
+    136                  LOGE(TAG, "AT command %s failed\r\n", in);
+   \                     ??wifi_start_2: (+1)
+   \       0x88   0xA924             ADD      R1,SP,#+144
+   \       0x8A   0x....'....        LDR.W    R0,??DataTable8_12
+   \       0x8E   0x....'....        BL       HAL_Printf
+    137          
+    138              if (strstr(out, AT_RSP_FAIL)) {
+   \                     ??wifi_start_3: (+1)
+   \       0x92   0x....'....        LDR.W    R1,??DataTable8_13
+   \       0x96   0xA804             ADD      R0,SP,#+16
+   \       0x98   0x....'....        BL       strstr
+   \       0x9C   0x2800             CMP      R0,#+0
+   \       0x9E   0xD006             BEQ.N    ??wifi_start_4
+    139                  LOGE(TAG, "Connect wifi failed\r\n");
+   \       0xA0   0x....'....        LDR.W    R0,??DataTable8_14
+   \       0xA4   0x....'....        BL       HAL_Printf
+    140                  return -1;
+   \       0xA8   0xF04F 0x30FF      MOV      R0,#-1
+   \       0xAC   0xE000             B.N      ??wifi_start_5
+    141              }
+    142          
+    143              return 0;
+   \                     ??wifi_start_4: (+1)
+   \       0xAE   0x2000             MOVS     R0,#+0
+   \                     ??wifi_start_5: (+1)
+   \       0xB0   0xB044             ADD      SP,SP,#+272
+   \       0xB2   0xBD10             POP      {R4,PC}          ;; return
+    144          }
+    145          
+
+   \                                 In section .text, align 2, keep-with-next
+    146          static int wifi_start_adv(hal_wifi_module_t *m, hal_wifi_init_type_adv_t *init_para_adv)
+    147          {
+    148              (void)init_para_adv;
+    149          
+    150              return 0;
+   \                     wifi_start_adv: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    151          }
+    152          
+    153          #define AT_CMD_OBTAIN_MAC "AT+WMAC?"
+    154          #define AT_RSP_MAC_PREFIX "+WMAC"
+    155          // mac string, e.g. "BF01ADE2F5CE"
+
+   \                                 In section .text, align 2, keep-with-next
+    156          static int get_mac_helper(char *mac)
+    157          {
+   \                     get_mac_helper: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0xB0A4             SUB      SP,SP,#+144
+   \        0x4   0x4604             MOV      R4,R0
+    158              char out[128] = {0};
+   \        0x6   0xA804             ADD      R0,SP,#+16
+   \        0x8   0x2180             MOVS     R1,#+128
+   \        0xA   0x....'....        BL       __aeabi_memclr4
+    159              char *at_mac_str = AT_CMD_OBTAIN_MAC;
+   \        0xE   0x....'....        LDR.W    R5,??DataTable8_15
+   \       0x12   0x462E             MOV      R6,R5
+    160          
+    161              if (!mac) return -1;
+   \       0x14   0x2C00             CMP      R4,#+0
+   \       0x16   0xD102             BNE.N    ??get_mac_helper_0
+   \       0x18   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x1C   0xE042             B.N      ??get_mac_helper_1
+    162          
+    163              if (at_send_wait_reply(at_mac_str, strlen(at_mac_str), true,
+    164                                     NULL, 0, out, sizeof(out), NULL) == 0) {
+   \                     ??get_mac_helper_0: (+1)
+   \       0x1E   0x4630             MOV      R0,R6
+   \       0x20   0x....'....        BL       strlen
+   \       0x24   0x4601             MOV      R1,R0
+   \       0x26   0x2000             MOVS     R0,#+0
+   \       0x28   0x9003             STR      R0,[SP, #+12]
+   \       0x2A   0x2080             MOVS     R0,#+128
+   \       0x2C   0x9002             STR      R0,[SP, #+8]
+   \       0x2E   0xA804             ADD      R0,SP,#+16
+   \       0x30   0x9001             STR      R0,[SP, #+4]
+   \       0x32   0x2000             MOVS     R0,#+0
+   \       0x34   0x9000             STR      R0,[SP, #+0]
+   \       0x36   0x4603             MOV      R3,R0
+   \       0x38   0x2201             MOVS     R2,#+1
+   \       0x3A   0x4630             MOV      R0,R6
+   \       0x3C   0x....'....        BL       at_send_wait_reply
+   \       0x40   0x2800             CMP      R0,#+0
+   \       0x42   0xD11B             BNE.N    ??get_mac_helper_2
+    165                  LOGI(TAG, "AT command %s succeed, rsp: %s\r\n", AT_CMD_OBTAIN_MAC, out);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x44   0xAA04             ADD      R2,SP,#+16
+   \       0x46   0x4629             MOV      R1,R5
+   \       0x48   0x....'....        LDR.W    R0,??DataTable8_11
+   \       0x4C   0x....'....        BL       HAL_Printf
+    166              } else {
+    167                  LOGE(TAG, "AT command %s failed\r\n", AT_CMD_OBTAIN_MAC);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+    168                  return -1;
+    169              }
+    170          
+    171              if (strstr(out, AT_RSP_FAIL) || !strstr(out, AT_RSP_MAC_PREFIX)) {
+   \       0x50   0x....'....        LDR.W    R1,??DataTable8_13
+   \       0x54   0xA804             ADD      R0,SP,#+16
+   \       0x56   0x....'....        BL       strstr
+   \       0x5A   0x2800             CMP      R0,#+0
+   \       0x5C   0xD106             BNE.N    ??get_mac_helper_3
+   \       0x5E   0x....'....        LDR.W    R1,??DataTable8_16
+   \       0x62   0xA804             ADD      R0,SP,#+16
+   \       0x64   0x....'....        BL       strstr
+   \       0x68   0x2800             CMP      R0,#+0
+   \       0x6A   0xD10F             BNE.N    ??get_mac_helper_4
+    172                  LOGE(TAG, "Command %s executed with ERROR.\r\n", AT_CMD_OBTAIN_MAC);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??get_mac_helper_3: (+1)
+   \       0x6C   0x4629             MOV      R1,R5
+   \       0x6E   0x....'....        LDR.W    R0,??DataTable8_17
+   \       0x72   0x....'....        BL       HAL_Printf
+    173                  return -1;
+   \       0x76   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x7A   0xE013             B.N      ??get_mac_helper_1
+    174              }
+   \                     ??get_mac_helper_2: (+1)
+   \       0x7C   0x4629             MOV      R1,R5
+   \       0x7E   0x....'....        LDR.W    R0,??DataTable8_12
+   \       0x82   0x....'....        BL       HAL_Printf
+   \       0x86   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x8A   0xE00B             B.N      ??get_mac_helper_1
+    175          
+    176              sscanf(out, "%*[^:]:%[^\r]", mac);
+   \                     ??get_mac_helper_4: (+1)
+   \       0x8C   0x4622             MOV      R2,R4
+   \       0x8E   0x....'....        LDR.W    R1,??DataTable8_18
+   \       0x92   0xA804             ADD      R0,SP,#+16
+   \       0x94   0x....'....        BL       sscanf
+    177              LOGI(TAG, "mac result: %s\r\n", mac);
+                     ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x98   0x4621             MOV      R1,R4
+   \       0x9A   0x....'....        LDR.W    R0,??DataTable8_19
+   \       0x9E   0x....'....        BL       HAL_Printf
+    178          
+    179              return 0;
+   \       0xA2   0x2000             MOVS     R0,#+0
+   \                     ??get_mac_helper_1: (+1)
+   \       0xA4   0xB024             ADD      SP,SP,#+144
+   \       0xA6   0xBD70             POP      {R4-R6,PC}       ;; return
+    180          }
+    181          
+    182          #define AT_CMD_OBTAIN_IP "AT+WJAPIP?"
+    183          #define AT_RSP_IP_PREFIX "+WJAPIP"
+
+   \                                 In section .text, align 2, keep-with-next
+    184          static int get_ip_stat_helper(hal_wifi_ip_stat_t *result)
+    185          {
+   \                     get_ip_stat_helper: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0xB0A4             SUB      SP,SP,#+144
+   \        0x4   0x4604             MOV      R4,R0
+    186              char out[128] = {0};
+   \        0x6   0xA804             ADD      R0,SP,#+16
+   \        0x8   0x2180             MOVS     R1,#+128
+   \        0xA   0x....'....        BL       __aeabi_memclr4
+    187              int ret = 0;
+    188              char *at_ip_str = AT_CMD_OBTAIN_IP;
+   \        0xE   0x....'....        LDR.W    R5,??DataTable8_20
+   \       0x12   0x462E             MOV      R6,R5
+    189          
+    190              if (!result) return -1;
+   \       0x14   0x2C00             CMP      R4,#+0
+   \       0x16   0xD102             BNE.N    ??get_ip_stat_helper_0
+   \       0x18   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x1C   0xE054             B.N      ??get_ip_stat_helper_1
+    191          
+    192              if (at_send_wait_reply(at_ip_str, strlen(at_ip_str), true,
+    193                                     NULL, 0, out, sizeof(out), NULL) == 0) {
+   \                     ??get_ip_stat_helper_0: (+1)
+   \       0x1E   0x4630             MOV      R0,R6
+   \       0x20   0x....'....        BL       strlen
+   \       0x24   0x4601             MOV      R1,R0
+   \       0x26   0x2000             MOVS     R0,#+0
+   \       0x28   0x9003             STR      R0,[SP, #+12]
+   \       0x2A   0x2080             MOVS     R0,#+128
+   \       0x2C   0x9002             STR      R0,[SP, #+8]
+   \       0x2E   0xA804             ADD      R0,SP,#+16
+   \       0x30   0x9001             STR      R0,[SP, #+4]
+   \       0x32   0x2000             MOVS     R0,#+0
+   \       0x34   0x9000             STR      R0,[SP, #+0]
+   \       0x36   0x4603             MOV      R3,R0
+   \       0x38   0x2201             MOVS     R2,#+1
+   \       0x3A   0x4630             MOV      R0,R6
+   \       0x3C   0x....'....        BL       at_send_wait_reply
+   \       0x40   0x2800             CMP      R0,#+0
+   \       0x42   0xD11B             BNE.N    ??get_ip_stat_helper_2
+    194                  LOGI(TAG, "AT command %s succeed, rsp: %s\r\n", AT_CMD_OBTAIN_IP, out);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x44   0xAA04             ADD      R2,SP,#+16
+   \       0x46   0x4629             MOV      R1,R5
+   \       0x48   0x....'....        LDR.W    R0,??DataTable8_11
+   \       0x4C   0x....'....        BL       HAL_Printf
+    195              } else {
+    196                  LOGE(TAG, "AT command %s failed\r\n", AT_CMD_OBTAIN_IP);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+    197                  return -1;
+    198              }
+    199          
+    200              if (strstr(out, AT_RSP_FAIL) || !strstr(out, AT_RSP_IP_PREFIX)) {
+   \       0x50   0x....'....        LDR.W    R1,??DataTable8_13
+   \       0x54   0xA804             ADD      R0,SP,#+16
+   \       0x56   0x....'....        BL       strstr
+   \       0x5A   0x2800             CMP      R0,#+0
+   \       0x5C   0xD106             BNE.N    ??get_ip_stat_helper_3
+   \       0x5E   0x....'....        LDR.W    R1,??DataTable8_21
+   \       0x62   0xA804             ADD      R0,SP,#+16
+   \       0x64   0x....'....        BL       strstr
+   \       0x68   0x2800             CMP      R0,#+0
+   \       0x6A   0xD10F             BNE.N    ??get_ip_stat_helper_4
+    201                  LOGE(TAG, "Command  %s executed with ERROR\r\n", AT_CMD_OBTAIN_IP);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??get_ip_stat_helper_3: (+1)
+   \       0x6C   0x4629             MOV      R1,R5
+   \       0x6E   0x....'....        LDR.W    R0,??DataTable8_22
+   \       0x72   0x....'....        BL       HAL_Printf
+    202                  return -1;
+   \       0x76   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x7A   0xE025             B.N      ??get_ip_stat_helper_1
+    203              }
+   \                     ??get_ip_stat_helper_2: (+1)
+   \       0x7C   0x4629             MOV      R1,R5
+   \       0x7E   0x....'....        LDR.W    R0,??DataTable8_12
+   \       0x82   0x....'....        BL       HAL_Printf
+   \       0x86   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x8A   0xE01D             B.N      ??get_ip_stat_helper_1
+    204          
+    205              sscanf(out, "%*[^:]:%[^,],%[^,],%[^,],%[^\r]",
+    206                result->ip, result->mask, result->gate, result->dns);
+   \                     ??get_ip_stat_helper_4: (+1)
+   \       0x8C   0xF104 0x0031      ADD      R0,R4,#+49
+   \       0x90   0x9001             STR      R0,[SP, #+4]
+   \       0x92   0xF104 0x0011      ADD      R0,R4,#+17
+   \       0x96   0x9000             STR      R0,[SP, #+0]
+   \       0x98   0xF104 0x0321      ADD      R3,R4,#+33
+   \       0x9C   0x1C62             ADDS     R2,R4,#+1
+   \       0x9E   0x....'....        LDR.W    R1,??DataTable8_23
+   \       0xA2   0xA804             ADD      R0,SP,#+16
+   \       0xA4   0x....'....        BL       sscanf
+    207          
+    208              LOGD(TAG, "result: %s %s %s %s\r\n",
+                     ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+    209                result->ip, result->mask, result->gate, result->dns);
+   \       0xA8   0xF104 0x0031      ADD      R0,R4,#+49
+   \       0xAC   0x9000             STR      R0,[SP, #+0]
+   \       0xAE   0xF104 0x0311      ADD      R3,R4,#+17
+   \       0xB2   0xF104 0x0221      ADD      R2,R4,#+33
+   \       0xB6   0x1C61             ADDS     R1,R4,#+1
+   \       0xB8   0x....'....        LDR.W    R0,??DataTable8_24
+   \       0xBC   0x....'....        BL       HAL_Printf
+    210          
+    211              ret = get_mac_helper(result->mac);
+    212          
+    213              return ret;
+   \       0xC0   0xF104 0x0041      ADD      R0,R4,#+65
+   \       0xC4   0x....'....        BL       get_mac_helper
+   \                     ??get_ip_stat_helper_1: (+1)
+   \       0xC8   0xB024             ADD      SP,SP,#+144
+   \       0xCA   0xBD70             POP      {R4-R6,PC}       ;; return
+    214          }
+    215          
+
+   \                                 In section .text, align 2, keep-with-next
+    216          static int get_ip_stat(hal_wifi_module_t *m, hal_wifi_ip_stat_t *out_net_para, hal_wifi_type_t wifi_type)
+    217          {
+   \                     get_ip_stat: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+   \        0x2   0x4608             MOV      R0,R1
+    218              (void)wifi_type;
+    219              (void)m;
+    220          
+    221              get_ip_stat_helper(out_net_para);
+   \        0x4   0x....'....        BL       get_ip_stat_helper
+    222          
+    223              return 0;
+   \        0x8   0x2000             MOVS     R0,#+0
+   \        0xA   0xBD02             POP      {R1,PC}          ;; return
+    224          }
+    225          
+    226          #define CURRENTAPINFO       "AT+WJAP?"
+    227          #define CURRENTAPINFOPREFIX "+WJAP"
+
+   \                                 In section .text, align 2, keep-with-next
+    228          static int _char2num(char a)
+    229          {
+    230              if (a >= '0' && a <='9')
+   \                     _char2num: (+1)
+   \        0x0   0x4601             MOV      R1,R0
+   \        0x2   0x3930             SUBS     R1,R1,#+48
+   \        0x4   0x290A             CMP      R1,#+10
+   \        0x6   0xD201             BCS.N    ??_char2num_0
+    231              {
+    232                  return (int)(a - '0');
+   \        0x8   0x3830             SUBS     R0,R0,#+48
+   \        0xA   0x4770             BX       LR
+    233              }
+    234          
+    235              if (a >= 'a' && a <= 'f')
+   \                     ??_char2num_0: (+1)
+   \        0xC   0x4601             MOV      R1,R0
+   \        0xE   0x3961             SUBS     R1,R1,#+97
+   \       0x10   0x2906             CMP      R1,#+6
+   \       0x12   0xD201             BCS.N    ??_char2num_1
+    236              {
+    237                  return (int)(a - 'a') + 10;
+   \       0x14   0x3857             SUBS     R0,R0,#+87
+   \       0x16   0x4770             BX       LR
+    238              }
+    239          
+    240              if (a >= 'A' && a <= 'F')
+   \                     ??_char2num_1: (+1)
+   \       0x18   0x4601             MOV      R1,R0
+   \       0x1A   0x3941             SUBS     R1,R1,#+65
+   \       0x1C   0x2906             CMP      R1,#+6
+   \       0x1E   0xD201             BCS.N    ??_char2num_2
+    241              {
+    242                  return (int)(a - 'A') + 10;
+   \       0x20   0x3837             SUBS     R0,R0,#+55
+   \       0x22   0x4770             BX       LR
+    243              }
+    244          
+    245              return -1;
+   \                     ??_char2num_2: (+1)
+   \       0x24   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x28   0x4770             BX       LR               ;; return
+    246          }
+    247          
+
+   \                                 In section .text, align 2, keep-with-next
+    248          static int get_link_stat(hal_wifi_module_t *m, hal_wifi_link_stat_t *out_stat)
+    249          {
+   \                     get_link_stat: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0xB0C6             SUB      SP,SP,#+280
+   \        0x4   0x460C             MOV      R4,R1
+    250              /* CURRENTAPINFO */
+    251              char out[128] = {0};
+   \        0x6   0xA826             ADD      R0,SP,#+152
+   \        0x8   0x2180             MOVS     R1,#+128
+   \        0xA   0x....'....        BL       __aeabi_memclr4
+    252              int res;
+    253          
+    254              if (!out_stat)
+   \        0xE   0x2C00             CMP      R4,#+0
+   \       0x10   0xD10A             BNE.N    ??get_link_stat_0
+    255              {
+    256                  LOGE(TAG, "%s: line:%d fail\r\n", __func__, __LINE__);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x12   0xF44F 0x7280      MOV      R2,#+256
+   \       0x16   0x....'....        LDR.W    R1,??DataTable8_25
+   \       0x1A   0x....'....        LDR.W    R0,??DataTable8_26
+   \       0x1E   0x....'....        BL       HAL_Printf
+    257                  return -1;
+   \       0x22   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x26   0xE0A0             B.N      ??get_link_stat_1
+    258              }
+    259          
+    260              out_stat->is_connected = 0;
+   \                     ??get_link_stat_0: (+1)
+   \       0x28   0x2000             MOVS     R0,#+0
+   \       0x2A   0x6020             STR      R0,[R4, #+0]
+    261          
+    262              memset(out, 0, sizeof(out));
+   \       0x2C   0x4602             MOV      R2,R0
+   \       0x2E   0x2180             MOVS     R1,#+128
+   \       0x30   0xA826             ADD      R0,SP,#+152
+   \       0x32   0x....'....        BL       __aeabi_memset4
+    263          
+    264              res = at_send_wait_reply(CURRENTAPINFO, strlen(CURRENTAPINFO), true,
+    265                                       NULL, 0, out, sizeof(out), NULL);
+    266          
+    267              if (res == 0)
+   \       0x36   0x....'....        LDR.W    R5,??DataTable8_27
+   \       0x3A   0x2000             MOVS     R0,#+0
+   \       0x3C   0x9003             STR      R0,[SP, #+12]
+   \       0x3E   0x2080             MOVS     R0,#+128
+   \       0x40   0x9002             STR      R0,[SP, #+8]
+   \       0x42   0xA826             ADD      R0,SP,#+152
+   \       0x44   0x9001             STR      R0,[SP, #+4]
+   \       0x46   0x2000             MOVS     R0,#+0
+   \       0x48   0x9000             STR      R0,[SP, #+0]
+   \       0x4A   0x4603             MOV      R3,R0
+   \       0x4C   0x2201             MOVS     R2,#+1
+   \       0x4E   0x2108             MOVS     R1,#+8
+   \       0x50   0x4628             MOV      R0,R5
+   \       0x52   0x....'....        BL       at_send_wait_reply
+   \       0x56   0x2800             CMP      R0,#+0
+   \       0x58   0xD11B             BNE.N    ??get_link_stat_2
+    268              {
+    269                  LOGI(TAG, "AT command %s succeed, rsp: %s", CURRENTAPINFO, out);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x5A   0xAA26             ADD      R2,SP,#+152
+   \       0x5C   0x4629             MOV      R1,R5
+   \       0x5E   0x....'....        LDR.W    R0,??DataTable8_28
+   \       0x62   0x....'....        BL       HAL_Printf
+    270              }
+    271              else
+    272              {
+    273                  LOGE(TAG, "AT command %s failed\r\n", CURRENTAPINFO);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+    274                  return -1;
+    275              }
+    276          
+    277              if (strstr(out, AT_RSP_FAIL) || !strstr(out, CURRENTAPINFOPREFIX)) {
+   \       0x66   0x....'....        LDR.W    R1,??DataTable8_13
+   \       0x6A   0xA826             ADD      R0,SP,#+152
+   \       0x6C   0x....'....        BL       strstr
+   \       0x70   0x2800             CMP      R0,#+0
+   \       0x72   0xD106             BNE.N    ??get_link_stat_3
+   \       0x74   0x....'....        LDR.W    R1,??DataTable8_29
+   \       0x78   0xA826             ADD      R0,SP,#+152
+   \       0x7A   0x....'....        BL       strstr
+   \       0x7E   0x2800             CMP      R0,#+0
+   \       0x80   0xD10F             BNE.N    ??get_link_stat_4
+    278                  LOGE(TAG, "Command  %s executed with ERROR\r\n", CURRENTAPINFO);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??get_link_stat_3: (+1)
+   \       0x82   0x4629             MOV      R1,R5
+   \       0x84   0x....'....        LDR.W    R0,??DataTable8_22
+   \       0x88   0x....'....        BL       HAL_Printf
+    279                  return -1;
+   \       0x8C   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x90   0xE06B             B.N      ??get_link_stat_1
+    280              }
+   \                     ??get_link_stat_2: (+1)
+   \       0x92   0x4629             MOV      R1,R5
+   \       0x94   0x....'....        LDR.W    R0,??DataTable8_12
+   \       0x98   0x....'....        BL       HAL_Printf
+   \       0x9C   0xF04F 0x30FF      MOV      R0,#-1
+   \       0xA0   0xE063             B.N      ??get_link_stat_1
+    281          
+    282              out_stat->is_connected = 1;
+   \                     ??get_link_stat_4: (+1)
+   \       0xA2   0x2001             MOVS     R0,#+1
+   \       0xA4   0x6020             STR      R0,[R4, #+0]
+    283          
+    284              char tmp_ssid[128];
+    285              char tmp_bssid[16];
+    286          
+    287              sscanf(out, "%*[^:]:%[^,],%[^,],%d,%d",
+    288                     tmp_ssid, tmp_bssid, &out_stat->channel, &out_stat->wifi_strength);
+   \       0xA6   0x1D20             ADDS     R0,R4,#+4
+   \       0xA8   0x9001             STR      R0,[SP, #+4]
+   \       0xAA   0xF104 0x0030      ADD      R0,R4,#+48
+   \       0xAE   0x9000             STR      R0,[SP, #+0]
+   \       0xB0   0xAB02             ADD      R3,SP,#+8
+   \       0xB2   0xAA06             ADD      R2,SP,#+24
+   \       0xB4   0x....'....        LDR.W    R1,??DataTable8_30
+   \       0xB8   0xA826             ADD      R0,SP,#+152
+   \       0xBA   0x....'....        BL       sscanf
+    289          
+    290              strncpy(out_stat->ssid, tmp_ssid, sizeof(out_stat->ssid));
+                             ^
+Warning[Pe167]: argument of type "uint8_t *" is incompatible with parameter of
+          type "char *"
+   \       0xBE   0x2221             MOVS     R2,#+33
+   \       0xC0   0xA906             ADD      R1,SP,#+24
+   \       0xC2   0xF104 0x0008      ADD      R0,R4,#+8
+   \       0xC6   0x....'....        BL       strncpy
+    291              out_stat->ssid[sizeof(out_stat->ssid) - 1] = 0;
+   \       0xCA   0x2000             MOVS     R0,#+0
+   \       0xCC   0xF884 0x0028      STRB     R0,[R4, #+40]
+    292          
+    293              out_stat->bssid[0] = _char2num(tmp_bssid[0])  * 16 + _char2num(tmp_bssid[1]);
+   \       0xD0   0xF89D 0x0008      LDRB     R0,[SP, #+8]
+   \       0xD4   0x....'....        BL       _char2num
+   \       0xD8   0x4605             MOV      R5,R0
+   \       0xDA   0xAE02             ADD      R6,SP,#+8
+   \       0xDC   0x7870             LDRB     R0,[R6, #+1]
+   \       0xDE   0x....'....        BL       _char2num
+   \       0xE2   0xEB00 0x1005      ADD      R0,R0,R5, LSL #+4
+   \       0xE6   0xF884 0x0029      STRB     R0,[R4, #+41]
+    294              out_stat->bssid[1] = _char2num(tmp_bssid[2])  * 16 + _char2num(tmp_bssid[3]);
+   \       0xEA   0xF89D 0x000A      LDRB     R0,[SP, #+10]
+   \       0xEE   0x....'....        BL       _char2num
+   \       0xF2   0x4605             MOV      R5,R0
+   \       0xF4   0xF89D 0x000B      LDRB     R0,[SP, #+11]
+   \       0xF8   0x....'....        BL       _char2num
+   \       0xFC   0xEB00 0x1005      ADD      R0,R0,R5, LSL #+4
+   \      0x100   0xF884 0x002A      STRB     R0,[R4, #+42]
+    295              out_stat->bssid[2] = _char2num(tmp_bssid[4])  * 16 + _char2num(tmp_bssid[5]);
+   \      0x104   0x7930             LDRB     R0,[R6, #+4]
+   \      0x106   0x....'....        BL       _char2num
+   \      0x10A   0x4605             MOV      R5,R0
+   \      0x10C   0xF89D 0x000D      LDRB     R0,[SP, #+13]
+   \      0x110   0x....'....        BL       _char2num
+   \      0x114   0xEB00 0x1005      ADD      R0,R0,R5, LSL #+4
+   \      0x118   0xF884 0x002B      STRB     R0,[R4, #+43]
+    296              out_stat->bssid[3] = _char2num(tmp_bssid[6])  * 16 + _char2num(tmp_bssid[7]);
+   \      0x11C   0xF89D 0x000E      LDRB     R0,[SP, #+14]
+   \      0x120   0x....'....        BL       _char2num
+   \      0x124   0x4605             MOV      R5,R0
+   \      0x126   0xF89D 0x000F      LDRB     R0,[SP, #+15]
+   \      0x12A   0x....'....        BL       _char2num
+   \      0x12E   0xEB00 0x1005      ADD      R0,R0,R5, LSL #+4
+   \      0x132   0xF884 0x002C      STRB     R0,[R4, #+44]
+    297              out_stat->bssid[4] = _char2num(tmp_bssid[8])  * 16 + _char2num(tmp_bssid[9]);
+   \      0x136   0x7A30             LDRB     R0,[R6, #+8]
+   \      0x138   0x....'....        BL       _char2num
+   \      0x13C   0x4605             MOV      R5,R0
+   \      0x13E   0xF89D 0x0011      LDRB     R0,[SP, #+17]
+   \      0x142   0x....'....        BL       _char2num
+   \      0x146   0xEB00 0x1005      ADD      R0,R0,R5, LSL #+4
+   \      0x14A   0xF884 0x002D      STRB     R0,[R4, #+45]
+    298              out_stat->bssid[5] = _char2num(tmp_bssid[10]) * 16 + _char2num(tmp_bssid[11]);
+   \      0x14E   0xF89D 0x0012      LDRB     R0,[SP, #+18]
+   \      0x152   0x....'....        BL       _char2num
+   \      0x156   0x4605             MOV      R5,R0
+   \      0x158   0xF89D 0x0013      LDRB     R0,[SP, #+19]
+   \      0x15C   0x....'....        BL       _char2num
+   \      0x160   0xEB00 0x1005      ADD      R0,R0,R5, LSL #+4
+   \      0x164   0xF884 0x002E      STRB     R0,[R4, #+46]
+    299          
+    300              return 0;
+   \      0x168   0x2000             MOVS     R0,#+0
+   \                     ??get_link_stat_1: (+1)
+   \      0x16A   0xB046             ADD      SP,SP,#+280
+   \      0x16C   0xBD70             POP      {R4-R6,PC}       ;; return
+    301          
+    302          }
+    303          
+
+   \                                 In section .text, align 2, keep-with-next
+    304          static char * str_get_line(char **p, char * dest)
+    305          {
+    306              char * src = *p;
+   \                     str_get_line: (+1)
+   \        0x0   0x6803             LDR      R3,[R0, #+0]
+    307              char * old_dest = dest;
+                            ^
+Warning[Pe177]: variable "old_dest" was declared but never referenced
+   \        0x2   0xE000             B.N      ??str_get_line_0
+    308          
+    309              //LOGI(TAG, "str_get_line src: %s\n", src);
+    310          
+    311              while (*src && (*src == '\r' || *src == '\n'))
+    312              {
+    313                  src++;
+   \                     ??str_get_line_1: (+1)
+   \        0x4   0x1C5B             ADDS     R3,R3,#+1
+    314              }
+   \                     ??str_get_line_0: (+1)
+   \        0x6   0x781A             LDRB     R2,[R3, #+0]
+   \        0x8   0x2A00             CMP      R2,#+0
+   \        0xA   0xD003             BEQ.N    ??str_get_line_2
+   \        0xC   0x2A0D             CMP      R2,#+13
+   \        0xE   0xD0F9             BEQ.N    ??str_get_line_1
+   \       0x10   0x2A0A             CMP      R2,#+10
+   \       0x12   0xD0F7             BEQ.N    ??str_get_line_1
+    315          
+    316              while (*src && (*src != '\r' && *src != '\n'))
+   \                     ??str_get_line_2: (+1)
+   \       0x14   0x781A             LDRB     R2,[R3, #+0]
+   \       0x16   0x2A00             CMP      R2,#+0
+   \       0x18   0xD008             BEQ.N    ??str_get_line_3
+   \       0x1A   0x2A0D             CMP      R2,#+13
+   \       0x1C   0xD006             BEQ.N    ??str_get_line_3
+   \       0x1E   0x2A0A             CMP      R2,#+10
+   \       0x20   0xD004             BEQ.N    ??str_get_line_3
+    317              {
+    318                  *dest++ = *src++;
+   \       0x22   0xF813 0x2B01      LDRB     R2,[R3], #+1
+   \       0x26   0xF801 0x2B01      STRB     R2,[R1], #+1
+   \       0x2A   0xE7F3             B.N      ??str_get_line_2
+    319              }
+    320          
+    321              //LOGI(TAG, "str_get_line dest: %s\n", old_dest);
+    322          
+    323              *p = src;
+   \                     ??str_get_line_3: (+1)
+   \       0x2C   0x6003             STR      R3,[R0, #+0]
+    324              return dest;
+   \       0x2E   0x4608             MOV      R0,R1
+   \       0x30   0x4770             BX       LR               ;; return
+    325          }
+    326          
+    327          /*
+    328          int rltv = sscanf(tmp, "%[^,],%[^,],%d,%d,%d",
+    329                            tmp_ssid, tmp_bssid, &en, &rlt->channel, &rlt->wifi_strength);
+    330          
+    331          */
+    332          #define COMANUM 4
+
+   \                                 In section .text, align 2, keep-with-next
+    333          static int scan_one_ap(char * ap_info,
+    334                                 char * ssid,
+    335                                 char * bssid,
+    336                                 int  * channel,
+    337                                 int  * signal_strength)
+    338          {
+   \                     scan_one_ap: (+1)
+   \        0x0   0xE92D 0x41FC      PUSH     {R2-R8,LR}
+   \        0x4   0x4604             MOV      R4,R0
+   \        0x6   0x4688             MOV      R8,R1
+   \        0x8   0x4616             MOV      R6,R2
+   \        0xA   0x461F             MOV      R7,R3
+    339              /* HOME_WIFI,0C704AD8D4E4,5,11,-92 */
+    340          
+    341              if (!ap_info || !ssid || !bssid || !channel || !signal_strength)
+   \        0xC   0x2C00             CMP      R4,#+0
+   \        0xE   0xD009             BEQ.N    ??scan_one_ap_0
+   \       0x10   0xF1B8 0x0F00      CMP      R8,#+0
+   \       0x14   0xD006             BEQ.N    ??scan_one_ap_0
+   \       0x16   0x2E00             CMP      R6,#+0
+   \       0x18   0xD004             BEQ.N    ??scan_one_ap_0
+   \       0x1A   0x2F00             CMP      R7,#+0
+   \       0x1C   0xD002             BEQ.N    ??scan_one_ap_0
+   \       0x1E   0x9D08             LDR      R5,[SP, #+32]
+   \       0x20   0x2D00             CMP      R5,#+0
+   \       0x22   0xD102             BNE.N    ??scan_one_ap_1
+    342              {
+    343                  return -1;
+   \                     ??scan_one_ap_0: (+1)
+   \       0x24   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x28   0xE03F             B.N      ??scan_one_ap_2
+    344              }
+    345          
+    346              /*find reverse 4th , */
+    347          
+    348              int len = strlen(ap_info);
+   \                     ??scan_one_ap_1: (+1)
+   \       0x2A   0x....'....        BL       strlen
+    349              int coma_num = 0;
+   \       0x2E   0x2100             MOVS     R1,#+0
+    350              char * findcoma = ap_info + len;
+   \       0x30   0x1822             ADDS     R2,R4,R0
+   \       0x32   0xE004             B.N      ??scan_one_ap_3
+    351          
+    352              while (coma_num < COMANUM && (findcoma != ap_info)) {
+    353                  findcoma--;
+    354          
+    355                  if (*findcoma == ',') {
+   \                     ??scan_one_ap_4: (+1)
+   \       0x34   0xF812 0x0D01      LDRB     R0,[R2, #-1]!
+   \       0x38   0x282C             CMP      R0,#+44
+   \       0x3A   0xD100             BNE.N    ??scan_one_ap_3
+    356                      coma_num++;
+   \       0x3C   0x1C49             ADDS     R1,R1,#+1
+    357                  }
+    358              }
+   \                     ??scan_one_ap_3: (+1)
+   \       0x3E   0x2904             CMP      R1,#+4
+   \       0x40   0xDA0B             BGE.N    ??scan_one_ap_5
+   \       0x42   0x42A2             CMP      R2,R4
+   \       0x44   0xD1F6             BNE.N    ??scan_one_ap_4
+    359          
+    360              char *p = ap_info;
+   \       0x46   0xE008             B.N      ??scan_one_ap_5
+    361          
+    362              /* get ssid */
+    363              while (*p && p != findcoma) {
+    364                  if (*p == '\"') {
+    365                      *ssid++ = '\\';
+   \                     ??scan_one_ap_6: (+1)
+   \       0x48   0x205C             MOVS     R0,#+92
+   \       0x4A   0xF888 0x0000      STRB     R0,[R8, #+0]
+    366                      *ssid++ = '\"';
+   \       0x4E   0x2022             MOVS     R0,#+34
+   \       0x50   0xF888 0x0001      STRB     R0,[R8, #+1]
+   \       0x54   0xF108 0x0802      ADD      R8,R8,#+2
+    367                      p++;
+   \       0x58   0x1C64             ADDS     R4,R4,#+1
+    368                  } else {
+   \                     ??scan_one_ap_5: (+1)
+   \       0x5A   0x7820             LDRB     R0,[R4, #+0]
+   \       0x5C   0x2800             CMP      R0,#+0
+   \       0x5E   0xD026             BEQ.N    ??scan_one_ap_7
+   \       0x60   0x4294             CMP      R4,R2
+   \       0x62   0xD024             BEQ.N    ??scan_one_ap_7
+   \       0x64   0x2822             CMP      R0,#+34
+   \       0x66   0xD0EF             BEQ.N    ??scan_one_ap_6
+    369                      *ssid++ = *p++;
+   \       0x68   0xF814 0x0B01      LDRB     R0,[R4], #+1
+   \       0x6C   0xF808 0x0B01      STRB     R0,[R8], #+1
+   \       0x70   0xE7F3             B.N      ??scan_one_ap_5
+    370                  }
+    371              }
+    372          
+    373              if (*p == ',')
+    374              {
+    375                  p++;
+    376              }
+    377              else
+    378              {
+    379                  LOGE(TAG, "%s: line:%d fail\r\n", __func__, __LINE__);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??scan_one_ap_8: (+1)
+   \       0x72   0xF240 0x127B      MOVW     R2,#+379
+   \       0x76   0x....             LDR.N    R1,??DataTable8_31
+   \       0x78   0x....             LDR.N    R0,??DataTable8_26
+   \       0x7A   0x....'....        BL       HAL_Printf
+   \       0x7E   0xE019             B.N      ??scan_one_ap_9
+    380              }
+    381          
+    382              /* get bssid */
+    383              while (*p && *p != ',')
+   \                     ??scan_one_ap_10: (+1)
+   \       0x80   0x282C             CMP      R0,#+44
+   \       0x82   0xD01A             BEQ.N    ??scan_one_ap_11
+    384              {
+    385                  *bssid++ = *p++;
+   \       0x84   0xF814 0x0B01      LDRB     R0,[R4], #+1
+   \       0x88   0xF806 0x0B01      STRB     R0,[R6], #+1
+   \       0x8C   0xE012             B.N      ??scan_one_ap_9
+    386              }
+    387          
+    388              if (*p == ',')
+    389              {
+    390                  p++;
+    391              }
+    392              else
+    393              {
+    394                  LOGE(TAG, "%s: line:%d fail\r\n", __func__, __LINE__);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??scan_one_ap_12: (+1)
+   \       0x8E   0xF44F 0x72C5      MOV      R2,#+394
+   \       0x92   0x....             LDR.N    R1,??DataTable8_31
+   \       0x94   0x....             LDR.N    R0,??DataTable8_26
+   \       0x96   0x....'....        BL       HAL_Printf
+    395              }
+    396          
+    397              int en;
+    398          
+    399              sscanf(p, "%d,%d,%d", &en, channel, signal_strength);
+   \                     ??scan_one_ap_13: (+1)
+   \       0x9A   0x9500             STR      R5,[SP, #+0]
+   \       0x9C   0x463B             MOV      R3,R7
+   \       0x9E   0xAA01             ADD      R2,SP,#+4
+   \       0xA0   0x....             LDR.N    R1,??DataTable8_32
+   \       0xA2   0x4620             MOV      R0,R4
+   \       0xA4   0x....'....        BL       sscanf
+    400          
+    401              return 0;
+   \       0xA8   0x2000             MOVS     R0,#+0
+   \                     ??scan_one_ap_2: (+1)
+   \       0xAA   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}  ;; return
+   \                     ??scan_one_ap_7: (+1)
+   \       0xAE   0x282C             CMP      R0,#+44
+   \       0xB0   0xD1DF             BNE.N    ??scan_one_ap_8
+   \       0xB2   0x1C64             ADDS     R4,R4,#+1
+   \                     ??scan_one_ap_9: (+1)
+   \       0xB4   0x7820             LDRB     R0,[R4, #+0]
+   \       0xB6   0x2800             CMP      R0,#+0
+   \       0xB8   0xD1E2             BNE.N    ??scan_one_ap_10
+   \                     ??scan_one_ap_11: (+1)
+   \       0xBA   0x282C             CMP      R0,#+44
+   \       0xBC   0xD1E7             BNE.N    ??scan_one_ap_12
+   \       0xBE   0x1C64             ADDS     R4,R4,#+1
+   \       0xC0   0xE7EB             B.N      ??scan_one_ap_13
+    402          }
+    403          
+    404          #define SCANALLINFO   "AT+WSCANOPT=1"
+    405          #define SCAN          "AT+WSCAN"
+    406          #define SCANPREFIX    "+WSCAN:"
+
+   \                                 In section .text, align 2, keep-with-next
+    407          static int scan_ap_list(hal_wifi_module_t *m, hal_wifi_link_stat_t *out_stat, uint8_t *ap_num)
+    408          {
+   \                     scan_ap_list: (+1)
+   \        0x0   0xE92D 0x41F8      PUSH     {R3-R8,LR}
+   \        0x4   0xF5AD 0x6D00      SUB      SP,SP,#+2048
+   \        0x8   0xB0B7             SUB      SP,SP,#+220
+   \        0xA   0x460D             MOV      R5,R1
+   \        0xC   0x4614             MOV      R4,R2
+    409              char out[2048] = {0};
+   \        0xE   0xA837             ADD      R0,SP,#+220
+   \       0x10   0xF44F 0x6100      MOV      R1,#+2048
+   \       0x14   0x....'....        BL       __aeabi_memclr4
+    410              int res;
+    411          
+    412              if (!out_stat || !ap_num)
+   \       0x18   0x2D00             CMP      R5,#+0
+   \       0x1A   0xD001             BEQ.N    ??scan_ap_list_0
+   \       0x1C   0x2C00             CMP      R4,#+0
+   \       0x1E   0xD108             BNE.N    ??scan_ap_list_1
+    413              {
+    414                  LOGE(TAG, "%s: line:%d fail\r\n", __func__, __LINE__);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??scan_ap_list_0: (+1)
+   \       0x20   0xF44F 0x72CF      MOV      R2,#+414
+   \       0x24   0x....             LDR.N    R1,??DataTable8_33
+   \       0x26   0x....             LDR.N    R0,??DataTable8_26
+   \       0x28   0x....'....        BL       HAL_Printf
+    415                  return -1;
+   \       0x2C   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x30   0xE10D             B.N      ??scan_ap_list_2
+    416              }
+    417          
+    418              res = at_send_wait_reply(SCANALLINFO, strlen(SCANALLINFO), true,
+    419                                       NULL, 0,
+    420                                       out, sizeof(out), NULL);
+    421          
+    422              if (res == 0)
+   \                     ??scan_ap_list_1: (+1)
+   \       0x32   0x....             LDR.N    R6,??DataTable8_34
+   \       0x34   0x2000             MOVS     R0,#+0
+   \       0x36   0x9003             STR      R0,[SP, #+12]
+   \       0x38   0xF44F 0x6000      MOV      R0,#+2048
+   \       0x3C   0x9002             STR      R0,[SP, #+8]
+   \       0x3E   0xA837             ADD      R0,SP,#+220
+   \       0x40   0x9001             STR      R0,[SP, #+4]
+   \       0x42   0x2000             MOVS     R0,#+0
+   \       0x44   0x9000             STR      R0,[SP, #+0]
+   \       0x46   0x4603             MOV      R3,R0
+   \       0x48   0x2201             MOVS     R2,#+1
+   \       0x4A   0x210D             MOVS     R1,#+13
+   \       0x4C   0x4630             MOV      R0,R6
+   \       0x4E   0x....'....        BL       at_send_wait_reply
+   \       0x52   0x2800             CMP      R0,#+0
+   \       0x54   0xD113             BNE.N    ??scan_ap_list_3
+    423              {
+    424                  LOGI(TAG, "AT command %s succeed, rsp: %s", SCANALLINFO, out);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x56   0xAA37             ADD      R2,SP,#+220
+   \       0x58   0x4631             MOV      R1,R6
+   \       0x5A   0x....             LDR.N    R0,??DataTable8_28
+   \       0x5C   0x....'....        BL       HAL_Printf
+    425              }
+    426              else
+    427              {
+    428                  LOGE(TAG, "AT command %s failed\r\n", SCANALLINFO);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+    429                  return -1;
+    430              }
+    431          
+    432              if (strstr(out, AT_RSP_FAIL))
+   \       0x60   0x....'....        LDR.W    R8,??DataTable8_13
+   \       0x64   0x4641             MOV      R1,R8
+   \       0x66   0xA837             ADD      R0,SP,#+220
+   \       0x68   0x....'....        BL       strstr
+   \       0x6C   0x2800             CMP      R0,#+0
+   \       0x6E   0xD00D             BEQ.N    ??scan_ap_list_4
+    433              {
+    434                  LOGE(TAG, "Command  %s executed with ERROR\r\n", SCANALLINFO);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0x70   0x4631             MOV      R1,R6
+   \       0x72   0x....             LDR.N    R0,??DataTable8_22
+   \       0x74   0x....'....        BL       HAL_Printf
+    435                  return -1;
+   \       0x78   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x7C   0xE0E7             B.N      ??scan_ap_list_2
+    436              }
+   \                     ??scan_ap_list_3: (+1)
+   \       0x7E   0x4631             MOV      R1,R6
+   \       0x80   0x....             LDR.N    R0,??DataTable8_12
+   \       0x82   0x....'....        BL       HAL_Printf
+   \       0x86   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x8A   0xE0E0             B.N      ??scan_ap_list_2
+    437          
+    438              res = at_send_wait_reply(SCAN, strlen(SCAN), true,
+    439                                       NULL, 0,
+    440                                       out, sizeof(out), NULL);
+    441          
+    442              if (res == 0)
+   \                     ??scan_ap_list_4: (+1)
+   \       0x8C   0x....             LDR.N    R6,??DataTable8_35
+   \       0x8E   0x2000             MOVS     R0,#+0
+   \       0x90   0x9003             STR      R0,[SP, #+12]
+   \       0x92   0xF44F 0x6000      MOV      R0,#+2048
+   \       0x96   0x9002             STR      R0,[SP, #+8]
+   \       0x98   0xA837             ADD      R0,SP,#+220
+   \       0x9A   0x9001             STR      R0,[SP, #+4]
+   \       0x9C   0x2000             MOVS     R0,#+0
+   \       0x9E   0x9000             STR      R0,[SP, #+0]
+   \       0xA0   0x4603             MOV      R3,R0
+   \       0xA2   0x2201             MOVS     R2,#+1
+   \       0xA4   0x2108             MOVS     R1,#+8
+   \       0xA6   0x4630             MOV      R0,R6
+   \       0xA8   0x....'....        BL       at_send_wait_reply
+   \       0xAC   0x2800             CMP      R0,#+0
+   \       0xAE   0xD119             BNE.N    ??scan_ap_list_5
+    443              {
+    444                  LOGI(TAG, "AT command %s succeed, rsp: %s\r\n", SCAN, out);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \       0xB0   0xAA37             ADD      R2,SP,#+220
+   \       0xB2   0x4631             MOV      R1,R6
+   \       0xB4   0x....             LDR.N    R0,??DataTable8_11
+   \       0xB6   0x....'....        BL       HAL_Printf
+    445              }
+    446              else
+    447              {
+    448                  LOGE(TAG, "AT command %s failed\r\n", SCAN);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+    449                  return -1;
+    450              }
+    451          
+    452              char *p_ap_num = strstr(out, SCANPREFIX);
+   \       0xBA   0x....             LDR.N    R7,??DataTable8_36
+   \       0xBC   0x4639             MOV      R1,R7
+   \       0xBE   0xA837             ADD      R0,SP,#+220
+   \       0xC0   0x....'....        BL       strstr
+   \       0xC4   0x4606             MOV      R6,R0
+    453          
+    454              if (strstr(out, AT_RSP_FAIL) || !p_ap_num)
+   \       0xC6   0x4641             MOV      R1,R8
+   \       0xC8   0xA837             ADD      R0,SP,#+220
+   \       0xCA   0x....'....        BL       strstr
+   \       0xCE   0x2800             CMP      R0,#+0
+   \       0xD0   0xD101             BNE.N    ??scan_ap_list_6
+   \       0xD2   0x2E00             CMP      R6,#+0
+   \       0xD4   0xD10D             BNE.N    ??scan_ap_list_7
+    455              {
+    456                  LOGE(TAG, "Command  %s executed with ERROR\r\n", SCANPREFIX);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \                     ??scan_ap_list_6: (+1)
+   \       0xD6   0x4639             MOV      R1,R7
+   \       0xD8   0x....             LDR.N    R0,??DataTable8_22
+   \       0xDA   0x....'....        BL       HAL_Printf
+    457                  return -1;
+   \       0xDE   0xF04F 0x30FF      MOV      R0,#-1
+   \       0xE2   0xE0B4             B.N      ??scan_ap_list_2
+    458              }
+   \                     ??scan_ap_list_5: (+1)
+   \       0xE4   0x4631             MOV      R1,R6
+   \       0xE6   0x....             LDR.N    R0,??DataTable8_12
+   \       0xE8   0x....'....        BL       HAL_Printf
+   \       0xEC   0xF04F 0x30FF      MOV      R0,#-1
+   \       0xF0   0xE0AD             B.N      ??scan_ap_list_2
+    459          
+    460              hal_wifi_link_stat_t *rlt = out_stat;
+    461              int rlt_num;
+    462              int scan_rlt_num = 0;
+   \                     ??scan_ap_list_7: (+1)
+   \       0xF2   0x2000             MOVS     R0,#+0
+   \       0xF4   0x9001             STR      R0,[SP, #+4]
+    463          
+    464              char tmp[64];
+    465              char *p = out;
+   \       0xF6   0xA837             ADD      R0,SP,#+220
+   \       0xF8   0x9002             STR      R0,[SP, #+8]
+    466              memset(tmp, 0, sizeof(tmp));
+   \       0xFA   0x2200             MOVS     R2,#+0
+   \       0xFC   0x2140             MOVS     R1,#+64
+   \       0xFE   0xA807             ADD      R0,SP,#+28
+   \      0x100   0x....'....        BL       __aeabi_memset4
+    467          
+    468              sscanf(p_ap_num, "+WSCAN:%d", &scan_rlt_num);
+   \      0x104   0xAA01             ADD      R2,SP,#+4
+   \      0x106   0x....             LDR.N    R1,??DataTable8_37
+   \      0x108   0x4630             MOV      R0,R6
+   \      0x10A   0x....'....        BL       sscanf
+    469              scan_rlt_num = scan_rlt_num > 0 ? scan_rlt_num : 0;
+   \      0x10E   0x9801             LDR      R0,[SP, #+4]
+   \      0x110   0x2801             CMP      R0,#+1
+   \      0x112   0xDA01             BGE.N    ??scan_ap_list_8
+   \      0x114   0x2000             MOVS     R0,#+0
+   \      0x116   0x9001             STR      R0,[SP, #+4]
+    470              scan_rlt_num = scan_rlt_num < *ap_num ? scan_rlt_num : *ap_num;
+   \                     ??scan_ap_list_8: (+1)
+   \      0x118   0x9801             LDR      R0,[SP, #+4]
+   \      0x11A   0x7821             LDRB     R1,[R4, #+0]
+   \      0x11C   0x4288             CMP      R0,R1
+   \      0x11E   0xDB01             BLT.N    ??scan_ap_list_9
+   \      0x120   0x4608             MOV      R0,R1
+   \      0x122   0x9001             STR      R0,[SP, #+4]
+    471          
+    472              *ap_num = scan_rlt_num;
+   \                     ??scan_ap_list_9: (+1)
+   \      0x124   0x9801             LDR      R0,[SP, #+4]
+   \      0x126   0x7020             STRB     R0,[R4, #+0]
+    473          
+    474              //LOGI(TAG, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX scan_rlt_num = %d\n", scan_rlt_num);
+    475          
+    476              int idx = 0;
+   \      0x128   0x2400             MOVS     R4,#+0
+   \      0x12A   0xF10D 0x080C      ADD      R8,SP,#+12
+    477          
+    478              while (idx < scan_rlt_num)
+   \                     ??scan_ap_list_10: (+1)
+   \      0x12E   0x9801             LDR      R0,[SP, #+4]
+   \      0x130   0x4284             CMP      R4,R0
+   \      0x132   0xF280 0x8087      BGE.W    ??scan_ap_list_11
+    479              {
+    480                  /*
+    481                  sscanf(p, "%s\r\n", tmp);
+    482                  p = p + strlen(tmp) + 2;
+    483                  */
+    484                  str_get_line(&p, tmp);
+   \      0x136   0xA907             ADD      R1,SP,#+28
+   \      0x138   0xA802             ADD      R0,SP,#+8
+   \      0x13A   0x....'....        BL       str_get_line
+    485          
+    486                  LOGI(TAG, "%d: %s", idx, tmp);
+                         ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+   \      0x13E   0xAA07             ADD      R2,SP,#+28
+   \      0x140   0x4621             MOV      R1,R4
+   \      0x142   0x....             LDR.N    R0,??DataTable8_38
+   \      0x144   0x....'....        BL       HAL_Printf
+    487          
+    488                  if (!strcmp(tmp, "OK"))
+   \      0x148   0x....             ADR.N    R1,??DataTable8  ;; 0x4F, 0x4B, 0x00, 0x00
+   \      0x14A   0xA807             ADD      R0,SP,#+28
+   \      0x14C   0x....'....        BL       strcmp
+   \      0x150   0x2800             CMP      R0,#+0
+   \      0x152   0xD077             BEQ.N    ??scan_ap_list_11
+    489                  {
+    490                      break;
+    491                  }
+    492          
+    493                  if (strstr(tmp, SCANPREFIX))
+   \      0x154   0x4639             MOV      R1,R7
+   \      0x156   0xA807             ADD      R0,SP,#+28
+   \      0x158   0x....'....        BL       strstr
+   \      0x15C   0x2800             CMP      R0,#+0
+   \      0x15E   0xD16B             BNE.N    ??scan_ap_list_12
+    494                  {
+    495                      /*
+    496                      sscanf(tmp, "+WSCAN:%d", &rlt_num);
+    497                      rlt_num = rlt_num < *ap_num ? rlt_num : *ap_num;
+    498                      */
+    499                  }
+    500                  else
+    501                  {
+    502                      char tmp_ssid[128];
+    503                      char tmp_bssid[16];
+    504          
+    505                      /*
+    506                      int rltv = sscanf(tmp, "%[^,],%[^,],%d,%d,%d",
+    507                                        tmp_ssid, tmp_bssid, &en, &rlt->channel, &rlt->wifi_strength);
+    508                      */
+    509          
+    510                      memset(tmp_ssid,  0, sizeof(tmp_ssid));
+   \      0x160   0x2200             MOVS     R2,#+0
+   \      0x162   0x2180             MOVS     R1,#+128
+   \      0x164   0xA817             ADD      R0,SP,#+92
+   \      0x166   0x....'....        BL       __aeabi_memset4
+    511                      memset(tmp_bssid, 0, sizeof(tmp_bssid));
+   \      0x16A   0x2200             MOVS     R2,#+0
+   \      0x16C   0x2110             MOVS     R1,#+16
+   \      0x16E   0xA803             ADD      R0,SP,#+12
+   \      0x170   0x....'....        BL       __aeabi_memset4
+    512          
+    513                      scan_one_ap(tmp, tmp_ssid, tmp_bssid, &rlt->channel, &rlt->wifi_strength);
+   \      0x174   0x1D28             ADDS     R0,R5,#+4
+   \      0x176   0x9000             STR      R0,[SP, #+0]
+   \      0x178   0xF105 0x0330      ADD      R3,R5,#+48
+   \      0x17C   0xAA03             ADD      R2,SP,#+12
+   \      0x17E   0xA917             ADD      R1,SP,#+92
+   \      0x180   0xA807             ADD      R0,SP,#+28
+   \      0x182   0x....'....        BL       scan_one_ap
+    514          
+    515                      strncpy(rlt->ssid, tmp_ssid, sizeof(rlt->ssid));
+                                     ^
+Warning[Pe167]: argument of type "uint8_t *" is incompatible with parameter of
+          type "char *"
+   \      0x186   0x2221             MOVS     R2,#+33
+   \      0x188   0xA917             ADD      R1,SP,#+92
+   \      0x18A   0xF105 0x0008      ADD      R0,R5,#+8
+   \      0x18E   0x....'....        BL       strncpy
+    516                      rlt->ssid[sizeof(rlt->ssid) - 1] = 0;
+   \      0x192   0x2000             MOVS     R0,#+0
+   \      0x194   0xF885 0x0028      STRB     R0,[R5, #+40]
+    517          
+    518                      rlt->bssid[0] = _char2num(tmp_bssid[0])  * 16 + _char2num(tmp_bssid[1]);
+   \      0x198   0xF89D 0x000C      LDRB     R0,[SP, #+12]
+   \      0x19C   0x....'....        BL       _char2num
+   \      0x1A0   0x4606             MOV      R6,R0
+   \      0x1A2   0xF898 0x0001      LDRB     R0,[R8, #+1]
+   \      0x1A6   0x....'....        BL       _char2num
+   \      0x1AA   0xEB00 0x1006      ADD      R0,R0,R6, LSL #+4
+   \      0x1AE   0xF885 0x0029      STRB     R0,[R5, #+41]
+    519                      rlt->bssid[1] = _char2num(tmp_bssid[2])  * 16 + _char2num(tmp_bssid[3]);
+   \      0x1B2   0xF89D 0x000E      LDRB     R0,[SP, #+14]
+   \      0x1B6   0x....'....        BL       _char2num
+   \      0x1BA   0x4606             MOV      R6,R0
+   \      0x1BC   0xF89D 0x000F      LDRB     R0,[SP, #+15]
+   \      0x1C0   0x....'....        BL       _char2num
+   \      0x1C4   0xEB00 0x1006      ADD      R0,R0,R6, LSL #+4
+   \      0x1C8   0xF885 0x002A      STRB     R0,[R5, #+42]
+    520                      rlt->bssid[2] = _char2num(tmp_bssid[4])  * 16 + _char2num(tmp_bssid[5]);
+   \      0x1CC   0xF898 0x0004      LDRB     R0,[R8, #+4]
+   \      0x1D0   0x....'....        BL       _char2num
+   \      0x1D4   0x4606             MOV      R6,R0
+   \      0x1D6   0xF89D 0x0011      LDRB     R0,[SP, #+17]
+   \      0x1DA   0x....'....        BL       _char2num
+   \      0x1DE   0xEB00 0x1006      ADD      R0,R0,R6, LSL #+4
+   \      0x1E2   0xF885 0x002B      STRB     R0,[R5, #+43]
+    521                      rlt->bssid[3] = _char2num(tmp_bssid[6])  * 16 + _char2num(tmp_bssid[7]);
+   \      0x1E6   0xF89D 0x0012      LDRB     R0,[SP, #+18]
+   \      0x1EA   0x....'....        BL       _char2num
+   \      0x1EE   0x4606             MOV      R6,R0
+   \      0x1F0   0xF89D 0x0013      LDRB     R0,[SP, #+19]
+   \      0x1F4   0x....'....        BL       _char2num
+   \      0x1F8   0xEB00 0x1006      ADD      R0,R0,R6, LSL #+4
+   \      0x1FC   0xF885 0x002C      STRB     R0,[R5, #+44]
+    522                      rlt->bssid[4] = _char2num(tmp_bssid[8])  * 16 + _char2num(tmp_bssid[9]);
+   \      0x200   0xF898 0x0008      LDRB     R0,[R8, #+8]
+   \      0x204   0x....'....        BL       _char2num
+   \      0x208   0x4606             MOV      R6,R0
+   \      0x20A   0xF89D 0x0015      LDRB     R0,[SP, #+21]
+   \      0x20E   0x....'....        BL       _char2num
+   \      0x212   0xEB00 0x1006      ADD      R0,R0,R6, LSL #+4
+   \      0x216   0xF885 0x002D      STRB     R0,[R5, #+45]
+    523                      rlt->bssid[5] = _char2num(tmp_bssid[10]) * 16 + _char2num(tmp_bssid[11]);
+   \      0x21A   0xF89D 0x0016      LDRB     R0,[SP, #+22]
+   \      0x21E   0x....'....        BL       _char2num
+   \      0x222   0x4606             MOV      R6,R0
+   \      0x224   0xF89D 0x0017      LDRB     R0,[SP, #+23]
+   \      0x228   0x....'....        BL       _char2num
+   \      0x22C   0xEB00 0x1006      ADD      R0,R0,R6, LSL #+4
+   \      0x230   0xF885 0x002E      STRB     R0,[R5, #+46]
+    524          
+    525                      //LOGI(TAG, "%s, %s, %d, %d", tmp_ssid, tmp_bssid, rlt->channel, rlt->wifi_strength);
+    526          
+    527                      rlt++;
+   \      0x234   0x3534             ADDS     R5,R5,#+52
+    528                      idx++;
+   \      0x236   0x1C64             ADDS     R4,R4,#+1
+    529                  }
+    530          
+    531                  memset(tmp, 0, sizeof(tmp));
+   \                     ??scan_ap_list_12: (+1)
+   \      0x238   0x2200             MOVS     R2,#+0
+   \      0x23A   0x2140             MOVS     R1,#+64
+   \      0x23C   0xA807             ADD      R0,SP,#+28
+   \      0x23E   0x....'....        BL       __aeabi_memset4
+    532          
+    533              }
+   \      0x242   0xE774             B.N      ??scan_ap_list_10
+    534          
+    535              //LOGI(TAG, "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+    536              LOGI(TAG, "%s", out);
+                     ^
+Warning[Pe223]: function "HAL_Printf" declared implicitly
+
+      int rlt_num;
+          ^
+"C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\middleware\csdk\wifi\mk3060\wifi_atcmd.c",461  Warning[Pe177]: 
+          variable "rlt_num" was declared but never referenced
+   \                     ??scan_ap_list_11: (+1)
+   \      0x244   0xA937             ADD      R1,SP,#+220
+   \      0x246   0x....             ADR.N    R0,??DataTable8_1  ;; 0x25, 0x73, 0x00, 0x00
+   \      0x248   0x....'....        BL       HAL_Printf
+    537          
+    538              return 0;
+   \      0x24C   0x2000             MOVS     R0,#+0
+   \                     ??scan_ap_list_2: (+1)
+   \      0x24E   0xF50D 0x6D0E      ADD      SP,SP,#+2272
+   \      0x252   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+    539          }
+    540          
+
+   \                                 In section .text, align 2, keep-with-next
+    541          static void start_scan(hal_wifi_module_t *m)
+    542          {
+    543          
+    544          }
+   \                     start_scan: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    545          
+
+   \                                 In section .text, align 2, keep-with-next
+    546          static void start_scan_adv(hal_wifi_module_t *m)
+    547          {
+    548          }
+   \                     start_scan_adv: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    549          
+
+   \                                 In section .text, align 2, keep-with-next
+    550          static int power_off(hal_wifi_module_t *m)
+    551          {
+    552              return 0;
+   \                     power_off: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    553          }
+    554          
+
+   \                                 In section .text, align 2, keep-with-next
+    555          static int power_on(hal_wifi_module_t *m)
+    556          {
+    557              return 0;
+   \                     power_on: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    558          }
+    559          
+
+   \                                 In section .text, align 2, keep-with-next
+    560          static int suspend(hal_wifi_module_t *m)
+    561          {
+    562              return 0;
+   \                     suspend: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    563          }
+    564          
+
+   \                                 In section .text, align 2, keep-with-next
+    565          static int suspend_station(hal_wifi_module_t *m)
+    566          {
+    567              return 0;
+   \                     suspend_station: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    568          }
+    569          
+
+   \                                 In section .text, align 2, keep-with-next
+    570          static int suspend_soft_ap(hal_wifi_module_t *m)
+    571          {
+    572          
+    573              return 0;
+   \                     suspend_soft_ap: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    574          }
+    575          
+
+   \                                 In section .text, align 2, keep-with-next
+    576          static int set_channel(hal_wifi_module_t *m, int ch)
+    577          {
+    578              return 0;
+   \                     set_channel: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    579          }
+    580          
+
+   \                                 In section .text, align 2, keep-with-next
+    581          static void start_monitor(hal_wifi_module_t *m)
+    582          {
+    583          
+    584          }
+   \                     start_monitor: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    585          
+
+   \                                 In section .text, align 2, keep-with-next
+    586          static void stop_monitor(hal_wifi_module_t *m)
+    587          {
+    588          
+    589          }
+   \                     stop_monitor: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    590          
+
+   \                                 In section .text, align 2, keep-with-next
+    591          static void register_monitor_cb(hal_wifi_module_t *m, monitor_data_cb_t fn)
+    592          {
+    593          
+    594          }
+   \                     register_monitor_cb: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    595          
+
+   \                                 In section .text, align 2, keep-with-next
+    596          static void register_wlan_mgnt_monitor_cb(hal_wifi_module_t *m, monitor_data_cb_t fn)
+    597          {
+    598          
+    599          }
+   \                     register_wlan_mgnt_monitor_cb: (+1)
+   \        0x0   0x4770             BX       LR               ;; return
+    600          
+
+   \                                 In section .text, align 2, keep-with-next
+    601          static int wlan_send_80211_raw_frame(hal_wifi_module_t *m, uint8_t *buf, int len)
+    602          {
+    603              return 0;
+   \                     wlan_send_80211_raw_frame: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x4770             BX       LR               ;; return
+    604          }
+    605          
+
+   \                                 In section .data, align 4
+    606          hal_wifi_module_t aos_wifi_module_mk3060 = {
+   \                     aos_wifi_module_mk3060:
+   \        0x0   0x0000'0000        DC32 0H
+   \        0x4   0x00 0x00          DC8 0, 0, 0, 0
+   \              0x00 0x00    
+   \        0x8   0x0000'0000        DC32 0, ?_0
+   \              0x....'....  
+   \       0x10   0x00 0x00          DC8 0, 0, 0, 0
+   \              0x00 0x00    
+   \       0x14   0x0000'0000        DC32 0H, wifi_init, wifi_get_mac_addr, 0H, wifi_start, wifi_start_adv
+   \              0x....'....  
+   \              0x....'....  
+   \              0x0000'0000  
+   \              0x....'....  
+   \              0x....'....  
+   \       0x2C   0x....'....        DC32 get_ip_stat, get_link_stat, start_scan, start_scan_adv, power_off
+   \              0x....'....  
+   \              0x....'....  
+   \              0x....'....  
+   \              0x....'....  
+   \       0x40   0x....'....        DC32 power_on, suspend, suspend_station, suspend_soft_ap, set_channel
+   \              0x....'....  
+   \              0x....'....  
+   \              0x....'....  
+   \              0x....'....  
+   \       0x54   0x0000'0000        DC32 0H, 0H, start_monitor, stop_monitor, register_monitor_cb
+   \              0x0000'0000  
+   \              0x....'....  
+   \              0x....'....  
+   \              0x....'....  
+   \       0x68   0x....'....        DC32 register_wlan_mgnt_monitor_cb, wlan_send_80211_raw_frame, 0H, 0H
+   \              0x....'....  
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \       0x78   0x0000'0000        DC32 0H, 0H, 0H, 0H, 0H, 0H, 0H, 0H, scan_ap_list
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \              0x0000'0000  
+   \              0x....'....  
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8:
+   \        0x0   0x4F 0x4B          DC8      0x4F, 0x4B, 0x00, 0x00
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_1:
+   \        0x0   0x25 0x73          DC8      0x25, 0x73, 0x00, 0x00
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_2:
+   \        0x0   0x....'....        DC32     `fetch_ip_stat::__func__`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_3:
+   \        0x0   0x....'....        DC32     ?_2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_4:
+   \        0x0   0x....'....        DC32     ?_3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_5:
+   \        0x0   0x....'....        DC32     ?_5
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_6:
+   \        0x0   0x....'....        DC32     ?_6
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_7:
+   \        0x0   0x....'....        DC32     ?_9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_8:
+   \        0x0   0x....'....        DC32     ?_10
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_9:
+   \        0x0   0x....'....        DC32     ?_11
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_10:
+   \        0x0   0x....'....        DC32     ?_12
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_11:
+   \        0x0   0x....'....        DC32     ?_13
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_12:
+   \        0x0   0x....'....        DC32     ?_14
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_13:
+   \        0x0   0x....'....        DC32     ?_15
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_14:
+   \        0x0   0x....'....        DC32     ?_16
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_15:
+   \        0x0   0x....'....        DC32     ?_18
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_16:
+   \        0x0   0x....'....        DC32     ?_19
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_17:
+   \        0x0   0x....'....        DC32     ?_20
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_18:
+   \        0x0   0x....'....        DC32     ?_21
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_19:
+   \        0x0   0x....'....        DC32     ?_22
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_20:
+   \        0x0   0x....'....        DC32     ?_24
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_21:
+   \        0x0   0x....'....        DC32     ?_25
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_22:
+   \        0x0   0x....'....        DC32     ?_26
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_23:
+   \        0x0   0x....'....        DC32     ?_27
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_24:
+   \        0x0   0x....'....        DC32     ?_28
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_25:
+   \        0x0   0x....'....        DC32     `get_link_stat::__func__`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_26:
+   \        0x0   0x....'....        DC32     ?_30
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_27:
+   \        0x0   0x....'....        DC32     ?_31
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_28:
+   \        0x0   0x....'....        DC32     ?_32
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_29:
+   \        0x0   0x....'....        DC32     ?_33
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_30:
+   \        0x0   0x....'....        DC32     ?_34
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_31:
+   \        0x0   0x....'....        DC32     `scan_one_ap::__func__`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_32:
+   \        0x0   0x....'....        DC32     ?_35
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_33:
+   \        0x0   0x....'....        DC32     `scan_ap_list::__func__`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_34:
+   \        0x0   0x....'....        DC32     ?_37
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_35:
+   \        0x0   0x....'....        DC32     ?_38
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_36:
+   \        0x0   0x....'....        DC32     ?_39
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_37:
+   \        0x0   0x....'....        DC32     ?_40
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable8_38:
+   \        0x0   0x....'....        DC32     ?_41
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \        0x0   0x61 0x6F          DC8 "aos_wifi_module_mk3060"
+   \              0x73 0x5F    
+   \              0x77 0x69    
+   \              0x66 0x69    
+   \              0x5F 0x6D    
+   \              0x6F 0x64    
+   \              0x75 0x6C    
+   \              0x65 0x5F    
+   \              0x6D 0x6B    
+   \              0x33 0x30    
+   \              0x36 0x30    
+   \              0x00         
+   \       0x17   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+
+   \                                 In section .rodata, align 4
+   \                     ?_2:
+   \        0x0   0x25 0x73          DC8 "%s failed, invalid argument\015\012"
+   \              0x20 0x66    
+   \              0x61 0x69    
+   \              0x6C 0x65    
+   \              0x64 0x2C    
+   \              0x20 0x69    
+   \              0x6E 0x76    
+   \              0x61 0x6C    
+   \              0x69 0x64    
+   \              0x20 0x61    
+   \              0x72 0x67    
+   \              0x75 0x6D    
+   \              0x65 0x6E    
+   \              0x74 0x0D    
+   \              0x0A 0x00    
+   \       0x1E   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_3:
+   \        0x0   0x77 0x69          DC8 "wifi init success!!\012"
+   \              0x66 0x69    
+   \              0x20 0x69    
+   \              0x6E 0x69    
+   \              0x74 0x20    
+   \              0x73 0x75    
+   \              0x63 0x63    
+   \              0x65 0x73    
+   \              0x73 0x21    
+   \              0x21 0x0A    
+   \              0x00         
+   \       0x15   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+
+   \                                 In section .rodata, align 4
+   \                     ?_5:
+   \        0x0   0x77 0x69          DC8 "wifi_get_mac_addr!!\012"
+   \              0x66 0x69    
+   \              0x5F 0x67    
+   \              0x65 0x74    
+   \              0x5F 0x6D    
+   \              0x61 0x63    
+   \              0x5F 0x61    
+   \              0x64 0x64    
+   \              0x72 0x21    
+   \              0x21 0x0A    
+   \              0x00         
+   \       0x15   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_6:
+   \        0x0   0x6D 0x61          DC8 "mac in hex: %02x%02x%02x%02x%02x%02x"
+   \              0x63 0x20    
+   \              0x69 0x6E    
+   \              0x20 0x68    
+   \              0x65 0x78    
+   \              0x3A 0x20    
+   \              0x25 0x30    
+   \              0x32 0x78    
+   \              0x25 0x30    
+   \              0x32 0x78    
+   \              0x25 0x30    
+   \              0x32 0x78    
+   \              0x25 0x30    
+   \              0x32 0x78    
+   \              0x25 0x30    
+   \              0x32 0x78    
+   \              0x25 0x30    
+   \              0x32 0x78    
+   \              0x00         
+   \       0x25   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_9:
+   \        0x0   0x6F 0x70          DC8 "open"
+   \              0x65 0x6E    
+   \              0x00         
+   \        0x5   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_10:
+   \        0x0   0x41 0x54          DC8 "AT+WJAP=%s"
+   \              0x2B 0x57    
+   \              0x4A 0x41    
+   \              0x50 0x3D    
+   \              0x25 0x73    
+   \              0x00         
+   \        0xB   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_11:
+   \        0x0   0x41 0x54          DC8 "AT+WJAP=%s,%s"
+   \              0x2B 0x57    
+   \              0x4A 0x41    
+   \              0x50 0x3D    
+   \              0x25 0x73    
+   \              0x2C 0x25    
+   \              0x73 0x00    
+   \        0xE   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_12:
+   \        0x0   0x57 0x69          DC8 "Will connect via at cmd: %s\015\012"
+   \              0x6C 0x6C    
+   \              0x20 0x63    
+   \              0x6F 0x6E    
+   \              0x6E 0x65    
+   \              0x63 0x74    
+   \              0x20 0x76    
+   \              0x69 0x61    
+   \              0x20 0x61    
+   \              0x74 0x20    
+   \              0x63 0x6D    
+   \              0x64 0x3A    
+   \              0x20 0x25    
+   \              0x73 0x0D    
+   \              0x0A 0x00    
+   \       0x1E   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_13:
+   \        0x0   0x41 0x54          DC8 "AT command %s succeed, rsp: %s\015\012"
+   \              0x20 0x63    
+   \              0x6F 0x6D    
+   \              0x6D 0x61    
+   \              0x6E 0x64    
+   \              0x20 0x25    
+   \              0x73 0x20    
+   \              0x73 0x75    
+   \              0x63 0x63    
+   \              0x65 0x65    
+   \              0x64 0x2C    
+   \              0x20 0x72    
+   \              0x73 0x70    
+   \              0x3A 0x20    
+   \              0x25 0x73    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x21   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_14:
+   \        0x0   0x41 0x54          DC8 "AT command %s failed\015\012"
+   \              0x20 0x63    
+   \              0x6F 0x6D    
+   \              0x6D 0x61    
+   \              0x6E 0x64    
+   \              0x20 0x25    
+   \              0x73 0x20    
+   \              0x66 0x61    
+   \              0x69 0x6C    
+   \              0x65 0x64    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x17   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_15:
+   \        0x0   0x45 0x52          DC8 "ERROR"
+   \              0x52 0x4F    
+   \              0x52 0x00    
+   \        0x6   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_16:
+   \        0x0   0x43 0x6F          DC8 "Connect wifi failed\015\012"
+   \              0x6E 0x6E    
+   \              0x65 0x63    
+   \              0x74 0x20    
+   \              0x77 0x69    
+   \              0x66 0x69    
+   \              0x20 0x66    
+   \              0x61 0x69    
+   \              0x6C 0x65    
+   \              0x64 0x0D    
+   \              0x0A 0x00    
+   \       0x16   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_18:
+   \        0x0   0x41 0x54          DC8 "AT+WMAC?"
+   \              0x2B 0x57    
+   \              0x4D 0x41    
+   \              0x43 0x3F    
+   \              0x00         
+   \        0x9   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_19:
+   \        0x0   0x2B 0x57          DC8 "+WMAC"
+   \              0x4D 0x41    
+   \              0x43 0x00    
+   \        0x6   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_20:
+   \        0x0   0x43 0x6F          DC8 "Command %s executed with ERROR.\015\012"
+   \              0x6D 0x6D    
+   \              0x61 0x6E    
+   \              0x64 0x20    
+   \              0x25 0x73    
+   \              0x20 0x65    
+   \              0x78 0x65    
+   \              0x63 0x75    
+   \              0x74 0x65    
+   \              0x64 0x20    
+   \              0x77 0x69    
+   \              0x74 0x68    
+   \              0x20 0x45    
+   \              0x52 0x52    
+   \              0x4F 0x52    
+   \              0x2E 0x0D    
+   \              0x0A 0x00    
+   \       0x22   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_21:
+   \        0x0   0x25 0x2A          DC8 "%*[^:]:%[^\015]"
+   \              0x5B 0x5E    
+   \              0x3A 0x5D    
+   \              0x3A 0x25    
+   \              0x5B 0x5E    
+   \              0x0D 0x5D    
+   \              0x00         
+   \        0xD   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_22:
+   \        0x0   0x6D 0x61          DC8 "mac result: %s\015\012"
+   \              0x63 0x20    
+   \              0x72 0x65    
+   \              0x73 0x75    
+   \              0x6C 0x74    
+   \              0x3A 0x20    
+   \              0x25 0x73    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x11   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_24:
+   \        0x0   0x41 0x54          DC8 "AT+WJAPIP?"
+   \              0x2B 0x57    
+   \              0x4A 0x41    
+   \              0x50 0x49    
+   \              0x50 0x3F    
+   \              0x00         
+   \        0xB   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_25:
+   \        0x0   0x2B 0x57          DC8 "+WJAPIP"
+   \              0x4A 0x41    
+   \              0x50 0x49    
+   \              0x50 0x00    
+
+   \                                 In section .rodata, align 4
+   \                     ?_26:
+   \        0x0   0x43 0x6F          DC8 "Command  %s executed with ERROR\015\012"
+   \              0x6D 0x6D    
+   \              0x61 0x6E    
+   \              0x64 0x20    
+   \              0x20 0x25    
+   \              0x73 0x20    
+   \              0x65 0x78    
+   \              0x65 0x63    
+   \              0x75 0x74    
+   \              0x65 0x64    
+   \              0x20 0x77    
+   \              0x69 0x74    
+   \              0x68 0x20    
+   \              0x45 0x52    
+   \              0x52 0x4F    
+   \              0x52 0x0D    
+   \              0x0A 0x00    
+   \       0x22   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_27:
+   \        0x0   0x25 0x2A          DC8 "%*[^:]:%[^,],%[^,],%[^,],%[^\015]"
+   \              0x5B 0x5E    
+   \              0x3A 0x5D    
+   \              0x3A 0x25    
+   \              0x5B 0x5E    
+   \              0x2C 0x5D    
+   \              0x2C 0x25    
+   \              0x5B 0x5E    
+   \              0x2C 0x5D    
+   \              0x2C 0x25    
+   \              0x5B 0x5E    
+   \              0x2C 0x5D    
+   \              0x2C 0x25    
+   \              0x5B 0x5E    
+   \              0x0D 0x5D    
+   \              0x00         
+   \       0x1F   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_28:
+   \        0x0   0x72 0x65          DC8 "result: %s %s %s %s\015\012"
+   \              0x73 0x75    
+   \              0x6C 0x74    
+   \              0x3A 0x20    
+   \              0x25 0x73    
+   \              0x20 0x25    
+   \              0x73 0x20    
+   \              0x25 0x73    
+   \              0x20 0x25    
+   \              0x73 0x0D    
+   \              0x0A 0x00    
+   \       0x16   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_30:
+   \        0x0   0x25 0x73          DC8 "%s: line:%d fail\015\012"
+   \              0x3A 0x20    
+   \              0x6C 0x69    
+   \              0x6E 0x65    
+   \              0x3A 0x25    
+   \              0x64 0x20    
+   \              0x66 0x61    
+   \              0x69 0x6C    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x13   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_31:
+   \        0x0   0x41 0x54          DC8 "AT+WJAP?"
+   \              0x2B 0x57    
+   \              0x4A 0x41    
+   \              0x50 0x3F    
+   \              0x00         
+   \        0x9   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_32:
+   \        0x0   0x41 0x54          DC8 "AT command %s succeed, rsp: %s"
+   \              0x20 0x63    
+   \              0x6F 0x6D    
+   \              0x6D 0x61    
+   \              0x6E 0x64    
+   \              0x20 0x25    
+   \              0x73 0x20    
+   \              0x73 0x75    
+   \              0x63 0x63    
+   \              0x65 0x65    
+   \              0x64 0x2C    
+   \              0x20 0x72    
+   \              0x73 0x70    
+   \              0x3A 0x20    
+   \              0x25 0x73    
+   \              0x00         
+   \       0x1F   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_33:
+   \        0x0   0x2B 0x57          DC8 "+WJAP"
+   \              0x4A 0x41    
+   \              0x50 0x00    
+   \        0x6   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_34:
+   \        0x0   0x25 0x2A          DC8 "%*[^:]:%[^,],%[^,],%d,%d"
+   \              0x5B 0x5E    
+   \              0x3A 0x5D    
+   \              0x3A 0x25    
+   \              0x5B 0x5E    
+   \              0x2C 0x5D    
+   \              0x2C 0x25    
+   \              0x5B 0x5E    
+   \              0x2C 0x5D    
+   \              0x2C 0x25    
+   \              0x64 0x2C    
+   \              0x25 0x64    
+   \              0x00         
+   \       0x19   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_35:
+   \        0x0   0x25 0x64          DC8 "%d,%d,%d"
+   \              0x2C 0x25    
+   \              0x64 0x2C    
+   \              0x25 0x64    
+   \              0x00         
+   \        0x9   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x8A   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0xA1   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0xB8   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0xCF   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0xE6   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0xFD   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x114   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x12B   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x142   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x159   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x170   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x187   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x19E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x1B5   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x1CC   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x1E3   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x1FA   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x211   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x228   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x23F   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x256   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x26D   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x284   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x29B   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x2B2   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x2C9   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x2E0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x2F7   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x30E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x325   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x33C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x353   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x36A   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x381   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x398   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x3AF   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x3C6   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x3DD   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x3F4   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x40B   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x422   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x439   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x450   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x467   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x47E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x495   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x4AC   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x4C3   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x4DA   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x4F1   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x508   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x51F   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x536   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x54D   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x564   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x57B   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x592   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x5A9   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x5C0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x5D7   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x5EE   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x605   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x61C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x633   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x64A   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x661   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x678   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x68F   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x6A6   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x6BD   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x6D4   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x6EB   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x702   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x719   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x730   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x747   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x75E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x775   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x78C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x7A3   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x7BA   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x7D1   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x7E8   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \      0x7FF   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_37:
+   \        0x0   0x41 0x54          DC8 "AT+WSCANOPT=1"
+   \              0x2B 0x57    
+   \              0x53 0x43    
+   \              0x41 0x4E    
+   \              0x4F 0x50    
+   \              0x54 0x3D    
+   \              0x31 0x00    
+   \        0xE   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_38:
+   \        0x0   0x41 0x54          DC8 "AT+WSCAN"
+   \              0x2B 0x57    
+   \              0x53 0x43    
+   \              0x41 0x4E    
+   \              0x00         
+   \        0x9   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_39:
+   \        0x0   0x2B 0x57          DC8 "+WSCAN:"
+   \              0x53 0x43    
+   \              0x41 0x4E    
+   \              0x3A 0x00    
+
+   \                                 In section .rodata, align 4
+   \                     ?_40:
+   \        0x0   0x2B 0x57          DC8 "+WSCAN:%d"
+   \              0x53 0x43    
+   \              0x41 0x4E    
+   \              0x3A 0x25    
+   \              0x64 0x00    
+   \        0xA   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_41:
+   \        0x0   0x25 0x64          DC8 "%d: %s"
+   \              0x3A 0x20    
+   \              0x25 0x73    
+   \              0x00         
+   \        0x7   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x4F 0x4B          DC8 "OK"
+   \              0x00         
+   \        0x3   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x25 0x73          DC8 "%s"
+   \              0x00         
+   \        0x3   0x00               DC8 0
+    607              .base.name           = "aos_wifi_module_mk3060",
+    608              .init                =  wifi_init,
+    609              .get_mac_addr        =  wifi_get_mac_addr,
+    610              .start               =  wifi_start,
+    611              .start_adv           =  wifi_start_adv,
+    612              .get_ip_stat         =  get_ip_stat,
+    613              .get_link_stat       =  get_link_stat,
+    614              .start_scan          =  start_scan,
+    615              .start_scan_adv      =  start_scan_adv,
+    616              .power_off           =  power_off,
+    617              .power_on            =  power_on,
+    618              .suspend             =  suspend,
+    619              .suspend_station     =  suspend_station,
+    620              .suspend_soft_ap     =  suspend_soft_ap,
+    621              .set_channel         =  set_channel,
+    622              .start_monitor       =  start_monitor,
+    623              .stop_monitor        =  stop_monitor,
+    624              .register_monitor_cb =  register_monitor_cb,
+    625              .register_wlan_mgnt_monitor_cb = register_wlan_mgnt_monitor_cb,
+    626              .wlan_send_80211_raw_frame = wlan_send_80211_raw_frame,
+    627              .scan_ap_list        =  scan_ap_list
+    628          };
+    629          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   _char2num
+       8   at_wevent_handler
+         8   -- Indirect call
+         0   -> fetch_ip_stat
+         8   -> hal_wifi_get_default_module
+     112   fetch_ip_stat
+       112   -- Indirect call
+       112   -> HAL_Printf
+       112   -> __aeabi_memclr4
+       112   -> get_ip_stat_helper
+       8   get_ip_stat
+         8   -> get_ip_stat_helper
+     160   get_ip_stat_helper
+       160   -> HAL_Printf
+       160   -> __aeabi_memclr4
+       160   -> at_send_wait_reply
+       160   -> get_mac_helper
+       160   -> sscanf
+       160   -> strlen
+       160   -> strstr
+     296   get_link_stat
+       296   -> HAL_Printf
+       296   -> __aeabi_memclr4
+       296   -> __aeabi_memset4
+       296   -> _char2num
+       296   -> at_send_wait_reply
+       296   -> sscanf
+       296   -> strncpy
+       296   -> strstr
+     160   get_mac_helper
+       160   -> HAL_Printf
+       160   -> __aeabi_memclr4
+       160   -> at_send_wait_reply
+       160   -> sscanf
+       160   -> strlen
+       160   -> strstr
+      16   mac_str_to_hex
+        16   -> __aeabi_memset
+       0   power_off
+       0   power_on
+       0   register_monitor_cb
+       0   register_wlan_mgnt_monitor_cb
+    2296   scan_ap_list
+      2296   -> HAL_Printf
+      2296   -> __aeabi_memclr4
+      2296   -> __aeabi_memset4
+      2296   -> _char2num
+      2296   -> at_send_wait_reply
+      2296   -> scan_one_ap
+      2296   -> sscanf
+      2296   -> str_get_line
+      2296   -> strcmp
+      2296   -> strncpy
+      2296   -> strstr
+      32   scan_one_ap
+        32   -> HAL_Printf
+        32   -> sscanf
+        32   -> strlen
+       0   set_channel
+       0   start_monitor
+       0   start_scan
+       0   start_scan_adv
+       0   stop_monitor
+       0   str_get_line
+       0   suspend
+       0   suspend_soft_ap
+       0   suspend_station
+      40   wifi_get_mac_addr
+        40   -> HAL_Printf
+        40   -> __aeabi_memclr4
+        40   -> get_mac_helper
+        40   -> mac_str_to_hex
+       8   wifi_init
+         8   -> HAL_Printf
+     280   wifi_start
+       280   -> HAL_Printf
+       280   -> __aeabi_memclr4
+       280   -> at_send_wait_reply
+       280   -> snprintf
+       280   -> strcmp
+       280   -> strlen
+       280   -> strstr
+       0   wifi_start_adv
+       0   wlan_send_80211_raw_frame
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable8
+       4  ??DataTable8_1
+       4  ??DataTable8_10
+       4  ??DataTable8_11
+       4  ??DataTable8_12
+       4  ??DataTable8_13
+       4  ??DataTable8_14
+       4  ??DataTable8_15
+       4  ??DataTable8_16
+       4  ??DataTable8_17
+       4  ??DataTable8_18
+       4  ??DataTable8_19
+       4  ??DataTable8_2
+       4  ??DataTable8_20
+       4  ??DataTable8_21
+       4  ??DataTable8_22
+       4  ??DataTable8_23
+       4  ??DataTable8_24
+       4  ??DataTable8_25
+       4  ??DataTable8_26
+       4  ??DataTable8_27
+       4  ??DataTable8_28
+       4  ??DataTable8_29
+       4  ??DataTable8_3
+       4  ??DataTable8_30
+       4  ??DataTable8_31
+       4  ??DataTable8_32
+       4  ??DataTable8_33
+       4  ??DataTable8_34
+       4  ??DataTable8_35
+       4  ??DataTable8_36
+       4  ??DataTable8_37
+       4  ??DataTable8_38
+       4  ??DataTable8_4
+       4  ??DataTable8_5
+       4  ??DataTable8_6
+       4  ??DataTable8_7
+       4  ??DataTable8_8
+       4  ??DataTable8_9
+      24  ?_0
+     100  ?_1
+      12  ?_10
+      16  ?_11
+      32  ?_12
+      36  ?_13
+      24  ?_14
+       8  ?_15
+      24  ?_16
+     128  ?_17
+      12  ?_18
+       8  ?_19
+      32  ?_2
+      36  ?_20
+      16  ?_21
+      20  ?_22
+     128  ?_23
+      12  ?_24
+       8  ?_25
+      36  ?_26
+      32  ?_27
+      24  ?_28
+     128  ?_29
+      24  ?_3
+      20  ?_30
+      12  ?_31
+      32  ?_32
+       8  ?_33
+      28  ?_34
+      12  ?_35
+    2048  ?_36
+      16  ?_37
+      12  ?_38
+       8  ?_39
+      16  ?_4
+      12  ?_40
+       8  ?_41
+       4  ?_42
+       4  ?_43
+      24  ?_5
+      40  ?_6
+     128  ?_7
+     128  ?_8
+       8  ?_9
+      42  _char2num
+     156  aos_wifi_module_mk3060
+      50  at_wevent_handler
+      62  fetch_ip_stat
+      12  get_ip_stat
+     204  get_ip_stat_helper
+     366  get_link_stat
+     168  get_mac_helper
+     114  mac_str_to_hex
+       4  power_off
+       4  power_on
+       2  register_monitor_cb
+       2  register_wlan_mgnt_monitor_cb
+     598  scan_ap_list
+     194  scan_one_ap
+       4  set_channel
+       2  start_monitor
+       2  start_scan
+       2  start_scan_adv
+       2  stop_monitor
+      50  str_get_line
+       4  suspend
+       4  suspend_soft_ap
+       4  suspend_station
+      70  wifi_get_mac_addr
+      14  wifi_init
+     180  wifi_start
+       4  wifi_start_adv
+       4  wlan_send_80211_raw_frame
+      60  -- Other
+
+ 
+   156 bytes in section .data
+ 3 548 bytes in section .rodata
+ 2 324 bytes in section .text
+ 
+ 2 324 bytes of CODE  memory
+ 3 548 bytes of CONST memory
+   156 bytes of DATA  memory
+
+Errors: none
+Warnings: 32

@@ -1,0 +1,597 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         10/Jun/2019  13:48:07
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\CoAPExport.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EWAA25.tmp
+#        (C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\CoAPExport.c
+#        -D DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D
+#        XIP_BOOT_HEADER_ENABLE=1 -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS
+#        -D PRINTF_ADVANCED_ENABLE -D
+#        "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list -lA
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\Development\smart_washing_machine_3080/source\app_preinclude.h -I
+#        C:\Development\smart_washing_machine_3080/board\ -I
+#        C:\Development\smart_washing_machine_3080/source\ -I
+#        C:\Development\smart_washing_machine_3080/CMSIS\ -I
+#        C:\Development\smart_washing_machine_3080/amazon-freertos/freertos/portable\
+#        -I C:\Development\smart_washing_machine_3080/amazon-freertos/include\
+#        -I C:\Development\smart_washing_machine_3080/component/lists\ -I
+#        C:\Development\smart_washing_machine_3080/component/serial_manager\ -I
+#        C:\Development\smart_washing_machine_3080/component/uart\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv/include\ -I
+#        C:\Development\smart_washing_machine_3080/device\ -I
+#        C:\Development\smart_washing_machine_3080/doc\ -I
+#        C:\Development\smart_washing_machine_3080/drivers\ -I
+#        C:\Development\smart_washing_machine_3080/src\ -I
+#        C:\Development\smart_washing_machine_3080/startup\ -I
+#        C:\Development\smart_washing_machine_3080/utilities\ -I
+#        C:\Development\smart_washing_machine_3080/xip\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_model\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_sign\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\mqtt\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\external_libs\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\coap_cloud\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_reset\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\mbedtls\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\ -I
+#        C:\Development\smart_washing_machine_3080\mbedtls\port\ksdk\ -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list\CoAPExport.lst
+#    Object file  =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj\CoAPExport.o
+#
+###############################################################################
+
+C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\CoAPExport.c
+      1          /*
+      2           * Copyright (C) 2015-2018 Alibaba Group Holding Limited
+      3           */
+      4          
+      5          
+      6          
+      7          
+      8          #include <stdio.h>
+      9          #include <stdlib.h>
+     10          #include <string.h>
+     11          #include "ctype.h"
+     12          #include "iotx_coap_internal.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void INIT_AOS_DLIST_HEAD(dlist_t *)
+   \                     INIT_AOS_DLIST_HEAD: (+1)
+   \        0x0   0x6040             STR      R0,[R0, #+4]
+   \        0x2   0x6000             STR      R0,[R0, #+0]
+   \        0x4   0x4770             BX       LR               ;; return
+     13          #include "CoAPPlatform.h"
+     14          #include "CoAPInternal.h"
+     15          #include "CoAPNetwork.h"
+     16          #include "CoAPExport.h"
+     17          #include "CoAPObserve.h"
+     18          
+     19          #define COAP_DEFAULT_PORT           5683 /* CoAP default UDP port */
+     20          #define COAPS_DEFAULT_PORT          5684 /* CoAP default UDP port for secure transmission */
+     21          #define COAP_DEFAULT_SENDLIST_MAXCOUNT  8
+     22          #define COAP_DEFAULT_RES_MAXCOUNT       8
+     23          #define COAP_DEFAULT_OBS_MAXCOUNT       8
+     24          
+     25          #define COAP_DEFAULT_SCHEME         "coap" /* the default scheme for CoAP URIs */
+     26          #define COAP_DEFAULT_HOST_LEN       128
+     27          #define COAP_DEFAULT_WAIT_TIME_MS   2000
+     28          
+     29          
+
+   \                                 In section .text, align 2, keep-with-next
+     30          CoAPContext *CoAPContext_create(CoAPInitParam *param)
+     31          {
+   \                     CoAPContext_create: (+1)
+   \        0x0   0xB53E             PUSH     {R1-R5,LR}
+   \        0x2   0x4605             MOV      R5,R0
+     32              CoAPIntContext    *p_ctx = NULL;
+     33              NetworkInit    network_param;
+     34          
+     35              memset(&network_param, 0x00, sizeof(NetworkInit));
+   \        0x4   0x2200             MOVS     R2,#+0
+   \        0x6   0x210C             MOVS     R1,#+12
+   \        0x8   0x4668             MOV      R0,SP
+   \        0xA   0x....'....        BL       __aeabi_memset4
+     36              p_ctx = coap_malloc(sizeof(CoAPIntContext));
+   \        0xE   0x2060             MOVS     R0,#+96
+   \       0x10   0x....'....        BL       HAL_Malloc
+   \       0x14   0x0004             MOVS     R4,R0
+     37              if (NULL == p_ctx) {
+   \       0x16   0xD063             BEQ.N    ??CoAPContext_create_0
+     38                  COAP_ERR("malloc for coap context failed");
+     39                  goto err;
+     40              }
+     41              COAP_DEBUG("Send List Max-Count:      %d", param->send_maxcount);
+     42              COAP_DEBUG("Observe Server Max-Count: %d", param->obs_maxcount);
+     43              COAP_DEBUG("Observe Client Max-Count: %d", param->obs_maxcount);
+     44              COAP_DEBUG("Resource Max-Count:       %d", param->res_maxcount);
+     45              COAP_DEBUG("MultiCast Address:        %s:%d", param->group, param->port);
+     46              COAP_DEBUG("Send/Recv Wait time:      %dms", param->waittime);
+     47          
+     48              memset(p_ctx, 0, sizeof(CoAPIntContext));
+   \       0x18   0x2200             MOVS     R2,#+0
+   \       0x1A   0x2160             MOVS     R1,#+96
+   \       0x1C   0x....'....        BL       __aeabi_memset4
+     49              p_ctx->message_id = 1;
+   \       0x20   0x2001             MOVS     R0,#+1
+   \       0x22   0x8020             STRH     R0,[R4, #+0]
+     50              p_ctx->notifier = param->notifier;
+   \       0x24   0x68E8             LDR      R0,[R5, #+12]
+   \       0x26   0x60A0             STR      R0,[R4, #+8]
+     51              p_ctx->appdata = param->appdata;
+   \       0x28   0x6928             LDR      R0,[R5, #+16]
+   \       0x2A   0x65A0             STR      R0,[R4, #+88]
+     52          
+     53          #ifdef USE_SENDBUFF
+     54              p_ctx->sendbuf = coap_malloc(COAP_MSG_MAX_PDU_LEN);
+     55              if (NULL == p_ctx->sendbuf) {
+     56                  COAP_ERR("not enough memory");
+     57                  goto err;
+     58              }
+     59              memset(p_ctx->sendbuf, 0x00, COAP_MSG_MAX_PDU_LEN);
+     60          #endif
+     61          
+     62              p_ctx->recvbuf = coap_malloc(COAP_MSG_MAX_PDU_LEN);
+   \       0x2C   0xF44F 0x60A0      MOV      R0,#+1280
+   \       0x30   0x....'....        BL       HAL_Malloc
+   \       0x34   0x6120             STR      R0,[R4, #+16]
+     63              if (NULL == p_ctx->recvbuf) {
+   \       0x36   0x2800             CMP      R0,#+0
+   \       0x38   0xD052             BEQ.N    ??CoAPContext_create_0
+     64                  COAP_ERR("not enough memory");
+     65                  goto err;
+     66              }
+     67              memset(p_ctx->recvbuf, 0x00, COAP_MSG_MAX_PDU_LEN);
+   \       0x3A   0x2200             MOVS     R2,#+0
+   \       0x3C   0xF44F 0x61A0      MOV      R1,#+1280
+   \       0x40   0x....'....        BL       __aeabi_memset
+     68          
+     69              if (0 == param->waittime) {
+   \       0x44   0x68A8             LDR      R0,[R5, #+8]
+   \       0x46   0x2800             CMP      R0,#+0
+   \       0x48   0xD103             BNE.N    ??CoAPContext_create_1
+     70                  p_ctx->waittime = COAP_DEFAULT_WAIT_TIME_MS;
+   \       0x4A   0xF44F 0x60FA      MOV      R0,#+2000
+   \       0x4E   0x6560             STR      R0,[R4, #+84]
+   \       0x50   0xE000             B.N      ??CoAPContext_create_2
+     71              } else {
+     72                  p_ctx->waittime = param->waittime;
+   \                     ??CoAPContext_create_1: (+1)
+   \       0x52   0x6560             STR      R0,[R4, #+84]
+     73              }
+     74              p_ctx->mutex = HAL_MutexCreate();
+   \                     ??CoAPContext_create_2: (+1)
+   \       0x54   0x....'....        BL       HAL_MutexCreate
+   \       0x58   0x65E0             STR      R0,[R4, #+92]
+     75              if (NULL == p_ctx->mutex) {
+   \       0x5A   0x2800             CMP      R0,#+0
+   \       0x5C   0xD040             BEQ.N    ??CoAPContext_create_0
+     76                  COAP_ERR("Mutex Create failed");
+     77                  goto err;
+     78              }
+     79          
+     80              /*Init message send list mutex*/
+     81              p_ctx->sendlist.list_mutex = HAL_MutexCreate();
+   \       0x5E   0x....'....        BL       HAL_MutexCreate
+   \       0x62   0x6160             STR      R0,[R4, #+20]
+     82              HAL_MutexLock(p_ctx->sendlist.list_mutex);
+   \       0x64   0x....'....        BL       HAL_MutexLock
+     83              /*CoAP message send list*/
+     84              INIT_LIST_HEAD(&p_ctx->sendlist.list);
+   \       0x68   0xF104 0x0018      ADD      R0,R4,#+24
+   \       0x6C   0x....'....        BL       INIT_AOS_DLIST_HEAD
+     85              p_ctx->sendlist.count = 0;
+   \       0x70   0x2000             MOVS     R0,#+0
+   \       0x72   0xF884 0x0020      STRB     R0,[R4, #+32]
+     86              HAL_MutexUnlock(p_ctx->sendlist.list_mutex);
+   \       0x76   0x6960             LDR      R0,[R4, #+20]
+   \       0x78   0x....'....        BL       HAL_MutexUnlock
+     87          
+     88              if (0 != param->send_maxcount) {
+   \       0x7C   0x7828             LDRB     R0,[R5, #+0]
+   \       0x7E   0x2800             CMP      R0,#+0
+   \       0x80   0xD002             BEQ.N    ??CoAPContext_create_3
+     89                  p_ctx->sendlist.maxcount = param->send_maxcount;
+   \       0x82   0xF884 0x0021      STRB     R0,[R4, #+33]
+   \       0x86   0xE002             B.N      ??CoAPContext_create_4
+     90              } else {
+     91                  p_ctx->sendlist.maxcount = COAP_DEFAULT_SENDLIST_MAXCOUNT;
+   \                     ??CoAPContext_create_3: (+1)
+   \       0x88   0x2008             MOVS     R0,#+8
+   \       0x8A   0xF884 0x0021      STRB     R0,[R4, #+33]
+     92              }
+     93          
+     94              if (0 == param->res_maxcount) {
+   \                     ??CoAPContext_create_4: (+1)
+   \       0x8E   0x7D28             LDRB     R0,[R5, #+20]
+   \       0x90   0x2800             CMP      R0,#+0
+   \       0x92   0xD101             BNE.N    ??CoAPContext_create_5
+     95                  param->res_maxcount = COAP_DEFAULT_RES_MAXCOUNT;
+   \       0x94   0x2008             MOVS     R0,#+8
+   \       0x96   0x7528             STRB     R0,[R5, #+20]
+     96              }
+     97              CoAPResource_init(p_ctx, param->res_maxcount);
+   \                     ??CoAPContext_create_5: (+1)
+   \       0x98   0x7D29             LDRB     R1,[R5, #+20]
+   \       0x9A   0x4620             MOV      R0,R4
+   \       0x9C   0x....'....        BL       CoAPResource_init
+     98          
+     99          #ifndef COAP_OBSERVE_SERVER_DISABLE
+    100              if (0 == param->obs_maxcount) {
+   \       0xA0   0x7868             LDRB     R0,[R5, #+1]
+   \       0xA2   0x2800             CMP      R0,#+0
+   \       0xA4   0xD101             BNE.N    ??CoAPContext_create_6
+    101                  param->obs_maxcount = COAP_DEFAULT_OBS_MAXCOUNT;
+   \       0xA6   0x2008             MOVS     R0,#+8
+   \       0xA8   0x7068             STRB     R0,[R5, #+1]
+    102              }
+    103              CoAPObsServer_init(p_ctx, param->obs_maxcount);
+   \                     ??CoAPContext_create_6: (+1)
+   \       0xAA   0x7869             LDRB     R1,[R5, #+1]
+   \       0xAC   0x4620             MOV      R0,R4
+   \       0xAE   0x....'....        BL       CoAPObsServer_init
+    104          #endif
+    105          
+    106          #ifndef COAP_OBSERVE_CLIENT_DISABLE
+    107              if (0 == param->obs_maxcount) {
+   \       0xB2   0x7868             LDRB     R0,[R5, #+1]
+   \       0xB4   0x2800             CMP      R0,#+0
+   \       0xB6   0xD101             BNE.N    ??CoAPContext_create_7
+    108                  param->obs_maxcount = COAP_DEFAULT_OBS_MAXCOUNT;
+   \       0xB8   0x2008             MOVS     R0,#+8
+   \       0xBA   0x7068             STRB     R0,[R5, #+1]
+    109              }
+    110              CoAPObsClient_init(p_ctx, param->obs_maxcount);
+   \                     ??CoAPContext_create_7: (+1)
+   \       0xBC   0x7869             LDRB     R1,[R5, #+1]
+   \       0xBE   0x4620             MOV      R0,R4
+   \       0xC0   0x....'....        BL       CoAPObsClient_init
+    111          #endif
+    112          
+    113          #ifdef COAP_DTLS_SUPPORT
+    114              network_param.type = COAP_NETWORK_DTLS;
+    115              network_param.port = COAPS_DEFAULT_PORT;
+    116          #else
+    117              network_param.type = COAP_NETWORK_NOSEC;
+   \       0xC4   0x2000             MOVS     R0,#+0
+   \       0xC6   0xF88D 0x0000      STRB     R0,[SP, #+0]
+    118              network_param.port = param->port;
+   \       0xCA   0x8868             LDRH     R0,[R5, #+2]
+   \       0xCC   0xF8AD 0x0008      STRH     R0,[SP, #+8]
+    119              network_param.group = param->group;
+   \       0xD0   0x6868             LDR      R0,[R5, #+4]
+   \       0xD2   0x9001             STR      R0,[SP, #+4]
+    120          #endif
+    121          
+    122          
+    123              /*CoAP network init*/
+    124              p_ctx->p_network = CoAPNetwork_init(&network_param);
+   \       0xD4   0x4668             MOV      R0,SP
+   \       0xD6   0x....'....        BL       CoAPNetwork_init
+   \       0xDA   0x6060             STR      R0,[R4, #+4]
+    125          
+    126              if (NULL == p_ctx->p_network) {
+   \       0xDC   0x2800             CMP      R0,#+0
+   \       0xDE   0xD101             BNE.N    ??CoAPContext_create_8
+    127                  COAP_ERR("CoAP Network init failed, exit");
+    128                  goto err;
+    129              }
+    130          
+    131              return p_ctx;
+    132          err:
+    133              if (NULL == p_ctx) {
+   \                     ??CoAPContext_create_0: (+1)
+   \       0xE0   0x2C00             CMP      R4,#+0
+   \       0xE2   0xD101             BNE.N    ??CoAPContext_create_9
+    134                  return p_ctx;
+   \                     ??CoAPContext_create_8: (+1)
+   \       0xE4   0x4620             MOV      R0,R4
+   \       0xE6   0xBD3E             POP      {R1-R5,PC}
+    135              }
+    136          
+    137              if (NULL != p_ctx->recvbuf) {
+   \                     ??CoAPContext_create_9: (+1)
+   \       0xE8   0x6920             LDR      R0,[R4, #+16]
+   \       0xEA   0x2800             CMP      R0,#+0
+   \       0xEC   0xD003             BEQ.N    ??CoAPContext_create_10
+    138                  coap_free(p_ctx->recvbuf);
+   \       0xEE   0x....'....        BL       HAL_Free
+   \       0xF2   0x2000             MOVS     R0,#+0
+   \       0xF4   0x6120             STR      R0,[R4, #+16]
+    139                  p_ctx->recvbuf = NULL;
+    140              }
+    141          
+    142          #ifdef USE_SENDBUFF
+    143              if (NULL != p_ctx->sendbuf) {
+    144                  coap_free(p_ctx->sendbuf);
+    145                  p_ctx->sendbuf = NULL;
+    146              }
+    147          #endif
+    148          
+    149          #ifndef COAP_OBSERVE_SERVER_DISABLE
+    150              CoAPObsServer_deinit(p_ctx);
+   \                     ??CoAPContext_create_10: (+1)
+   \       0xF6   0x4620             MOV      R0,R4
+   \       0xF8   0x....'....        BL       CoAPObsServer_deinit
+    151          #endif
+    152          
+    153          #ifndef COAP_OBSERVE_CLIENT_DISABLE
+    154              CoAPObsClient_deinit(p_ctx);
+   \       0xFC   0x4620             MOV      R0,R4
+   \       0xFE   0x....'....        BL       CoAPObsClient_deinit
+    155          #endif
+    156          
+    157              CoAPResource_deinit(p_ctx);
+   \      0x102   0x4620             MOV      R0,R4
+   \      0x104   0x....'....        BL       CoAPResource_deinit
+    158          
+    159              if (NULL != p_ctx->sendlist.list_mutex) {
+   \      0x108   0x6960             LDR      R0,[R4, #+20]
+   \      0x10A   0x2800             CMP      R0,#+0
+   \      0x10C   0xD003             BEQ.N    ??CoAPContext_create_11
+    160                  HAL_MutexDestroy(p_ctx->sendlist.list_mutex);
+   \      0x10E   0x....'....        BL       HAL_MutexDestroy
+    161                  p_ctx->sendlist.list_mutex = NULL;
+   \      0x112   0x2000             MOVS     R0,#+0
+   \      0x114   0x6160             STR      R0,[R4, #+20]
+    162              }
+    163          
+    164              if (NULL != p_ctx->mutex) {
+   \                     ??CoAPContext_create_11: (+1)
+   \      0x116   0x6DE0             LDR      R0,[R4, #+92]
+   \      0x118   0x2800             CMP      R0,#+0
+   \      0x11A   0xD003             BEQ.N    ??CoAPContext_create_12
+    165                  HAL_MutexDestroy(p_ctx->mutex);
+   \      0x11C   0x....'....        BL       HAL_MutexDestroy
+    166                  p_ctx->mutex = NULL;
+   \      0x120   0x2000             MOVS     R0,#+0
+   \      0x122   0x65E0             STR      R0,[R4, #+92]
+    167              }
+    168          
+    169              coap_free(p_ctx);
+   \                     ??CoAPContext_create_12: (+1)
+   \      0x124   0x4620             MOV      R0,R4
+   \      0x126   0x....'....        BL       HAL_Free
+    170              p_ctx = NULL;
+    171          
+    172              /* TODO: release the resource */
+    173              return (CoAPContext *)p_ctx;
+   \      0x12A   0x2000             MOVS     R0,#+0
+   \      0x12C   0xBD3E             POP      {R1-R5,PC}       ;; return
+    174          }
+    175          
+
+   \                                 In section .text, align 2, keep-with-next
+    176          void *CoAPContextAppdata_get(CoAPContext *context)
+    177          {
+    178              CoAPIntContext *p_ctx = (CoAPIntContext *)context;
+    179              if (NULL == p_ctx) {
+   \                     CoAPContextAppdata_get: (+1)
+   \        0x0   0x2800             CMP      R0,#+0
+   \        0x2   0xD101             BNE.N    ??CoAPContextAppdata_get_0
+    180                  return NULL;
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x4770             BX       LR
+    181              }
+    182          
+    183              return (void *)p_ctx->appdata;
+   \                     ??CoAPContextAppdata_get_0: (+1)
+   \        0x8   0x6D80             LDR      R0,[R0, #+88]
+   \        0xA   0x4770             BX       LR               ;; return
+    184          }
+    185          
+    186          
+
+   \                                 In section .text, align 2, keep-with-next
+    187          void CoAPContext_free(CoAPContext *context)
+    188          {
+   \                     CoAPContext_free: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x0005             MOVS     R5,R0
+    189              CoAPIntContext *p_ctx = NULL;
+    190              CoAPSendNode *cur = NULL, *next = NULL;
+    191              if (NULL == context) {
+   \        0x4   0xD048             BEQ.N    ??CoAPContext_free_0
+    192                  return;
+    193              }
+    194          
+    195              p_ctx = (CoAPIntContext *)context;
+    196          
+    197              CoAPNetwork_deinit(p_ctx->p_network);
+   \        0x6   0x6868             LDR      R0,[R5, #+4]
+   \        0x8   0x....'....        BL       CoAPNetwork_deinit
+    198              COAP_DEBUG("CoAP Network Deinit");
+    199          
+    200              HAL_MutexLock(p_ctx->sendlist.list_mutex);
+   \        0xC   0x6968             LDR      R0,[R5, #+20]
+   \        0xE   0x....'....        BL       HAL_MutexLock
+    201              list_for_each_entry_safe(cur, next, &p_ctx->sendlist.list, sendlist, CoAPSendNode) {
+   \       0x12   0x69E8             LDR      R0,[R5, #+28]
+   \       0x14   0xF1A0 0x0438      SUB      R4,R0,#+56
+   \       0x18   0x6BE0             LDR      R0,[R4, #+60]
+   \       0x1A   0xF1A0 0x0638      SUB      R6,R0,#+56
+   \       0x1E   0xE00F             B.N      ??CoAPContext_free_1
+    202                  if (NULL != cur) {
+   \                     ??CoAPContext_free_2: (+1)
+   \       0x20   0x2C00             CMP      R4,#+0
+   \       0x22   0xD009             BEQ.N    ??CoAPContext_free_3
+    203                      if (NULL != cur->message) {
+   \       0x24   0x6C60             LDR      R0,[R4, #+68]
+   \       0x26   0x2800             CMP      R0,#+0
+   \       0x28   0xD003             BEQ.N    ??CoAPContext_free_4
+    204                          coap_free(cur->message);
+   \       0x2A   0x....'....        BL       HAL_Free
+   \       0x2E   0x2000             MOVS     R0,#+0
+   \       0x30   0x6460             STR      R0,[R4, #+68]
+    205                          cur->message = NULL;
+    206                      }
+    207                      coap_free(cur);
+   \                     ??CoAPContext_free_4: (+1)
+   \       0x32   0x4620             MOV      R0,R4
+   \       0x34   0x....'....        BL       HAL_Free
+    208                      cur = NULL;
+    209                  }
+    210              }
+   \                     ??CoAPContext_free_3: (+1)
+   \       0x38   0x4634             MOV      R4,R6
+   \       0x3A   0x6BF0             LDR      R0,[R6, #+60]
+   \       0x3C   0xF1A0 0x0638      SUB      R6,R0,#+56
+   \                     ??CoAPContext_free_1: (+1)
+   \       0x40   0xF104 0x0038      ADD      R0,R4,#+56
+   \       0x44   0xF105 0x0118      ADD      R1,R5,#+24
+   \       0x48   0x4288             CMP      R0,R1
+   \       0x4A   0xD1E9             BNE.N    ??CoAPContext_free_2
+    211              INIT_LIST_HEAD(&p_ctx->sendlist.list);
+   \       0x4C   0xF105 0x0018      ADD      R0,R5,#+24
+   \       0x50   0x....'....        BL       INIT_AOS_DLIST_HEAD
+    212              HAL_MutexUnlock(p_ctx->sendlist.list_mutex);
+   \       0x54   0x6968             LDR      R0,[R5, #+20]
+   \       0x56   0x....'....        BL       HAL_MutexUnlock
+    213              HAL_MutexDestroy(p_ctx->sendlist.list_mutex);
+   \       0x5A   0x6968             LDR      R0,[R5, #+20]
+   \       0x5C   0x....'....        BL       HAL_MutexDestroy
+    214              p_ctx->sendlist.list_mutex = NULL;
+   \       0x60   0x2000             MOVS     R0,#+0
+   \       0x62   0x6168             STR      R0,[R5, #+20]
+    215              HAL_MutexDestroy(p_ctx->mutex);
+   \       0x64   0x6DE8             LDR      R0,[R5, #+92]
+   \       0x66   0x....'....        BL       HAL_MutexDestroy
+    216              p_ctx->mutex = NULL;
+   \       0x6A   0x2000             MOVS     R0,#+0
+   \       0x6C   0x65E8             STR      R0,[R5, #+92]
+    217              COAP_DEBUG("Release Send List and Memory");
+    218          
+    219          #ifndef COAP_OBSERVE_SERVER_DISABLE
+    220              CoAPObsServer_deinit(p_ctx);
+   \       0x6E   0x4628             MOV      R0,R5
+   \       0x70   0x....'....        BL       CoAPObsServer_deinit
+    221              COAP_DEBUG("CoAP Observe Server Deinit");
+    222          #endif
+    223          
+    224          
+    225          #ifndef COAP_OBSERVE_CLIENT_DISABLE
+    226              CoAPObsClient_deinit(p_ctx);
+   \       0x74   0x4628             MOV      R0,R5
+   \       0x76   0x....'....        BL       CoAPObsClient_deinit
+    227              COAP_DEBUG("CoAP Observe Client Deinit");
+    228          #endif
+    229          
+    230              CoAPResource_deinit(p_ctx);
+   \       0x7A   0x4628             MOV      R0,R5
+   \       0x7C   0x....'....        BL       CoAPResource_deinit
+    231              COAP_DEBUG("CoAP Resource unregister");
+    232          
+    233              if (NULL != p_ctx->recvbuf) {
+   \       0x80   0x6928             LDR      R0,[R5, #+16]
+   \       0x82   0x2800             CMP      R0,#+0
+   \       0x84   0xD003             BEQ.N    ??CoAPContext_free_5
+    234                  coap_free(p_ctx->recvbuf);
+   \       0x86   0x....'....        BL       HAL_Free
+   \       0x8A   0x2000             MOVS     R0,#+0
+   \       0x8C   0x6128             STR      R0,[R5, #+16]
+    235                  p_ctx->recvbuf = NULL;
+    236                  COAP_DEBUG("Release The Recv Memory");
+    237              }
+    238          #ifdef USE_SENDBUFF
+    239              if (NULL != p_ctx->sendbuf) {
+    240                  coap_free(p_ctx->sendbuf);
+    241                  p_ctx->sendbuf = NULL;
+    242                  COAP_DEBUG("Release The Send Memory");
+    243              }
+    244          #endif
+    245          
+    246              if (NULL != p_ctx) {
+    247                  coap_free(p_ctx);
+   \                     ??CoAPContext_free_5: (+1)
+   \       0x8E   0x4628             MOV      R0,R5
+   \       0x90   0xE8BD 0x4070      POP      {R4-R6,LR}
+   \       0x94   0x....'....        B.W      HAL_Free
+    248                  p_ctx    =  NULL;
+    249                  COAP_DEBUG("Release The CoAP Context");
+    250              }
+   \                     ??CoAPContext_free_0: (+1)
+   \       0x98   0xBD70             POP      {R4-R6,PC}       ;; return
+    251          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   CoAPContextAppdata_get
+      24   CoAPContext_create
+        24   -> CoAPNetwork_init
+        24   -> CoAPObsClient_deinit
+        24   -> CoAPObsClient_init
+        24   -> CoAPObsServer_deinit
+        24   -> CoAPObsServer_init
+        24   -> CoAPResource_deinit
+        24   -> CoAPResource_init
+        24   -> HAL_Free
+        24   -> HAL_Malloc
+        24   -> HAL_MutexCreate
+        24   -> HAL_MutexDestroy
+        24   -> HAL_MutexLock
+        24   -> HAL_MutexUnlock
+        24   -> INIT_AOS_DLIST_HEAD
+        24   -> __aeabi_memset
+        24   -> __aeabi_memset4
+      16   CoAPContext_free
+        16   -> CoAPNetwork_deinit
+        16   -> CoAPObsClient_deinit
+        16   -> CoAPObsServer_deinit
+        16   -> CoAPResource_deinit
+         0   -> HAL_Free
+        16   -> HAL_Free
+        16   -> HAL_MutexDestroy
+        16   -> HAL_MutexLock
+        16   -> HAL_MutexUnlock
+        16   -> INIT_AOS_DLIST_HEAD
+       0   INIT_AOS_DLIST_HEAD
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      12  CoAPContextAppdata_get
+     302  CoAPContext_create
+     154  CoAPContext_free
+       6  INIT_AOS_DLIST_HEAD
+
+ 
+ 474 bytes in section .text
+ 
+ 474 bytes of CODE memory
+
+Errors: none
+Warnings: none

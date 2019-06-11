@@ -1,0 +1,2357 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         10/Jun/2019  13:47:58
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\at_parser.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EW8896.tmp
+#        (C:\Development\smart_washing_machine_3080\csdk\eng\atm\at_parser.c -D
+#        DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D XIP_BOOT_HEADER_ENABLE=1
+#        -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS -D PRINTF_ADVANCED_ENABLE
+#        -D "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list -lA
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\Development\smart_washing_machine_3080/source\app_preinclude.h -I
+#        C:\Development\smart_washing_machine_3080/board\ -I
+#        C:\Development\smart_washing_machine_3080/source\ -I
+#        C:\Development\smart_washing_machine_3080/CMSIS\ -I
+#        C:\Development\smart_washing_machine_3080/amazon-freertos/freertos/portable\
+#        -I C:\Development\smart_washing_machine_3080/amazon-freertos/include\
+#        -I C:\Development\smart_washing_machine_3080/component/lists\ -I
+#        C:\Development\smart_washing_machine_3080/component/serial_manager\ -I
+#        C:\Development\smart_washing_machine_3080/component/uart\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv/include\ -I
+#        C:\Development\smart_washing_machine_3080/device\ -I
+#        C:\Development\smart_washing_machine_3080/doc\ -I
+#        C:\Development\smart_washing_machine_3080/drivers\ -I
+#        C:\Development\smart_washing_machine_3080/src\ -I
+#        C:\Development\smart_washing_machine_3080/startup\ -I
+#        C:\Development\smart_washing_machine_3080/utilities\ -I
+#        C:\Development\smart_washing_machine_3080/xip\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_model\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_sign\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\mqtt\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\external_libs\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\coap_cloud\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_reset\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\mbedtls\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\ -I
+#        C:\Development\smart_washing_machine_3080\mbedtls\port\ksdk\ -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list\at_parser.lst
+#    Object file  =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj\at_parser.o
+#
+###############################################################################
+
+C:\Development\smart_washing_machine_3080\csdk\eng\atm\at_parser.c
+      1          /*
+      2           * Copyright (C) 2015-2017 Alibaba Group Holding Limited
+      3           */
+      4          
+      5          #include <stdio.h>
+      6          #include <string.h>
+      7          
+      8          #include "infra_types.h"
+      9          #include "at_wrapper.h"
+     10          #include "at_parser.h"
+     11          
+     12          #define OOB_MAX 5
+     13          
+     14          typedef struct oob_s
+     15          {
+     16              char *     prefix;
+     17              char *     postfix;
+     18              char *     oobinputdata;
+     19              uint32_t   reallen;
+     20              uint32_t   maxlen;
+     21              at_recv_cb cb;
+     22              void *     arg;
+     23          } oob_t;
+     24          
+     25          /*
+     26           * --> | slist | --> | slist | --> NULL
+     27           *     ---------     ---------
+     28           *     | smhr  |     | smpr  |
+     29           *     ---------     ---------
+     30           *     | rsp   |     | rsp   |
+     31           *     ---------     ---------
+     32           */
+     33          #if !AT_SINGLE_TASK
+     34          #include "infra_list.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void slist_add(slist_t *, slist_t *)
+   \                     slist_add: (+1)
+   \        0x0   0x680A             LDR      R2,[R1, #+0]
+   \        0x2   0x6002             STR      R2,[R0, #+0]
+   \        0x4   0x6008             STR      R0,[R1, #+0]
+   \        0x6   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void slist_add_tail(slist_t *, slist_t *)
+   \                     slist_add_tail: (+1)
+   \        0x0   0xE000             B.N      ??slist_add_tail_0
+   \                     ??slist_add_tail_1: (+1)
+   \        0x2   0x4611             MOV      R1,R2
+   \                     ??slist_add_tail_0: (+1)
+   \        0x4   0x680A             LDR      R2,[R1, #+0]
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD1FB             BNE.N    ??slist_add_tail_1
+   \        0xA   0x....             B.N      slist_add
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void slist_del(slist_t *, slist_t *)
+   \                     slist_del: (+1)
+   \        0x0   0xE000             B.N      ??slist_del_0
+   \                     ??slist_del_1: (+1)
+   \        0x2   0x4611             MOV      R1,R2
+   \                     ??slist_del_0: (+1)
+   \        0x4   0x680A             LDR      R2,[R1, #+0]
+   \        0x6   0x2A00             CMP      R2,#+0
+   \        0x8   0xD003             BEQ.N    ??slist_del_2
+   \        0xA   0x4282             CMP      R2,R0
+   \        0xC   0xD1F9             BNE.N    ??slist_del_1
+   \        0xE   0x6800             LDR      R0,[R0, #+0]
+   \       0x10   0x6008             STR      R0,[R1, #+0]
+   \                     ??slist_del_2: (+1)
+   \       0x12   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp int slist_empty(slist_t const *)
+   \                     slist_empty: (+1)
+   \        0x0   0x6800             LDR      R0,[R0, #+0]
+   \        0x2   0x2800             CMP      R0,#+0
+   \        0x4   0xD101             BNE.N    ??slist_empty_0
+   \        0x6   0x2001             MOVS     R0,#+1
+   \        0x8   0x4770             BX       LR
+   \                     ??slist_empty_0: (+1)
+   \        0xA   0x2000             MOVS     R0,#+0
+   \        0xC   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void slist_init(slist_t *)
+   \                     slist_init: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+   \        0x2   0x6001             STR      R1,[R0, #+0]
+   \        0x4   0x4770             BX       LR               ;; return
+     35          typedef struct at_task_s
+     36          {
+     37              slist_t   next;
+     38              void *    smpr;
+     39              char *    command;
+     40              char *    rsp;
+     41              char *    rsp_prefix;
+     42              char *    rsp_success_postfix;
+     43              char *    rsp_fail_postfix;
+     44              uint32_t  rsp_prefix_len;
+     45              uint32_t  rsp_success_postfix_len;
+     46              uint32_t  rsp_fail_postfix_len;
+     47              uint32_t  rsp_offset;
+     48              uint32_t  rsp_len;
+     49          } at_task_t;
+     50          #endif
+     51          
+     52          /**
+     53           * Parser structure for parsing AT commands
+     54           */
+     55          typedef struct
+     56          {
+     57              uart_dev_t *_pstuart;
+     58              int         _timeout;
+     59              char *      _default_recv_prefix;
+     60              char *      _default_recv_success_postfix;
+     61              char *      _default_recv_fail_postfix;
+     62              char *      _send_delimiter;
+     63              int         _recv_prefix_len;
+     64              int         _recv_success_postfix_len;
+     65              int         _recv_fail_postfix_len;
+     66              int         _send_delim_size;
+     67              oob_t       _oobs[OOB_MAX];
+     68              int         _oobs_num;
+     69              void *      at_uart_recv_mutex;
+     70              void *      at_uart_send_mutex;
+     71              void *      task_mutex;
+     72          #if !AT_SINGLE_TASK
+     73              slist_t     task_l;
+     74          #endif
+     75          } at_parser_t;
+     76          
+     77          #define TASK_DEFAULT_WAIT_TIME 5000
+     78          
+     79          #ifndef AT_WORKER_STACK_SIZE
+     80          #define AT_WORKER_STACK_SIZE   1024
+     81          #endif
+     82          
+     83          #ifndef AT_UART_TIMEOUT_MS
+     84          #define AT_UART_TIMEOUT_MS     1000
+     85          #endif
+     86          
+     87          #ifndef AT_CMD_DATA_INTERVAL_MS
+     88          #define AT_CMD_DATA_INTERVAL_MS   0
+     89          #endif
+     90          
+     91          #ifdef AT_DEBUG_MODE
+     92          #define atpsr_err(...)               do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
+     93          #define atpsr_warning(...)           do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
+     94          #define atpsr_info(...)              do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
+     95          #define atpsr_debug(...)             do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
+     96          #else
+     97          #define atpsr_err(...)
+     98          #define atpsr_warning(...)
+     99          #define atpsr_info(...)
+    100          #define atpsr_debug(...)
+    101          #endif
+    102          
+
+   \                                 In section .bss, align 1
+    103          static uint8_t    inited = 0;
+   \                     inited:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 4
+    104          static uart_dev_t at_uart;
+   \                     at_uart:
+   \        0x0                      DS8 20
+    105          
+
+   \                                 In section .bss, align 4
+    106          static at_parser_t at;
+   \                     at:
+   \        0x0                      DS8 200
+    107          
+    108          #if !AT_SINGLE_TASK
+    109          static void* at_worker(void *arg);
+    110          #endif
+    111          
+    112          #ifndef PLATFORM_HAS_DYNMEM
+    113          #if !AT_SINGLE_TASK
+    114          static at_task_t g_at_task;
+    115          #endif
+    116          #endif
+    117          
+
+   \                                 In section .text, align 2, keep-with-next
+    118          static void at_uart_configure(uart_dev_t *u)
+    119          {
+    120              u->port                = AT_UART_PORT;
+   \                     at_uart_configure: (+1)
+   \        0x0   0x2102             MOVS     R1,#+2
+   \        0x2   0x7001             STRB     R1,[R0, #+0]
+    121              u->config.baud_rate    = AT_UART_BAUDRATE;
+   \        0x4   0xF44F 0x31E1      MOV      R1,#+115200
+   \        0x8   0x6041             STR      R1,[R0, #+4]
+    122              u->config.data_width   = AT_UART_DATA_WIDTH;
+   \        0xA   0x2103             MOVS     R1,#+3
+   \        0xC   0x7201             STRB     R1,[R0, #+8]
+    123              u->config.parity       = AT_UART_PARITY;
+   \        0xE   0x2100             MOVS     R1,#+0
+   \       0x10   0x7241             STRB     R1,[R0, #+9]
+    124              u->config.stop_bits    = AT_UART_STOP_BITS;
+   \       0x12   0x7281             STRB     R1,[R0, #+10]
+    125              u->config.flow_control = AT_UART_FLOW_CONTROL;
+   \       0x14   0x72C1             STRB     R1,[R0, #+11]
+    126              u->config.mode         = AT_UART_MODE;
+   \       0x16   0x2102             MOVS     R1,#+2
+   \       0x18   0x7301             STRB     R1,[R0, #+12]
+    127          }
+   \       0x1A   0x4770             BX       LR               ;; return
+    128          
+
+   \                                 In section .text, align 2, keep-with-next
+    129          static int at_init_uart()
+    130          {
+   \                     at_init_uart: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    131              at_uart_configure(&at_uart);
+   \        0x2   0x....'....        LDR.W    R4,??DataTable20
+   \        0x6   0x4620             MOV      R0,R4
+   \        0x8   0x....'....        BL       at_uart_configure
+    132          
+    133              if (HAL_AT_Uart_Init(&at_uart) != 0) {
+   \        0xC   0x4620             MOV      R0,R4
+   \        0xE   0x....'....        BL       HAL_AT_Uart_Init
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD002             BEQ.N    ??at_init_uart_0
+    134                  return -1;
+   \       0x16   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x1A   0xBD10             POP      {R4,PC}
+    135              }
+    136          
+    137              at._pstuart = &at_uart;
+   \                     ??at_init_uart_0: (+1)
+   \       0x1C   0x....'....        LDR.W    R0,??DataTable20_1
+   \       0x20   0x6004             STR      R4,[R0, #+0]
+    138          
+    139              return 0;
+   \       0x22   0x2000             MOVS     R0,#+0
+   \       0x24   0xBD10             POP      {R4,PC}          ;; return
+    140          }
+    141          
+
+   \                                 In section .text, align 2, keep-with-next
+    142          static void at_set_timeout(int timeout)
+    143          {
+    144              at._timeout = timeout;
+   \                     at_set_timeout: (+1)
+   \        0x0   0x....'....        LDR.W    R1,??DataTable20_1
+   \        0x4   0x6048             STR      R0,[R1, #+4]
+    145          }
+   \        0x6   0x4770             BX       LR               ;; return
+    146          
+
+   \                                 In section .text, align 2, keep-with-next
+    147          static void at_set_recv_delimiter(const char *recv_prefix,
+    148                                            const char *recv_success_postfix,
+    149                                            const char *recv_fail_postfix)
+    150          {
+   \                     at_set_recv_delimiter: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x460C             MOV      R4,R1
+   \        0x4   0x4615             MOV      R5,R2
+    151              at._default_recv_prefix          = (char *)recv_prefix;
+   \        0x6   0x....'....        LDR.W    R6,??DataTable20_1
+   \        0xA   0x60B0             STR      R0,[R6, #+8]
+    152              at._default_recv_success_postfix = (char *)recv_success_postfix;
+   \        0xC   0x60F4             STR      R4,[R6, #+12]
+    153              at._default_recv_fail_postfix    = (char *)recv_fail_postfix;
+   \        0xE   0x6135             STR      R5,[R6, #+16]
+    154              at._recv_prefix_len              = strlen(recv_prefix);
+   \       0x10   0x....'....        BL       strlen
+   \       0x14   0x61B0             STR      R0,[R6, #+24]
+    155              at._recv_success_postfix_len     = strlen(recv_success_postfix);
+   \       0x16   0x4620             MOV      R0,R4
+   \       0x18   0x....'....        BL       strlen
+   \       0x1C   0x61F0             STR      R0,[R6, #+28]
+    156              at._recv_fail_postfix_len        = strlen(recv_fail_postfix);
+   \       0x1E   0x4628             MOV      R0,R5
+   \       0x20   0x....'....        BL       strlen
+   \       0x24   0x6230             STR      R0,[R6, #+32]
+    157          }
+   \       0x26   0xBD70             POP      {R4-R6,PC}       ;; return
+    158          
+
+   \                                 In section .text, align 2, keep-with-next
+    159          static void at_set_send_delimiter(const char *delimiter)
+    160          {
+   \                     at_set_send_delimiter: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    161              at._send_delimiter  = (char *)delimiter;
+   \        0x2   0x....'....        LDR.W    R4,??DataTable20_1
+   \        0x6   0x6160             STR      R0,[R4, #+20]
+    162              at._send_delim_size = strlen(delimiter);
+   \        0x8   0x....'....        BL       strlen
+   \        0xC   0x6260             STR      R0,[R4, #+36]
+    163          }
+   \        0xE   0xBD10             POP      {R4,PC}          ;; return
+    164          
+
+   \                                 In section .text, align 2, keep-with-next
+    165          static int at_init_task_mutex()
+    166          {
+   \                     at_init_task_mutex: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    167              at.task_mutex = HAL_MutexCreate();
+   \        0x2   0x....'....        LDR.W    R4,??DataTable20_1
+   \        0x6   0x....'....        BL       HAL_MutexCreate
+   \        0xA   0xF8C4 0x00C0      STR      R0,[R4, #+192]
+    168              if (NULL == at.task_mutex) {
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD102             BNE.N    ??at_init_task_mutex_0
+    169                  atpsr_err("Creating task mutex failed\r\n");
+    170                  return -1;
+   \       0x12   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x16   0xBD10             POP      {R4,PC}
+    171              }
+    172          
+    173              return 0;
+   \                     ??at_init_task_mutex_0: (+1)
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0xBD10             POP      {R4,PC}          ;; return
+    174          }
+    175          
+
+   \                                 In section .text, align 2, keep-with-next
+    176          static void at_deinit_task_mutex()
+    177          {
+    178              if (at.task_mutex) {
+   \                     at_deinit_task_mutex: (+1)
+   \        0x0   0x....'....        LDR.W    R1,??DataTable20_1
+   \        0x4   0xF8D1 0x00C0      LDR      R0,[R1, #+192]
+   \        0x8   0x2800             CMP      R0,#+0
+   \        0xA   0xD001             BEQ.N    ??at_deinit_task_mutex_0
+    179                  HAL_MutexDestroy(at.task_mutex);
+   \        0xC   0x....'....        B.W      HAL_MutexDestroy
+    180              }
+    181              return;
+   \                     ??at_deinit_task_mutex_0: (+1)
+   \       0x10   0x4770             BX       LR               ;; return
+    182          }
+    183          
+
+   \                                 In section .text, align 2, keep-with-next
+    184          static int at_init_uart_recv_mutex()
+    185          {
+   \                     at_init_uart_recv_mutex: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    186              at.at_uart_recv_mutex = HAL_MutexCreate();
+   \        0x2   0x....'....        LDR.W    R4,??DataTable20_1
+   \        0x6   0x....'....        BL       HAL_MutexCreate
+   \        0xA   0xF8C4 0x00B8      STR      R0,[R4, #+184]
+    187              if (NULL == at.at_uart_recv_mutex) {
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD102             BNE.N    ??at_init_uart_recv_mutex_0
+    188                  atpsr_err("Creating at_uart_recv_mutex failed\r\n");
+    189                  return -1;
+   \       0x12   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x16   0xBD10             POP      {R4,PC}
+    190              }
+    191          
+    192              return 0;
+   \                     ??at_init_uart_recv_mutex_0: (+1)
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0xBD10             POP      {R4,PC}          ;; return
+    193          }
+    194          
+
+   \                                 In section .text, align 2, keep-with-next
+    195          static void at_deinit_uart_recv_mutex()
+    196          {
+    197              if (at.at_uart_recv_mutex) {
+   \                     at_deinit_uart_recv_mutex: (+1)
+   \        0x0   0x....'....        LDR.W    R1,??DataTable20_1
+   \        0x4   0xF8D1 0x00B8      LDR      R0,[R1, #+184]
+   \        0x8   0x2800             CMP      R0,#+0
+   \        0xA   0xD001             BEQ.N    ??at_deinit_uart_recv_mutex_0
+    198                  HAL_MutexDestroy(at.at_uart_recv_mutex);
+   \        0xC   0x....'....        B.W      HAL_MutexDestroy
+    199              }
+    200              return;
+   \                     ??at_deinit_uart_recv_mutex_0: (+1)
+   \       0x10   0x4770             BX       LR               ;; return
+    201          }
+    202          
+
+   \                                 In section .text, align 2, keep-with-next
+    203          static int at_worker_uart_send_mutex_init()
+    204          {
+   \                     at_worker_uart_send_mutex_init: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+    205              at.at_uart_send_mutex = HAL_MutexCreate();
+   \        0x2   0x....'....        LDR.W    R4,??DataTable20_1
+   \        0x6   0x....'....        BL       HAL_MutexCreate
+   \        0xA   0xF8C4 0x00BC      STR      R0,[R4, #+188]
+    206              if (NULL == at.at_uart_send_mutex) {
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD102             BNE.N    ??at_worker_uart_send_mutex_init_0
+    207                  atpsr_err("Creating at worker sem failed\r\n");
+    208                  return -1;
+   \       0x12   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x16   0xBD10             POP      {R4,PC}
+    209              }
+    210              return 0;
+   \                     ??at_worker_uart_send_mutex_init_0: (+1)
+   \       0x18   0x2000             MOVS     R0,#+0
+   \       0x1A   0xBD10             POP      {R4,PC}          ;; return
+    211          }
+    212          
+    213          #if !AT_SINGLE_TASK
+
+   \                                 In section .text, align 2, keep-with-next
+    214          static void at_worker_uart_send_mutex_deinit()
+    215          {
+    216              if (at.at_uart_send_mutex) {
+   \                     at_worker_uart_send_mutex_deinit: (+1)
+   \        0x0   0x....'....        LDR.W    R1,??DataTable20_1
+   \        0x4   0xF8D1 0x00BC      LDR      R0,[R1, #+188]
+   \        0x8   0x2800             CMP      R0,#+0
+   \        0xA   0xD001             BEQ.N    ??at_worker_uart_send_mutex_deinit_0
+    217                  HAL_MutexDestroy(at.at_uart_send_mutex);
+   \        0xC   0x....'....        B.W      HAL_MutexDestroy
+    218              }
+    219          }
+   \                     ??at_worker_uart_send_mutex_deinit_0: (+1)
+   \       0x10   0x4770             BX       LR               ;; return
+    220          #endif
+    221          
+
+   \                                 In section .text, align 2, keep-with-next
+    222          int at_parser_init(void)
+    223          {
+   \                     at_parser_init: (+1)
+   \        0x0   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \        0x4   0xB088             SUB      SP,SP,#+32
+    224              char *recv_prefix = AT_RECV_PREFIX;
+   \        0x6   0x....             ADR.N    R4,??DataTable14  ;; 0x0D, 0x0A, 0x00, 0x00
+    225              char *recv_success_postfix = AT_RECV_SUCCESS_POSTFIX;
+   \        0x8   0x....'....        LDR.W    R5,??DataTable20_2
+    226              char *recv_fail_postfix = AT_RECV_FAIL_POSTFIX;
+   \        0xC   0x....'....        LDR.W    R6,??DataTable20_3
+    227              char *send_delimiter = AT_SEND_DELIMITER;
+   \       0x10   0x....             ADR.N    R7,??DataTable15  ;; "\r"
+    228              int  timeout = AT_UART_TIMEOUT_MS;
+    229          #if !AT_SINGLE_TASK
+    230              void *task;
+    231              int stack_used;
+    232              hal_os_thread_param_t task_parms = {0};
+                                                         ^
+Warning[Pe188]: enumerated type mixed with another type
+   \       0x12   0xA803             ADD      R0,SP,#+12
+   \       0x14   0x2114             MOVS     R1,#+20
+   \       0x16   0x....'....        BL       __aeabi_memclr4
+    233          #endif
+    234          
+    235              if (inited == 1) {
+   \       0x1A   0x....'....        LDR.W    R0,??DataTable20_4
+   \       0x1E   0x7800             LDRB     R0,[R0, #+0]
+   \       0x20   0x2801             CMP      R0,#+1
+   \       0x22   0xD102             BNE.N    ??at_parser_init_0
+    236                  atpsr_info("have already inited ,it will init again\r\n");
+    237                  return -1;
+   \       0x24   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x28   0xE05C             B.N      ??at_parser_init_1
+    238              }
+    239          
+    240              memset(&at, 0, sizeof(at_parser_t));
+   \                     ??at_parser_init_0: (+1)
+   \       0x2A   0x....'....        LDR.W    R8,??DataTable20_1
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x21C8             MOVS     R1,#+200
+   \       0x32   0x4640             MOV      R0,R8
+   \       0x34   0x....'....        BL       __aeabi_memset4
+    241          
+    242              if (at_init_uart() != 0) {
+   \       0x38   0x....'....        BL       at_init_uart
+   \       0x3C   0x2800             CMP      R0,#+0
+   \       0x3E   0xD002             BEQ.N    ??at_parser_init_2
+    243                  atpsr_err("at uart init fail \r\n");
+    244                  return -1;
+   \       0x40   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x44   0xE04E             B.N      ??at_parser_init_1
+    245              }
+    246          
+    247              memset(at._oobs, 0, sizeof(oob_t) * OOB_MAX);
+   \                     ??at_parser_init_2: (+1)
+   \       0x46   0x2200             MOVS     R2,#+0
+   \       0x48   0x218C             MOVS     R1,#+140
+   \       0x4A   0xF108 0x0028      ADD      R0,R8,#+40
+   \       0x4E   0x....'....        BL       __aeabi_memset4
+    248          
+    249              at_set_timeout(timeout);
+   \       0x52   0xF44F 0x707A      MOV      R0,#+1000
+   \       0x56   0x....'....        BL       at_set_timeout
+    250              at_set_recv_delimiter(recv_prefix, recv_success_postfix, recv_fail_postfix);
+   \       0x5A   0x4632             MOV      R2,R6
+   \       0x5C   0x4629             MOV      R1,R5
+   \       0x5E   0x4620             MOV      R0,R4
+   \       0x60   0x....'....        BL       at_set_recv_delimiter
+    251              at_set_send_delimiter(send_delimiter);
+   \       0x64   0x4638             MOV      R0,R7
+   \       0x66   0x....'....        BL       at_set_send_delimiter
+    252          
+    253              if (at_init_uart_recv_mutex() != 0) {
+   \       0x6A   0x....'....        BL       at_init_uart_recv_mutex
+   \       0x6E   0x2800             CMP      R0,#+0
+   \       0x70   0xD002             BEQ.N    ??at_parser_init_3
+    254                  atpsr_err("at_uart_recv_mutex init fail \r\n");
+    255                  return -1;
+   \       0x72   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x76   0xE035             B.N      ??at_parser_init_1
+    256              }
+    257          
+    258              if (at_init_task_mutex() != 0) {
+   \                     ??at_parser_init_3: (+1)
+   \       0x78   0x....'....        BL       at_init_task_mutex
+   \       0x7C   0x2800             CMP      R0,#+0
+   \       0x7E   0xD004             BEQ.N    ??at_parser_init_4
+    259                  at_deinit_uart_recv_mutex();
+   \       0x80   0x....'....        BL       at_deinit_uart_recv_mutex
+    260                  atpsr_err("at mutex init fail \r\n");
+    261                  return -1;
+   \       0x84   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x88   0xE02C             B.N      ??at_parser_init_1
+    262              }
+    263          
+    264              if (at_worker_uart_send_mutex_init() != 0) {
+   \                     ??at_parser_init_4: (+1)
+   \       0x8A   0x....'....        BL       at_worker_uart_send_mutex_init
+   \       0x8E   0x2800             CMP      R0,#+0
+   \       0x90   0xD003             BEQ.N    ??at_parser_init_5
+    265                  at_deinit_uart_recv_mutex();
+   \       0x92   0x....'....        BL       at_deinit_uart_recv_mutex
+    266                  at_deinit_task_mutex();
+   \       0x96   0x....'....        BL       at_deinit_task_mutex
+    267                  atpsr_err("fail to creat at worker sem\r\n");
+    268              }
+    269          
+    270          #if AT_SINGLE_TASK
+    271              inited = true;
+    272          #else
+    273              slist_init(&at.task_l);
+   \                     ??at_parser_init_5: (+1)
+   \       0x9A   0xF108 0x00C4      ADD      R0,R8,#+196
+   \       0x9E   0x....'....        BL       slist_init
+    274          
+    275              task_parms.priority = os_thread_priority_normal;
+   \       0xA2   0x2000             MOVS     R0,#+0
+   \       0xA4   0xF8AD 0x000C      STRH     R0,[SP, #+12]
+    276              task_parms.stack_size = AT_WORKER_STACK_SIZE;
+   \       0xA8   0xF44F 0x6080      MOV      R0,#+1024
+   \       0xAC   0x9005             STR      R0,[SP, #+20]
+    277              task_parms.name = "at_worker";
+   \       0xAE   0x....'....        LDR.W    R0,??DataTable20_5
+   \       0xB2   0x9007             STR      R0,[SP, #+28]
+    278              if (HAL_ThreadCreate(&task, at_worker, NULL, &task_parms, &stack_used) != 0) {
+   \       0xB4   0xA801             ADD      R0,SP,#+4
+   \       0xB6   0x9000             STR      R0,[SP, #+0]
+   \       0xB8   0xAB03             ADD      R3,SP,#+12
+   \       0xBA   0x2200             MOVS     R2,#+0
+   \       0xBC   0x....'....        ADR.W    R1,at_worker
+   \       0xC0   0xA802             ADD      R0,SP,#+8
+   \       0xC2   0x....'....        BL       HAL_ThreadCreate
+   \       0xC6   0x2800             CMP      R0,#+0
+   \       0xC8   0xD008             BEQ.N    ??at_parser_init_6
+    279                  at_deinit_uart_recv_mutex();
+   \       0xCA   0x....'....        BL       at_deinit_uart_recv_mutex
+    280                  at_deinit_task_mutex();
+   \       0xCE   0x....'....        BL       at_deinit_task_mutex
+    281                  at_worker_uart_send_mutex_deinit();
+   \       0xD2   0x....'....        BL       at_worker_uart_send_mutex_deinit
+    282                  atpsr_err("fail to creat at task\r\n");
+    283                  return -1;
+   \       0xD6   0xF04F 0x30FF      MOV      R0,#-1
+   \       0xDA   0xE003             B.N      ??at_parser_init_1
+    284              }
+    285          	HAL_SleepMs(200);
+   \                     ??at_parser_init_6: (+1)
+   \       0xDC   0x20C8             MOVS     R0,#+200
+   \       0xDE   0x....'....        BL       HAL_SleepMs
+    286          #endif
+    287          
+    288              return 0;
+   \       0xE2   0x2000             MOVS     R0,#+0
+   \                     ??at_parser_init_1: (+1)
+   \       0xE4   0xB008             ADD      SP,SP,#+32
+   \       0xE6   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+    289          }
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x0000             DC16 0
+   \        0x2   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+    290          
+
+   \                                 In section .text, align 2, keep-with-next
+    291          static int at_sendto_lower(uart_dev_t *uart, void *data, uint32_t size,
+    292                                     uint32_t timeout, bool ackreq)
+    293          {
+    294              int ret = -1;
+    295          
+    296              (void) ackreq;
+    297              ret = HAL_AT_Uart_Send(uart, data, size, timeout);
+    298          
+    299              return ret;
+   \                     at_sendto_lower: (+1)
+   \        0x0   0x....'....        B.W      HAL_AT_Uart_Send
+    300          }
+    301          
+
+   \                                 In section .text, align 2, keep-with-next
+    302          static int at_recvfrom_lower(uart_dev_t *uart, void *data, uint32_t expect_size,
+    303                                       uint32_t *recv_size, uint32_t timeout)
+    304          {
+   \                     at_recvfrom_lower: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+   \        0x2   0x9C04             LDR      R4,[SP, #+16]
+    305              int ret = -1;
+    306          
+    307              ret = HAL_AT_Uart_Recv(uart, data, expect_size, recv_size, timeout);
+    308          
+    309              return ret;
+   \        0x4   0x9400             STR      R4,[SP, #+0]
+   \        0x6   0x....'....        BL       HAL_AT_Uart_Recv
+   \        0xA   0xBD16             POP      {R1,R2,R4,PC}    ;; return
+    310          }
+    311          
+    312          #if AT_SINGLE_TASK
+    313          int at_send_wait_reply(const char *cmd, int cmdlen, bool delimiter,
+    314                                 const char *data, int datalen,
+    315                                 char *replybuf, int bufsize,
+    316                                 const atcmd_config_t *atcmdconfig)
+    317          {
+    318              int intval_ms = AT_CMD_DATA_INTERVAL_MS;
+    319          
+    320              if (at_send_no_reply(cmd, cmdlen, delimiter) < 0) {
+    321                  return -1;
+    322              }
+    323          
+    324              if (data && datalen) {
+    325                  if (intval_ms > 0)
+    326                      HAL_SleepMs(intval_ms);
+    327          
+    328                  if (at_send_no_reply(data, datalen, false) < 0) {
+    329                      return -1;
+    330                  }
+    331              }
+    332          	//HAL_SleepMs(100);
+    333          
+    334              if (at_yield(replybuf, bufsize, atcmdconfig, at._timeout) <  0) {
+    335                  return -1;
+    336              }
+    337          
+    338              return 0;
+    339          }
+    340          #else
+
+   \                                 In section .text, align 2, keep-with-next
+    341          static int at_worker_task_add(at_task_t *tsk)
+    342          {
+   \                     at_worker_task_add: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+    343              if (NULL == tsk) {
+   \        0x4   0xD102             BNE.N    ??at_worker_task_add_0
+    344                  atpsr_err("invalid input %s \r\n", __func__);
+    345                  return -1;
+   \        0x6   0xF04F 0x30FF      MOV      R0,#-1
+   \        0xA   0xBD32             POP      {R1,R4,R5,PC}
+    346              }
+    347          
+    348              HAL_MutexLock(at.task_mutex);
+   \                     ??at_worker_task_add_0: (+1)
+   \        0xC   0x....'....        LDR.W    R5,??DataTable20_1
+   \       0x10   0xF8D5 0x00C0      LDR      R0,[R5, #+192]
+   \       0x14   0x....'....        BL       HAL_MutexLock
+    349              slist_add_tail(&tsk->next, &at.task_l);
+   \       0x18   0xF105 0x01C4      ADD      R1,R5,#+196
+   \       0x1C   0x4620             MOV      R0,R4
+   \       0x1E   0x....'....        BL       slist_add_tail
+    350              HAL_MutexUnlock(at.task_mutex);
+   \       0x22   0xF8D5 0x00C0      LDR      R0,[R5, #+192]
+   \       0x26   0x....'....        BL       HAL_MutexUnlock
+    351          
+    352              return 0;
+   \       0x2A   0x2000             MOVS     R0,#+0
+   \       0x2C   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    353          }
+    354          
+
+   \                                 In section .text, align 2, keep-with-next
+    355          static int at_worker_task_del(at_task_t *tsk)
+    356          {
+   \                     at_worker_task_del: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+   \        0x2   0x0004             MOVS     R4,R0
+    357              if (NULL == tsk) {
+   \        0x4   0xD102             BNE.N    ??at_worker_task_del_0
+    358                  atpsr_err("invalid input %s \r\n", __func__);
+    359                  return -1;
+   \        0x6   0xF04F 0x30FF      MOV      R0,#-1
+   \        0xA   0xBD32             POP      {R1,R4,R5,PC}
+    360              }
+    361          
+    362              HAL_MutexLock(at.task_mutex);
+   \                     ??at_worker_task_del_0: (+1)
+   \        0xC   0x....'....        LDR.W    R5,??DataTable20_1
+   \       0x10   0xF8D5 0x00C0      LDR      R0,[R5, #+192]
+   \       0x14   0x....'....        BL       HAL_MutexLock
+    363              slist_del(&tsk->next, &at.task_l);
+   \       0x18   0xF105 0x01C4      ADD      R1,R5,#+196
+   \       0x1C   0x4620             MOV      R0,R4
+   \       0x1E   0x....'....        BL       slist_del
+    364              HAL_MutexUnlock(at.task_mutex);
+   \       0x22   0xF8D5 0x00C0      LDR      R0,[R5, #+192]
+   \       0x26   0x....'....        BL       HAL_MutexUnlock
+    365              if (tsk->smpr) {
+   \       0x2A   0x6860             LDR      R0,[R4, #+4]
+   \       0x2C   0x2800             CMP      R0,#+0
+   \       0x2E   0xD001             BEQ.N    ??at_worker_task_del_1
+    366                  HAL_SemaphoreDestroy(tsk->smpr);
+   \       0x30   0x....'....        BL       HAL_SemaphoreDestroy
+    367              }
+    368              if (tsk) {
+    369          #ifdef PLATFORM_HAS_DYNMEM
+    370                  HAL_Free(tsk);
+   \                     ??at_worker_task_del_1: (+1)
+   \       0x34   0x4620             MOV      R0,R4
+   \       0x36   0x....'....        BL       HAL_Free
+    371          #endif
+    372              }
+    373          
+    374              return 0;
+   \       0x3A   0x2000             MOVS     R0,#+0
+   \       0x3C   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    375          }
+    376          
+
+   \                                 In section .text, align 2, keep-with-next
+    377          int at_send_wait_reply(const char *cmd, int cmdlen, bool delimiter,
+    378                                 const char *data, int datalen,
+    379                                 char *replybuf, int bufsize,
+    380                                 const atcmd_config_t *atcmdconfig)
+    381          { 
+   \                     at_send_wait_reply: (+1)
+   \        0x0   0xE92D 0x4FFE      PUSH     {R1-R11,LR}
+   \        0x4   0x4691             MOV      R9,R2
+   \        0x6   0x4698             MOV      R8,R3
+    382              int ret = 0;
+   \        0x8   0x2400             MOVS     R4,#+0
+    383              int intval_ms = AT_CMD_DATA_INTERVAL_MS;
+    384              at_task_t *tsk;
+    385          
+    386              if (inited == 0) {
+   \        0xA   0x....'....        LDR.W    R2,??DataTable20_4
+   \        0xE   0x7812             LDRB     R2,[R2, #+0]
+   \       0x10   0x2A00             CMP      R2,#+0
+   \       0x12   0xD00D             BEQ.N    ??at_send_wait_reply_0
+   \       0x14   0x0005             MOVS     R5,R0
+    387                  atpsr_err("at have not init yet\r\n");
+    388                  return -1;
+    389              }
+    390          
+    391              if (NULL == cmd || cmdlen <= 0) {
+   \       0x16   0xD00B             BEQ.N    ??at_send_wait_reply_0
+   \       0x18   0x9101             STR      R1,[SP, #+4]
+   \       0x1A   0x4608             MOV      R0,R1
+   \       0x1C   0x2801             CMP      R0,#+1
+   \       0x1E   0xDB07             BLT.N    ??at_send_wait_reply_0
+   \       0x20   0x9F0D             LDR      R7,[SP, #+52]
+    392                  atpsr_err("%s invalid input \r\n", __FUNCTION__);
+    393                  return -1;
+    394              }
+    395          
+    396              if (NULL == replybuf || 0 == bufsize) {
+   \       0x22   0x2F00             CMP      R7,#+0
+   \       0x24   0xD004             BEQ.N    ??at_send_wait_reply_0
+   \       0x26   0xF8DD 0xB038      LDR      R11,[SP, #+56]
+   \       0x2A   0xF1BB 0x0F00      CMP      R11,#+0
+   \       0x2E   0xD102             BNE.N    ??at_send_wait_reply_1
+    397                  atpsr_err("%s invalid input \r\n", __FUNCTION__);
+    398                  return -1;
+   \                     ??at_send_wait_reply_0: (+1)
+   \       0x30   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x34   0xE07A             B.N      ??at_send_wait_reply_2
+    399              }
+    400          
+    401              HAL_MutexLock(at.at_uart_send_mutex);
+   \                     ??at_send_wait_reply_1: (+1)
+   \       0x36   0x....'....        LDR.W    R10,??DataTable20_1
+   \       0x3A   0xF8DA 0x00BC      LDR      R0,[R10, #+188]
+   \       0x3E   0x....'....        BL       HAL_MutexLock
+    402          #ifdef PLATFORM_HAS_DYNMEM
+    403              tsk = (at_task_t *)HAL_Malloc(sizeof(at_task_t));
+   \       0x42   0x2030             MOVS     R0,#+48
+   \       0x44   0x....'....        BL       HAL_Malloc
+   \       0x48   0x0006             MOVS     R6,R0
+    404          #else
+    405              tsk = &g_at_task;
+    406          #endif
+    407              if (NULL == tsk) {
+   \       0x4A   0xD106             BNE.N    ??at_send_wait_reply_3
+    408                  atpsr_err("tsk buffer allocating failed");
+    409                  HAL_MutexUnlock(at.at_uart_send_mutex);
+   \       0x4C   0xF8DA 0x00BC      LDR      R0,[R10, #+188]
+   \       0x50   0x....'....        BL       HAL_MutexUnlock
+    410                  return -1;
+   \       0x54   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x58   0xE068             B.N      ??at_send_wait_reply_2
+    411              }
+    412              memset(tsk, 0, sizeof(at_task_t));
+   \                     ??at_send_wait_reply_3: (+1)
+   \       0x5A   0x4622             MOV      R2,R4
+   \       0x5C   0x2130             MOVS     R1,#+48
+   \       0x5E   0x....'....        BL       __aeabi_memset4
+    413          
+    414              tsk->smpr = HAL_SemaphoreCreate();
+   \       0x62   0x....'....        BL       HAL_SemaphoreCreate
+   \       0x66   0x6070             STR      R0,[R6, #+4]
+    415              if (NULL == tsk->smpr) {
+   \       0x68   0x2800             CMP      R0,#+0
+   \       0x6A   0xD057             BEQ.N    ??at_send_wait_reply_4
+   \       0x6C   0x9C0F             LDR      R4,[SP, #+60]
+    416                  atpsr_err("failed to allocate semaphore");
+    417                  goto end;
+    418              }
+    419          
+    420              if (atcmdconfig) {
+   \       0x6E   0x2C00             CMP      R4,#+0
+   \       0x70   0xD017             BEQ.N    ??at_send_wait_reply_5
+    421                  if (NULL != atcmdconfig->reply_prefix) {
+   \       0x72   0x6820             LDR      R0,[R4, #+0]
+   \       0x74   0x2800             CMP      R0,#+0
+   \       0x76   0xD004             BEQ.N    ??at_send_wait_reply_6
+    422                      tsk->rsp_prefix     = atcmdconfig->reply_prefix;
+   \       0x78   0x6130             STR      R0,[R6, #+16]
+    423                      tsk->rsp_prefix_len = strlen(atcmdconfig->reply_prefix);
+   \       0x7A   0x6820             LDR      R0,[R4, #+0]
+   \       0x7C   0x....'....        BL       strlen
+   \       0x80   0x61F0             STR      R0,[R6, #+28]
+    424                  }
+    425          
+    426                  if (NULL != atcmdconfig->reply_success_postfix) {
+   \                     ??at_send_wait_reply_6: (+1)
+   \       0x82   0x6860             LDR      R0,[R4, #+4]
+   \       0x84   0x2800             CMP      R0,#+0
+   \       0x86   0xD004             BEQ.N    ??at_send_wait_reply_7
+    427                      tsk->rsp_success_postfix     = atcmdconfig->reply_success_postfix;
+   \       0x88   0x6170             STR      R0,[R6, #+20]
+    428                      tsk->rsp_success_postfix_len = strlen(atcmdconfig->reply_success_postfix);
+   \       0x8A   0x6860             LDR      R0,[R4, #+4]
+   \       0x8C   0x....'....        BL       strlen
+   \       0x90   0x6230             STR      R0,[R6, #+32]
+    429                  }
+    430          
+    431                  if (NULL != atcmdconfig->reply_fail_postfix) {
+   \                     ??at_send_wait_reply_7: (+1)
+   \       0x92   0x68A0             LDR      R0,[R4, #+8]
+   \       0x94   0x2800             CMP      R0,#+0
+   \       0x96   0xD004             BEQ.N    ??at_send_wait_reply_5
+    432                      tsk->rsp_fail_postfix     = atcmdconfig->reply_fail_postfix;
+   \       0x98   0x61B0             STR      R0,[R6, #+24]
+    433                      tsk->rsp_fail_postfix_len = strlen(atcmdconfig->reply_fail_postfix);
+   \       0x9A   0x68A0             LDR      R0,[R4, #+8]
+   \       0x9C   0x....'....        BL       strlen
+   \       0xA0   0x6270             STR      R0,[R6, #+36]
+    434                  }
+    435              }
+    436          
+    437              tsk->command = (char *)cmd;
+   \                     ??at_send_wait_reply_5: (+1)
+   \       0xA2   0x60B5             STR      R5,[R6, #+8]
+    438              tsk->rsp     = replybuf;
+   \       0xA4   0x60F7             STR      R7,[R6, #+12]
+    439              tsk->rsp_len = bufsize;
+   \       0xA6   0xF8C6 0xB02C      STR      R11,[R6, #+44]
+    440          
+    441              at_worker_task_add(tsk);
+   \       0xAA   0x4630             MOV      R0,R6
+   \       0xAC   0x....'....        BL       at_worker_task_add
+    442          
+    443              if ((ret = at_sendto_lower(at._pstuart, (void *)cmd, cmdlen,
+    444                                         at._timeout, true)) != 0) {
+   \       0xB0   0x2001             MOVS     R0,#+1
+   \       0xB2   0x9000             STR      R0,[SP, #+0]
+   \       0xB4   0xF8DA 0x3004      LDR      R3,[R10, #+4]
+   \       0xB8   0x9A01             LDR      R2,[SP, #+4]
+   \       0xBA   0x4629             MOV      R1,R5
+   \       0xBC   0xF8DA 0x0000      LDR      R0,[R10, #+0]
+   \       0xC0   0x....'....        BL       at_sendto_lower
+   \       0xC4   0x0004             MOVS     R4,R0
+   \       0xC6   0xD129             BNE.N    ??at_send_wait_reply_4
+    445                  atpsr_err("uart send command failed");
+    446                  goto end;
+    447              }
+    448          
+    449              if (delimiter) {
+   \       0xC8   0xF1B9 0x0F00      CMP      R9,#+0
+   \       0xCC   0xD010             BEQ.N    ??at_send_wait_reply_8
+    450                  if ((ret = at_sendto_lower(at._pstuart, (void *)at._send_delimiter,
+    451                              strlen(at._send_delimiter), at._timeout, false)) != 0) {
+   \       0xCE   0xF8DA 0x0014      LDR      R0,[R10, #+20]
+   \       0xD2   0x....'....        BL       strlen
+   \       0xD6   0x2100             MOVS     R1,#+0
+   \       0xD8   0x9100             STR      R1,[SP, #+0]
+   \       0xDA   0xF8DA 0x3004      LDR      R3,[R10, #+4]
+   \       0xDE   0x4602             MOV      R2,R0
+   \       0xE0   0xF8DA 0x1014      LDR      R1,[R10, #+20]
+   \       0xE4   0xF8DA 0x0000      LDR      R0,[R10, #+0]
+   \       0xE8   0x....'....        BL       at_sendto_lower
+   \       0xEC   0x0004             MOVS     R4,R0
+   \       0xEE   0xD115             BNE.N    ??at_send_wait_reply_4
+   \                     ??at_send_wait_reply_8: (+1)
+   \       0xF0   0x4641             MOV      R1,R8
+    452                      atpsr_err("uart send delimiter failed");
+    453                      goto end;
+    454                  }
+    455              }
+    456          
+    457              if (data && datalen > 0) {
+   \       0xF2   0x2900             CMP      R1,#+0
+   \       0xF4   0xD00C             BEQ.N    ??at_send_wait_reply_9
+   \       0xF6   0x9A0C             LDR      R2,[SP, #+48]
+   \       0xF8   0x2A01             CMP      R2,#+1
+   \       0xFA   0xDB09             BLT.N    ??at_send_wait_reply_9
+    458                  if (intval_ms > 0)
+    459                      HAL_SleepMs(intval_ms);
+    460          
+    461                  if ((ret = at_sendto_lower(at._pstuart, (void *)data, datalen, at._timeout, true)) != 0) {
+   \       0xFC   0x2001             MOVS     R0,#+1
+   \       0xFE   0x9000             STR      R0,[SP, #+0]
+   \      0x100   0xF8DA 0x3004      LDR      R3,[R10, #+4]
+   \      0x104   0xF8DA 0x0000      LDR      R0,[R10, #+0]
+   \      0x108   0x....'....        BL       at_sendto_lower
+   \      0x10C   0x0004             MOVS     R4,R0
+   \      0x10E   0xD105             BNE.N    ??at_send_wait_reply_4
+    462                      atpsr_err("uart send delimiter failed");
+    463                      goto end;
+    464                  }
+    465              }
+    466          
+    467              if ((ret = HAL_SemaphoreWait(tsk->smpr, TASK_DEFAULT_WAIT_TIME)) != 0) {
+   \                     ??at_send_wait_reply_9: (+1)
+   \      0x110   0xF241 0x3188      MOVW     R1,#+5000
+   \      0x114   0x6870             LDR      R0,[R6, #+4]
+   \      0x116   0x....'....        BL       HAL_SemaphoreWait
+   \      0x11A   0x4604             MOV      R4,R0
+    468                  atpsr_err("sem_wait failed");
+    469                  goto end;
+    470              }
+    471          
+    472          end:
+    473              at_worker_task_del(tsk);
+   \                     ??at_send_wait_reply_4: (+1)
+   \      0x11C   0x4630             MOV      R0,R6
+   \      0x11E   0x....'....        BL       at_worker_task_del
+    474              HAL_MutexUnlock(at.at_uart_send_mutex);
+   \      0x122   0xF8DA 0x00BC      LDR      R0,[R10, #+188]
+   \      0x126   0x....'....        BL       HAL_MutexUnlock
+    475              return ret;
+   \      0x12A   0x4620             MOV      R0,R4
+   \                     ??at_send_wait_reply_2: (+1)
+   \      0x12C   0xE8BD 0x8FFE      POP      {R1-R11,PC}      ;; return
+    476          }
+    477          #endif
+    478          
+
+   \                                 In section .text, align 2, keep-with-next
+    479          int at_send_no_reply(const char *data, int datalen, bool delimiter)
+    480          {
+   \                     at_send_no_reply: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+   \        0x2   0x4604             MOV      R4,R0
+   \        0x4   0x460D             MOV      R5,R1
+   \        0x6   0x4616             MOV      R6,R2
+    481              int ret = 0;
+    482          
+    483              if (inited == 0) {
+   \        0x8   0x....'....        LDR.W    R0,??DataTable20_4
+   \        0xC   0x7800             LDRB     R0,[R0, #+0]
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD003             BEQ.N    ??at_send_no_reply_0
+    484                  atpsr_err("at have not init yet\r\n");
+    485                  return -1;
+    486              }
+    487          
+    488              if (NULL == data || datalen <= 0) {
+   \       0x12   0x2C00             CMP      R4,#+0
+   \       0x14   0xD001             BEQ.N    ??at_send_no_reply_0
+   \       0x16   0x2D01             CMP      R5,#+1
+   \       0x18   0xDA02             BGE.N    ??at_send_no_reply_1
+    489                  atpsr_err("invalid input \r\n");
+    490                  return -1;
+   \                     ??at_send_no_reply_0: (+1)
+   \       0x1A   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x1E   0xBDF2             POP      {R1,R4-R7,PC}
+    491              }
+    492          
+    493              HAL_MutexLock(at.at_uart_send_mutex);
+   \                     ??at_send_no_reply_1: (+1)
+   \       0x20   0x....'....        LDR.W    R7,??DataTable20_1
+   \       0x24   0xF8D7 0x00BC      LDR      R0,[R7, #+188]
+   \       0x28   0x....'....        BL       HAL_MutexLock
+    494              if ((ret = at_sendto_lower(at._pstuart, (void *)data,
+    495                                         datalen, at._timeout, true)) != 0) {
+   \       0x2C   0x2001             MOVS     R0,#+1
+   \       0x2E   0x9000             STR      R0,[SP, #+0]
+   \       0x30   0x687B             LDR      R3,[R7, #+4]
+   \       0x32   0x462A             MOV      R2,R5
+   \       0x34   0x4621             MOV      R1,R4
+   \       0x36   0x6838             LDR      R0,[R7, #+0]
+   \       0x38   0x....'....        BL       at_sendto_lower
+   \       0x3C   0x0004             MOVS     R4,R0
+   \       0x3E   0xD10E             BNE.N    ??at_send_no_reply_2
+    496                  atpsr_err("uart send raw content (%s) failed", data);
+    497                  HAL_MutexUnlock(at.at_uart_send_mutex);
+    498                  return -1;
+    499              }
+    500          
+    501              if (delimiter) {
+   \       0x40   0x2E00             CMP      R6,#+0
+   \       0x42   0xD013             BEQ.N    ??at_send_no_reply_3
+    502                  if ((ret = at_sendto_lower(at._pstuart, (void *)at._send_delimiter,
+    503                              strlen(at._send_delimiter), at._timeout, false)) != 0) {
+   \       0x44   0x6978             LDR      R0,[R7, #+20]
+   \       0x46   0x....'....        BL       strlen
+   \       0x4A   0x2100             MOVS     R1,#+0
+   \       0x4C   0x9100             STR      R1,[SP, #+0]
+   \       0x4E   0x687B             LDR      R3,[R7, #+4]
+   \       0x50   0x4602             MOV      R2,R0
+   \       0x52   0x6979             LDR      R1,[R7, #+20]
+   \       0x54   0x6838             LDR      R0,[R7, #+0]
+   \       0x56   0x....'....        BL       at_sendto_lower
+   \       0x5A   0x0004             MOVS     R4,R0
+   \       0x5C   0xD006             BEQ.N    ??at_send_no_reply_3
+    504                      atpsr_err("uart send delimiter failed");
+    505                      HAL_MutexUnlock(at.at_uart_send_mutex);
+   \                     ??at_send_no_reply_2: (+1)
+   \       0x5E   0xF8D7 0x00BC      LDR      R0,[R7, #+188]
+   \       0x62   0x....'....        BL       HAL_MutexUnlock
+    506                      return -1;
+   \       0x66   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x6A   0xBDF2             POP      {R1,R4-R7,PC}
+    507                  }
+    508              }
+    509              HAL_MutexUnlock(at.at_uart_send_mutex);
+   \                     ??at_send_no_reply_3: (+1)
+   \       0x6C   0xF8D7 0x00BC      LDR      R0,[R7, #+188]
+   \       0x70   0x....'....        BL       HAL_MutexUnlock
+    510          
+    511              return ret;
+   \       0x74   0x4620             MOV      R0,R4
+   \       0x76   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+    512          }
+    513          
+
+   \                                 In section .text, align 2, keep-with-next
+    514          static int at_getc(char *c, int timeout_ms)
+    515          {
+   \                     at_getc: (+1)
+   \        0x0   0xB57F             PUSH     {R0-R6,LR}
+   \        0x2   0x4604             MOV      R4,R0
+   \        0x4   0x460D             MOV      R5,R1
+    516              int      ret = 0;
+    517              char     data;
+    518              uint32_t recv_size = 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0x9002             STR      R0,[SP, #+8]
+    519          
+    520              if (NULL == c) {
+   \        0xA   0x2C00             CMP      R4,#+0
+   \        0xC   0xD102             BNE.N    ??at_getc_0
+    521                  return -1;
+   \        0xE   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x12   0xE028             B.N      ??at_getc_1
+    522              }
+    523          
+    524              if (inited == 0) {
+   \                     ??at_getc_0: (+1)
+   \       0x14   0x....'....        LDR.W    R0,??DataTable20_4
+   \       0x18   0x7800             LDRB     R0,[R0, #+0]
+   \       0x1A   0x2800             CMP      R0,#+0
+   \       0x1C   0xD102             BNE.N    ??at_getc_2
+    525                  atpsr_err("at have not init yet\r\n");
+    526                  return -1;
+   \       0x1E   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x22   0xE020             B.N      ??at_getc_1
+    527              }
+    528          
+    529              HAL_MutexLock(at.at_uart_recv_mutex);
+   \                     ??at_getc_2: (+1)
+   \       0x24   0x....'....        LDR.W    R6,??DataTable20_1
+   \       0x28   0xF8D6 0x00B8      LDR      R0,[R6, #+184]
+   \       0x2C   0x....'....        BL       HAL_MutexLock
+    530              ret = at_recvfrom_lower(at._pstuart, (void *)&data, 1, &recv_size, timeout_ms);
+   \       0x30   0x9500             STR      R5,[SP, #+0]
+   \       0x32   0xAB02             ADD      R3,SP,#+8
+   \       0x34   0x2201             MOVS     R2,#+1
+   \       0x36   0xA901             ADD      R1,SP,#+4
+   \       0x38   0x6830             LDR      R0,[R6, #+0]
+   \       0x3A   0x....'....        BL       at_recvfrom_lower
+   \       0x3E   0x4605             MOV      R5,R0
+    531              HAL_MutexUnlock(at.at_uart_recv_mutex);
+   \       0x40   0xF8D6 0x00B8      LDR      R0,[R6, #+184]
+   \       0x44   0x....'....        BL       HAL_MutexUnlock
+    532          
+    533              if (ret != 0) {
+   \       0x48   0x2D00             CMP      R5,#+0
+   \       0x4A   0xD002             BEQ.N    ??at_getc_3
+    534          #ifdef WORKAROUND_DEVELOPERBOARD_DMA_UART
+    535                  if (ret == 1) {
+    536                      HAL_UART_Deinit(at._pstuart);
+    537                      at_init_uart();
+    538                  }
+    539          #endif
+    540                  return -1;
+   \       0x4C   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x50   0xE009             B.N      ??at_getc_1
+    541              }
+    542          
+    543              if (recv_size == 1) {
+   \                     ??at_getc_3: (+1)
+   \       0x52   0x9802             LDR      R0,[SP, #+8]
+   \       0x54   0x2801             CMP      R0,#+1
+   \       0x56   0xD104             BNE.N    ??at_getc_4
+    544                  *c = data;
+   \       0x58   0xF89D 0x0004      LDRB     R0,[SP, #+4]
+   \       0x5C   0x7020             STRB     R0,[R4, #+0]
+    545                  return 0;
+   \       0x5E   0x2000             MOVS     R0,#+0
+   \       0x60   0xE001             B.N      ??at_getc_1
+    546              } else {
+    547                  return -1;
+   \                     ??at_getc_4: (+1)
+   \       0x62   0xF04F 0x30FF      MOV      R0,#-1
+   \                     ??at_getc_1: (+1)
+   \       0x66   0xB004             ADD      SP,SP,#+16
+   \       0x68   0xBD70             POP      {R4-R6,PC}       ;; return
+    548              }
+    549          }
+    550          
+
+   \                                 In section .text, align 2, keep-with-next
+    551          int at_read(char *outbuf, int readsize)
+    552          {
+   \                     at_read: (+1)
+   \        0x0   0xE92D 0x41FC      PUSH     {R2-R8,LR}
+   \        0x4   0x4605             MOV      R5,R0
+   \        0x6   0x460E             MOV      R6,R1
+    553              int      ret = 0;
+   \        0x8   0x2400             MOVS     R4,#+0
+    554              uint32_t recv_size, total_read = 0;
+   \        0xA   0x4627             MOV      R7,R4
+    555          
+    556              if (inited == 0) {
+   \        0xC   0x....'....        LDR.W    R0,??DataTable20_4
+   \       0x10   0x7800             LDRB     R0,[R0, #+0]
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD102             BNE.N    ??at_read_0
+    557                  atpsr_err("at have not init yet\r\n");
+    558                  return -1;
+   \       0x16   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x1A   0xE023             B.N      ??at_read_1
+    559              }
+    560          
+    561              HAL_MutexLock(at.at_uart_recv_mutex);
+   \                     ??at_read_0: (+1)
+   \       0x1C   0x....'....        LDR.W    R8,??DataTable20_1
+   \       0x20   0xF8D8 0x00B8      LDR      R0,[R8, #+184]
+   \       0x24   0x....'....        BL       HAL_MutexLock
+    562              while (total_read < readsize) {
+   \                     ??at_read_2: (+1)
+   \       0x28   0x42B7             CMP      R7,R6
+   \       0x2A   0xD211             BCS.N    ??at_read_3
+    563                  ret = at_recvfrom_lower(at._pstuart, (void *)(outbuf + total_read),
+    564                                          readsize - total_read, &recv_size, at._timeout);
+   \       0x2C   0xF8D8 0x0004      LDR      R0,[R8, #+4]
+   \       0x30   0x9000             STR      R0,[SP, #+0]
+   \       0x32   0xAB01             ADD      R3,SP,#+4
+   \       0x34   0x1BF2             SUBS     R2,R6,R7
+   \       0x36   0x19E9             ADDS     R1,R5,R7
+   \       0x38   0xF8D8 0x0000      LDR      R0,[R8, #+0]
+   \       0x3C   0x....'....        BL       at_recvfrom_lower
+   \       0x40   0x0004             MOVS     R4,R0
+    565                  if (ret != 0) {
+   \       0x42   0xD105             BNE.N    ??at_read_3
+    566                      atpsr_err("at_read failed on uart_recv.");
+    567                      break;
+    568                  }
+    569          
+    570                  if (recv_size <= 0) {
+   \       0x44   0x9801             LDR      R0,[SP, #+4]
+   \       0x46   0x2800             CMP      R0,#+0
+   \       0x48   0xD0EE             BEQ.N    ??at_read_2
+    571                      continue;
+    572                  }
+    573                  total_read += recv_size;
+   \       0x4A   0x19C7             ADDS     R7,R0,R7
+    574                  if (total_read >= readsize) {
+   \       0x4C   0x42B7             CMP      R7,R6
+   \       0x4E   0xD3EB             BCC.N    ??at_read_2
+    575                      break;
+    576                  }
+    577              }
+    578              HAL_MutexUnlock(at.at_uart_recv_mutex);
+   \                     ??at_read_3: (+1)
+   \       0x50   0xF8D8 0x00B8      LDR      R0,[R8, #+184]
+   \       0x54   0x....'....        BL       HAL_MutexUnlock
+    579          
+    580              if (ret != 0) {
+   \       0x58   0x2C00             CMP      R4,#+0
+   \       0x5A   0xD002             BEQ.N    ??at_read_4
+    581                  return -1;
+   \       0x5C   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x60   0xE000             B.N      ??at_read_1
+    582              }
+    583          
+    584              return total_read;
+   \                     ??at_read_4: (+1)
+   \       0x62   0x4638             MOV      R0,R7
+   \                     ??at_read_1: (+1)
+   \       0x64   0xE8BD 0x81F6      POP      {R1,R2,R4-R8,PC}  ;; return
+    585          }
+    586          
+    587          #define RECV_BUFFER_SIZE 512
+
+   \                                 In section .bss, align 4
+    588          static char at_rx_buf[RECV_BUFFER_SIZE];
+   \                     at_rx_buf:
+   \        0x0                      DS8 512
+
+   \                                 In section .text, align 2, keep-with-next
+    589          int at_register_callback(const char *prefix, const char *postfix, char *recvbuf,
+    590                                   int bufsize, at_recv_cb cb, void *arg)
+    591          {
+   \                     at_register_callback: (+1)
+   \        0x0   0xE92D 0x43F8      PUSH     {R3-R9,LR}
+   \        0x4   0x4604             MOV      R4,R0
+   \        0x6   0x460D             MOV      R5,R1
+   \        0x8   0x4617             MOV      R7,R2
+   \        0xA   0x461E             MOV      R6,R3
+    592              oob_t *oob = NULL;
+    593              int    i   = 0;
+   \        0xC   0xF04F 0x0800      MOV      R8,#+0
+    594          
+    595              if (bufsize < 0 || bufsize >= RECV_BUFFER_SIZE || NULL == prefix) {
+   \       0x10   0xF5B6 0x7F00      CMP      R6,#+512
+   \       0x14   0xD225             BCS.N    ??at_register_callback_0
+   \       0x16   0x2C00             CMP      R4,#+0
+   \       0x18   0xD023             BEQ.N    ??at_register_callback_0
+    596                  atpsr_err("%s invalid input \r\n", __func__);
+    597                  return -1;
+    598              }
+    599          
+    600              if (NULL != postfix && (NULL == recvbuf || 0 == bufsize)) {
+   \       0x1A   0x2D00             CMP      R5,#+0
+   \       0x1C   0xD003             BEQ.N    ??at_register_callback_1
+   \       0x1E   0x2F00             CMP      R7,#+0
+   \       0x20   0xD01F             BEQ.N    ??at_register_callback_0
+   \       0x22   0x2E00             CMP      R6,#+0
+   \       0x24   0xD01D             BEQ.N    ??at_register_callback_0
+    601                  atpsr_err("%s invalid postfix input \r\n", __func__);
+    602                  return -1;
+    603              }
+    604          
+    605              if (at._oobs_num >= OOB_MAX) {
+   \                     ??at_register_callback_1: (+1)
+   \       0x26   0x....'....        LDR.W    R9,??DataTable20_1
+   \       0x2A   0xF8D9 0x00B4      LDR      R0,[R9, #+180]
+   \       0x2E   0x2805             CMP      R0,#+5
+   \       0x30   0xDB02             BLT.N    ??at_register_callback_2
+   \       0x32   0xE016             B.N      ??at_register_callback_0
+    606                  atpsr_err("No place left in OOB.\r\n");
+    607                  return -1;
+    608              }
+    609          
+    610              /*check oob exist*/
+    611              for (i = 0; i < at._oobs_num; i++) {
+   \                     ??at_register_callback_3: (+1)
+   \       0x34   0xF108 0x0801      ADD      R8,R8,#+1
+   \                     ??at_register_callback_2: (+1)
+   \       0x38   0xF8D9 0x00B4      LDR      R0,[R9, #+180]
+   \       0x3C   0x4580             CMP      R8,R0
+   \       0x3E   0xDA13             BGE.N    ??at_register_callback_4
+    612                  if (NULL != at._oobs[i].prefix &&
+    613                      strcmp(prefix, at._oobs[i].prefix) == 0) {
+   \       0x40   0x211C             MOVS     R1,#+28
+   \       0x42   0xFB01 0xF008      MUL      R0,R1,R8
+   \       0x46   0x4448             ADD      R0,R9,R0
+   \       0x48   0x6A80             LDR      R0,[R0, #+40]
+   \       0x4A   0x2800             CMP      R0,#+0
+   \       0x4C   0xD0F2             BEQ.N    ??at_register_callback_3
+   \       0x4E   0xFB01 0xF108      MUL      R1,R1,R8
+   \       0x52   0xEB09 0x0001      ADD      R0,R9,R1
+   \       0x56   0x6A81             LDR      R1,[R0, #+40]
+   \       0x58   0x4620             MOV      R0,R4
+   \       0x5A   0x....'....        BL       strcmp
+   \       0x5E   0x2800             CMP      R0,#+0
+   \       0x60   0xD1E8             BNE.N    ??at_register_callback_3
+    614                      atpsr_warning("oob prefix %s is already exist.\r\n", prefix);
+    615                      return -1;
+   \                     ??at_register_callback_0: (+1)
+   \       0x62   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x66   0xE022             B.N      ??at_register_callback_5
+    616                  }
+    617              }
+    618          
+    619              oob = &(at._oobs[at._oobs_num++]);
+   \                     ??at_register_callback_4: (+1)
+   \       0x68   0xEBC0 0x01C0      RSB      R1,R0,R0, LSL #+3
+   \       0x6C   0xEB09 0x0081      ADD      R0,R9,R1, LSL #+2
+   \       0x70   0xF100 0x0828      ADD      R8,R0,#+40
+   \       0x74   0xF8D9 0x00B4      LDR      R0,[R9, #+180]
+   \       0x78   0x1C40             ADDS     R0,R0,#+1
+   \       0x7A   0xF8C9 0x00B4      STR      R0,[R9, #+180]
+    620          
+    621              oob->oobinputdata = recvbuf;
+   \       0x7E   0xF8C8 0x7008      STR      R7,[R8, #+8]
+    622              if (oob->oobinputdata != NULL) {
+   \       0x82   0x4638             MOV      R0,R7
+   \       0x84   0x2800             CMP      R0,#+0
+   \       0x86   0xD003             BEQ.N    ??at_register_callback_6
+    623                  memset(oob->oobinputdata, 0, bufsize);
+   \       0x88   0x2200             MOVS     R2,#+0
+   \       0x8A   0x4631             MOV      R1,R6
+   \       0x8C   0x....'....        BL       __aeabi_memset
+    624              }
+   \                     ??at_register_callback_6: (+1)
+   \       0x90   0x9909             LDR      R1,[SP, #+36]
+   \       0x92   0x9808             LDR      R0,[SP, #+32]
+    625              oob->maxlen  = bufsize;
+   \       0x94   0xF8C8 0x6010      STR      R6,[R8, #+16]
+    626              oob->prefix  = (char *)prefix;
+   \       0x98   0xF8C8 0x4000      STR      R4,[R8, #+0]
+    627              oob->postfix = (char *)postfix;
+   \       0x9C   0xF8C8 0x5004      STR      R5,[R8, #+4]
+    628              oob->cb      = cb;
+   \       0xA0   0xF8C8 0x0014      STR      R0,[R8, #+20]
+    629              oob->arg     = arg;
+   \       0xA4   0xF8C8 0x1018      STR      R1,[R8, #+24]
+    630              oob->reallen = 0;
+   \       0xA8   0x2000             MOVS     R0,#+0
+   \       0xAA   0xF8C8 0x000C      STR      R0,[R8, #+12]
+    631          
+    632              atpsr_debug("New oob registered (%s)", oob->prefix);
+    633          
+    634              return 0;
+   \                     ??at_register_callback_5: (+1)
+   \       0xAE   0xE8BD 0x83F2      POP      {R1,R4-R9,PC}    ;; return
+    635          }
+    636          
+
+   \                                 In section .text, align 2, keep-with-next
+    637          static void at_scan_for_callback(char c, char *buf, int *index)
+    638          {
+   \                     at_scan_for_callback: (+1)
+   \        0x0   0xE92D 0x47F0      PUSH     {R4-R10,LR}
+   \        0x4   0x4607             MOV      R7,R0
+   \        0x6   0x460D             MOV      R5,R1
+   \        0x8   0x4616             MOV      R6,R2
+    639              int     k;
+    640              oob_t  *oob = NULL;
+    641              int offset = *index;
+   \        0xA   0xF8D6 0x8000      LDR      R8,[R6, #+0]
+    642          
+    643              if (!buf || offset < 0) {
+   \        0xE   0x2D00             CMP      R5,#+0
+   \       0x10   0xF000 0x80B1      BEQ.W    ??at_scan_for_callback_0
+   \       0x14   0xF1B8 0x0F00      CMP      R8,#+0
+   \       0x18   0xF100 0x80AD      BMI.W    ??at_scan_for_callback_0
+    644                  return;
+    645              }
+    646          
+    647              for (k = 0; k < at._oobs_num; k++) {
+   \       0x1C   0xF04F 0x0900      MOV      R9,#+0
+   \       0x20   0xE072             B.N      ??at_scan_for_callback_1
+    648                  oob = &(at._oobs[k]);
+    649                  if (oob->reallen > 0 ||
+    650                      (offset >= strlen(oob->prefix) &&
+    651                       memcmp(oob->prefix, buf + offset - strlen(oob->prefix),
+    652                              strlen(oob->prefix)) == 0)) {
+    653                      atpsr_debug("AT! %s\r\n", oob->prefix);
+    654                      if (oob->postfix == NULL) {
+    655                          oob->cb(oob->arg, NULL, 0);
+    656                          memset(buf, 0, offset);
+    657                          offset = 0;
+    658                      } else {
+    659                          if (oob->reallen == 0) {
+    660                              int len = strlen(oob->prefix) - 1;
+    661                              len = len > 0 ? len : 0;
+    662                              memset(oob->oobinputdata, 0, oob->maxlen);
+    663                              memcpy(oob->oobinputdata, oob->prefix, len);
+    664                              oob->reallen += len;
+    665                          }
+    666          
+    667                          if (oob->reallen < oob->maxlen) {
+    668                                  oob->oobinputdata[oob->reallen] = c;
+    669                                  oob->reallen++;
+    670                                  if ((oob->reallen >=
+    671                                       strlen(oob->prefix) + strlen(oob->postfix)) &&
+    672                                      (strncmp(oob->oobinputdata + oob->reallen -
+    673                                                 strlen(oob->postfix),
+    674                                               oob->postfix,
+    675                                               strlen(oob->postfix)) == 0)) {
+    676                                      /*recv postfix*/
+    677                                      oob->cb(oob->arg, oob->oobinputdata, oob->reallen);
+    678                                      memset(oob->oobinputdata, 0, oob->reallen);
+    679                                      oob->reallen = 0;
+    680                                      memset(buf, 0, offset);
+    681                                      offset = 0;
+    682                                  }
+    683                              } else {
+    684                                  atpsr_err("invalid oob %s input , for oversize %s \r\n",
+    685                                             oob->prefix, oob->oobinputdata);
+    686                                  memset(oob->oobinputdata, 0, oob->reallen);
+   \                     ??at_scan_for_callback_2: (+1)
+   \       0x22   0x2200             MOVS     R2,#+0
+   \       0x24   0x4601             MOV      R1,R0
+   \       0x26   0x68A0             LDR      R0,[R4, #+8]
+   \       0x28   0x....'....        BL       __aeabi_memset
+    687                                  oob->reallen = 0;
+   \       0x2C   0x2000             MOVS     R0,#+0
+   \       0x2E   0x60E0             STR      R0,[R4, #+12]
+    688                                  memset(buf, 0, offset);
+   \       0x30   0x4602             MOV      R2,R0
+   \       0x32   0x4641             MOV      R1,R8
+   \       0x34   0x4628             MOV      R0,R5
+   \       0x36   0x....'....        BL       __aeabi_memset
+    689                                  offset = 0;
+   \       0x3A   0xF04F 0x0800      MOV      R8,#+0
+   \       0x3E   0xE056             B.N      ??at_scan_for_callback_3
+    690                              }
+   \                     ??at_scan_for_callback_4: (+1)
+   \       0x40   0x68E0             LDR      R0,[R4, #+12]
+   \       0x42   0x2800             CMP      R0,#+0
+   \       0x44   0xD118             BNE.N    ??at_scan_for_callback_5
+   \       0x46   0x6820             LDR      R0,[R4, #+0]
+   \       0x48   0x....'....        BL       strlen
+   \       0x4C   0x4682             MOV      R10,R0
+   \       0x4E   0xF1AA 0x0A01      SUB      R10,R10,#+1
+   \       0x52   0xF1BA 0x0F01      CMP      R10,#+1
+   \       0x56   0xDA01             BGE.N    ??at_scan_for_callback_6
+   \       0x58   0xF04F 0x0A00      MOV      R10,#+0
+   \                     ??at_scan_for_callback_6: (+1)
+   \       0x5C   0x2200             MOVS     R2,#+0
+   \       0x5E   0x6921             LDR      R1,[R4, #+16]
+   \       0x60   0x68A0             LDR      R0,[R4, #+8]
+   \       0x62   0x....'....        BL       __aeabi_memset
+   \       0x66   0x4652             MOV      R2,R10
+   \       0x68   0x6821             LDR      R1,[R4, #+0]
+   \       0x6A   0x68A0             LDR      R0,[R4, #+8]
+   \       0x6C   0x....'....        BL       __aeabi_memcpy
+   \       0x70   0x68E0             LDR      R0,[R4, #+12]
+   \       0x72   0x4482             ADD      R10,R10,R0
+   \       0x74   0xF8C4 0xA00C      STR      R10,[R4, #+12]
+   \                     ??at_scan_for_callback_5: (+1)
+   \       0x78   0x68E0             LDR      R0,[R4, #+12]
+   \       0x7A   0x6921             LDR      R1,[R4, #+16]
+   \       0x7C   0x4288             CMP      R0,R1
+   \       0x7E   0xD2D0             BCS.N    ??at_scan_for_callback_2
+   \       0x80   0x68A0             LDR      R0,[R4, #+8]
+   \       0x82   0x68E1             LDR      R1,[R4, #+12]
+   \       0x84   0x5447             STRB     R7,[R0, R1]
+   \       0x86   0x68E0             LDR      R0,[R4, #+12]
+   \       0x88   0x1C40             ADDS     R0,R0,#+1
+   \       0x8A   0x60E0             STR      R0,[R4, #+12]
+   \       0x8C   0x6820             LDR      R0,[R4, #+0]
+   \       0x8E   0x....'....        BL       strlen
+   \       0x92   0x4682             MOV      R10,R0
+   \       0x94   0x6860             LDR      R0,[R4, #+4]
+   \       0x96   0x....'....        BL       strlen
+   \       0x9A   0x68E1             LDR      R1,[R4, #+12]
+   \       0x9C   0x4482             ADD      R10,R0,R10
+   \       0x9E   0x4551             CMP      R1,R10
+   \       0xA0   0xD325             BCC.N    ??at_scan_for_callback_3
+   \       0xA2   0x6860             LDR      R0,[R4, #+4]
+   \       0xA4   0x....'....        BL       strlen
+   \       0xA8   0x4682             MOV      R10,R0
+   \       0xAA   0x6860             LDR      R0,[R4, #+4]
+   \       0xAC   0x....'....        BL       strlen
+   \       0xB0   0x4652             MOV      R2,R10
+   \       0xB2   0x6861             LDR      R1,[R4, #+4]
+   \       0xB4   0x68A3             LDR      R3,[R4, #+8]
+   \       0xB6   0xF8D4 0xC00C      LDR      R12,[R4, #+12]
+   \       0xBA   0x4463             ADD      R3,R3,R12
+   \       0xBC   0x4240             RSBS     R0,R0,#+0
+   \       0xBE   0x4418             ADD      R0,R3,R0
+   \       0xC0   0x....'....        BL       strncmp
+   \       0xC4   0x2800             CMP      R0,#+0
+   \       0xC6   0xD112             BNE.N    ??at_scan_for_callback_3
+   \       0xC8   0x68E2             LDR      R2,[R4, #+12]
+   \       0xCA   0x68A1             LDR      R1,[R4, #+8]
+   \       0xCC   0x69A0             LDR      R0,[R4, #+24]
+   \       0xCE   0x6963             LDR      R3,[R4, #+20]
+   \       0xD0   0x4798             BLX      R3
+   \       0xD2   0x2200             MOVS     R2,#+0
+   \       0xD4   0x68E1             LDR      R1,[R4, #+12]
+   \       0xD6   0x68A0             LDR      R0,[R4, #+8]
+   \       0xD8   0x....'....        BL       __aeabi_memset
+   \       0xDC   0x2000             MOVS     R0,#+0
+   \       0xDE   0x60E0             STR      R0,[R4, #+12]
+   \       0xE0   0x4602             MOV      R2,R0
+   \       0xE2   0x4641             MOV      R1,R8
+   \       0xE4   0x4628             MOV      R0,R5
+   \       0xE6   0x....'....        BL       __aeabi_memset
+   \       0xEA   0xF04F 0x0800      MOV      R8,#+0
+    691          
+    692                          /*oob data maybe more than buf size */
+    693                          if (offset > (RECV_BUFFER_SIZE - 2)) {
+   \                     ??at_scan_for_callback_3: (+1)
+   \       0xEE   0xF240 0x10FF      MOVW     R0,#+511
+   \       0xF2   0x4580             CMP      R8,R0
+   \       0xF4   0xDB06             BLT.N    ??at_scan_for_callback_7
+    694                              memset(buf, 0, offset);
+   \       0xF6   0x2200             MOVS     R2,#+0
+   \       0xF8   0x4641             MOV      R1,R8
+   \       0xFA   0x4628             MOV      R0,R5
+   \       0xFC   0x....'....        BL       __aeabi_memset
+    695                              offset = 0;
+   \      0x100   0xF04F 0x0800      MOV      R8,#+0
+    696                          }
+    697                      }
+   \                     ??at_scan_for_callback_7: (+1)
+   \      0x104   0xF109 0x0901      ADD      R9,R9,#+1
+   \                     ??at_scan_for_callback_1: (+1)
+   \      0x108   0x....             LDR.N    R0,??DataTable20_1
+   \      0x10A   0xF8D0 0x10B4      LDR      R1,[R0, #+180]
+   \      0x10E   0x4589             CMP      R9,R1
+   \      0x110   0xDA2F             BGE.N    ??at_scan_for_callback_8
+   \      0x112   0xEBC9 0x01C9      RSB      R1,R9,R9, LSL #+3
+   \      0x116   0xEB00 0x0081      ADD      R0,R0,R1, LSL #+2
+   \      0x11A   0xF100 0x0428      ADD      R4,R0,#+40
+   \      0x11E   0x68E0             LDR      R0,[R4, #+12]
+   \      0x120   0x2800             CMP      R0,#+0
+   \      0x122   0xD115             BNE.N    ??at_scan_for_callback_9
+   \      0x124   0x6820             LDR      R0,[R4, #+0]
+   \      0x126   0x....'....        BL       strlen
+   \      0x12A   0x4580             CMP      R8,R0
+   \      0x12C   0xD3EA             BCC.N    ??at_scan_for_callback_7
+   \      0x12E   0x6820             LDR      R0,[R4, #+0]
+   \      0x130   0x....'....        BL       strlen
+   \      0x134   0x4682             MOV      R10,R0
+   \      0x136   0x6820             LDR      R0,[R4, #+0]
+   \      0x138   0x....'....        BL       strlen
+   \      0x13C   0x4652             MOV      R2,R10
+   \      0x13E   0xEB05 0x0108      ADD      R1,R5,R8
+   \      0x142   0x4240             RSBS     R0,R0,#+0
+   \      0x144   0x4401             ADD      R1,R1,R0
+   \      0x146   0x6820             LDR      R0,[R4, #+0]
+   \      0x148   0x....'....        BL       memcmp
+   \      0x14C   0x2800             CMP      R0,#+0
+   \      0x14E   0xD1D9             BNE.N    ??at_scan_for_callback_7
+   \                     ??at_scan_for_callback_9: (+1)
+   \      0x150   0x6860             LDR      R0,[R4, #+4]
+   \      0x152   0x2800             CMP      R0,#+0
+   \      0x154   0xF47F 0xAF74      BNE.W    ??at_scan_for_callback_4
+   \      0x158   0x2200             MOVS     R2,#+0
+   \      0x15A   0x4611             MOV      R1,R2
+   \      0x15C   0x69A0             LDR      R0,[R4, #+24]
+   \      0x15E   0x6963             LDR      R3,[R4, #+20]
+   \      0x160   0x4798             BLX      R3
+   \      0x162   0x2200             MOVS     R2,#+0
+   \      0x164   0x4641             MOV      R1,R8
+   \      0x166   0x4628             MOV      R0,R5
+   \      0x168   0x....'....        BL       __aeabi_memset
+   \      0x16C   0xF04F 0x0800      MOV      R8,#+0
+   \      0x170   0xE7C8             B.N      ??at_scan_for_callback_7
+    698                      continue;
+    699                  }
+    700              }
+    701          
+    702              *index = offset;
+   \                     ??at_scan_for_callback_8: (+1)
+   \      0x172   0xF8C6 0x8000      STR      R8,[R6, #+0]
+    703              return;
+   \                     ??at_scan_for_callback_0: (+1)
+   \      0x176   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
+    704          }
+    705          
+    706          #if AT_SINGLE_TASK
+    707          int at_yield(char *replybuf, int bufsize, const atcmd_config_t *atcmdconfig,
+    708                       int timeout_ms)
+    709          {
+    710              int        offset                  = 0;
+    711              int        ret                     = 0;
+    712              int        rsp_prefix_len          = 0;
+    713              int        rsp_success_postfix_len = 0;
+    714              int        rsp_fail_postfix_len    = 0;
+    715              int        at_reply_begin          = 0;
+    716              int        at_reply_offset         = 0;
+    717              char       c                       = 0;
+    718              char      *buf                 = NULL;
+    719              char      *rsp_prefix          = NULL;
+    720              char      *rsp_success_postfix = NULL;
+    721              char      *rsp_fail_postfix    = NULL;
+    722          
+    723              if (!inited) {
+    724                  atpsr_err("AT parser has not inited!\r\n");
+    725                  return -1;
+    726              }
+    727          
+    728              if (replybuf != NULL && bufsize <= 0) {
+    729                  atpsr_err("buffer size %d unmatched!\r\n", bufsize);
+    730                  return -1;
+    731              }
+    732          
+    733              buf = at_rx_buf;
+    734              if (NULL == buf) {
+    735                  atpsr_err("AT worker fail to malloc ,task exist \r\n");
+    736                  return -1;
+    737              }
+    738          
+    739              memset(buf, 0, RECV_BUFFER_SIZE);
+    740          
+    741              while (true) {
+    742                  /* read from uart and store buf */
+    743                  ret = at_getc(&c, timeout_ms);
+    744                  if (ret != 0) {
+    745                      atpsr_err("at yield timeout break loop");
+    746                      break;
+    747                  }
+    748          
+    749                  if (offset + 1 >= RECV_BUFFER_SIZE) {
+    750                      atpsr_err("buffer full");
+    751                      break;
+    752                  }
+    753                  buf[offset++] = c;
+    754                  buf[offset]   = 0;
+    755          
+    756                  at_scan_for_callback(c, buf, &offset);
+    757          
+    758                  if (replybuf == NULL || bufsize <= 0) {
+    759                      /* if no task, continue recv */
+    760                      continue;
+    761                  }
+    762          
+    763                  if (NULL != atcmdconfig && NULL != atcmdconfig->reply_prefix) {
+    764                      rsp_prefix     = atcmdconfig->reply_prefix;
+    765                      rsp_prefix_len = strlen(rsp_prefix);
+    766                  } else {
+    767                      rsp_prefix     = at._default_recv_prefix;
+    768                      rsp_prefix_len = at._recv_prefix_len;
+    769                  }
+    770          
+    771                  if (NULL != atcmdconfig && NULL != atcmdconfig->reply_success_postfix) {
+    772                      rsp_success_postfix     = atcmdconfig->reply_success_postfix;
+    773                      rsp_success_postfix_len = strlen(rsp_success_postfix);
+    774                  } else {
+    775                      rsp_success_postfix     = at._default_recv_success_postfix;
+    776                      rsp_success_postfix_len = at._recv_success_postfix_len;
+    777                  }
+    778          
+    779                  if (NULL != atcmdconfig && NULL != atcmdconfig->reply_fail_postfix) {
+    780                      rsp_fail_postfix     = atcmdconfig->reply_fail_postfix;
+    781                      rsp_fail_postfix_len = strlen(rsp_fail_postfix);
+    782                  } else {
+    783                      rsp_fail_postfix     = at._default_recv_fail_postfix;
+    784                      rsp_fail_postfix_len = at._recv_fail_postfix_len;
+    785                  }
+    786          
+    787                  if (offset >= rsp_prefix_len && at_reply_begin == 0 &&
+    788                      (strncmp(buf + offset - rsp_prefix_len, rsp_prefix,
+    789                               rsp_prefix_len) == 0)) {
+    790                      at_reply_begin = 1;
+    791                  }
+    792          
+    793                  if (at_reply_begin == 1) {
+    794                      if (at_reply_offset < bufsize) {
+    795                          replybuf[at_reply_offset] = c;
+    796                          at_reply_offset++;
+    797          
+    798                          if ((at_reply_offset >= rsp_success_postfix_len &&
+    799                               strncmp(
+    800                                 replybuf + at_reply_offset - rsp_success_postfix_len,
+    801                                 rsp_success_postfix, rsp_success_postfix_len) == 0) ||
+    802                              (at_reply_offset >= rsp_fail_postfix_len &&
+    803                               strncmp(replybuf + at_reply_offset - rsp_fail_postfix_len,
+    804                                       rsp_fail_postfix, rsp_fail_postfix_len) == 0)) {
+    805                              return 0;
+    806                          }
+    807                      } else {
+    808                          memset(replybuf, 0, bufsize);
+    809                          strcpy(replybuf, rsp_fail_postfix);
+    810                          break;
+    811                      }
+    812                  }
+    813          
+    814              }
+    815          
+    816              return -1;
+    817          }
+    818          #else
+
+   \                                 In section .text, align 4, keep-with-next
+    819          static void* at_worker(void *arg)
+    820          {
+   \                     at_worker: (+1)
+   \        0x0   0xE92D 0x4FFE      PUSH     {R1-R11,LR}
+    821              int        offset                  = 0;
+   \        0x4   0x2000             MOVS     R0,#+0
+   \        0x6   0x9001             STR      R0,[SP, #+4]
+    822              int        ret                     = 0;
+    823              int        at_task_empty           = 0;
+    824              int        at_task_reponse_begin   = 0;
+   \        0x8   0x4605             MOV      R5,R0
+    825              int        memcpy_size             = 0;
+    826              int        rsp_prefix_len          = 0;
+   \        0xA   0x4606             MOV      R6,R0
+    827              int        rsp_success_postfix_len = 0;
+   \        0xC   0x4607             MOV      R7,R0
+    828              int        rsp_fail_postfix_len    = 0;
+   \        0xE   0x4680             MOV      R8,R0
+    829              char       c                       = 0;
+   \       0x10   0xF88D 0x0000      STRB     R0,[SP, #+0]
+    830              at_task_t *tsk;
+    831              char      *buf                 = NULL;
+    832              char      *rsp_prefix          = NULL;
+    833              char      *rsp_success_postfix = NULL;
+    834              char      *rsp_fail_postfix    = NULL;
+    835          
+    836              atpsr_debug("at_work started.");
+    837          
+    838              buf = at_rx_buf;
+   \       0x14   0x....'....        LDR.W    R9,??DataTable20_6
+    839              if (NULL == buf) {
+    840                  atpsr_err("AT worker fail to malloc ,task exist \r\n");
+    841                  return NULL;
+    842              }
+    843          
+    844              memset(buf, 0, RECV_BUFFER_SIZE);
+   \       0x18   0x4602             MOV      R2,R0
+   \       0x1A   0xF44F 0x7100      MOV      R1,#+512
+   \       0x1E   0x4648             MOV      R0,R9
+   \       0x20   0x....'....        BL       __aeabi_memset
+    845              inited = 1;
+   \       0x24   0x2001             MOVS     R0,#+1
+   \       0x26   0x....             LDR.N    R1,??DataTable20_4
+   \       0x28   0x7008             STRB     R0,[R1, #+0]
+   \       0x2A   0x....'....        LDR.W    R10,??DataTable20_1
+   \       0x2E   0xE0BC             B.N      ??at_worker_0
+    846          
+    847              while (true) {
+    848                  ret = at_getc(&c, at._timeout);
+    849                  if (ret != 0) {
+    850                      continue;
+    851                  }
+    852          
+    853                  if (offset + 1 >= RECV_BUFFER_SIZE) {
+    854                      atpsr_err("Fatal error, no one is handling AT uart");
+    855                      goto check_buffer;
+    856                  }
+    857                  buf[offset++] = c;
+    858                  buf[offset]   = 0;
+    859          
+    860                  at_scan_for_callback(c, buf, &offset);
+    861          
+    862                  HAL_MutexLock(at.task_mutex);
+    863                  at_task_empty = slist_empty(&at.task_l);
+    864          
+    865                  if (!at_task_empty) {
+    866                      tsk = slist_first_entry(&at.task_l, at_task_t, next);
+    867                  }
+    868                  HAL_MutexUnlock(at.task_mutex);
+    869          
+    870                  /* if no task, continue recv */
+    871                  if (at_task_empty) {
+    872                      atpsr_debug("No task in queue");
+    873                      goto check_buffer;
+    874                  }
+    875          
+    876                  if (NULL != tsk->rsp_prefix && 0 != tsk->rsp_prefix_len) {
+    877                      rsp_prefix     = tsk->rsp_prefix;
+    878                      rsp_prefix_len = tsk->rsp_prefix_len;
+    879                  } else {
+    880                      rsp_prefix     = at._default_recv_prefix;
+    881                      rsp_prefix_len = at._recv_prefix_len;
+    882                  }
+    883          
+    884                  if (NULL != tsk->rsp_success_postfix &&
+    885                      0 != tsk->rsp_success_postfix_len) {
+    886                      rsp_success_postfix     = tsk->rsp_success_postfix;
+    887                      rsp_success_postfix_len = tsk->rsp_success_postfix_len;
+    888                  } else {
+    889                      rsp_success_postfix     = at._default_recv_success_postfix;
+    890                      rsp_success_postfix_len = at._recv_success_postfix_len;
+    891                  }
+    892          
+    893                  if (NULL != tsk->rsp_fail_postfix && 0 != tsk->rsp_fail_postfix_len) {
+    894                      rsp_fail_postfix     = tsk->rsp_fail_postfix;
+    895                      rsp_fail_postfix_len = tsk->rsp_fail_postfix_len;
+    896                  } else {
+    897                      rsp_fail_postfix     = at._default_recv_fail_postfix;
+    898                      rsp_fail_postfix_len = at._recv_fail_postfix_len;
+    899                  }
+    900          
+    901                  if (offset >= rsp_prefix_len && at_task_reponse_begin == 0 &&
+    902                      (strncmp(buf + offset - rsp_prefix_len, rsp_prefix,
+    903                               rsp_prefix_len) == 0)) {
+    904                      at_task_reponse_begin = 1;
+    905                  }
+    906          
+    907                  if (at_task_reponse_begin == 1) {
+    908                      if (tsk->rsp_offset < tsk->rsp_len) {
+    909                          tsk->rsp[tsk->rsp_offset] = c;
+    910                          tsk->rsp_offset++;
+    911          
+    912                          if ((tsk->rsp_offset >= rsp_success_postfix_len &&
+    913                               strncmp(
+    914                                 tsk->rsp + tsk->rsp_offset - rsp_success_postfix_len,
+    915                                 rsp_success_postfix, rsp_success_postfix_len) == 0) ||
+    916                              (tsk->rsp_offset >= rsp_fail_postfix_len &&
+    917                               strncmp(tsk->rsp + tsk->rsp_offset - rsp_fail_postfix_len,
+    918                                       rsp_fail_postfix, rsp_fail_postfix_len) == 0)) {
+    919                              HAL_SemaphorePost(tsk->smpr);
+    920                              at_task_reponse_begin = 0;
+    921                              memset(buf, 0, offset);
+    922                              offset = 0;
+    923                          }
+    924                      } else {
+    925                          memset(tsk->rsp, 0, tsk->rsp_len);
+   \                     ??at_worker_1: (+1)
+   \       0x30   0x2200             MOVS     R2,#+0
+   \       0x32   0xF8DB 0x000C      LDR      R0,[R11, #+12]
+   \       0x36   0x....'....        BL       __aeabi_memset
+    926                          strcpy(tsk->rsp, rsp_fail_postfix);
+   \       0x3A   0x4621             MOV      R1,R4
+   \       0x3C   0xF8DB 0x000C      LDR      R0,[R11, #+12]
+   \       0x40   0x....'....        BL       strcpy
+    927                          HAL_SemaphorePost(tsk->smpr);
+   \       0x44   0xF8DB 0x0004      LDR      R0,[R11, #+4]
+   \       0x48   0x....'....        BL       HAL_SemaphorePost
+    928                          at_task_reponse_begin = 0;
+   \       0x4C   0x2500             MOVS     R5,#+0
+    929                          memset(buf, 0, offset);
+   \       0x4E   0x462A             MOV      R2,R5
+   \       0x50   0x9901             LDR      R1,[SP, #+4]
+   \       0x52   0x4648             MOV      R0,R9
+   \       0x54   0x....'....        BL       __aeabi_memset
+    930                          offset = 0;
+   \       0x58   0x4628             MOV      R0,R5
+   \       0x5A   0x9001             STR      R0,[SP, #+4]
+   \       0x5C   0xE08A             B.N      ??at_worker_2
+    931                      }
+   \                     ??at_worker_3: (+1)
+   \       0x5E   0xF04F 0x0B00      MOV      R11,#+0
+   \                     ??at_worker_4: (+1)
+   \       0x62   0xF8DA 0x00C0      LDR      R0,[R10, #+192]
+   \       0x66   0x....'....        BL       HAL_MutexUnlock
+   \       0x6A   0x2C00             CMP      R4,#+0
+   \       0x6C   0xF040 0x8082      BNE.W    ??at_worker_2
+   \       0x70   0xF8DB 0x0010      LDR      R0,[R11, #+16]
+   \       0x74   0x2800             CMP      R0,#+0
+   \       0x76   0xD007             BEQ.N    ??at_worker_5
+   \       0x78   0xF8DB 0x001C      LDR      R0,[R11, #+28]
+   \       0x7C   0x2800             CMP      R0,#+0
+   \       0x7E   0xD003             BEQ.N    ??at_worker_5
+   \       0x80   0xF8DB 0x1010      LDR      R1,[R11, #+16]
+   \       0x84   0x4606             MOV      R6,R0
+   \       0x86   0xE003             B.N      ??at_worker_6
+   \                     ??at_worker_5: (+1)
+   \       0x88   0xF8DA 0x1008      LDR      R1,[R10, #+8]
+   \       0x8C   0xF8DA 0x6018      LDR      R6,[R10, #+24]
+   \                     ??at_worker_6: (+1)
+   \       0x90   0xF8DB 0x0014      LDR      R0,[R11, #+20]
+   \       0x94   0x2800             CMP      R0,#+0
+   \       0x96   0xD009             BEQ.N    ??at_worker_7
+   \       0x98   0xF8DB 0x0020      LDR      R0,[R11, #+32]
+   \       0x9C   0x2800             CMP      R0,#+0
+   \       0x9E   0xD005             BEQ.N    ??at_worker_7
+   \       0xA0   0xF8DB 0x0014      LDR      R0,[R11, #+20]
+   \       0xA4   0x9002             STR      R0,[SP, #+8]
+   \       0xA6   0xF8DB 0x7020      LDR      R7,[R11, #+32]
+   \       0xAA   0xE004             B.N      ??at_worker_8
+   \                     ??at_worker_7: (+1)
+   \       0xAC   0xF8DA 0x000C      LDR      R0,[R10, #+12]
+   \       0xB0   0x9002             STR      R0,[SP, #+8]
+   \       0xB2   0xF8DA 0x701C      LDR      R7,[R10, #+28]
+   \                     ??at_worker_8: (+1)
+   \       0xB6   0xF8DB 0x0018      LDR      R0,[R11, #+24]
+   \       0xBA   0x2800             CMP      R0,#+0
+   \       0xBC   0xD007             BEQ.N    ??at_worker_9
+   \       0xBE   0xF8DB 0x0024      LDR      R0,[R11, #+36]
+   \       0xC2   0x2800             CMP      R0,#+0
+   \       0xC4   0xD003             BEQ.N    ??at_worker_9
+   \       0xC6   0xF8DB 0x4018      LDR      R4,[R11, #+24]
+   \       0xCA   0x4680             MOV      R8,R0
+   \       0xCC   0xE003             B.N      ??at_worker_10
+   \                     ??at_worker_9: (+1)
+   \       0xCE   0xF8DA 0x4010      LDR      R4,[R10, #+16]
+   \       0xD2   0xF8DA 0x8020      LDR      R8,[R10, #+32]
+   \                     ??at_worker_10: (+1)
+   \       0xD6   0x9801             LDR      R0,[SP, #+4]
+   \       0xD8   0x42B0             CMP      R0,R6
+   \       0xDA   0xDB0A             BLT.N    ??at_worker_11
+   \       0xDC   0x2D00             CMP      R5,#+0
+   \       0xDE   0xD108             BNE.N    ??at_worker_11
+   \       0xE0   0x4632             MOV      R2,R6
+   \       0xE2   0x4448             ADD      R0,R9,R0
+   \       0xE4   0x4273             RSBS     R3,R6,#+0
+   \       0xE6   0x4418             ADD      R0,R0,R3
+   \       0xE8   0x....'....        BL       strncmp
+   \       0xEC   0x2800             CMP      R0,#+0
+   \       0xEE   0xD100             BNE.N    ??at_worker_11
+   \       0xF0   0x2501             MOVS     R5,#+1
+   \                     ??at_worker_11: (+1)
+   \       0xF2   0x2D01             CMP      R5,#+1
+   \       0xF4   0xD13E             BNE.N    ??at_worker_2
+   \       0xF6   0xF8DB 0x0028      LDR      R0,[R11, #+40]
+   \       0xFA   0xF8DB 0x102C      LDR      R1,[R11, #+44]
+   \       0xFE   0x4288             CMP      R0,R1
+   \      0x100   0xD296             BCS.N    ??at_worker_1
+   \      0x102   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \      0x106   0xF8DB 0x100C      LDR      R1,[R11, #+12]
+   \      0x10A   0xF8DB 0x2028      LDR      R2,[R11, #+40]
+   \      0x10E   0x5488             STRB     R0,[R1, R2]
+   \      0x110   0xF8DB 0x0028      LDR      R0,[R11, #+40]
+   \      0x114   0x1C40             ADDS     R0,R0,#+1
+   \      0x116   0xF8CB 0x0028      STR      R0,[R11, #+40]
+   \      0x11A   0x42B8             CMP      R0,R7
+   \      0x11C   0xD30C             BCC.N    ??at_worker_12
+   \      0x11E   0x463A             MOV      R2,R7
+   \      0x120   0x9902             LDR      R1,[SP, #+8]
+   \      0x122   0xF8DB 0x000C      LDR      R0,[R11, #+12]
+   \      0x126   0xF8DB 0x3028      LDR      R3,[R11, #+40]
+   \      0x12A   0x4418             ADD      R0,R0,R3
+   \      0x12C   0x427B             RSBS     R3,R7,#+0
+   \      0x12E   0x4418             ADD      R0,R0,R3
+   \      0x130   0x....'....        BL       strncmp
+   \      0x134   0x2800             CMP      R0,#+0
+   \      0x136   0xD011             BEQ.N    ??at_worker_13
+   \                     ??at_worker_12: (+1)
+   \      0x138   0xF8DB 0x0028      LDR      R0,[R11, #+40]
+   \      0x13C   0x4540             CMP      R0,R8
+   \      0x13E   0xD319             BCC.N    ??at_worker_2
+   \      0x140   0x4642             MOV      R2,R8
+   \      0x142   0x4621             MOV      R1,R4
+   \      0x144   0xF8DB 0x000C      LDR      R0,[R11, #+12]
+   \      0x148   0xF8DB 0x3028      LDR      R3,[R11, #+40]
+   \      0x14C   0x4418             ADD      R0,R0,R3
+   \      0x14E   0xF1C8 0x0300      RSB      R3,R8,#+0
+   \      0x152   0x4418             ADD      R0,R0,R3
+   \      0x154   0x....'....        BL       strncmp
+   \      0x158   0x2800             CMP      R0,#+0
+   \      0x15A   0xD10B             BNE.N    ??at_worker_2
+   \                     ??at_worker_13: (+1)
+   \      0x15C   0xF8DB 0x0004      LDR      R0,[R11, #+4]
+   \      0x160   0x....'....        BL       HAL_SemaphorePost
+   \      0x164   0x2500             MOVS     R5,#+0
+   \      0x166   0x462A             MOV      R2,R5
+   \      0x168   0x9901             LDR      R1,[SP, #+4]
+   \      0x16A   0x4648             MOV      R0,R9
+   \      0x16C   0x....'....        BL       __aeabi_memset
+   \      0x170   0x4628             MOV      R0,R5
+   \      0x172   0x9001             STR      R0,[SP, #+4]
+    932                  }
+    933              check_buffer:
+    934                  /* in case buffer is full */
+    935                  if (offset > (RECV_BUFFER_SIZE - 2)) {
+   \                     ??at_worker_2: (+1)
+   \      0x174   0x9801             LDR      R0,[SP, #+4]
+   \      0x176   0xF240 0x11FF      MOVW     R1,#+511
+   \      0x17A   0x4288             CMP      R0,R1
+   \      0x17C   0xDB15             BLT.N    ??at_worker_0
+    936                      memcpy_size = rsp_prefix_len > rsp_success_postfix_len
+    937                                      ? rsp_prefix_len
+    938                                      : rsp_success_postfix_len;
+   \      0x17E   0x4634             MOV      R4,R6
+   \      0x180   0x42BE             CMP      R6,R7
+   \      0x182   0xDA00             BGE.N    ??at_worker_14
+   \      0x184   0x463C             MOV      R4,R7
+    939                      memcpy_size = memcpy_size > rsp_fail_postfix_len
+    940                                      ? memcpy_size
+    941                                      : rsp_fail_postfix_len;
+   \                     ??at_worker_14: (+1)
+   \      0x186   0x4544             CMP      R4,R8
+   \      0x188   0xDA00             BGE.N    ??at_worker_15
+   \      0x18A   0x4644             MOV      R4,R8
+    942                      memcpy(buf, buf + offset - memcpy_size, memcpy_size);
+   \                     ??at_worker_15: (+1)
+   \      0x18C   0x4622             MOV      R2,R4
+   \      0x18E   0x4448             ADD      R0,R9,R0
+   \      0x190   0x4261             RSBS     R1,R4,#+0
+   \      0x192   0x4401             ADD      R1,R0,R1
+   \      0x194   0x4648             MOV      R0,R9
+   \      0x196   0x....'....        BL       __aeabi_memcpy
+    943                      memset(buf + memcpy_size, 0, offset - memcpy_size);
+   \      0x19A   0x2200             MOVS     R2,#+0
+   \      0x19C   0x9901             LDR      R1,[SP, #+4]
+   \      0x19E   0x1B09             SUBS     R1,R1,R4
+   \      0x1A0   0xEB09 0x0004      ADD      R0,R9,R4
+   \      0x1A4   0x....'....        BL       __aeabi_memset
+    944                      offset = memcpy_size;
+   \      0x1A8   0x9401             STR      R4,[SP, #+4]
+    945                  }
+   \                     ??at_worker_0: (+1)
+   \      0x1AA   0xF8DA 0x1004      LDR      R1,[R10, #+4]
+   \      0x1AE   0x4668             MOV      R0,SP
+   \      0x1B0   0x....'....        BL       at_getc
+   \      0x1B4   0x2800             CMP      R0,#+0
+   \      0x1B6   0xD1F8             BNE.N    ??at_worker_0
+   \      0x1B8   0x9801             LDR      R0,[SP, #+4]
+   \      0x1BA   0x1C40             ADDS     R0,R0,#+1
+   \      0x1BC   0xF5B0 0x7F00      CMP      R0,#+512
+   \      0x1C0   0xDAD8             BGE.N    ??at_worker_2
+   \      0x1C2   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \      0x1C6   0x9901             LDR      R1,[SP, #+4]
+   \      0x1C8   0xF809 0x0001      STRB     R0,[R9, R1]
+   \      0x1CC   0x9801             LDR      R0,[SP, #+4]
+   \      0x1CE   0x1C40             ADDS     R0,R0,#+1
+   \      0x1D0   0x9001             STR      R0,[SP, #+4]
+   \      0x1D2   0x2000             MOVS     R0,#+0
+   \      0x1D4   0x9901             LDR      R1,[SP, #+4]
+   \      0x1D6   0xF809 0x0001      STRB     R0,[R9, R1]
+   \      0x1DA   0xAA01             ADD      R2,SP,#+4
+   \      0x1DC   0x4649             MOV      R1,R9
+   \      0x1DE   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \      0x1E2   0x....'....        BL       at_scan_for_callback
+   \      0x1E6   0xF8DA 0x00C0      LDR      R0,[R10, #+192]
+   \      0x1EA   0x....'....        BL       HAL_MutexLock
+   \      0x1EE   0xF10A 0x00C4      ADD      R0,R10,#+196
+   \      0x1F2   0x....'....        BL       slist_empty
+   \      0x1F6   0x0004             MOVS     R4,R0
+   \      0x1F8   0xF47F 0xAF33      BNE.W    ??at_worker_4
+   \      0x1FC   0xF8DA 0x00C4      LDR      R0,[R10, #+196]
+   \      0x200   0x2800             CMP      R0,#+0
+   \      0x202   0xF43F 0xAF2C      BEQ.W    ??at_worker_3
+   \      0x206   0x4683             MOV      R11,R0
+   \      0x208   0xE72B             B.N      ??at_worker_4
+    946              }
+    947          
+    948              return NULL;
+                     ^
+Warning[Pe111]: statement is unreachable
+    949          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable14:
+   \        0x0   0x0D 0x0A          DC8      0x0D, 0x0A, 0x00, 0x00
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable15:
+   \        0x0   0x0D 0x00          DC8      "\r",0x0,0x0
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20:
+   \        0x0   0x....'....        DC32     at_uart
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20_1:
+   \        0x0   0x....'....        DC32     at
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20_2:
+   \        0x0   0x....'....        DC32     ?_1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20_3:
+   \        0x0   0x....'....        DC32     ?_2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20_4:
+   \        0x0   0x....'....        DC32     inited
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20_5:
+   \        0x0   0x....'....        DC32     ?_4
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable20_6:
+   \        0x0   0x....'....        DC32     at_rx_buf
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x0D 0x0A          DC8 "\015\012"
+   \              0x00         
+   \        0x3   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_1:
+   \        0x0   0x4F 0x4B          DC8 "OK\015\012"
+   \              0x0D 0x0A    
+   \              0x00         
+   \        0x5   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_2:
+   \        0x0   0x45 0x52          DC8 "ERROR\015\012"
+   \              0x52 0x4F    
+   \              0x52 0x0D    
+   \              0x0A 0x00    
+
+   \                                 In section .rodata, align 2
+   \        0x0   0x0D 0x00          DC8 "\015"
+
+   \                                 In section .rodata, align 4
+   \                     ?_4:
+   \        0x0   0x61 0x74          DC8 "at_worker"
+   \              0x5F 0x77    
+   \              0x6F 0x72    
+   \              0x6B 0x65    
+   \              0x72 0x00    
+   \        0xA   0x00 0x00          DC8 0, 0
+    950          #endif
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   at_deinit_task_mutex
+         0   -> HAL_MutexDestroy
+       0   at_deinit_uart_recv_mutex
+         0   -> HAL_MutexDestroy
+      32   at_getc
+        32   -> HAL_MutexLock
+        32   -> HAL_MutexUnlock
+        32   -> at_recvfrom_lower
+       8   at_init_task_mutex
+         8   -> HAL_MutexCreate
+       8   at_init_uart
+         8   -> HAL_AT_Uart_Init
+         8   -> at_uart_configure
+       8   at_init_uart_recv_mutex
+         8   -> HAL_MutexCreate
+      56   at_parser_init
+        56   -> HAL_SleepMs
+        56   -> HAL_ThreadCreate
+        56   -> __aeabi_memclr4
+        56   -> __aeabi_memset4
+        56   -> at_deinit_task_mutex
+        56   -> at_deinit_uart_recv_mutex
+        56   -> at_init_task_mutex
+        56   -> at_init_uart
+        56   -> at_init_uart_recv_mutex
+        56   -> at_set_recv_delimiter
+        56   -> at_set_send_delimiter
+        56   -> at_set_timeout
+        56   -> at_worker_uart_send_mutex_deinit
+        56   -> at_worker_uart_send_mutex_init
+        56   -> slist_init
+      32   at_read
+        32   -> HAL_MutexLock
+        32   -> HAL_MutexUnlock
+        32   -> at_recvfrom_lower
+      16   at_recvfrom_lower
+        16   -> HAL_AT_Uart_Recv
+      32   at_register_callback
+        32   -> __aeabi_memset
+        32   -> strcmp
+      32   at_scan_for_callback
+        32   -- Indirect call
+        32   -> __aeabi_memcpy
+        32   -> __aeabi_memset
+        32   -> memcmp
+        32   -> strlen
+        32   -> strncmp
+      24   at_send_no_reply
+        24   -> HAL_MutexLock
+        24   -> HAL_MutexUnlock
+        24   -> at_sendto_lower
+        24   -> strlen
+      48   at_send_wait_reply
+        48   -> HAL_Malloc
+        48   -> HAL_MutexLock
+        48   -> HAL_MutexUnlock
+        48   -> HAL_SemaphoreCreate
+        48   -> HAL_SemaphoreWait
+        48   -> __aeabi_memset4
+        48   -> at_sendto_lower
+        48   -> at_worker_task_add
+        48   -> at_worker_task_del
+        48   -> strlen
+       0   at_sendto_lower
+         0   -> HAL_AT_Uart_Send
+      16   at_set_recv_delimiter
+        16   -> strlen
+       8   at_set_send_delimiter
+         8   -> strlen
+       0   at_set_timeout
+       0   at_uart_configure
+      48   at_worker
+        48   -> HAL_MutexLock
+        48   -> HAL_MutexUnlock
+        48   -> HAL_SemaphorePost
+        48   -> __aeabi_memcpy
+        48   -> __aeabi_memset
+        48   -> at_getc
+        48   -> at_scan_for_callback
+        48   -> slist_empty
+        48   -> strcpy
+        48   -> strncmp
+      16   at_worker_task_add
+        16   -> HAL_MutexLock
+        16   -> HAL_MutexUnlock
+        16   -> slist_add_tail
+      16   at_worker_task_del
+        16   -> HAL_Free
+        16   -> HAL_MutexLock
+        16   -> HAL_MutexUnlock
+        16   -> HAL_SemaphoreDestroy
+        16   -> slist_del
+       0   at_worker_uart_send_mutex_deinit
+         0   -> HAL_MutexDestroy
+       8   at_worker_uart_send_mutex_init
+         8   -> HAL_MutexCreate
+       0   slist_add
+       0   slist_add_tail
+         0   -> slist_add
+       0   slist_del
+       0   slist_empty
+       0   slist_init
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable14
+       4  ??DataTable15
+       4  ??DataTable20
+       4  ??DataTable20_1
+       4  ??DataTable20_2
+       4  ??DataTable20_3
+       4  ??DataTable20_4
+       4  ??DataTable20_5
+       4  ??DataTable20_6
+       4  ?_0
+       8  ?_1
+       8  ?_2
+       2  ?_3
+      12  ?_4
+      20  ?_5
+     200  at
+      18  at_deinit_task_mutex
+      18  at_deinit_uart_recv_mutex
+     106  at_getc
+      28  at_init_task_mutex
+      38  at_init_uart
+      28  at_init_uart_recv_mutex
+     234  at_parser_init
+     104  at_read
+      12  at_recvfrom_lower
+     178  at_register_callback
+     512  at_rx_buf
+     378  at_scan_for_callback
+     120  at_send_no_reply
+     304  at_send_wait_reply
+       4  at_sendto_lower
+      40  at_set_recv_delimiter
+      16  at_set_send_delimiter
+       8  at_set_timeout
+      20  at_uart
+      28  at_uart_configure
+     522  at_worker
+      46  at_worker_task_add
+      62  at_worker_task_del
+      18  at_worker_uart_send_mutex_deinit
+      28  at_worker_uart_send_mutex_init
+       1  inited
+       8  slist_add
+      12  slist_add_tail
+      20  slist_del
+      14  slist_empty
+       6  slist_init
+
+ 
+   733 bytes in section .bss
+    54 bytes in section .rodata
+ 2 434 bytes in section .text
+ 
+ 2 434 bytes of CODE  memory
+    54 bytes of CONST memory
+   733 bytes of DATA  memory
+
+Errors: none
+Warnings: 2

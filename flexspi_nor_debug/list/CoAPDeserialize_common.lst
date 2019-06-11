@@ -1,0 +1,437 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         10/Jun/2019  13:48:07
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\CoAPDeserialize_common.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EWA9C6.tmp
+#        (C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\CoAPDeserialize_common.c
+#        -D DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D
+#        XIP_BOOT_HEADER_ENABLE=1 -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS
+#        -D PRINTF_ADVANCED_ENABLE -D
+#        "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list -lA
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\Development\smart_washing_machine_3080/source\app_preinclude.h -I
+#        C:\Development\smart_washing_machine_3080/board\ -I
+#        C:\Development\smart_washing_machine_3080/source\ -I
+#        C:\Development\smart_washing_machine_3080/CMSIS\ -I
+#        C:\Development\smart_washing_machine_3080/amazon-freertos/freertos/portable\
+#        -I C:\Development\smart_washing_machine_3080/amazon-freertos/include\
+#        -I C:\Development\smart_washing_machine_3080/component/lists\ -I
+#        C:\Development\smart_washing_machine_3080/component/serial_manager\ -I
+#        C:\Development\smart_washing_machine_3080/component/uart\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv/include\ -I
+#        C:\Development\smart_washing_machine_3080/device\ -I
+#        C:\Development\smart_washing_machine_3080/doc\ -I
+#        C:\Development\smart_washing_machine_3080/drivers\ -I
+#        C:\Development\smart_washing_machine_3080/src\ -I
+#        C:\Development\smart_washing_machine_3080/startup\ -I
+#        C:\Development\smart_washing_machine_3080/utilities\ -I
+#        C:\Development\smart_washing_machine_3080/xip\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_model\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_sign\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\mqtt\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\external_libs\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\coap_cloud\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_reset\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\mbedtls\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\ -I
+#        C:\Development\smart_washing_machine_3080\mbedtls\port\ksdk\ -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list\CoAPDeserialize_common.lst
+#    Object file  =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj\CoAPDeserialize_common.o
+#
+###############################################################################
+
+C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\CoAPDeserialize_common.c
+      1          /*
+      2           * Copyright (C) 2015-2018 Alibaba Group Holding Limited
+      3           */
+      4          
+      5          
+      6          
+      7          
+      8          #include <stdio.h>
+      9          #include <string.h>
+     10          #include "iotx_coap_internal.h"
+     11          
+
+   \                                 In section .text, align 2, keep-with-next
+     12          int CoAPDeserialize_Header(CoAPMessage *msg, unsigned char *buf)
+     13          {
+     14              msg->header.version   = ((buf[0] >> 6) & 0x03);
+   \                     CoAPDeserialize_Header: (+1)
+   \        0x0   0x780A             LDRB     R2,[R1, #+0]
+   \        0x2   0x0992             LSRS     R2,R2,#+6
+   \        0x4   0x7803             LDRB     R3,[R0, #+0]
+   \        0x6   0xF362 0x0301      BFI      R3,R2,#+0,#+2
+   \        0xA   0x7003             STRB     R3,[R0, #+0]
+     15              msg->header.type      = ((buf[0] >> 4) & 0x03);
+   \        0xC   0x780A             LDRB     R2,[R1, #+0]
+   \        0xE   0xF3C2 0x1201      UBFX     R2,R2,#+4,#+2
+   \       0x12   0x7803             LDRB     R3,[R0, #+0]
+   \       0x14   0xF362 0x0383      BFI      R3,R2,#+2,#+2
+   \       0x18   0x7003             STRB     R3,[R0, #+0]
+     16              msg->header.tokenlen  = (buf[0] & 0x0F);
+   \       0x1A   0x780A             LDRB     R2,[R1, #+0]
+   \       0x1C   0xF002 0x020F      AND      R2,R2,#0xF
+   \       0x20   0xF003 0x030F      AND      R3,R3,#0xF
+   \       0x24   0xEA43 0x1302      ORR      R3,R3,R2, LSL #+4
+   \       0x28   0x7003             STRB     R3,[R0, #+0]
+     17              msg->header.code      =  buf[1];
+   \       0x2A   0x784A             LDRB     R2,[R1, #+1]
+   \       0x2C   0x7042             STRB     R2,[R0, #+1]
+     18              msg->header.msgid     =  buf[2] << 8;
+   \       0x2E   0x788A             LDRB     R2,[R1, #+2]
+   \       0x30   0x0212             LSLS     R2,R2,#+8
+   \       0x32   0x8042             STRH     R2,[R0, #+2]
+     19              msg->header.msgid    +=  buf[3];
+   \       0x34   0x8842             LDRH     R2,[R0, #+2]
+   \       0x36   0x78C9             LDRB     R1,[R1, #+3]
+   \       0x38   0x1851             ADDS     R1,R2,R1
+   \       0x3A   0x8041             STRH     R1,[R0, #+2]
+     20          
+     21              return 4;
+   \       0x3C   0x2004             MOVS     R0,#+4
+   \       0x3E   0x4770             BX       LR               ;; return
+     22          }
+     23          
+
+   \                                 In section .text, align 2, keep-with-next
+     24          int CoAPDeserialize_Token(CoAPMessage *msg, unsigned char *buf)
+     25          {
+   \                     CoAPDeserialize_Token: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x4604             MOV      R4,R0
+     26              memcpy(msg->token, buf, msg->header.tokenlen);
+   \        0x4   0x7822             LDRB     R2,[R4, #+0]
+   \        0x6   0x0912             LSRS     R2,R2,#+4
+   \        0x8   0x1D20             ADDS     R0,R4,#+4
+   \        0xA   0x....'....        BL       __aeabi_memcpy
+     27              return msg->header.tokenlen;
+   \        0xE   0x7820             LDRB     R0,[R4, #+0]
+   \       0x10   0x0900             LSRS     R0,R0,#+4
+   \       0x12   0xBD10             POP      {R4,PC}          ;; return
+     28          }
+     29          
+
+   \                                 In section .text, align 2, keep-with-next
+     30          static int CoAPDeserialize_Option(CoAPMsgOption *option, unsigned char *buf, unsigned short *predeltas)
+     31          {
+   \                     CoAPDeserialize_Option: (+1)
+   \        0x0   0xB4F0             PUSH     {R4-R7}
+     32              unsigned char  *ptr      = buf;
+     33              unsigned short optdelta  = 0;
+     34              unsigned short optlen    = 0;
+     35              unsigned short predelta  = 0;
+     36          
+     37              optdelta  = (*ptr & 0xF0) >> 4;
+   \        0x2   0x780C             LDRB     R4,[R1, #+0]
+   \        0x4   0x0924             LSRS     R4,R4,#+4
+     38              optlen    = (*ptr & 0x0F);
+   \        0x6   0x780D             LDRB     R5,[R1, #+0]
+   \        0x8   0xF005 0x050F      AND      R5,R5,#0xF
+     39              ptr++;
+   \        0xC   0x1C4B             ADDS     R3,R1,#+1
+     40          
+     41              predelta = *predeltas;
+   \        0xE   0x8816             LDRH     R6,[R2, #+0]
+     42              if (13 == optdelta) {
+   \       0x10   0x2C0D             CMP      R4,#+13
+   \       0x12   0xD105             BNE.N    ??CoAPDeserialize_Option_0
+     43                  predelta += 13 + *ptr;
+   \       0x14   0x4634             MOV      R4,R6
+   \       0x16   0xF813 0x6B01      LDRB     R6,[R3], #+1
+   \       0x1A   0x360D             ADDS     R6,R6,#+13
+   \       0x1C   0x1934             ADDS     R4,R6,R4
+     44                  ptr ++;
+   \       0x1E   0xE00C             B.N      ??CoAPDeserialize_Option_1
+     45          
+     46              } else if (14 == optdelta) {
+   \                     ??CoAPDeserialize_Option_0: (+1)
+   \       0x20   0x2C0E             CMP      R4,#+14
+   \       0x22   0xD109             BNE.N    ??CoAPDeserialize_Option_2
+     47                  predelta += 269;
+     48                  predelta += (*ptr << 8);
+     49                  predelta +=  *(ptr + 1);
+   \       0x24   0x4634             MOV      R4,R6
+   \       0x26   0x781E             LDRB     R6,[R3, #+0]
+   \       0x28   0x785F             LDRB     R7,[R3, #+1]
+   \       0x2A   0xEB17 0x2606      ADDS     R6,R7,R6, LSL #+8
+   \       0x2E   0xF206 0x160D      ADDW     R6,R6,#+269
+   \       0x32   0x1934             ADDS     R4,R6,R4
+     50                  ptr += 2;
+   \       0x34   0x1C9B             ADDS     R3,R3,#+2
+   \       0x36   0xE000             B.N      ??CoAPDeserialize_Option_1
+     51              } else {
+     52                  predelta += optdelta;
+   \                     ??CoAPDeserialize_Option_2: (+1)
+   \       0x38   0x19A4             ADDS     R4,R4,R6
+     53              }
+     54              option->num = predelta;
+   \                     ??CoAPDeserialize_Option_1: (+1)
+   \       0x3A   0x8004             STRH     R4,[R0, #+0]
+     55          
+     56              if (13 == optlen) {
+   \       0x3C   0x462C             MOV      R4,R5
+   \       0x3E   0x2C0D             CMP      R4,#+13
+   \       0x40   0xD103             BNE.N    ??CoAPDeserialize_Option_3
+     57                  optlen = 13 + *ptr;
+   \       0x42   0xF813 0x5B01      LDRB     R5,[R3], #+1
+   \       0x46   0x350D             ADDS     R5,R5,#+13
+     58                  ptr ++;
+   \       0x48   0xE008             B.N      ??CoAPDeserialize_Option_4
+     59              } else if (14 == optlen) {
+   \                     ??CoAPDeserialize_Option_3: (+1)
+   \       0x4A   0x2C0E             CMP      R4,#+14
+   \       0x4C   0xD106             BNE.N    ??CoAPDeserialize_Option_4
+     60                  optlen = 269;
+     61                  optlen += (*ptr << 8);
+     62                  optlen += *(ptr + 1);
+   \       0x4E   0x781C             LDRB     R4,[R3, #+0]
+   \       0x50   0x785D             LDRB     R5,[R3, #+1]
+   \       0x52   0xEB15 0x2504      ADDS     R5,R5,R4, LSL #+8
+   \       0x56   0xF205 0x150D      ADDW     R5,R5,#+269
+     63                  ptr += 2;
+   \       0x5A   0x1C9B             ADDS     R3,R3,#+2
+     64              }
+     65              option->len = optlen;
+   \                     ??CoAPDeserialize_Option_4: (+1)
+   \       0x5C   0x8045             STRH     R5,[R0, #+2]
+     66          
+     67              option->val = ptr;
+   \       0x5E   0x6043             STR      R3,[R0, #+4]
+     68              *predeltas = option->num;
+   \       0x60   0x8804             LDRH     R4,[R0, #+0]
+   \       0x62   0x8014             STRH     R4,[R2, #+0]
+     69          
+     70              return (ptr - buf + option->len);
+   \       0x64   0x1A59             SUBS     R1,R3,R1
+   \       0x66   0x8840             LDRH     R0,[R0, #+2]
+   \       0x68   0x1808             ADDS     R0,R1,R0
+   \       0x6A   0xBCF0             POP      {R4-R7}
+   \       0x6C   0x4770             BX       LR               ;; return
+     71          }
+     72          
+
+   \                                 In section .text, align 2, keep-with-next
+     73          int CoAPDeserialize_Options(CoAPMessage *msg, unsigned char *buf, int buflen)
+     74          {
+   \                     CoAPDeserialize_Options: (+1)
+   \        0x0   0xE92D 0x43F8      PUSH     {R3-R9,LR}
+   \        0x4   0x4604             MOV      R4,R0
+   \        0x6   0x460D             MOV      R5,R1
+   \        0x8   0x4616             MOV      R6,R2
+     75              int  index = 0;
+   \        0xA   0x2700             MOVS     R7,#+0
+     76              int  count = 0;
+   \        0xC   0x46B8             MOV      R8,R7
+     77              unsigned char  *ptr      = buf;
+   \        0xE   0x46A9             MOV      R9,R5
+     78              unsigned short len       = 0;
+     79              unsigned short optdeltas = 0;
+   \       0x10   0x4638             MOV      R0,R7
+   \       0x12   0xF8AD 0x0000      STRH     R0,[SP, #+0]
+     80          
+     81              msg->optcount = 0;
+   \       0x16   0xF884 0x006C      STRB     R0,[R4, #+108]
+     82              while ((count < buflen) && (0xFF != *ptr)) {
+   \                     ??CoAPDeserialize_Options_0: (+1)
+   \       0x1A   0x45B0             CMP      R8,R6
+   \       0x1C   0xDA14             BGE.N    ??CoAPDeserialize_Options_1
+   \       0x1E   0xF899 0x0000      LDRB     R0,[R9, #+0]
+   \       0x22   0x28FF             CMP      R0,#+255
+   \       0x24   0xD010             BEQ.N    ??CoAPDeserialize_Options_1
+     83                  len = CoAPDeserialize_Option(&msg->options[index], ptr, &optdeltas);
+   \       0x26   0x466A             MOV      R2,SP
+   \       0x28   0x4649             MOV      R1,R9
+   \       0x2A   0xEB04 0x00C7      ADD      R0,R4,R7, LSL #+3
+   \       0x2E   0x300C             ADDS     R0,R0,#+12
+   \       0x30   0x....'....        BL       CoAPDeserialize_Option
+   \       0x34   0xB280             UXTH     R0,R0
+     84                  msg->optcount += 1;
+   \       0x36   0xF894 0x106C      LDRB     R1,[R4, #+108]
+   \       0x3A   0x1C49             ADDS     R1,R1,#+1
+   \       0x3C   0xF884 0x106C      STRB     R1,[R4, #+108]
+     85                  ptr += len;
+   \       0x40   0x4481             ADD      R9,R9,R0
+     86                  index ++;
+   \       0x42   0x1C7F             ADDS     R7,R7,#+1
+     87                  count += len;
+   \       0x44   0x4480             ADD      R8,R0,R8
+   \       0x46   0xE7E8             B.N      ??CoAPDeserialize_Options_0
+     88              }
+     89          
+     90              return (int)(ptr - buf);
+   \                     ??CoAPDeserialize_Options_1: (+1)
+   \       0x48   0xEBA9 0x0505      SUB      R5,R9,R5
+   \       0x4C   0x4628             MOV      R0,R5
+   \       0x4E   0xE8BD 0x83F2      POP      {R1,R4-R9,PC}    ;; return
+     91          }
+     92          
+
+   \                                 In section .text, align 2, keep-with-next
+     93          int CoAPDeserialize_Payload(CoAPMessage *msg, unsigned char *buf, int buflen)
+     94          {
+     95              unsigned char *ptr = buf;
+     96          
+     97              if (0xFF == *ptr) {
+   \                     CoAPDeserialize_Payload: (+1)
+   \        0x0   0x780B             LDRB     R3,[R1, #+0]
+   \        0x2   0x2BFF             CMP      R3,#+255
+   \        0x4   0xD107             BNE.N    ??CoAPDeserialize_Payload_0
+     98                  ptr ++;
+     99              } else {
+    100                  return 0;
+    101              }
+    102              msg->payloadlen = buflen - 1;
+   \        0x6   0x4613             MOV      R3,R2
+   \        0x8   0x1E5B             SUBS     R3,R3,#+1
+   \        0xA   0xF8A0 0x306E      STRH     R3,[R0, #+110]
+    103              msg->payload = (unsigned char *)ptr;
+   \        0xE   0x1C49             ADDS     R1,R1,#+1
+   \       0x10   0x6701             STR      R1,[R0, #+112]
+    104          
+    105              return buflen;
+   \       0x12   0x4610             MOV      R0,R2
+   \       0x14   0x4770             BX       LR
+   \                     ??CoAPDeserialize_Payload_0: (+1)
+   \       0x16   0x2000             MOVS     R0,#+0
+   \       0x18   0x4770             BX       LR               ;; return
+    106          }
+    107          
+
+   \                                 In section .text, align 2, keep-with-next
+    108          int CoAPDeserialize_Message(CoAPMessage *msg, unsigned char *buf, int buflen)
+    109          {
+   \                     CoAPDeserialize_Message: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x4605             MOV      R5,R0
+   \        0x4   0x460C             MOV      R4,R1
+   \        0x6   0x4616             MOV      R6,R2
+    110              int count  = 0;
+    111              int remlen = buflen;
+    112              unsigned char *ptr = buf;
+    113          
+    114              if (NULL == buf || NULL == msg) {
+   \        0x8   0x2C00             CMP      R4,#+0
+   \        0xA   0xD001             BEQ.N    ??CoAPDeserialize_Message_0
+   \        0xC   0x2D00             CMP      R5,#+0
+   \        0xE   0xD102             BNE.N    ??CoAPDeserialize_Message_1
+    115                  return COAP_ERROR_INVALID_PARAM;
+   \                     ??CoAPDeserialize_Message_0: (+1)
+   \       0x10   0xF240 0x1001      MOVW     R0,#+257
+   \       0x14   0xBD70             POP      {R4-R6,PC}
+    116              }
+    117          
+    118              if (buflen < 4) {
+   \                     ??CoAPDeserialize_Message_1: (+1)
+   \       0x16   0x2E04             CMP      R6,#+4
+   \       0x18   0xDA02             BGE.N    ??CoAPDeserialize_Message_2
+    119                  return COAP_ERROR_INVALID_LENGTH;
+   \       0x1A   0xF44F 0x7082      MOV      R0,#+260
+   \       0x1E   0xBD70             POP      {R4-R6,PC}
+    120              }
+    121          
+    122              /* Deserialize CoAP header. */
+    123              count = CoAPDeserialize_Header(msg, ptr);
+   \                     ??CoAPDeserialize_Message_2: (+1)
+   \       0x20   0x....'....        BL       CoAPDeserialize_Header
+    124              ptr += count;
+   \       0x24   0x4404             ADD      R4,R4,R0
+    125              remlen -= count;
+   \       0x26   0x1A36             SUBS     R6,R6,R0
+    126          
+    127              /* Deserialize the token, if any. */
+    128              count = CoAPDeserialize_Token(msg, ptr);
+   \       0x28   0x4621             MOV      R1,R4
+   \       0x2A   0x4628             MOV      R0,R5
+   \       0x2C   0x....'....        BL       CoAPDeserialize_Token
+    129              ptr += count;
+   \       0x30   0x4404             ADD      R4,R4,R0
+    130              remlen -= count;
+   \       0x32   0x1A36             SUBS     R6,R6,R0
+    131          
+    132              count = CoAPDeserialize_Options(msg, ptr, remlen);
+   \       0x34   0x4632             MOV      R2,R6
+   \       0x36   0x4621             MOV      R1,R4
+   \       0x38   0x4628             MOV      R0,R5
+   \       0x3A   0x....'....        BL       CoAPDeserialize_Options
+    133              ptr += count;
+    134              remlen -= count;
+    135          
+    136              CoAPDeserialize_Payload(msg, ptr, remlen);
+   \       0x3E   0x1A36             SUBS     R6,R6,R0
+   \       0x40   0x4632             MOV      R2,R6
+   \       0x42   0x1821             ADDS     R1,R4,R0
+   \       0x44   0x4628             MOV      R0,R5
+   \       0x46   0x....'....        BL       CoAPDeserialize_Payload
+    137          
+    138              return COAP_SUCCESS;
+   \       0x4A   0x2000             MOVS     R0,#+0
+   \       0x4C   0xBD70             POP      {R4-R6,PC}       ;; return
+    139          }
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   CoAPDeserialize_Header
+      16   CoAPDeserialize_Message
+        16   -> CoAPDeserialize_Header
+        16   -> CoAPDeserialize_Options
+        16   -> CoAPDeserialize_Payload
+        16   -> CoAPDeserialize_Token
+      16   CoAPDeserialize_Option
+      32   CoAPDeserialize_Options
+        32   -> CoAPDeserialize_Option
+       0   CoAPDeserialize_Payload
+       8   CoAPDeserialize_Token
+         8   -> __aeabi_memcpy
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+      64  CoAPDeserialize_Header
+      78  CoAPDeserialize_Message
+     110  CoAPDeserialize_Option
+      82  CoAPDeserialize_Options
+      26  CoAPDeserialize_Payload
+      20  CoAPDeserialize_Token
+
+ 
+ 380 bytes in section .text
+ 
+ 380 bytes of CODE memory
+
+Errors: none
+Warnings: none

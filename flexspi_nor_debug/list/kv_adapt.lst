@@ -1,0 +1,802 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         10/Jun/2019  13:48:32
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\Development\smart_washing_machine_3080\component\kv\kv_adapt.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EWB50.tmp
+#        (C:\Development\smart_washing_machine_3080\component\kv\kv_adapt.c -D
+#        DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D XIP_BOOT_HEADER_ENABLE=1
+#        -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS -D PRINTF_ADVANCED_ENABLE
+#        -D "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list -lA
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\Development\smart_washing_machine_3080/source\app_preinclude.h -I
+#        C:\Development\smart_washing_machine_3080/board\ -I
+#        C:\Development\smart_washing_machine_3080/source\ -I
+#        C:\Development\smart_washing_machine_3080/CMSIS\ -I
+#        C:\Development\smart_washing_machine_3080/amazon-freertos/freertos/portable\
+#        -I C:\Development\smart_washing_machine_3080/amazon-freertos/include\
+#        -I C:\Development\smart_washing_machine_3080/component/lists\ -I
+#        C:\Development\smart_washing_machine_3080/component/serial_manager\ -I
+#        C:\Development\smart_washing_machine_3080/component/uart\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv/include\ -I
+#        C:\Development\smart_washing_machine_3080/device\ -I
+#        C:\Development\smart_washing_machine_3080/doc\ -I
+#        C:\Development\smart_washing_machine_3080/drivers\ -I
+#        C:\Development\smart_washing_machine_3080/src\ -I
+#        C:\Development\smart_washing_machine_3080/startup\ -I
+#        C:\Development\smart_washing_machine_3080/utilities\ -I
+#        C:\Development\smart_washing_machine_3080/xip\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_model\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_sign\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\mqtt\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\external_libs\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\coap_cloud\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_reset\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\mbedtls\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\ -I
+#        C:\Development\smart_washing_machine_3080\mbedtls\port\ksdk\ -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list\kv_adapt.lst
+#    Object file  =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj\kv_adapt.o
+#
+###############################################################################
+
+C:\Development\smart_washing_machine_3080\component\kv\kv_adapt.c
+      1          /*
+      2           * Copyright (C) 2015-2017 Alibaba Group Holding Limited
+      3           */
+      4          
+      5          #include "kv_api.h"
+      6          
+      7          #include "kv_conf.h"
+      8          #include "kv_adapt.h"
+      9               
+     10          #include "flexspi_hyper_flash_ops.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp uint32_t DisableGlobalIRQ(void)
+   \                     DisableGlobalIRQ: (+1)
+   \        0x0   0xF3EF 0x8010      MRS      R0,PRIMASK
+   \        0x4   0xB672             CPSID    I
+   \        0x6   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void EnableGlobalIRQ(uint32_t)
+   \                     EnableGlobalIRQ: (+1)
+   \        0x0   0xF380 0x8810      MSR      PRIMASK,R0
+   \        0x4   0x4770             BX       LR               ;; return
+     11          #include "fsl_cache.h"
+     12          
+     13          #include "FreeRTOS.h"
+     14          #include "task.h"
+     15          #include "wrappers_defs.h"
+     16          
+     17          #include "fsl_debug_console.h"
+     18               
+     19          #define KV_FLASH_BASE               (0x03C00000)    // 60MB - 64MB
+     20          #define KV_FLASH_SECTOR_SIZE        (1 << KV_CONFIG_BLOCK_SIZE_BITS)
+     21          #define FLASH_PAGE_SIZE_BYTES       512
+     22          
+     23          void *HAL_MutexCreate(void);
+     24          void  HAL_MutexDestroy(void *mutex);
+     25          void  HAL_MutexLock(void *mutex);
+     26          void  HAL_MutexUnlock(void *mutex);
+     27          void *HAL_SemaphoreCreate(void);
+     28          void  HAL_SemaphoreDestroy(void *sem);
+     29          void  HAL_SemaphorePost(void *sem);
+     30          int   HAL_SemaphoreWait(void *sem, uint32_t timeout_ms);
+     31          void *HAL_Malloc(uint32_t size);
+     32          void  HAL_Free(void *ptr);
+     33          
+
+   \                                 In section .bss, align 4
+     34          static TaskHandle_t kv_task_handle;
+   \                     kv_task_handle:
+   \        0x0                      DS8 4
+     35          
+
+   \                                 In section .text, align 2, keep-with-next
+     36          int32_t kv_flash_read(uint32_t offset, void *buf, uint32_t nbytes)
+     37          {
+   \                     kv_flash_read: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x4604             MOV      R4,R0
+   \        0x4   0x460D             MOV      R5,R1
+   \        0x6   0x4616             MOV      R6,R2
+     38              uint32_t cpu_addr;
+     39              
+     40              PRINTF("R - kv_flash_read, offset = %d, nbytes = %d\r\n", offset, nbytes);
+   \        0x8   0x4621             MOV      R1,R4
+   \        0xA   0x....             LDR.N    R0,??DataTable5
+   \        0xC   0x....'....        BL       DbgConsole_Printf
+     41              
+     42              cpu_addr = FlexSPI_AMBA_BASE + KV_FLASH_BASE + offset;
+     43              memcpy(buf, (void *)cpu_addr, nbytes);
+   \       0x10   0x4632             MOV      R2,R6
+   \       0x12   0x....             LDR.N    R0,??DataTable5_1  ;; 0x63c00000
+   \       0x14   0x1904             ADDS     R4,R0,R4
+   \       0x16   0x4621             MOV      R1,R4
+   \       0x18   0x4628             MOV      R0,R5
+   \       0x1A   0x....'....        BL       __aeabi_memcpy
+     44              
+     45              return 0;
+   \       0x1E   0x2000             MOVS     R0,#+0
+   \       0x20   0xBD70             POP      {R4-R6,PC}       ;; return
+     46          }
+     47          
+
+   \                                 In section .text, align 2, keep-with-next
+     48          int32_t kv_flash_write(uint32_t offset, void *buf, uint32_t nbytes)
+     49          {
+   \                     kv_flash_write: (+1)
+   \        0x0   0xE92D 0x47FF      PUSH     {R0-R10,LR}
+   \        0x4   0x4605             MOV      R5,R0
+   \        0x6   0x4614             MOV      R4,R2
+     50              /* Must be 4-byte aligned. */
+     51              SDK_ALIGN(static uint8_t intBuffer[FLASH_PAGE_SIZE_BYTES], 4);
+     52          
+     53              status_t status;
+     54              uint32_t phy_address;
+     55              uint32_t page_offset;
+     56              uint32_t phyAddrAlign;
+     57              uint32_t memcpylen;
+     58              uint32_t sizeLeft = nbytes;
+   \        0x8   0x46A0             MOV      R8,R4
+     59              const uint8_t *buffer = (const uint8_t *)buf;
+   \        0xA   0x460F             MOV      R7,R1
+     60              
+     61              PRINTF("P - kv_flash_write, offset = %d, nbytes = %d, [0]=%d, [1]=%d, [2]=%d, [3]=%d\r\n", offset, nbytes, buffer[0], buffer[1], buffer[2], buffer[3]);
+   \        0xC   0x78F8             LDRB     R0,[R7, #+3]
+   \        0xE   0x9002             STR      R0,[SP, #+8]
+   \       0x10   0x78B8             LDRB     R0,[R7, #+2]
+   \       0x12   0x9001             STR      R0,[SP, #+4]
+   \       0x14   0x7878             LDRB     R0,[R7, #+1]
+   \       0x16   0x9000             STR      R0,[SP, #+0]
+   \       0x18   0x783B             LDRB     R3,[R7, #+0]
+   \       0x1A   0x4629             MOV      R1,R5
+   \       0x1C   0x....             LDR.N    R0,??DataTable5_2
+   \       0x1E   0x....'....        BL       DbgConsole_Printf
+     62              
+     63              uint32_t old_primask = DisableGlobalIRQ();
+   \       0x22   0x....'....        BL       DisableGlobalIRQ
+   \       0x26   0x4606             MOV      R6,R0
+     64              
+     65              phy_address = KV_FLASH_BASE + offset;
+   \       0x28   0xF105 0x7570      ADD      R5,R5,#+62914560
+     66              
+     67             /* Check if the startaddress is the page size aligned */
+     68              if ((phy_address % FLASH_PAGE_SIZE_BYTES) != 0)
+   \       0x2C   0x05E8             LSLS     R0,R5,#+23
+   \       0x2E   0xD02B             BEQ.N    ??kv_flash_write_0
+     69              {
+     70                  page_offset = phy_address % FLASH_PAGE_SIZE_BYTES;
+   \       0x30   0xF3C5 0x0A08      UBFX     R10,R5,#+0,#+9
+     71                  phyAddrAlign = (phy_address / FLASH_PAGE_SIZE_BYTES) * FLASH_PAGE_SIZE_BYTES;
+   \       0x34   0x0A6D             LSRS     R5,R5,#+9
+   \       0x36   0x026D             LSLS     R5,R5,#+9
+     72                  memcpylen = nbytes;
+   \       0x38   0x46A1             MOV      R9,R4
+     73          
+     74                  /* Check if the area across pages. */
+     75                  if (page_offset + nbytes > FLASH_PAGE_SIZE_BYTES)
+   \       0x3A   0x4454             ADD      R4,R4,R10
+   \       0x3C   0xF240 0x2001      MOVW     R0,#+513
+   \       0x40   0x4284             CMP      R4,R0
+   \       0x42   0xD301             BCC.N    ??kv_flash_write_1
+     76                  {
+     77                      memcpylen = FLASH_PAGE_SIZE_BYTES - page_offset;
+   \       0x44   0xF5CA 0x7900      RSB      R9,R10,#+512
+     78                  }
+     79          
+     80                  /* Need to read the page first*/
+     81                  memcpy(intBuffer, (void*)(phyAddrAlign + FlexSPI_AMBA_BASE), FLASH_PAGE_SIZE_BYTES);
+   \                     ??kv_flash_write_1: (+1)
+   \       0x48   0x....             LDR.N    R4,??DataTable5_3
+   \       0x4A   0xF44F 0x7200      MOV      R2,#+512
+   \       0x4E   0xF105 0x41C0      ADD      R1,R5,#+1610612736
+   \       0x52   0x4620             MOV      R0,R4
+   \       0x54   0x....'....        BL       __aeabi_memcpy
+     82          
+     83                  /* Change the data required to be changed. */
+     84                  memcpy((void*)(((uint32_t)intBuffer) + page_offset), buffer, memcpylen);
+   \       0x58   0x464A             MOV      R2,R9
+   \       0x5A   0x4639             MOV      R1,R7
+   \       0x5C   0x44A2             ADD      R10,R10,R4
+   \       0x5E   0x4650             MOV      R0,R10
+   \       0x60   0x....'....        BL       __aeabi_memcpy
+     85                  
+     86                  status = flexspi_nor_flash_page_program(FLEXSPI, phyAddrAlign, (uint32_t const *)intBuffer);
+   \       0x64   0x4622             MOV      R2,R4
+   \       0x66   0x4629             MOV      R1,R5
+   \       0x68   0x....             LDR.N    R0,??DataTable5_4  ;; 0x402a8000
+   \       0x6A   0x....'....        BL       flexspi_nor_flash_page_program
+   \       0x6E   0x0004             MOVS     R4,R0
+     87                  if (status != kStatus_Success)
+   \       0x70   0xD157             BNE.N    ??kv_flash_write_2
+     88                  {
+     89                      EnableGlobalIRQ(old_primask);
+     90                      return status;
+     91                  }
+     92                  
+     93                  DCACHE_InvalidateByRange(FlexSPI_AMBA_BASE + phyAddrAlign, FLASH_PAGE_SIZE_BYTES);
+   \       0x72   0xF44F 0x7100      MOV      R1,#+512
+   \       0x76   0xF105 0x40C0      ADD      R0,R5,#+1610612736
+   \       0x7A   0x....'....        BL       DCACHE_InvalidateByRange
+     94          
+     95                  /* Update the address and size */
+     96                  phy_address = phyAddrAlign + FLASH_PAGE_SIZE_BYTES;
+   \       0x7E   0xF505 0x7500      ADD      R5,R5,#+512
+     97                  sizeLeft -= memcpylen;
+   \       0x82   0xEBA8 0x0809      SUB      R8,R8,R9
+     98                  buffer += memcpylen;
+   \       0x86   0x444F             ADD      R7,R7,R9
+   \                     ??kv_flash_write_0: (+1)
+   \       0x88   0x4644             MOV      R4,R8
+   \       0x8A   0x....'....        LDR.W    R8,??DataTable5_3
+     99              }
+    100              
+    101              /* Now the startAddr is page size aligned. */
+    102              while (sizeLeft >= FLASH_PAGE_SIZE_BYTES)
+   \                     ??kv_flash_write_3: (+1)
+   \       0x8E   0xF5B4 0x7F00      CMP      R4,#+512
+   \       0x92   0xD32F             BCC.N    ??kv_flash_write_4
+    103              {
+    104                  /* Make sure 4 byte align. */
+    105                  if (0 != ((uint32_t)buffer & 0x03))
+   \       0x94   0xF017 0x0003      ANDS     R0,R7,#0x3
+   \       0x98   0xD105             BNE.N    ??kv_flash_write_5
+    106                  {
+    107                      memcpy(intBuffer, buffer, FLASH_PAGE_SIZE_BYTES);
+    108                      
+    109                      status = flexspi_nor_flash_page_program(FLEXSPI, phy_address, (uint32_t const *)intBuffer);
+    110                  }
+    111                  else
+    112                  {
+    113                      status = flexspi_nor_flash_page_program(FLEXSPI, phy_address, (uint32_t const *)buffer);
+   \       0x9A   0x463A             MOV      R2,R7
+   \       0x9C   0x4629             MOV      R1,R5
+   \       0x9E   0x....             LDR.N    R0,??DataTable5_4  ;; 0x402a8000
+   \       0xA0   0x....'....        BL       flexspi_nor_flash_page_program
+   \       0xA4   0xE00A             B.N      ??kv_flash_write_6
+    114                  }
+   \                     ??kv_flash_write_5: (+1)
+   \       0xA6   0xF44F 0x7200      MOV      R2,#+512
+   \       0xAA   0x4639             MOV      R1,R7
+   \       0xAC   0x4640             MOV      R0,R8
+   \       0xAE   0x....'....        BL       __aeabi_memcpy
+   \       0xB2   0x4642             MOV      R2,R8
+   \       0xB4   0x4629             MOV      R1,R5
+   \       0xB6   0x....             LDR.N    R0,??DataTable5_4  ;; 0x402a8000
+   \       0xB8   0x....'....        BL       flexspi_nor_flash_page_program
+    115          
+    116                  if (status != kStatus_Success)
+   \                     ??kv_flash_write_6: (+1)
+   \       0xBC   0x2800             CMP      R0,#+0
+   \       0xBE   0xD117             BNE.N    ??kv_flash_write_7
+    117                  {
+    118                      EnableGlobalIRQ(old_primask);
+    119                      return status;
+    120                  }
+    121                  
+    122                  DCACHE_InvalidateByRange(FlexSPI_AMBA_BASE + phy_address, FLASH_PAGE_SIZE_BYTES);
+   \       0xC0   0xF44F 0x7100      MOV      R1,#+512
+   \       0xC4   0xF105 0x40C0      ADD      R0,R5,#+1610612736
+   \       0xC8   0x....'....        BL       DCACHE_InvalidateByRange
+    123          
+    124                  phy_address += FLASH_PAGE_SIZE_BYTES;
+   \       0xCC   0xF505 0x7500      ADD      R5,R5,#+512
+    125                  sizeLeft -= FLASH_PAGE_SIZE_BYTES;
+   \       0xD0   0xF5A4 0x7400      SUB      R4,R4,#+512
+    126                  buffer += FLASH_PAGE_SIZE_BYTES;
+   \       0xD4   0xF507 0x7700      ADD      R7,R7,#+512
+   \       0xD8   0xE7D9             B.N      ??kv_flash_write_3
+    127              }
+    128              
+    129              if (sizeLeft)
+    130              {
+    131                  memcpy(intBuffer, buffer, sizeLeft);
+    132                  memcpy(intBuffer + sizeLeft, (void*)(phy_address + FlexSPI_AMBA_BASE + sizeLeft), FLASH_PAGE_SIZE_BYTES - sizeLeft);
+    133          
+    134                  status = flexspi_nor_flash_page_program(FLEXSPI, phy_address, (uint32_t const *)intBuffer);
+    135                  if (status != kStatus_Success)
+    136                  {
+    137                      EnableGlobalIRQ(old_primask);
+    138                      return status;
+    139                  }
+    140                  
+    141                  DCACHE_InvalidateByRange(FlexSPI_AMBA_BASE + phy_address, FLASH_PAGE_SIZE_BYTES);
+   \                     ??kv_flash_write_8: (+1)
+   \       0xDA   0xF44F 0x7100      MOV      R1,#+512
+   \       0xDE   0xF105 0x45C0      ADD      R5,R5,#+1610612736
+   \       0xE2   0x4628             MOV      R0,R5
+   \       0xE4   0x....'....        BL       DCACHE_InvalidateByRange
+    142              }
+    143              
+    144              return 0;
+   \                     ??kv_flash_write_9: (+1)
+   \       0xE8   0x2000             MOVS     R0,#+0
+   \                     ??kv_flash_write_10: (+1)
+   \       0xEA   0xB004             ADD      SP,SP,#+16
+   \       0xEC   0xE8BD 0x87F0      POP      {R4-R10,PC}      ;; return
+   \                     ??kv_flash_write_7: (+1)
+   \       0xF0   0x4604             MOV      R4,R0
+   \       0xF2   0xE016             B.N      ??kv_flash_write_2
+   \                     ??kv_flash_write_4: (+1)
+   \       0xF4   0x2C00             CMP      R4,#+0
+   \       0xF6   0xD0F7             BEQ.N    ??kv_flash_write_9
+   \       0xF8   0x4622             MOV      R2,R4
+   \       0xFA   0x4639             MOV      R1,R7
+   \       0xFC   0x4640             MOV      R0,R8
+   \       0xFE   0x....'....        BL       __aeabi_memcpy
+   \      0x102   0xF5C4 0x7200      RSB      R2,R4,#+512
+   \      0x106   0x1961             ADDS     R1,R4,R5
+   \      0x108   0xF101 0x41C0      ADD      R1,R1,#+1610612736
+   \      0x10C   0xEB08 0x0004      ADD      R0,R8,R4
+   \      0x110   0x....'....        BL       __aeabi_memcpy
+   \      0x114   0x4642             MOV      R2,R8
+   \      0x116   0x4629             MOV      R1,R5
+   \      0x118   0x....             LDR.N    R0,??DataTable5_4  ;; 0x402a8000
+   \      0x11A   0x....'....        BL       flexspi_nor_flash_page_program
+   \      0x11E   0x0004             MOVS     R4,R0
+   \      0x120   0xD0DB             BEQ.N    ??kv_flash_write_8
+   \                     ??kv_flash_write_2: (+1)
+   \      0x122   0x4630             MOV      R0,R6
+   \      0x124   0x....'....        BL       EnableGlobalIRQ
+   \      0x128   0x4620             MOV      R0,R4
+   \      0x12A   0xE7DE             B.N      ??kv_flash_write_10
+    145          }
+
+   \                                 In section .bss, align 4
+   \                     `kv_flash_write::intBuffer`:
+   \        0x0                      DS8 512
+    146          
+
+   \                                 In section .text, align 2, keep-with-next
+    147          int32_t kv_flash_erase(uint32_t offset, uint32_t size)
+    148          {
+   \                     kv_flash_erase: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+   \        0x2   0x4604             MOV      R4,R0
+   \        0x4   0x460A             MOV      R2,R1
+    149              /* 
+    150                  offset always start at the boundary of sector
+    151                  size is always 256KB
+    152              */
+    153              PRINTF("E - kv_flash_erase, offset = %d, size = %d\r\n", offset, size);
+   \        0x6   0x4621             MOV      R1,R4
+   \        0x8   0x....             LDR.N    R0,??DataTable5_5
+   \        0xA   0x....'....        BL       DbgConsole_Printf
+    154              
+    155              uint32_t old_primask = DisableGlobalIRQ();
+   \        0xE   0x....'....        BL       DisableGlobalIRQ
+   \       0x12   0x4605             MOV      R5,R0
+    156              
+    157              if (flexspi_nor_flash_erase_sector(FLEXSPI, KV_FLASH_BASE + offset) != kStatus_Success) {
+   \       0x14   0xF104 0x7170      ADD      R1,R4,#+62914560
+   \       0x18   0x....             LDR.N    R0,??DataTable5_4  ;; 0x402a8000
+   \       0x1A   0x....'....        BL       flexspi_nor_flash_erase_sector
+   \       0x1E   0x2800             CMP      R0,#+0
+   \       0x20   0x4628             MOV      R0,R5
+   \       0x22   0xD004             BEQ.N    ??kv_flash_erase_0
+    158                  
+    159                  EnableGlobalIRQ(old_primask);
+   \       0x24   0x....'....        BL       EnableGlobalIRQ
+    160                  return -1;
+   \       0x28   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x2C   0xBD32             POP      {R1,R4,R5,PC}
+    161              }
+    162              
+    163              EnableGlobalIRQ(old_primask);
+   \                     ??kv_flash_erase_0: (+1)
+   \       0x2E   0x....'....        BL       EnableGlobalIRQ
+    164              DCACHE_InvalidateByRange(FlexSPI_AMBA_BASE + KV_FLASH_BASE + offset, KV_FLASH_SECTOR_SIZE);
+   \       0x32   0xF44F 0x2180      MOV      R1,#+262144
+   \       0x36   0x....             LDR.N    R0,??DataTable5_1  ;; 0x63c00000
+   \       0x38   0x1904             ADDS     R4,R0,R4
+   \       0x3A   0x4620             MOV      R0,R4
+   \       0x3C   0x....'....        BL       DCACHE_InvalidateByRange
+    165              return 0;
+   \       0x40   0x2000             MOVS     R0,#+0
+   \       0x42   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    166          }
+    167          
+
+   \                                 In section .text, align 2, keep-with-next
+    168          void *kv_lock_create(void)
+    169          {
+    170              return HAL_MutexCreate();
+   \                     kv_lock_create: (+1)
+   \        0x0   0x....'....        B.W      HAL_MutexCreate
+    171          }
+    172          
+
+   \                                 In section .text, align 2, keep-with-next
+    173          int32_t kv_lock_free(void *lock)
+    174          {
+   \                     kv_lock_free: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    175              HAL_MutexDestroy(lock);
+   \        0x2   0x....'....        BL       HAL_MutexDestroy
+    176              return 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0xBD02             POP      {R1,PC}          ;; return
+    177          }
+    178          
+
+   \                                 In section .text, align 2, keep-with-next
+    179          int32_t kv_lock(void *lock)
+    180          {
+   \                     kv_lock: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    181              HAL_MutexLock(lock);
+   \        0x2   0x....'....        BL       HAL_MutexLock
+    182              return 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0xBD02             POP      {R1,PC}          ;; return
+    183          }
+    184          
+
+   \                                 In section .text, align 2, keep-with-next
+    185          int32_t kv_unlock(void *lock)
+    186          {
+   \                     kv_unlock: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    187              HAL_MutexUnlock(lock);
+   \        0x2   0x....'....        BL       HAL_MutexUnlock
+    188              return 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0xBD02             POP      {R1,PC}          ;; return
+    189          }
+    190          
+
+   \                                 In section .text, align 2, keep-with-next
+    191          void *kv_sem_create(void)
+    192          {
+    193              return HAL_SemaphoreCreate();
+   \                     kv_sem_create: (+1)
+   \        0x0   0x....'....        B.W      HAL_SemaphoreCreate
+    194          }
+    195          
+
+   \                                 In section .text, align 2, keep-with-next
+    196          int32_t kv_sem_free(void *sem)
+    197          {
+   \                     kv_sem_free: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    198              HAL_SemaphoreDestroy(sem);
+   \        0x2   0x....'....        BL       HAL_SemaphoreDestroy
+    199              return 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0xBD02             POP      {R1,PC}          ;; return
+    200          }
+    201          
+
+   \                                 In section .text, align 2, keep-with-next
+    202          int32_t kv_sem_wait(void *sem)
+    203          {
+    204              return HAL_SemaphoreWait(sem, portMAX_DELAY);
+   \                     kv_sem_wait: (+1)
+   \        0x0   0xF04F 0x31FF      MOV      R1,#-1
+   \        0x4   0x....'....        B.W      HAL_SemaphoreWait
+    205          }
+    206          
+
+   \                                 In section .text, align 2, keep-with-next
+    207          int32_t kv_sem_post_all(void *sem)
+    208          {
+   \                     kv_sem_post_all: (+1)
+   \        0x0   0xB580             PUSH     {R7,LR}
+    209              HAL_SemaphorePost(sem);
+   \        0x2   0x....'....        BL       HAL_SemaphorePost
+    210              return 0;
+   \        0x6   0x2000             MOVS     R0,#+0
+   \        0x8   0xBD02             POP      {R1,PC}          ;; return
+    211          }
+    212          
+
+   \                                 In section .text, align 2, keep-with-next
+    213          int32_t kv_start_task(const char *name, void (*fn)(void *), void *arg,
+    214                                uint32_t stack)
+    215          {
+   \                     kv_start_task: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+   \        0x2   0x460C             MOV      R4,R1
+   \        0x4   0x4619             MOV      R1,R3
+    216          	(void)xTaskCreate((TaskFunction_t)fn,
+    217                                name,
+    218                                stack,
+    219                                arg,
+    220                                4,
+    221                                &kv_task_handle);
+   \        0x6   0x....             LDR.N    R3,??DataTable5_6
+   \        0x8   0x9301             STR      R3,[SP, #+4]
+   \        0xA   0x2304             MOVS     R3,#+4
+   \        0xC   0x9300             STR      R3,[SP, #+0]
+   \        0xE   0x4613             MOV      R3,R2
+   \       0x10   0x460A             MOV      R2,R1
+   \       0x12   0xB292             UXTH     R2,R2
+   \       0x14   0x4601             MOV      R1,R0
+   \       0x16   0x4620             MOV      R0,R4
+   \       0x18   0x....'....        BL       xTaskCreate
+    222              return 0;
+   \       0x1C   0x2000             MOVS     R0,#+0
+   \       0x1E   0xBD16             POP      {R1,R2,R4,PC}    ;; return
+    223          }
+    224          
+
+   \                                 In section .text, align 2, keep-with-next
+    225          void kv_delete_task(void)
+    226          {
+    227              vTaskDelete(kv_task_handle);
+   \                     kv_delete_task: (+1)
+   \        0x0   0x....             LDR.N    R0,??DataTable5_6
+   \        0x2   0x6800             LDR      R0,[R0, #+0]
+   \        0x4   0x....'....        B.W      vTaskDelete
+    228          }
+    229          
+
+   \                                 In section .text, align 2, keep-with-next
+    230          void *kv_malloc(uint32_t size)
+    231          {
+    232              return HAL_Malloc(size);
+   \                     kv_malloc: (+1)
+   \        0x0   0x....'....        B.W      HAL_Malloc
+    233          }
+    234          
+
+   \                                 In section .text, align 2, keep-with-next
+    235          void kv_free(void *ptr)
+    236          {
+    237              HAL_Free(ptr);
+   \                     kv_free: (+1)
+   \        0x0   0x....'....        B.W      HAL_Free
+    238          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5:
+   \        0x0   0x....'....        DC32     ?_0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_1:
+   \        0x0   0x63C0'0000        DC32     0x63c00000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_2:
+   \        0x0   0x....'....        DC32     ?_1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_3:
+   \        0x0   0x....'....        DC32     `kv_flash_write::intBuffer`
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_4:
+   \        0x0   0x402A'8000        DC32     0x402a8000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_5:
+   \        0x0   0x....'....        DC32     ?_2
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable5_6:
+   \        0x0   0x....'....        DC32     kv_task_handle
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \        0x0   0x52 0x20          DC8 "R - kv_flash_read, offset = %d, nbytes = %d\015\012"
+   \              0x2D 0x20    
+   \              0x6B 0x76    
+   \              0x5F 0x66    
+   \              0x6C 0x61    
+   \              0x73 0x68    
+   \              0x5F 0x72    
+   \              0x65 0x61    
+   \              0x64 0x2C    
+   \              0x20 0x6F    
+   \              0x66 0x66    
+   \              0x73 0x65    
+   \              0x74 0x20    
+   \              0x3D 0x20    
+   \              0x25 0x64    
+   \              0x2C 0x20    
+   \              0x6E 0x62    
+   \              0x79 0x74    
+   \              0x65 0x73    
+   \              0x20 0x3D    
+   \              0x20 0x25    
+   \              0x64 0x0D    
+   \              0x0A 0x00    
+   \       0x2E   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_1:
+   \        0x0   0x50 0x20          DC8 50H, 20H, 2DH, 20H, 6BH, 76H, 5FH, 66H
+   \              0x2D 0x20    
+   \              0x6B 0x76    
+   \              0x5F 0x66    
+   \        0x8   0x6C 0x61          DC8 6CH, 61H, 73H, 68H, 5FH, 77H, 72H, 69H
+   \              0x73 0x68    
+   \              0x5F 0x77    
+   \              0x72 0x69    
+   \       0x10   0x74 0x65          DC8 74H, 65H, 2CH, 20H, 6FH, 66H, 66H, 73H
+   \              0x2C 0x20    
+   \              0x6F 0x66    
+   \              0x66 0x73    
+   \       0x18   0x65 0x74          DC8 65H, 74H, 20H, 3DH, 20H, 25H, 64H, 2CH
+   \              0x20 0x3D    
+   \              0x20 0x25    
+   \              0x64 0x2C    
+   \       0x20   0x20 0x6E          DC8 20H, 6EH, 62H, 79H, 74H, 65H, 73H, 20H
+   \              0x62 0x79    
+   \              0x74 0x65    
+   \              0x73 0x20    
+   \       0x28   0x3D 0x20          DC8 3DH, 20H, 25H, 64H, 2CH, 20H, 5BH, 30H
+   \              0x25 0x64    
+   \              0x2C 0x20    
+   \              0x5B 0x30    
+   \       0x30   0x5D 0x3D          DC8 5DH, 3DH, 25H, 64H, 2CH, 20H, 5BH, 31H
+   \              0x25 0x64    
+   \              0x2C 0x20    
+   \              0x5B 0x31    
+   \       0x38   0x5D 0x3D          DC8 5DH, 3DH, 25H, 64H, 2CH, 20H, 5BH, 32H
+   \              0x25 0x64    
+   \              0x2C 0x20    
+   \              0x5B 0x32    
+   \       0x40   0x5D 0x3D          DC8 5DH, 3DH, 25H, 64H, 2CH, 20H, 5BH, 33H
+   \              0x25 0x64    
+   \              0x2C 0x20    
+   \              0x5B 0x33    
+   \       0x48   0x5D 0x3D          DC8 5DH, 3DH, 25H, 64H, 0DH, 0AH, 0
+   \              0x25 0x64    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x4F   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_2:
+   \        0x0   0x45 0x20          DC8 "E - kv_flash_erase, offset = %d, size = %d\015\012"
+   \              0x2D 0x20    
+   \              0x6B 0x76    
+   \              0x5F 0x66    
+   \              0x6C 0x61    
+   \              0x73 0x68    
+   \              0x5F 0x65    
+   \              0x72 0x61    
+   \              0x73 0x65    
+   \              0x2C 0x20    
+   \              0x6F 0x66    
+   \              0x66 0x73    
+   \              0x65 0x74    
+   \              0x20 0x3D    
+   \              0x20 0x25    
+   \              0x64 0x2C    
+   \              0x20 0x73    
+   \              0x69 0x7A    
+   \              0x65 0x20    
+   \              0x3D 0x20    
+   \              0x25 0x64    
+   \              0x0D 0x0A    
+   \              0x00         
+   \       0x2D   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   DisableGlobalIRQ
+       0   EnableGlobalIRQ
+       0   kv_delete_task
+         0   -> vTaskDelete
+      16   kv_flash_erase
+        16   -> DCACHE_InvalidateByRange
+        16   -> DbgConsole_Printf
+        16   -> DisableGlobalIRQ
+        16   -> EnableGlobalIRQ
+        16   -> flexspi_nor_flash_erase_sector
+      16   kv_flash_read
+        16   -> DbgConsole_Printf
+        16   -> __aeabi_memcpy
+      48   kv_flash_write
+        48   -> DCACHE_InvalidateByRange
+        48   -> DbgConsole_Printf
+        48   -> DisableGlobalIRQ
+        48   -> EnableGlobalIRQ
+        48   -> __aeabi_memcpy
+        48   -> flexspi_nor_flash_page_program
+       0   kv_free
+         0   -> HAL_Free
+       8   kv_lock
+         8   -> HAL_MutexLock
+       0   kv_lock_create
+         0   -> HAL_MutexCreate
+       8   kv_lock_free
+         8   -> HAL_MutexDestroy
+       0   kv_malloc
+         0   -> HAL_Malloc
+       0   kv_sem_create
+         0   -> HAL_SemaphoreCreate
+       8   kv_sem_free
+         8   -> HAL_SemaphoreDestroy
+       8   kv_sem_post_all
+         8   -> HAL_SemaphorePost
+       0   kv_sem_wait
+         0   -> HAL_SemaphoreWait
+      16   kv_start_task
+        16   -> xTaskCreate
+       8   kv_unlock
+         8   -> HAL_MutexUnlock
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable5
+       4  ??DataTable5_1
+       4  ??DataTable5_2
+       4  ??DataTable5_3
+       4  ??DataTable5_4
+       4  ??DataTable5_5
+       4  ??DataTable5_6
+      48  ?_0
+      80  ?_1
+      48  ?_2
+       8  DisableGlobalIRQ
+       6  EnableGlobalIRQ
+     512  intBuffer
+       8  kv_delete_task
+      68  kv_flash_erase
+      34  kv_flash_read
+     300  kv_flash_write
+       4  kv_free
+      10  kv_lock
+       4  kv_lock_create
+      10  kv_lock_free
+       4  kv_malloc
+       4  kv_sem_create
+      10  kv_sem_free
+      10  kv_sem_post_all
+       8  kv_sem_wait
+      32  kv_start_task
+       4  kv_task_handle
+      10  kv_unlock
+
+ 
+ 516 bytes in section .bss
+ 176 bytes in section .rodata
+ 558 bytes in section .text
+ 
+ 558 bytes of CODE  memory
+ 176 bytes of CONST memory
+ 516 bytes of DATA  memory
+
+Errors: none
+Warnings: none

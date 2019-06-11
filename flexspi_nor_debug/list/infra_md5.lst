@@ -1,0 +1,1863 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         10/Jun/2019  13:48:28
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\infra_md5.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EWFE61.tmp
+#        (C:\Development\smart_washing_machine_3080\csdk\eng\infra\infra_md5.c
+#        -D DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D
+#        XIP_BOOT_HEADER_ENABLE=1 -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS
+#        -D PRINTF_ADVANCED_ENABLE -D
+#        "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list -lA
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\Development\smart_washing_machine_3080/source\app_preinclude.h -I
+#        C:\Development\smart_washing_machine_3080/board\ -I
+#        C:\Development\smart_washing_machine_3080/source\ -I
+#        C:\Development\smart_washing_machine_3080/CMSIS\ -I
+#        C:\Development\smart_washing_machine_3080/amazon-freertos/freertos/portable\
+#        -I C:\Development\smart_washing_machine_3080/amazon-freertos/include\
+#        -I C:\Development\smart_washing_machine_3080/component/lists\ -I
+#        C:\Development\smart_washing_machine_3080/component/serial_manager\ -I
+#        C:\Development\smart_washing_machine_3080/component/uart\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv/include\ -I
+#        C:\Development\smart_washing_machine_3080/device\ -I
+#        C:\Development\smart_washing_machine_3080/doc\ -I
+#        C:\Development\smart_washing_machine_3080/drivers\ -I
+#        C:\Development\smart_washing_machine_3080/src\ -I
+#        C:\Development\smart_washing_machine_3080/startup\ -I
+#        C:\Development\smart_washing_machine_3080/utilities\ -I
+#        C:\Development\smart_washing_machine_3080/xip\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_model\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_sign\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\mqtt\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\external_libs\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\coap_cloud\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_reset\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\mbedtls\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\ -I
+#        C:\Development\smart_washing_machine_3080\mbedtls\port\ksdk\ -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list\infra_md5.lst
+#    Object file  =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj\infra_md5.o
+#
+###############################################################################
+
+C:\Development\smart_washing_machine_3080\csdk\eng\infra\infra_md5.c
+      1          /*
+      2           * Copyright (C) 2015-2018 Alibaba Group Holding Limited
+      3           */
+      4          #include "infra_config.h"
+      5          
+      6          #ifdef INFRA_MD5
+      7          
+      8          #include <stdlib.h>
+      9          #include <string.h>
+     10          
+     11          #include "infra_md5.h"
+     12          
+     13          #define MD5_KEY_IOPAD_SIZE  (64)
+     14          #define MD5_DIGEST_SIZE     (16)
+     15          
+     16          /* Implementation that should never be optimized out by the compiler */
+
+   \                                 In section .text, align 2, keep-with-next
+     17          static void utils_md5_zeroize(void *v, size_t n)
+     18          {
+     19              volatile unsigned char *p = v;
+   \                     utils_md5_zeroize: (+1)
+   \        0x0   0xE002             B.N      ??utils_md5_zeroize_0
+     20              while (n--) {
+     21                  *p++ = 0;
+   \                     ??utils_md5_zeroize_1: (+1)
+   \        0x2   0x2200             MOVS     R2,#+0
+   \        0x4   0xF800 0x2B01      STRB     R2,[R0], #+1
+     22              }
+   \                     ??utils_md5_zeroize_0: (+1)
+   \        0x8   0x460A             MOV      R2,R1
+   \        0xA   0x1E51             SUBS     R1,R2,#+1
+   \        0xC   0x2A00             CMP      R2,#+0
+   \        0xE   0xD1F8             BNE.N    ??utils_md5_zeroize_1
+     23          }
+   \       0x10   0x4770             BX       LR               ;; return
+     24          
+     25          /*
+     26           * 32-bit integer manipulation macros (little endian)
+     27           */
+     28          #ifndef IOT_MD5_GET_UINT32_LE
+     29          #define IOT_MD5_GET_UINT32_LE(n,b,i)                            \
+     30              {                                                       \
+     31                  (n) = ( (uint32_t) (b)[(i)    ]       )             \
+     32                        | ( (uint32_t) (b)[(i) + 1] <<  8 )             \
+     33                        | ( (uint32_t) (b)[(i) + 2] << 16 )             \
+     34                        | ( (uint32_t) (b)[(i) + 3] << 24 );            \
+     35              }
+     36          #endif
+     37          
+     38          #ifndef IOT_MD5_PUT_UINT32_LE
+     39          #define IOT_MD5_PUT_UINT32_LE(n,b,i)                                    \
+     40              {                                                               \
+     41                  (b)[(i)    ] = (unsigned char) ( ( (n)       ) & 0xFF );    \
+     42                  (b)[(i) + 1] = (unsigned char) ( ( (n) >>  8 ) & 0xFF );    \
+     43                  (b)[(i) + 2] = (unsigned char) ( ( (n) >> 16 ) & 0xFF );    \
+     44                  (b)[(i) + 3] = (unsigned char) ( ( (n) >> 24 ) & 0xFF );    \
+     45              }
+     46          #endif
+     47          
+
+   \                                 In section .text, align 2, keep-with-next
+     48          void utils_md5_init(iot_md5_context *ctx)
+     49          {
+     50              memset(ctx, 0, sizeof(iot_md5_context));
+   \                     utils_md5_init: (+1)
+   \        0x0   0x2200             MOVS     R2,#+0
+   \        0x2   0x2158             MOVS     R1,#+88
+   \        0x4   0x....'....        B.W      __aeabi_memset4
+     51          }
+     52          
+
+   \                                 In section .text, align 2, keep-with-next
+     53          void utils_md5_free(iot_md5_context *ctx)
+     54          {
+     55              if (ctx == NULL) {
+   \                     utils_md5_free: (+1)
+   \        0x0   0x2800             CMP      R0,#+0
+   \        0x2   0xD001             BEQ.N    ??utils_md5_free_0
+     56                  return;
+     57              }
+     58          
+     59              utils_md5_zeroize(ctx, sizeof(iot_md5_context));
+   \        0x4   0x2158             MOVS     R1,#+88
+   \        0x6   0x....             B.N      utils_md5_zeroize
+   \                     ??utils_md5_free_0: (+1)
+   \        0x8   0x4770             BX       LR               ;; return
+     60          }
+     61          
+
+   \                                 In section .text, align 2, keep-with-next
+     62          void utils_md5_clone(iot_md5_context *dst,
+     63                               const iot_md5_context *src)
+     64          {
+     65              *dst = *src;
+   \                     utils_md5_clone: (+1)
+   \        0x0   0x2258             MOVS     R2,#+88
+   \        0x2   0x....'....        B.W      __aeabi_memcpy4
+     66          }
+     67          
+     68          /*
+     69           * MD5 context setup
+     70           */
+
+   \                                 In section .text, align 2, keep-with-next
+     71          void utils_md5_starts(iot_md5_context *ctx)
+     72          {
+     73              ctx->total[0] = 0;
+   \                     utils_md5_starts: (+1)
+   \        0x0   0x2100             MOVS     R1,#+0
+   \        0x2   0x6001             STR      R1,[R0, #+0]
+     74              ctx->total[1] = 0;
+   \        0x4   0x6041             STR      R1,[R0, #+4]
+     75          
+     76              ctx->state[0] = 0x67452301;
+   \        0x6   0x....'....        LDR.W    R1,??DataTable3  ;; 0x67452301
+   \        0xA   0x6081             STR      R1,[R0, #+8]
+     77              ctx->state[1] = 0xEFCDAB89;
+   \        0xC   0x....'....        LDR.W    R1,??DataTable3_1  ;; 0xefcdab89
+   \       0x10   0x60C1             STR      R1,[R0, #+12]
+     78              ctx->state[2] = 0x98BADCFE;
+   \       0x12   0x....'....        LDR.W    R1,??DataTable3_2  ;; 0x98badcfe
+   \       0x16   0x6101             STR      R1,[R0, #+16]
+     79              ctx->state[3] = 0x10325476;
+   \       0x18   0x....'....        LDR.W    R1,??DataTable3_3  ;; 0x10325476
+   \       0x1C   0x6141             STR      R1,[R0, #+20]
+     80          }
+   \       0x1E   0x4770             BX       LR               ;; return
+     81          
+
+   \                                 In section .text, align 2, keep-with-next
+     82          void utils_md5_process(iot_md5_context *ctx, const unsigned char data[64])
+     83          {
+   \                     utils_md5_process: (+1)
+   \        0x0   0xE92D 0x4FF1      PUSH     {R0,R4-R11,LR}
+   \        0x4   0xB088             SUB      SP,SP,#+32
+     84              uint32_t X[16], A, B, C, D;
+     85          
+     86              IOT_MD5_GET_UINT32_LE(X[ 0], data,  0);
+   \        0x6   0x7808             LDRB     R0,[R1, #+0]
+   \        0x8   0x784A             LDRB     R2,[R1, #+1]
+   \        0xA   0xEA40 0x2002      ORR      R0,R0,R2, LSL #+8
+   \        0xE   0x788A             LDRB     R2,[R1, #+2]
+   \       0x10   0xEA40 0x4002      ORR      R0,R0,R2, LSL #+16
+   \       0x14   0x78CA             LDRB     R2,[R1, #+3]
+   \       0x16   0xEA40 0x6002      ORR      R0,R0,R2, LSL #+24
+   \       0x1A   0x9007             STR      R0,[SP, #+28]
+     87              IOT_MD5_GET_UINT32_LE(X[ 1], data,  4);
+   \       0x1C   0x7908             LDRB     R0,[R1, #+4]
+   \       0x1E   0x794A             LDRB     R2,[R1, #+5]
+   \       0x20   0xEA40 0x2002      ORR      R0,R0,R2, LSL #+8
+   \       0x24   0x798A             LDRB     R2,[R1, #+6]
+   \       0x26   0xEA40 0x4002      ORR      R0,R0,R2, LSL #+16
+   \       0x2A   0x79CA             LDRB     R2,[R1, #+7]
+   \       0x2C   0xEA40 0x6002      ORR      R0,R0,R2, LSL #+24
+   \       0x30   0x9006             STR      R0,[SP, #+24]
+     88              IOT_MD5_GET_UINT32_LE(X[ 2], data,  8);
+   \       0x32   0x7A0A             LDRB     R2,[R1, #+8]
+   \       0x34   0x7A48             LDRB     R0,[R1, #+9]
+   \       0x36   0xEA42 0x2200      ORR      R2,R2,R0, LSL #+8
+   \       0x3A   0x7A88             LDRB     R0,[R1, #+10]
+   \       0x3C   0xEA42 0x4200      ORR      R2,R2,R0, LSL #+16
+   \       0x40   0x7AC8             LDRB     R0,[R1, #+11]
+   \       0x42   0xEA42 0x6200      ORR      R2,R2,R0, LSL #+24
+     89              IOT_MD5_GET_UINT32_LE(X[ 3], data, 12);
+   \       0x46   0x7B08             LDRB     R0,[R1, #+12]
+   \       0x48   0x7B4B             LDRB     R3,[R1, #+13]
+   \       0x4A   0xEA40 0x2003      ORR      R0,R0,R3, LSL #+8
+   \       0x4E   0x7B8B             LDRB     R3,[R1, #+14]
+   \       0x50   0xEA40 0x4003      ORR      R0,R0,R3, LSL #+16
+   \       0x54   0x7BCB             LDRB     R3,[R1, #+15]
+   \       0x56   0xEA40 0x6003      ORR      R0,R0,R3, LSL #+24
+   \       0x5A   0x9005             STR      R0,[SP, #+20]
+     90              IOT_MD5_GET_UINT32_LE(X[ 4], data, 16);
+   \       0x5C   0x7C0B             LDRB     R3,[R1, #+16]
+   \       0x5E   0x7C48             LDRB     R0,[R1, #+17]
+   \       0x60   0xEA43 0x2300      ORR      R3,R3,R0, LSL #+8
+   \       0x64   0x7C88             LDRB     R0,[R1, #+18]
+   \       0x66   0xEA43 0x4300      ORR      R3,R3,R0, LSL #+16
+   \       0x6A   0x7CC8             LDRB     R0,[R1, #+19]
+   \       0x6C   0xEA43 0x6300      ORR      R3,R3,R0, LSL #+24
+     91              IOT_MD5_GET_UINT32_LE(X[ 5], data, 20);
+   \       0x70   0x7D0C             LDRB     R4,[R1, #+20]
+   \       0x72   0x7D48             LDRB     R0,[R1, #+21]
+   \       0x74   0xEA44 0x2400      ORR      R4,R4,R0, LSL #+8
+   \       0x78   0x7D88             LDRB     R0,[R1, #+22]
+   \       0x7A   0xEA44 0x4400      ORR      R4,R4,R0, LSL #+16
+   \       0x7E   0x7DC8             LDRB     R0,[R1, #+23]
+   \       0x80   0xEA44 0x6400      ORR      R4,R4,R0, LSL #+24
+     92              IOT_MD5_GET_UINT32_LE(X[ 6], data, 24);
+   \       0x84   0x7E0D             LDRB     R5,[R1, #+24]
+   \       0x86   0x7E48             LDRB     R0,[R1, #+25]
+   \       0x88   0xEA45 0x2500      ORR      R5,R5,R0, LSL #+8
+   \       0x8C   0x7E88             LDRB     R0,[R1, #+26]
+   \       0x8E   0xEA45 0x4500      ORR      R5,R5,R0, LSL #+16
+   \       0x92   0x7EC8             LDRB     R0,[R1, #+27]
+   \       0x94   0xEA45 0x6500      ORR      R5,R5,R0, LSL #+24
+     93              IOT_MD5_GET_UINT32_LE(X[ 7], data, 28);
+   \       0x98   0x7F0E             LDRB     R6,[R1, #+28]
+   \       0x9A   0x7F48             LDRB     R0,[R1, #+29]
+   \       0x9C   0xEA46 0x2600      ORR      R6,R6,R0, LSL #+8
+   \       0xA0   0x7F88             LDRB     R0,[R1, #+30]
+   \       0xA2   0xEA46 0x4600      ORR      R6,R6,R0, LSL #+16
+   \       0xA6   0x7FC8             LDRB     R0,[R1, #+31]
+   \       0xA8   0xEA46 0x6600      ORR      R6,R6,R0, LSL #+24
+     94              IOT_MD5_GET_UINT32_LE(X[ 8], data, 32);
+   \       0xAC   0xF891 0x7020      LDRB     R7,[R1, #+32]
+   \       0xB0   0xF891 0x0021      LDRB     R0,[R1, #+33]
+   \       0xB4   0xEA47 0x2700      ORR      R7,R7,R0, LSL #+8
+   \       0xB8   0xF891 0x0022      LDRB     R0,[R1, #+34]
+   \       0xBC   0xEA47 0x4700      ORR      R7,R7,R0, LSL #+16
+   \       0xC0   0xF891 0x0023      LDRB     R0,[R1, #+35]
+   \       0xC4   0xEA47 0x6700      ORR      R7,R7,R0, LSL #+24
+     95              IOT_MD5_GET_UINT32_LE(X[ 9], data, 36);
+   \       0xC8   0xF891 0xC024      LDRB     R12,[R1, #+36]
+   \       0xCC   0xF891 0x0025      LDRB     R0,[R1, #+37]
+   \       0xD0   0xEA4C 0x2C00      ORR      R12,R12,R0, LSL #+8
+   \       0xD4   0xF891 0x0026      LDRB     R0,[R1, #+38]
+   \       0xD8   0xEA4C 0x4C00      ORR      R12,R12,R0, LSL #+16
+   \       0xDC   0xF891 0x0027      LDRB     R0,[R1, #+39]
+   \       0xE0   0xEA4C 0x6C00      ORR      R12,R12,R0, LSL #+24
+     96              IOT_MD5_GET_UINT32_LE(X[10], data, 40);
+   \       0xE4   0xF891 0xE028      LDRB     LR,[R1, #+40]
+   \       0xE8   0xF891 0x0029      LDRB     R0,[R1, #+41]
+   \       0xEC   0xEA4E 0x2E00      ORR      LR,LR,R0, LSL #+8
+   \       0xF0   0xF891 0x002A      LDRB     R0,[R1, #+42]
+   \       0xF4   0xEA4E 0x4E00      ORR      LR,LR,R0, LSL #+16
+   \       0xF8   0xF891 0x002B      LDRB     R0,[R1, #+43]
+   \       0xFC   0xEA4E 0x6E00      ORR      LR,LR,R0, LSL #+24
+     97              IOT_MD5_GET_UINT32_LE(X[11], data, 44);
+   \      0x100   0xF891 0x802C      LDRB     R8,[R1, #+44]
+   \      0x104   0xF891 0x002D      LDRB     R0,[R1, #+45]
+   \      0x108   0xEA48 0x2800      ORR      R8,R8,R0, LSL #+8
+   \      0x10C   0xF891 0x002E      LDRB     R0,[R1, #+46]
+   \      0x110   0xEA48 0x4800      ORR      R8,R8,R0, LSL #+16
+   \      0x114   0xF891 0x002F      LDRB     R0,[R1, #+47]
+   \      0x118   0xEA48 0x6800      ORR      R8,R8,R0, LSL #+24
+   \      0x11C   0xF8CD 0x8010      STR      R8,[SP, #+16]
+     98              IOT_MD5_GET_UINT32_LE(X[12], data, 48);
+   \      0x120   0xF891 0x8030      LDRB     R8,[R1, #+48]
+   \      0x124   0xF891 0x0031      LDRB     R0,[R1, #+49]
+   \      0x128   0xEA48 0x2800      ORR      R8,R8,R0, LSL #+8
+   \      0x12C   0xF891 0x0032      LDRB     R0,[R1, #+50]
+   \      0x130   0xEA48 0x4800      ORR      R8,R8,R0, LSL #+16
+   \      0x134   0xF891 0x0033      LDRB     R0,[R1, #+51]
+   \      0x138   0xEA48 0x6800      ORR      R8,R8,R0, LSL #+24
+   \      0x13C   0xF8CD 0x800C      STR      R8,[SP, #+12]
+     99              IOT_MD5_GET_UINT32_LE(X[13], data, 52);
+   \      0x140   0xF891 0x8034      LDRB     R8,[R1, #+52]
+   \      0x144   0xF891 0x0035      LDRB     R0,[R1, #+53]
+   \      0x148   0xEA48 0x2800      ORR      R8,R8,R0, LSL #+8
+   \      0x14C   0xF891 0x0036      LDRB     R0,[R1, #+54]
+   \      0x150   0xEA48 0x4800      ORR      R8,R8,R0, LSL #+16
+   \      0x154   0xF891 0x0037      LDRB     R0,[R1, #+55]
+   \      0x158   0xEA48 0x6800      ORR      R8,R8,R0, LSL #+24
+   \      0x15C   0xF8CD 0x8008      STR      R8,[SP, #+8]
+    100              IOT_MD5_GET_UINT32_LE(X[14], data, 56);
+   \      0x160   0xF891 0x8038      LDRB     R8,[R1, #+56]
+   \      0x164   0xF891 0x0039      LDRB     R0,[R1, #+57]
+   \      0x168   0xEA48 0x2800      ORR      R8,R8,R0, LSL #+8
+   \      0x16C   0xF891 0x003A      LDRB     R0,[R1, #+58]
+   \      0x170   0xEA48 0x4800      ORR      R8,R8,R0, LSL #+16
+   \      0x174   0xF891 0x003B      LDRB     R0,[R1, #+59]
+   \      0x178   0xEA48 0x6800      ORR      R8,R8,R0, LSL #+24
+   \      0x17C   0xF8CD 0x8004      STR      R8,[SP, #+4]
+    101              IOT_MD5_GET_UINT32_LE(X[15], data, 60);
+   \      0x180   0xF891 0x803C      LDRB     R8,[R1, #+60]
+   \      0x184   0xF891 0x003D      LDRB     R0,[R1, #+61]
+   \      0x188   0xEA48 0x2800      ORR      R8,R8,R0, LSL #+8
+   \      0x18C   0xF891 0x003E      LDRB     R0,[R1, #+62]
+   \      0x190   0xEA48 0x4800      ORR      R8,R8,R0, LSL #+16
+   \      0x194   0xF891 0x003F      LDRB     R0,[R1, #+63]
+   \      0x198   0xEA48 0x6800      ORR      R8,R8,R0, LSL #+24
+   \      0x19C   0xF8CD 0x8000      STR      R8,[SP, #+0]
+    102          
+    103          #define S(x,n) ((x << n) | ((x & 0xFFFFFFFF) >> (32 - n)))
+    104          
+    105          #define P(a,b,c,d,k,s,t)                                \
+    106              {                                                       \
+    107                  a += F(b,c,d) + X[k] + t; a = S(a,s) + b;           \
+    108              }
+    109          
+    110              A = ctx->state[0];
+    111              B = ctx->state[1];
+   \      0x1A0   0x9808             LDR      R0,[SP, #+32]
+   \      0x1A2   0x68C1             LDR      R1,[R0, #+12]
+    112              C = ctx->state[2];
+   \      0x1A4   0x6900             LDR      R0,[R0, #+16]
+    113              D = ctx->state[3];
+   \      0x1A6   0xF8DD 0x8020      LDR      R8,[SP, #+32]
+   \      0x1AA   0xF8D8 0xA014      LDR      R10,[R8, #+20]
+    114          
+    115          #define F(x,y,z) (z ^ (x & (y ^ z)))
+    116          
+    117              P(A, B, C, D,  0,  7, 0xD76AA478);
+   \      0x1AE   0xF8D8 0x9008      LDR      R9,[R8, #+8]
+   \      0x1B2   0xEA8A 0x0800      EOR      R8,R10,R0
+   \      0x1B6   0xEA08 0x0801      AND      R8,R8,R1
+   \      0x1BA   0xEA88 0x080A      EOR      R8,R8,R10
+   \      0x1BE   0x44C1             ADD      R9,R8,R9
+   \      0x1C0   0xF8DD 0x801C      LDR      R8,[SP, #+28]
+   \      0x1C4   0x44C1             ADD      R9,R8,R9
+   \      0x1C6   0x....'....        LDR.W    R8,??DataTable3_4  ;; 0xd76aa478
+   \      0x1CA   0x44C1             ADD      R9,R8,R9
+   \      0x1CC   0xEB01 0x6979      ADD      R9,R1,R9, ROR #+25
+    118              P(D, A, B, C,  1, 12, 0xE8C7B756);
+   \      0x1D0   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x1D4   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x1D8   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x1DC   0xF8DD 0x8018      LDR      R8,[SP, #+24]
+   \      0x1E0   0x44C3             ADD      R11,R8,R11
+   \      0x1E2   0x....'....        LDR.W    R8,??DataTable3_5  ;; 0xe8c7b756
+   \      0x1E6   0x44C3             ADD      R11,R8,R11
+   \      0x1E8   0x44DA             ADD      R10,R11,R10
+   \      0x1EA   0xEB09 0x583A      ADD      R8,R9,R10, ROR #+20
+    119              P(C, D, A, B,  2, 17, 0x242070DB);
+   \      0x1EE   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x1F2   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x1F6   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x1FA   0x4493             ADD      R11,R2,R11
+   \      0x1FC   0x....'....        LDR.W    R10,??DataTable3_6  ;; 0x242070db
+   \      0x200   0x44D3             ADD      R11,R10,R11
+   \      0x202   0x4458             ADD      R0,R11,R0
+   \      0x204   0xEB08 0x30F0      ADD      R0,R8,R0, ROR #+15
+    120              P(B, C, D, A,  3, 22, 0xC1BDCEEE);
+   \      0x208   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x20C   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x210   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x214   0xF8DD 0xA014      LDR      R10,[SP, #+20]
+   \      0x218   0x44D3             ADD      R11,R10,R11
+   \      0x21A   0x....'....        LDR.W    R10,??DataTable3_7  ;; 0xc1bdceee
+   \      0x21E   0x44D3             ADD      R11,R10,R11
+   \      0x220   0x4459             ADD      R1,R11,R1
+   \      0x222   0xEB00 0x21B1      ADD      R1,R0,R1, ROR #+10
+    121              P(A, B, C, D,  4,  7, 0xF57C0FAF);
+   \      0x226   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x22A   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x22E   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x232   0x449B             ADD      R11,R3,R11
+   \      0x234   0x....'....        LDR.W    R10,??DataTable3_8  ;; 0xf57c0faf
+   \      0x238   0x44D3             ADD      R11,R10,R11
+   \      0x23A   0x44D9             ADD      R9,R11,R9
+   \      0x23C   0xEB01 0x6979      ADD      R9,R1,R9, ROR #+25
+    122              P(D, A, B, C,  5, 12, 0x4787C62A);
+   \      0x240   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x244   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x248   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x24C   0x44A3             ADD      R11,R4,R11
+   \      0x24E   0x....'....        LDR.W    R10,??DataTable3_9  ;; 0x4787c62a
+   \      0x252   0x44D3             ADD      R11,R10,R11
+   \      0x254   0x44D8             ADD      R8,R11,R8
+   \      0x256   0xEB09 0x5838      ADD      R8,R9,R8, ROR #+20
+    123              P(C, D, A, B,  6, 17, 0xA8304613);
+   \      0x25A   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x25E   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x262   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x266   0x44AB             ADD      R11,R5,R11
+   \      0x268   0x....'....        LDR.W    R10,??DataTable3_10  ;; 0xa8304613
+   \      0x26C   0x44D3             ADD      R11,R10,R11
+   \      0x26E   0x4458             ADD      R0,R11,R0
+   \      0x270   0xEB08 0x30F0      ADD      R0,R8,R0, ROR #+15
+    124              P(B, C, D, A,  7, 22, 0xFD469501);
+   \      0x274   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x278   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x27C   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x280   0x44B3             ADD      R11,R6,R11
+   \      0x282   0x....'....        LDR.W    R10,??DataTable3_11  ;; 0xfd469501
+   \      0x286   0x44D3             ADD      R11,R10,R11
+   \      0x288   0x4459             ADD      R1,R11,R1
+   \      0x28A   0xEB00 0x21B1      ADD      R1,R0,R1, ROR #+10
+    125              P(A, B, C, D,  8,  7, 0x698098D8);
+   \      0x28E   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x292   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x296   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x29A   0x44BB             ADD      R11,R7,R11
+   \      0x29C   0x....'....        LDR.W    R10,??DataTable3_12  ;; 0x698098d8
+   \      0x2A0   0x44D3             ADD      R11,R10,R11
+   \      0x2A2   0x44D9             ADD      R9,R11,R9
+   \      0x2A4   0xEB01 0x6979      ADD      R9,R1,R9, ROR #+25
+    126              P(D, A, B, C,  9, 12, 0x8B44F7AF);
+   \      0x2A8   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x2AC   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x2B0   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x2B4   0x44E3             ADD      R11,R12,R11
+   \      0x2B6   0x....'....        LDR.W    R10,??DataTable3_13  ;; 0x8b44f7af
+   \      0x2BA   0x44D3             ADD      R11,R10,R11
+   \      0x2BC   0x44D8             ADD      R8,R11,R8
+   \      0x2BE   0xEB09 0x5838      ADD      R8,R9,R8, ROR #+20
+    127              P(C, D, A, B, 10, 17, 0xFFFF5BB1);
+   \      0x2C2   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x2C6   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x2CA   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x2CE   0x44F3             ADD      R11,LR,R11
+   \      0x2D0   0x....'....        LDR.W    R10,??DataTable3_14  ;; 0xffff5bb1
+   \      0x2D4   0x44D3             ADD      R11,R10,R11
+   \      0x2D6   0x4458             ADD      R0,R11,R0
+   \      0x2D8   0xEB08 0x30F0      ADD      R0,R8,R0, ROR #+15
+    128              P(B, C, D, A, 11, 22, 0x895CD7BE);
+   \      0x2DC   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x2E0   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x2E4   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x2E8   0xF8DD 0xA010      LDR      R10,[SP, #+16]
+   \      0x2EC   0x44D3             ADD      R11,R10,R11
+   \      0x2EE   0x....'....        LDR.W    R10,??DataTable3_15  ;; 0x895cd7be
+   \      0x2F2   0x44D3             ADD      R11,R10,R11
+   \      0x2F4   0x4459             ADD      R1,R11,R1
+   \      0x2F6   0xEB00 0x21B1      ADD      R1,R0,R1, ROR #+10
+    129              P(A, B, C, D, 12,  7, 0x6B901122);
+   \      0x2FA   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x2FE   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x302   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x306   0xF8DD 0xA00C      LDR      R10,[SP, #+12]
+   \      0x30A   0x44D3             ADD      R11,R10,R11
+   \      0x30C   0x....'....        LDR.W    R10,??DataTable3_16  ;; 0x6b901122
+   \      0x310   0x44D3             ADD      R11,R10,R11
+   \      0x312   0x44D9             ADD      R9,R11,R9
+   \      0x314   0xEB01 0x6979      ADD      R9,R1,R9, ROR #+25
+    130              P(D, A, B, C, 13, 12, 0xFD987193);
+   \      0x318   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x31C   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x320   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x324   0xF8DD 0xA008      LDR      R10,[SP, #+8]
+   \      0x328   0x44D3             ADD      R11,R10,R11
+   \      0x32A   0x....'....        LDR.W    R10,??DataTable3_17  ;; 0xfd987193
+   \      0x32E   0x44D3             ADD      R11,R10,R11
+   \      0x330   0x44D8             ADD      R8,R11,R8
+   \      0x332   0xEB09 0x5838      ADD      R8,R9,R8, ROR #+20
+    131              P(C, D, A, B, 14, 17, 0xA679438E);
+   \      0x336   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x33A   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x33E   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x342   0xF8DD 0xA004      LDR      R10,[SP, #+4]
+   \      0x346   0x44D3             ADD      R11,R10,R11
+   \      0x348   0x....'....        LDR.W    R10,??DataTable3_18  ;; 0xa679438e
+   \      0x34C   0x44D3             ADD      R11,R10,R11
+   \      0x34E   0x4458             ADD      R0,R11,R0
+   \      0x350   0xEB08 0x30F0      ADD      R0,R8,R0, ROR #+15
+    132              P(B, C, D, A, 15, 22, 0x49B40821);
+   \      0x354   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x358   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x35C   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x360   0xF8DD 0xA000      LDR      R10,[SP, #+0]
+   \      0x364   0x44D3             ADD      R11,R10,R11
+   \      0x366   0x....'....        LDR.W    R10,??DataTable3_19  ;; 0x49b40821
+   \      0x36A   0x44D3             ADD      R11,R10,R11
+   \      0x36C   0x4459             ADD      R1,R11,R1
+   \      0x36E   0xEB00 0x21B1      ADD      R1,R0,R1, ROR #+10
+    133          
+    134          #undef F
+    135          
+    136          #define F(x,y,z) (y ^ (z & (x ^ y)))
+    137          
+    138              P(A, B, C, D,  1,  5, 0xF61E2562);
+   \      0x372   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x376   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x37A   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x37E   0xF8DD 0xA018      LDR      R10,[SP, #+24]
+   \      0x382   0x44D3             ADD      R11,R10,R11
+   \      0x384   0x....'....        LDR.W    R10,??DataTable3_20  ;; 0xf61e2562
+   \      0x388   0x44D3             ADD      R11,R10,R11
+   \      0x38A   0x44D9             ADD      R9,R11,R9
+   \      0x38C   0xEB01 0x69F9      ADD      R9,R1,R9, ROR #+27
+    139              P(D, A, B, C,  6,  9, 0xC040B340);
+   \      0x390   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x394   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x398   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x39C   0x44AB             ADD      R11,R5,R11
+   \      0x39E   0x....'....        LDR.W    R10,??DataTable3_21  ;; 0xc040b340
+   \      0x3A2   0x44D3             ADD      R11,R10,R11
+   \      0x3A4   0x44D8             ADD      R8,R11,R8
+   \      0x3A6   0xEB09 0x58F8      ADD      R8,R9,R8, ROR #+23
+    140              P(C, D, A, B, 11, 14, 0x265E5A51);
+   \      0x3AA   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x3AE   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x3B2   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x3B6   0xF8DD 0xA010      LDR      R10,[SP, #+16]
+   \      0x3BA   0x44D3             ADD      R11,R10,R11
+   \      0x3BC   0x....'....        LDR.W    R10,??DataTable3_22  ;; 0x265e5a51
+   \      0x3C0   0x44D3             ADD      R11,R10,R11
+   \      0x3C2   0x4458             ADD      R0,R11,R0
+   \      0x3C4   0xEB08 0x40B0      ADD      R0,R8,R0, ROR #+18
+    141              P(B, C, D, A,  0, 20, 0xE9B6C7AA);
+   \      0x3C8   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x3CC   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x3D0   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x3D4   0xF8DD 0xA01C      LDR      R10,[SP, #+28]
+   \      0x3D8   0x44D3             ADD      R11,R10,R11
+   \      0x3DA   0x....'....        LDR.W    R10,??DataTable3_23  ;; 0xe9b6c7aa
+   \      0x3DE   0x44D3             ADD      R11,R10,R11
+   \      0x3E0   0x4459             ADD      R1,R11,R1
+   \      0x3E2   0xEB00 0x3131      ADD      R1,R0,R1, ROR #+12
+    142              P(A, B, C, D,  5,  5, 0xD62F105D);
+   \      0x3E6   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x3EA   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x3EE   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x3F2   0x44A3             ADD      R11,R4,R11
+   \      0x3F4   0x....'....        LDR.W    R10,??DataTable3_24  ;; 0xd62f105d
+   \      0x3F8   0x44D3             ADD      R11,R10,R11
+   \      0x3FA   0x44D9             ADD      R9,R11,R9
+   \      0x3FC   0xEB01 0x69F9      ADD      R9,R1,R9, ROR #+27
+    143              P(D, A, B, C, 10,  9, 0x02441453);
+   \      0x400   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x404   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x408   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x40C   0x44F3             ADD      R11,LR,R11
+   \      0x40E   0x....'....        LDR.W    R10,??DataTable3_25  ;; 0x2441453
+   \      0x412   0x44D3             ADD      R11,R10,R11
+   \      0x414   0x44D8             ADD      R8,R11,R8
+   \      0x416   0xEB09 0x58F8      ADD      R8,R9,R8, ROR #+23
+    144              P(C, D, A, B, 15, 14, 0xD8A1E681);
+   \      0x41A   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x41E   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x422   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x426   0xF8DD 0xA000      LDR      R10,[SP, #+0]
+   \      0x42A   0x44D3             ADD      R11,R10,R11
+   \      0x42C   0x....'....        LDR.W    R10,??DataTable3_26  ;; 0xd8a1e681
+   \      0x430   0x44D3             ADD      R11,R10,R11
+   \      0x432   0x4458             ADD      R0,R11,R0
+   \      0x434   0xEB08 0x40B0      ADD      R0,R8,R0, ROR #+18
+    145              P(B, C, D, A,  4, 20, 0xE7D3FBC8);
+   \      0x438   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x43C   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x440   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x444   0x449B             ADD      R11,R3,R11
+   \      0x446   0x....'....        LDR.W    R10,??DataTable3_27  ;; 0xe7d3fbc8
+   \      0x44A   0x44D3             ADD      R11,R10,R11
+   \      0x44C   0x4459             ADD      R1,R11,R1
+   \      0x44E   0xEB00 0x3131      ADD      R1,R0,R1, ROR #+12
+    146              P(A, B, C, D,  9,  5, 0x21E1CDE6);
+   \      0x452   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x456   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x45A   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x45E   0x44E3             ADD      R11,R12,R11
+   \      0x460   0x....'....        LDR.W    R10,??DataTable3_28  ;; 0x21e1cde6
+   \      0x464   0x44D3             ADD      R11,R10,R11
+   \      0x466   0x44D9             ADD      R9,R11,R9
+   \      0x468   0xEB01 0x69F9      ADD      R9,R1,R9, ROR #+27
+    147              P(D, A, B, C, 14,  9, 0xC33707D6);
+   \      0x46C   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x470   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x474   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x478   0xF8DD 0xA004      LDR      R10,[SP, #+4]
+   \      0x47C   0x44D3             ADD      R11,R10,R11
+   \      0x47E   0x....'....        LDR.W    R10,??DataTable3_29  ;; 0xc33707d6
+   \      0x482   0x44D3             ADD      R11,R10,R11
+   \      0x484   0x44D8             ADD      R8,R11,R8
+   \      0x486   0xEB09 0x58F8      ADD      R8,R9,R8, ROR #+23
+    148              P(C, D, A, B,  3, 14, 0xF4D50D87);
+   \      0x48A   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x48E   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x492   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x496   0xF8DD 0xA014      LDR      R10,[SP, #+20]
+   \      0x49A   0x44D3             ADD      R11,R10,R11
+   \      0x49C   0x....'....        LDR.W    R10,??DataTable3_30  ;; 0xf4d50d87
+   \      0x4A0   0x44D3             ADD      R11,R10,R11
+   \      0x4A2   0x4458             ADD      R0,R11,R0
+   \      0x4A4   0xEB08 0x40B0      ADD      R0,R8,R0, ROR #+18
+    149              P(B, C, D, A,  8, 20, 0x455A14ED);
+   \      0x4A8   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x4AC   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x4B0   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x4B4   0x44BB             ADD      R11,R7,R11
+   \      0x4B6   0x....'....        LDR.W    R10,??DataTable3_31  ;; 0x455a14ed
+   \      0x4BA   0x44D3             ADD      R11,R10,R11
+   \      0x4BC   0x4459             ADD      R1,R11,R1
+   \      0x4BE   0xEB00 0x3131      ADD      R1,R0,R1, ROR #+12
+    150              P(A, B, C, D, 13,  5, 0xA9E3E905);
+   \      0x4C2   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x4C6   0xEA0B 0x0B08      AND      R11,R11,R8
+   \      0x4CA   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x4CE   0xF8DD 0xA008      LDR      R10,[SP, #+8]
+   \      0x4D2   0x44D3             ADD      R11,R10,R11
+   \      0x4D4   0x....'....        LDR.W    R10,??DataTable3_32  ;; 0xa9e3e905
+   \      0x4D8   0x44D3             ADD      R11,R10,R11
+   \      0x4DA   0x44D9             ADD      R9,R11,R9
+   \      0x4DC   0xEB01 0x69F9      ADD      R9,R1,R9, ROR #+27
+    151              P(D, A, B, C,  2,  9, 0xFCEFA3F8);
+   \      0x4E0   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x4E4   0xEA0B 0x0B00      AND      R11,R11,R0
+   \      0x4E8   0xEA8B 0x0B01      EOR      R11,R11,R1
+   \      0x4EC   0x4493             ADD      R11,R2,R11
+   \      0x4EE   0x....'....        LDR.W    R10,??DataTable3_33  ;; 0xfcefa3f8
+   \      0x4F2   0x44D3             ADD      R11,R10,R11
+   \      0x4F4   0x44D8             ADD      R8,R11,R8
+   \      0x4F6   0xEB09 0x58F8      ADD      R8,R9,R8, ROR #+23
+    152              P(C, D, A, B,  7, 14, 0x676F02D9);
+   \      0x4FA   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x4FE   0xEA0B 0x0B01      AND      R11,R11,R1
+   \      0x502   0xEA8B 0x0B09      EOR      R11,R11,R9
+   \      0x506   0x44B3             ADD      R11,R6,R11
+   \      0x508   0x....'....        LDR.W    R10,??DataTable3_34  ;; 0x676f02d9
+   \      0x50C   0x44D3             ADD      R11,R10,R11
+   \      0x50E   0x4458             ADD      R0,R11,R0
+   \      0x510   0xEB08 0x40B0      ADD      R0,R8,R0, ROR #+18
+    153              P(B, C, D, A, 12, 20, 0x8D2A4C8A);
+   \      0x514   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x518   0xEA0B 0x0B09      AND      R11,R11,R9
+   \      0x51C   0xEA8B 0x0B08      EOR      R11,R11,R8
+   \      0x520   0xF8DD 0xA00C      LDR      R10,[SP, #+12]
+   \      0x524   0x44D3             ADD      R11,R10,R11
+   \      0x526   0x....'....        LDR.W    R10,??DataTable3_35  ;; 0x8d2a4c8a
+   \      0x52A   0x44D3             ADD      R11,R10,R11
+   \      0x52C   0x4459             ADD      R1,R11,R1
+   \      0x52E   0xEB00 0x3131      ADD      R1,R0,R1, ROR #+12
+    154          
+    155          #undef F
+    156          
+    157          #define F(x,y,z) (x ^ y ^ z)
+    158          
+    159              P(A, B, C, D,  5,  4, 0xFFFA3942);
+   \      0x532   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x536   0xEA88 0x0B0B      EOR      R11,R8,R11
+   \      0x53A   0x44A3             ADD      R11,R4,R11
+   \      0x53C   0x....'....        LDR.W    R10,??DataTable3_36  ;; 0xfffa3942
+   \      0x540   0x44D3             ADD      R11,R10,R11
+   \      0x542   0x44D9             ADD      R9,R11,R9
+   \      0x544   0xEB01 0x7939      ADD      R9,R1,R9, ROR #+28
+    160              P(D, A, B, C,  8, 11, 0x8771F681);
+   \      0x548   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x54C   0xEA80 0x0B0B      EOR      R11,R0,R11
+   \      0x550   0x44BB             ADD      R11,R7,R11
+   \      0x552   0x....'....        LDR.W    R10,??DataTable3_37  ;; 0x8771f681
+   \      0x556   0x44D3             ADD      R11,R10,R11
+   \      0x558   0x44D8             ADD      R8,R11,R8
+   \      0x55A   0xEB09 0x5878      ADD      R8,R9,R8, ROR #+21
+    161              P(C, D, A, B, 11, 16, 0x6D9D6122);
+   \      0x55E   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x562   0xEA81 0x0B0B      EOR      R11,R1,R11
+   \      0x566   0xF8DD 0xA010      LDR      R10,[SP, #+16]
+   \      0x56A   0x44D3             ADD      R11,R10,R11
+   \      0x56C   0x....'....        LDR.W    R10,??DataTable3_38  ;; 0x6d9d6122
+   \      0x570   0x44D3             ADD      R11,R10,R11
+   \      0x572   0x4458             ADD      R0,R11,R0
+   \      0x574   0xEB08 0x4030      ADD      R0,R8,R0, ROR #+16
+    162              P(B, C, D, A, 14, 23, 0xFDE5380C);
+   \      0x578   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x57C   0xEA89 0x0B0B      EOR      R11,R9,R11
+   \      0x580   0xF8DD 0xA004      LDR      R10,[SP, #+4]
+   \      0x584   0x44D3             ADD      R11,R10,R11
+   \      0x586   0x....'....        LDR.W    R10,??DataTable3_39  ;; 0xfde5380c
+   \      0x58A   0x44D3             ADD      R11,R10,R11
+   \      0x58C   0x4459             ADD      R1,R11,R1
+   \      0x58E   0xEB00 0x2171      ADD      R1,R0,R1, ROR #+9
+    163              P(A, B, C, D,  1,  4, 0xA4BEEA44);
+   \      0x592   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x596   0xEA88 0x0B0B      EOR      R11,R8,R11
+   \      0x59A   0xF8DD 0xA018      LDR      R10,[SP, #+24]
+   \      0x59E   0x44D3             ADD      R11,R10,R11
+   \      0x5A0   0x....'....        LDR.W    R10,??DataTable3_40  ;; 0xa4beea44
+   \      0x5A4   0x44D3             ADD      R11,R10,R11
+   \      0x5A6   0x44D9             ADD      R9,R11,R9
+   \      0x5A8   0xEB01 0x7939      ADD      R9,R1,R9, ROR #+28
+    164              P(D, A, B, C,  4, 11, 0x4BDECFA9);
+   \      0x5AC   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x5B0   0xEA80 0x0B0B      EOR      R11,R0,R11
+   \      0x5B4   0x449B             ADD      R11,R3,R11
+   \      0x5B6   0x....'....        LDR.W    R10,??DataTable3_41  ;; 0x4bdecfa9
+   \      0x5BA   0x44D3             ADD      R11,R10,R11
+   \      0x5BC   0x44D8             ADD      R8,R11,R8
+   \      0x5BE   0xEB09 0x5878      ADD      R8,R9,R8, ROR #+21
+    165              P(C, D, A, B,  7, 16, 0xF6BB4B60);
+   \      0x5C2   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x5C6   0xEA81 0x0B0B      EOR      R11,R1,R11
+   \      0x5CA   0x44B3             ADD      R11,R6,R11
+   \      0x5CC   0x....'....        LDR.W    R10,??DataTable3_42  ;; 0xf6bb4b60
+   \      0x5D0   0x44D3             ADD      R11,R10,R11
+   \      0x5D2   0x4458             ADD      R0,R11,R0
+   \      0x5D4   0xEB08 0x4030      ADD      R0,R8,R0, ROR #+16
+    166              P(B, C, D, A, 10, 23, 0xBEBFBC70);
+   \      0x5D8   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x5DC   0xEA89 0x0B0B      EOR      R11,R9,R11
+   \      0x5E0   0x44F3             ADD      R11,LR,R11
+   \      0x5E2   0x....'....        LDR.W    R10,??DataTable3_43  ;; 0xbebfbc70
+   \      0x5E6   0x44D3             ADD      R11,R10,R11
+   \      0x5E8   0x4459             ADD      R1,R11,R1
+   \      0x5EA   0xEB00 0x2171      ADD      R1,R0,R1, ROR #+9
+    167              P(A, B, C, D, 13,  4, 0x289B7EC6);
+   \      0x5EE   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x5F2   0xEA88 0x0B0B      EOR      R11,R8,R11
+   \      0x5F6   0xF8DD 0xA008      LDR      R10,[SP, #+8]
+   \      0x5FA   0x44D3             ADD      R11,R10,R11
+   \      0x5FC   0x....'....        LDR.W    R10,??DataTable3_44  ;; 0x289b7ec6
+   \      0x600   0x44D3             ADD      R11,R10,R11
+   \      0x602   0x44D9             ADD      R9,R11,R9
+   \      0x604   0xEB01 0x7939      ADD      R9,R1,R9, ROR #+28
+    168              P(D, A, B, C,  0, 11, 0xEAA127FA);
+   \      0x608   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x60C   0xEA80 0x0B0B      EOR      R11,R0,R11
+   \      0x610   0xF8DD 0xA01C      LDR      R10,[SP, #+28]
+   \      0x614   0x44D3             ADD      R11,R10,R11
+   \      0x616   0x....'....        LDR.W    R10,??DataTable3_45  ;; 0xeaa127fa
+   \      0x61A   0x44D3             ADD      R11,R10,R11
+   \      0x61C   0x44D8             ADD      R8,R11,R8
+   \      0x61E   0xEB09 0x5878      ADD      R8,R9,R8, ROR #+21
+    169              P(C, D, A, B,  3, 16, 0xD4EF3085);
+   \      0x622   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x626   0xEA81 0x0B0B      EOR      R11,R1,R11
+   \      0x62A   0xF8DD 0xA014      LDR      R10,[SP, #+20]
+   \      0x62E   0x44D3             ADD      R11,R10,R11
+   \      0x630   0x....'....        LDR.W    R10,??DataTable3_46  ;; 0xd4ef3085
+   \      0x634   0x44D3             ADD      R11,R10,R11
+   \      0x636   0x4458             ADD      R0,R11,R0
+   \      0x638   0xEB08 0x4030      ADD      R0,R8,R0, ROR #+16
+    170              P(B, C, D, A,  6, 23, 0x04881D05);
+   \      0x63C   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x640   0xEA89 0x0B0B      EOR      R11,R9,R11
+   \      0x644   0x44AB             ADD      R11,R5,R11
+   \      0x646   0x....'....        LDR.W    R10,??DataTable3_47  ;; 0x4881d05
+   \      0x64A   0x44D3             ADD      R11,R10,R11
+   \      0x64C   0x4459             ADD      R1,R11,R1
+   \      0x64E   0xEB00 0x2171      ADD      R1,R0,R1, ROR #+9
+    171              P(A, B, C, D,  9,  4, 0xD9D4D039);
+   \      0x652   0xEA80 0x0B01      EOR      R11,R0,R1
+   \      0x656   0xEA88 0x0B0B      EOR      R11,R8,R11
+   \      0x65A   0x44E3             ADD      R11,R12,R11
+   \      0x65C   0x....'....        LDR.W    R10,??DataTable3_48  ;; 0xd9d4d039
+   \      0x660   0x44D3             ADD      R11,R10,R11
+   \      0x662   0x44D9             ADD      R9,R11,R9
+   \      0x664   0xEB01 0x7939      ADD      R9,R1,R9, ROR #+28
+    172              P(D, A, B, C, 12, 11, 0xE6DB99E5);
+   \      0x668   0xEA81 0x0B09      EOR      R11,R1,R9
+   \      0x66C   0xEA80 0x0B0B      EOR      R11,R0,R11
+   \      0x670   0xF8DD 0xA00C      LDR      R10,[SP, #+12]
+   \      0x674   0x44D3             ADD      R11,R10,R11
+   \      0x676   0x....'....        LDR.W    R10,??DataTable3_49  ;; 0xe6db99e5
+   \      0x67A   0x44D3             ADD      R11,R10,R11
+   \      0x67C   0x44D8             ADD      R8,R11,R8
+   \      0x67E   0xEB09 0x5878      ADD      R8,R9,R8, ROR #+21
+    173              P(C, D, A, B, 15, 16, 0x1FA27CF8);
+   \      0x682   0xEA89 0x0B08      EOR      R11,R9,R8
+   \      0x686   0xEA81 0x0B0B      EOR      R11,R1,R11
+   \      0x68A   0xF8DD 0xA000      LDR      R10,[SP, #+0]
+   \      0x68E   0x44D3             ADD      R11,R10,R11
+   \      0x690   0x....'....        LDR.W    R10,??DataTable3_50  ;; 0x1fa27cf8
+   \      0x694   0x44D3             ADD      R11,R10,R11
+   \      0x696   0x4458             ADD      R0,R11,R0
+   \      0x698   0xEB08 0x4030      ADD      R0,R8,R0, ROR #+16
+    174              P(B, C, D, A,  2, 23, 0xC4AC5665);
+   \      0x69C   0xEA88 0x0B00      EOR      R11,R8,R0
+   \      0x6A0   0xEA89 0x0B0B      EOR      R11,R9,R11
+   \      0x6A4   0x4493             ADD      R11,R2,R11
+   \      0x6A6   0x....'....        LDR.W    R10,??DataTable3_51  ;; 0xc4ac5665
+   \      0x6AA   0x44D3             ADD      R11,R10,R11
+   \      0x6AC   0x4459             ADD      R1,R11,R1
+   \      0x6AE   0xEB00 0x2171      ADD      R1,R0,R1, ROR #+9
+    175          
+    176          #undef F
+    177          
+    178          #define F(x,y,z) (y ^ (x | ~z))
+    179          
+    180              P(A, B, C, D,  0,  6, 0xF4292244);
+   \      0x6B2   0xEA61 0x0B08      ORN      R11,R1,R8
+   \      0x6B6   0xEA8B 0x0B00      EOR      R11,R11,R0
+   \      0x6BA   0xF8DD 0xA01C      LDR      R10,[SP, #+28]
+   \      0x6BE   0x44D3             ADD      R11,R10,R11
+   \      0x6C0   0x....'....        LDR.W    R10,??DataTable3_52  ;; 0xf4292244
+   \      0x6C4   0x44D3             ADD      R11,R10,R11
+   \      0x6C6   0x44D9             ADD      R9,R11,R9
+   \      0x6C8   0xEB01 0x69B9      ADD      R9,R1,R9, ROR #+26
+    181              P(D, A, B, C,  7, 10, 0x432AFF97);
+   \      0x6CC   0xEA69 0x0A00      ORN      R10,R9,R0
+   \      0x6D0   0xEA8A 0x0A01      EOR      R10,R10,R1
+   \      0x6D4   0x4456             ADD      R6,R6,R10
+   \      0x6D6   0x....'....        LDR.W    R10,??DataTable3_53  ;; 0x432aff97
+   \      0x6DA   0x4456             ADD      R6,R10,R6
+   \      0x6DC   0x4446             ADD      R6,R6,R8
+   \      0x6DE   0xEB09 0x56B6      ADD      R6,R9,R6, ROR #+22
+    182              P(C, D, A, B, 14, 15, 0xAB9423A7);
+   \      0x6E2   0xEA66 0x0A01      ORN      R10,R6,R1
+   \      0x6E6   0xEA8A 0x0A09      EOR      R10,R10,R9
+   \      0x6EA   0xF8DD 0x8004      LDR      R8,[SP, #+4]
+   \      0x6EE   0x44C2             ADD      R10,R8,R10
+   \      0x6F0   0x....'....        LDR.W    R8,??DataTable3_54  ;; 0xab9423a7
+   \      0x6F4   0x44C2             ADD      R10,R8,R10
+   \      0x6F6   0x4450             ADD      R0,R10,R0
+   \      0x6F8   0xEB06 0x4870      ADD      R8,R6,R0, ROR #+17
+    183              P(B, C, D, A,  5, 21, 0xFC93A039);
+   \      0x6FC   0xEA68 0x0009      ORN      R0,R8,R9
+   \      0x700   0x4070             EORS     R0,R0,R6
+   \      0x702   0x1824             ADDS     R4,R4,R0
+   \      0x704   0x....             LDR.N    R0,??DataTable3_55  ;; 0xfc93a039
+   \      0x706   0x1904             ADDS     R4,R0,R4
+   \      0x708   0x1864             ADDS     R4,R4,R1
+   \      0x70A   0xEB08 0x21F4      ADD      R1,R8,R4, ROR #+11
+    184              P(A, B, C, D, 12,  6, 0x655B59C3);
+   \      0x70E   0xEA61 0x0406      ORN      R4,R1,R6
+   \      0x712   0xEA84 0x0408      EOR      R4,R4,R8
+   \      0x716   0x9803             LDR      R0,[SP, #+12]
+   \      0x718   0x1904             ADDS     R4,R0,R4
+   \      0x71A   0x....             LDR.N    R0,??DataTable3_56  ;; 0x655b59c3
+   \      0x71C   0x1904             ADDS     R4,R0,R4
+   \      0x71E   0x44A1             ADD      R9,R4,R9
+   \      0x720   0xEB01 0x64B9      ADD      R4,R1,R9, ROR #+26
+    185              P(D, A, B, C,  3, 10, 0x8F0CCC92);
+   \      0x724   0xEA64 0x0908      ORN      R9,R4,R8
+   \      0x728   0xEA89 0x0901      EOR      R9,R9,R1
+   \      0x72C   0x9805             LDR      R0,[SP, #+20]
+   \      0x72E   0x4481             ADD      R9,R0,R9
+   \      0x730   0x....             LDR.N    R0,??DataTable3_57  ;; 0x8f0ccc92
+   \      0x732   0x4481             ADD      R9,R0,R9
+   \      0x734   0x444E             ADD      R6,R9,R6
+   \      0x736   0xEB04 0x56B6      ADD      R6,R4,R6, ROR #+22
+    186              P(C, D, A, B, 10, 15, 0xFFEFF47D);
+   \      0x73A   0xEA66 0x0001      ORN      R0,R6,R1
+   \      0x73E   0x4060             EORS     R0,R0,R4
+   \      0x740   0x4486             ADD      LR,LR,R0
+   \      0x742   0x....             LDR.N    R0,??DataTable3_58  ;; 0xffeff47d
+   \      0x744   0x4486             ADD      LR,R0,LR
+   \      0x746   0x44C6             ADD      LR,LR,R8
+   \      0x748   0xEB06 0x4E7E      ADD      LR,R6,LR, ROR #+17
+    187              P(B, C, D, A,  1, 21, 0x85845DD1);
+   \      0x74C   0xEA6E 0x0804      ORN      R8,LR,R4
+   \      0x750   0xEA88 0x0806      EOR      R8,R8,R6
+   \      0x754   0x9806             LDR      R0,[SP, #+24]
+   \      0x756   0x4480             ADD      R8,R0,R8
+   \      0x758   0x....             LDR.N    R0,??DataTable3_59  ;; 0x85845dd1
+   \      0x75A   0x4480             ADD      R8,R0,R8
+   \      0x75C   0x4441             ADD      R1,R8,R1
+   \      0x75E   0xEB0E 0x21F1      ADD      R1,LR,R1, ROR #+11
+    188              P(A, B, C, D,  8,  6, 0x6FA87E4F);
+   \      0x762   0xEA61 0x0006      ORN      R0,R1,R6
+   \      0x766   0xEA80 0x000E      EOR      R0,R0,LR
+   \      0x76A   0x183F             ADDS     R7,R7,R0
+   \      0x76C   0x....             LDR.N    R0,??DataTable3_60  ;; 0x6fa87e4f
+   \      0x76E   0x19C7             ADDS     R7,R0,R7
+   \      0x770   0x193F             ADDS     R7,R7,R4
+   \      0x772   0xEB01 0x64B7      ADD      R4,R1,R7, ROR #+26
+    189              P(D, A, B, C, 15, 10, 0xFE2CE6E0);
+   \      0x776   0xEA64 0x070E      ORN      R7,R4,LR
+   \      0x77A   0x404F             EORS     R7,R7,R1
+   \      0x77C   0x9800             LDR      R0,[SP, #+0]
+   \      0x77E   0x19C7             ADDS     R7,R0,R7
+   \      0x780   0x....             LDR.N    R0,??DataTable3_61  ;; 0xfe2ce6e0
+   \      0x782   0x19C7             ADDS     R7,R0,R7
+   \      0x784   0x19BE             ADDS     R6,R7,R6
+   \      0x786   0xEB04 0x56B6      ADD      R6,R4,R6, ROR #+22
+    190              P(C, D, A, B,  6, 15, 0xA3014314);
+   \      0x78A   0xEA66 0x0001      ORN      R0,R6,R1
+   \      0x78E   0x4060             EORS     R0,R0,R4
+   \      0x790   0x182D             ADDS     R5,R5,R0
+   \      0x792   0x....             LDR.N    R0,??DataTable3_62  ;; 0xa3014314
+   \      0x794   0x1945             ADDS     R5,R0,R5
+   \      0x796   0x4475             ADD      R5,R5,LR
+   \      0x798   0xEB06 0x4575      ADD      R5,R6,R5, ROR #+17
+    191              P(B, C, D, A, 13, 21, 0x4E0811A1);
+   \      0x79C   0xEA65 0x0704      ORN      R7,R5,R4
+   \      0x7A0   0x4077             EORS     R7,R7,R6
+   \      0x7A2   0x9802             LDR      R0,[SP, #+8]
+   \      0x7A4   0x19C7             ADDS     R7,R0,R7
+   \      0x7A6   0x....             LDR.N    R0,??DataTable3_63  ;; 0x4e0811a1
+   \      0x7A8   0x19C7             ADDS     R7,R0,R7
+   \      0x7AA   0x1879             ADDS     R1,R7,R1
+   \      0x7AC   0xEB05 0x21F1      ADD      R1,R5,R1, ROR #+11
+    192              P(A, B, C, D,  4,  6, 0xF7537E82);
+   \      0x7B0   0xEA61 0x0006      ORN      R0,R1,R6
+   \      0x7B4   0x4068             EORS     R0,R0,R5
+   \      0x7B6   0x181B             ADDS     R3,R3,R0
+   \      0x7B8   0x....             LDR.N    R0,??DataTable3_64  ;; 0xf7537e82
+   \      0x7BA   0x18C3             ADDS     R3,R0,R3
+   \      0x7BC   0x191B             ADDS     R3,R3,R4
+   \      0x7BE   0xEB01 0x63B3      ADD      R3,R1,R3, ROR #+26
+    193              P(D, A, B, C, 11, 10, 0xBD3AF235);
+   \      0x7C2   0xEA63 0x0405      ORN      R4,R3,R5
+   \      0x7C6   0x404C             EORS     R4,R4,R1
+   \      0x7C8   0x9804             LDR      R0,[SP, #+16]
+   \      0x7CA   0x1904             ADDS     R4,R0,R4
+   \      0x7CC   0x....             LDR.N    R0,??DataTable3_65  ;; 0xbd3af235
+   \      0x7CE   0x1904             ADDS     R4,R0,R4
+   \      0x7D0   0x19A6             ADDS     R6,R4,R6
+   \      0x7D2   0xEB03 0x54B6      ADD      R4,R3,R6, ROR #+22
+    194              P(C, D, A, B,  2, 15, 0x2AD7D2BB);
+   \      0x7D6   0xEA64 0x0001      ORN      R0,R4,R1
+   \      0x7DA   0x4058             EORS     R0,R0,R3
+   \      0x7DC   0x1812             ADDS     R2,R2,R0
+   \      0x7DE   0x....             LDR.N    R0,??DataTable3_66  ;; 0x2ad7d2bb
+   \      0x7E0   0x1882             ADDS     R2,R0,R2
+   \      0x7E2   0x1952             ADDS     R2,R2,R5
+   \      0x7E4   0xEB04 0x4272      ADD      R2,R4,R2, ROR #+17
+    195              P(B, C, D, A,  9, 21, 0xEB86D391);
+   \      0x7E8   0xEA62 0x0003      ORN      R0,R2,R3
+   \      0x7EC   0x4060             EORS     R0,R0,R4
+   \      0x7EE   0x4484             ADD      R12,R12,R0
+   \      0x7F0   0x....             LDR.N    R0,??DataTable3_67  ;; 0xeb86d391
+   \      0x7F2   0x4484             ADD      R12,R0,R12
+   \      0x7F4   0x448C             ADD      R12,R12,R1
+    196          
+    197          #undef F
+    198          
+    199              ctx->state[0] += A;
+   \      0x7F6   0x9808             LDR      R0,[SP, #+32]
+   \      0x7F8   0x6880             LDR      R0,[R0, #+8]
+   \      0x7FA   0x181B             ADDS     R3,R3,R0
+   \      0x7FC   0x9808             LDR      R0,[SP, #+32]
+   \      0x7FE   0x6083             STR      R3,[R0, #+8]
+    200              ctx->state[1] += B;
+   \      0x800   0x9808             LDR      R0,[SP, #+32]
+   \      0x802   0x68C1             LDR      R1,[R0, #+12]
+   \      0x804   0xEB02 0x20FC      ADD      R0,R2,R12, ROR #+11
+   \      0x808   0x1841             ADDS     R1,R0,R1
+   \      0x80A   0x9808             LDR      R0,[SP, #+32]
+   \      0x80C   0x60C1             STR      R1,[R0, #+12]
+    201              ctx->state[2] += C;
+   \      0x80E   0x9808             LDR      R0,[SP, #+32]
+   \      0x810   0x6900             LDR      R0,[R0, #+16]
+   \      0x812   0x1812             ADDS     R2,R2,R0
+   \      0x814   0x9808             LDR      R0,[SP, #+32]
+   \      0x816   0x6102             STR      R2,[R0, #+16]
+    202              ctx->state[3] += D;
+   \      0x818   0x9808             LDR      R0,[SP, #+32]
+   \      0x81A   0x6940             LDR      R0,[R0, #+20]
+   \      0x81C   0x1824             ADDS     R4,R4,R0
+   \      0x81E   0x9808             LDR      R0,[SP, #+32]
+   \      0x820   0x6144             STR      R4,[R0, #+20]
+    203          }
+   \      0x822   0xB009             ADD      SP,SP,#+36
+   \      0x824   0xE8BD 0x8FF0      POP      {R4-R11,PC}      ;; return
+    204          
+    205          /*
+    206           * MD5 process buffer
+    207           */
+
+   \                                 In section .text, align 2, keep-with-next
+    208          void utils_md5_update(iot_md5_context *ctx, const unsigned char *input, uint32_t ilen)
+    209          {
+   \                     utils_md5_update: (+1)
+   \        0x0   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \        0x4   0x4680             MOV      R8,R0
+   \        0x6   0x460E             MOV      R6,R1
+   \        0x8   0x0014             MOVS     R4,R2
+    210              uint32_t fill;
+    211              uint32_t left;
+    212          
+    213              if (ilen == 0) {
+   \        0xA   0xD039             BEQ.N    ??utils_md5_update_0
+    214                  return;
+    215              }
+    216          
+    217              left = ctx->total[0] & 0x3F;
+   \        0xC   0xF898 0x5000      LDRB     R5,[R8, #+0]
+   \       0x10   0xF005 0x053F      AND      R5,R5,#0x3F
+    218              fill = 64 - left;
+   \       0x14   0xF1C5 0x0740      RSB      R7,R5,#+64
+    219          
+    220              ctx->total[0] += (uint32_t) ilen;
+   \       0x18   0xF8D8 0x0000      LDR      R0,[R8, #+0]
+   \       0x1C   0x1820             ADDS     R0,R4,R0
+   \       0x1E   0xF8C8 0x0000      STR      R0,[R8, #+0]
+    221              ctx->total[0] &= 0xFFFFFFFF;
+   \       0x22   0xF8C8 0x0000      STR      R0,[R8, #+0]
+    222          
+    223              if (ctx->total[0] < (uint32_t) ilen) {
+   \       0x26   0x42A0             CMP      R0,R4
+   \       0x28   0xD204             BCS.N    ??utils_md5_update_1
+    224                  ctx->total[1]++;
+   \       0x2A   0xF8D8 0x0004      LDR      R0,[R8, #+4]
+   \       0x2E   0x1C40             ADDS     R0,R0,#+1
+   \       0x30   0xF8C8 0x0004      STR      R0,[R8, #+4]
+    225              }
+    226          
+    227              if (left && ilen >= fill) {
+   \                     ??utils_md5_update_1: (+1)
+   \       0x34   0x2D00             CMP      R5,#+0
+   \       0x36   0xD016             BEQ.N    ??utils_md5_update_2
+   \       0x38   0x42BC             CMP      R4,R7
+   \       0x3A   0xD314             BCC.N    ??utils_md5_update_2
+    228                  memcpy((void *)(ctx->buffer + left), input, fill);
+   \       0x3C   0x463A             MOV      R2,R7
+   \       0x3E   0xEB08 0x0005      ADD      R0,R8,R5
+   \       0x42   0x3018             ADDS     R0,R0,#+24
+   \       0x44   0x....'....        BL       __aeabi_memcpy
+    229                  utils_md5_process(ctx, ctx->buffer);
+   \       0x48   0xF108 0x0118      ADD      R1,R8,#+24
+   \       0x4C   0x4640             MOV      R0,R8
+   \       0x4E   0x....'....        BL       utils_md5_process
+    230                  input += fill;
+   \       0x52   0x443E             ADD      R6,R6,R7
+    231                  ilen  -= fill;
+   \       0x54   0x1BE4             SUBS     R4,R4,R7
+    232                  left = 0;
+   \       0x56   0x2500             MOVS     R5,#+0
+   \       0x58   0xE005             B.N      ??utils_md5_update_2
+    233              }
+    234          
+    235              while (ilen >= 64) {
+    236                  utils_md5_process(ctx, input);
+   \                     ??utils_md5_update_3: (+1)
+   \       0x5A   0x4631             MOV      R1,R6
+   \       0x5C   0x4640             MOV      R0,R8
+   \       0x5E   0x....'....        BL       utils_md5_process
+    237                  input += 64;
+   \       0x62   0x3640             ADDS     R6,R6,#+64
+    238                  ilen  -= 64;
+   \       0x64   0x3C40             SUBS     R4,R4,#+64
+    239              }
+   \                     ??utils_md5_update_2: (+1)
+   \       0x66   0x2C40             CMP      R4,#+64
+   \       0x68   0xD2F7             BCS.N    ??utils_md5_update_3
+    240          
+    241              if (ilen > 0) {
+   \       0x6A   0x2C00             CMP      R4,#+0
+   \       0x6C   0xD008             BEQ.N    ??utils_md5_update_0
+    242                  memcpy((void *)(ctx->buffer + left), input, ilen);
+   \       0x6E   0x4622             MOV      R2,R4
+   \       0x70   0x4631             MOV      R1,R6
+   \       0x72   0xEB08 0x0005      ADD      R0,R8,R5
+   \       0x76   0x3018             ADDS     R0,R0,#+24
+   \       0x78   0xE8BD 0x41F0      POP      {R4-R8,LR}
+   \       0x7C   0x....'....        B.W      __aeabi_memcpy
+    243              }
+    244          }
+   \                     ??utils_md5_update_0: (+1)
+   \       0x80   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+    245          
+
+   \                                 In section .rodata, align 4
+    246          static const unsigned char iot_md5_padding[64] = {
+   \                     iot_md5_padding:
+   \        0x0   0x80 0x00          DC8 128, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \       0x16   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2D   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+    247              0x80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    248              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    249              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    250              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    251          };
+    252          
+    253          /*
+    254           * MD5 final digest
+    255           */
+
+   \                                 In section .text, align 2, keep-with-next
+    256          void utils_md5_finish(iot_md5_context *ctx, unsigned char output[16])
+    257          {
+   \                     utils_md5_finish: (+1)
+   \        0x0   0xB53E             PUSH     {R1-R5,LR}
+   \        0x2   0x4604             MOV      R4,R0
+   \        0x4   0x460D             MOV      R5,R1
+    258              uint32_t last, padn;
+    259              uint32_t high, low;
+    260              unsigned char msglen[8];
+    261          
+    262              high = (ctx->total[0] >> 29)
+    263                     | (ctx->total[1] <<  3);
+   \        0x6   0x6821             LDR      R1,[R4, #+0]
+   \        0x8   0x6860             LDR      R0,[R4, #+4]
+   \        0xA   0x00C0             LSLS     R0,R0,#+3
+   \        0xC   0xEA40 0x7051      ORR      R0,R0,R1, LSR #+29
+    264              low  = (ctx->total[0] <<  3);
+   \       0x10   0x00C9             LSLS     R1,R1,#+3
+    265          
+    266              IOT_MD5_PUT_UINT32_LE(low,  msglen, 0);
+   \       0x12   0x460A             MOV      R2,R1
+   \       0x14   0xF88D 0x2000      STRB     R2,[SP, #+0]
+   \       0x18   0x466A             MOV      R2,SP
+   \       0x1A   0x460B             MOV      R3,R1
+   \       0x1C   0x0A1B             LSRS     R3,R3,#+8
+   \       0x1E   0x7053             STRB     R3,[R2, #+1]
+   \       0x20   0x460B             MOV      R3,R1
+   \       0x22   0x0C1B             LSRS     R3,R3,#+16
+   \       0x24   0x7093             STRB     R3,[R2, #+2]
+   \       0x26   0x0E09             LSRS     R1,R1,#+24
+   \       0x28   0x70D1             STRB     R1,[R2, #+3]
+    267              IOT_MD5_PUT_UINT32_LE(high, msglen, 4);
+   \       0x2A   0x7110             STRB     R0,[R2, #+4]
+   \       0x2C   0x4601             MOV      R1,R0
+   \       0x2E   0x0A09             LSRS     R1,R1,#+8
+   \       0x30   0x7151             STRB     R1,[R2, #+5]
+   \       0x32   0x4601             MOV      R1,R0
+   \       0x34   0x0C09             LSRS     R1,R1,#+16
+   \       0x36   0x7191             STRB     R1,[R2, #+6]
+   \       0x38   0x0E00             LSRS     R0,R0,#+24
+   \       0x3A   0x71D0             STRB     R0,[R2, #+7]
+    268          
+    269              last = ctx->total[0] & 0x3F;
+   \       0x3C   0x7822             LDRB     R2,[R4, #+0]
+   \       0x3E   0xF002 0x023F      AND      R2,R2,#0x3F
+    270              padn = (last < 56) ? (56 - last) : (120 - last);
+   \       0x42   0x2A38             CMP      R2,#+56
+   \       0x44   0xD202             BCS.N    ??utils_md5_finish_0
+   \       0x46   0xF1C2 0x0238      RSB      R2,R2,#+56
+   \       0x4A   0xE001             B.N      ??utils_md5_finish_1
+   \                     ??utils_md5_finish_0: (+1)
+   \       0x4C   0xF1C2 0x0278      RSB      R2,R2,#+120
+    271          
+    272              utils_md5_update(ctx, iot_md5_padding, padn);
+   \                     ??utils_md5_finish_1: (+1)
+   \       0x50   0x....             LDR.N    R1,??DataTable3_68
+   \       0x52   0x4620             MOV      R0,R4
+   \       0x54   0x....'....        BL       utils_md5_update
+    273              utils_md5_update(ctx, msglen, 8);
+   \       0x58   0x2208             MOVS     R2,#+8
+   \       0x5A   0x4669             MOV      R1,SP
+   \       0x5C   0x4620             MOV      R0,R4
+   \       0x5E   0x....'....        BL       utils_md5_update
+    274          
+    275              IOT_MD5_PUT_UINT32_LE(ctx->state[0], output,  0);
+   \       0x62   0x68A0             LDR      R0,[R4, #+8]
+   \       0x64   0x7028             STRB     R0,[R5, #+0]
+   \       0x66   0x68A0             LDR      R0,[R4, #+8]
+   \       0x68   0x0A00             LSRS     R0,R0,#+8
+   \       0x6A   0x7068             STRB     R0,[R5, #+1]
+   \       0x6C   0x68A0             LDR      R0,[R4, #+8]
+   \       0x6E   0x0C00             LSRS     R0,R0,#+16
+   \       0x70   0x70A8             STRB     R0,[R5, #+2]
+   \       0x72   0x68A0             LDR      R0,[R4, #+8]
+   \       0x74   0x0E00             LSRS     R0,R0,#+24
+   \       0x76   0x70E8             STRB     R0,[R5, #+3]
+    276              IOT_MD5_PUT_UINT32_LE(ctx->state[1], output,  4);
+   \       0x78   0x68E0             LDR      R0,[R4, #+12]
+   \       0x7A   0x7128             STRB     R0,[R5, #+4]
+   \       0x7C   0x68E0             LDR      R0,[R4, #+12]
+   \       0x7E   0x0A00             LSRS     R0,R0,#+8
+   \       0x80   0x7168             STRB     R0,[R5, #+5]
+   \       0x82   0x68E0             LDR      R0,[R4, #+12]
+   \       0x84   0x0C00             LSRS     R0,R0,#+16
+   \       0x86   0x71A8             STRB     R0,[R5, #+6]
+   \       0x88   0x68E0             LDR      R0,[R4, #+12]
+   \       0x8A   0x0E00             LSRS     R0,R0,#+24
+   \       0x8C   0x71E8             STRB     R0,[R5, #+7]
+    277              IOT_MD5_PUT_UINT32_LE(ctx->state[2], output,  8);
+   \       0x8E   0x6920             LDR      R0,[R4, #+16]
+   \       0x90   0x7228             STRB     R0,[R5, #+8]
+   \       0x92   0x6920             LDR      R0,[R4, #+16]
+   \       0x94   0x0A00             LSRS     R0,R0,#+8
+   \       0x96   0x7268             STRB     R0,[R5, #+9]
+   \       0x98   0x6920             LDR      R0,[R4, #+16]
+   \       0x9A   0x0C00             LSRS     R0,R0,#+16
+   \       0x9C   0x72A8             STRB     R0,[R5, #+10]
+   \       0x9E   0x6920             LDR      R0,[R4, #+16]
+   \       0xA0   0x0E00             LSRS     R0,R0,#+24
+   \       0xA2   0x72E8             STRB     R0,[R5, #+11]
+    278              IOT_MD5_PUT_UINT32_LE(ctx->state[3], output, 12);
+   \       0xA4   0x6960             LDR      R0,[R4, #+20]
+   \       0xA6   0x7328             STRB     R0,[R5, #+12]
+   \       0xA8   0x6960             LDR      R0,[R4, #+20]
+   \       0xAA   0x0A00             LSRS     R0,R0,#+8
+   \       0xAC   0x7368             STRB     R0,[R5, #+13]
+   \       0xAE   0x6960             LDR      R0,[R4, #+20]
+   \       0xB0   0x0C00             LSRS     R0,R0,#+16
+   \       0xB2   0x73A8             STRB     R0,[R5, #+14]
+   \       0xB4   0x6960             LDR      R0,[R4, #+20]
+   \       0xB6   0x0E00             LSRS     R0,R0,#+24
+   \       0xB8   0x73E8             STRB     R0,[R5, #+15]
+    279          }
+   \       0xBA   0xBD37             POP      {R0-R2,R4,R5,PC}  ;; return
+    280          
+    281          
+    282          /*
+    283           * output = MD5( input buffer )
+    284           */
+
+   \                                 In section .text, align 2, keep-with-next
+    285          void utils_md5(const unsigned char *input, uint32_t ilen, unsigned char output[16])
+    286          {
+   \                     utils_md5: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0xB096             SUB      SP,SP,#+88
+   \        0x4   0x4604             MOV      R4,R0
+   \        0x6   0x460D             MOV      R5,R1
+   \        0x8   0x4616             MOV      R6,R2
+    287              iot_md5_context ctx;
+    288          
+    289              utils_md5_init(&ctx);
+   \        0xA   0x4668             MOV      R0,SP
+   \        0xC   0x....'....        BL       utils_md5_init
+    290              utils_md5_starts(&ctx);
+   \       0x10   0x4668             MOV      R0,SP
+   \       0x12   0x....'....        BL       utils_md5_starts
+    291              utils_md5_update(&ctx, input, ilen);
+   \       0x16   0x462A             MOV      R2,R5
+   \       0x18   0x4621             MOV      R1,R4
+   \       0x1A   0x4668             MOV      R0,SP
+   \       0x1C   0x....'....        BL       utils_md5_update
+    292              utils_md5_finish(&ctx, output);
+   \       0x20   0x4631             MOV      R1,R6
+   \       0x22   0x4668             MOV      R0,SP
+   \       0x24   0x....'....        BL       utils_md5_finish
+    293              utils_md5_free(&ctx);
+   \       0x28   0x4668             MOV      R0,SP
+   \       0x2A   0x....'....        BL       utils_md5_free
+    294          }
+   \       0x2E   0xB016             ADD      SP,SP,#+88
+   \       0x30   0xBD70             POP      {R4-R6,PC}       ;; return
+    295          
+
+   \                                 In section .text, align 2, keep-with-next
+    296          static int8_t utils_hb2hex(uint8_t hb)
+    297          {
+    298              hb = hb & 0xF;
+   \                     utils_hb2hex: (+1)
+   \        0x0   0xF000 0x000F      AND      R0,R0,#0xF
+    299              return (int8_t)(hb < 10 ? '0' + hb : hb - 10 + 'a');
+   \        0x4   0x4601             MOV      R1,R0
+   \        0x6   0x290A             CMP      R1,#+10
+   \        0x8   0xDA01             BGE.N    ??utils_hb2hex_0
+   \        0xA   0x3030             ADDS     R0,R0,#+48
+   \        0xC   0xE000             B.N      ??utils_hb2hex_1
+   \                     ??utils_hb2hex_0: (+1)
+   \        0xE   0x3057             ADDS     R0,R0,#+87
+   \                     ??utils_hb2hex_1: (+1)
+   \       0x10   0xB240             SXTB     R0,R0
+   \       0x12   0x4770             BX       LR               ;; return
+    300          }
+    301          
+
+   \                                 In section .text, align 2, keep-with-next
+    302          void utils_hmac_md5(const char *msg, int msg_len, char *digest, const char *key, int key_len)
+    303          {
+   \                     utils_hmac_md5: (+1)
+   \        0x0   0xE92D 0x41F0      PUSH     {R4-R8,LR}
+   \        0x4   0xB0BA             SUB      SP,SP,#+232
+   \        0x6   0x4605             MOV      R5,R0
+   \        0x8   0x460F             MOV      R7,R1
+   \        0xA   0x4614             MOV      R4,R2
+   \        0xC   0x461E             MOV      R6,R3
+    304              iot_md5_context context;
+    305              unsigned char k_ipad[MD5_KEY_IOPAD_SIZE];    /* inner padding - key XORd with ipad  */
+    306              unsigned char k_opad[MD5_KEY_IOPAD_SIZE];    /* outer padding - key XORd with opad */
+    307              unsigned char out[MD5_DIGEST_SIZE];
+    308              int i;
+    309          
+    310              if ((NULL == msg) || (NULL == digest) || (NULL == key)) {
+   \        0xE   0x2D00             CMP      R5,#+0
+   \       0x10   0xD065             BEQ.N    ??utils_hmac_md5_0
+   \       0x12   0x2C00             CMP      R4,#+0
+   \       0x14   0xD063             BEQ.N    ??utils_hmac_md5_0
+   \       0x16   0x2E00             CMP      R6,#+0
+   \       0x18   0xD061             BEQ.N    ??utils_hmac_md5_0
+    311                  return;
+   \       0x1A   0xF8DD 0x8100      LDR      R8,[SP, #+256]
+    312              }
+    313          
+    314              if (key_len > MD5_KEY_IOPAD_SIZE) {
+   \       0x1E   0xF1B8 0x0F41      CMP      R8,#+65
+   \       0x22   0xDA5C             BGE.N    ??utils_hmac_md5_0
+    315                  return;
+    316              }
+    317          
+    318              /* start out by storing key in pads */
+    319              memset(k_ipad, 0, sizeof(k_ipad));
+   \       0x24   0x2200             MOVS     R2,#+0
+   \       0x26   0x2140             MOVS     R1,#+64
+   \       0x28   0xA814             ADD      R0,SP,#+80
+   \       0x2A   0x....'....        BL       __aeabi_memset4
+    320              memset(k_opad, 0, sizeof(k_opad));
+   \       0x2E   0x2200             MOVS     R2,#+0
+   \       0x30   0x2140             MOVS     R1,#+64
+   \       0x32   0xA804             ADD      R0,SP,#+16
+   \       0x34   0x....'....        BL       __aeabi_memset4
+    321              memcpy(k_ipad, key, key_len);
+   \       0x38   0x4642             MOV      R2,R8
+   \       0x3A   0x4631             MOV      R1,R6
+   \       0x3C   0xA814             ADD      R0,SP,#+80
+   \       0x3E   0x....'....        BL       __aeabi_memcpy
+    322              memcpy(k_opad, key, key_len);
+   \       0x42   0x4642             MOV      R2,R8
+   \       0x44   0x4631             MOV      R1,R6
+   \       0x46   0xA804             ADD      R0,SP,#+16
+   \       0x48   0x....'....        BL       __aeabi_memcpy
+    323          
+    324              /* XOR key with ipad and opad values */
+    325              for (i = 0; i < MD5_KEY_IOPAD_SIZE; i++) {
+   \       0x4C   0x2000             MOVS     R0,#+0
+   \       0x4E   0xE00A             B.N      ??utils_hmac_md5_1
+    326                  k_ipad[i] ^= 0x36;
+   \                     ??utils_hmac_md5_2: (+1)
+   \       0x50   0xA914             ADD      R1,SP,#+80
+   \       0x52   0x5C0A             LDRB     R2,[R1, R0]
+   \       0x54   0xF082 0x0236      EOR      R2,R2,#0x36
+   \       0x58   0x540A             STRB     R2,[R1, R0]
+    327                  k_opad[i] ^= 0x5c;
+   \       0x5A   0xA904             ADD      R1,SP,#+16
+   \       0x5C   0x5C0A             LDRB     R2,[R1, R0]
+   \       0x5E   0xF082 0x025C      EOR      R2,R2,#0x5C
+   \       0x62   0x540A             STRB     R2,[R1, R0]
+    328              }
+   \       0x64   0x1C40             ADDS     R0,R0,#+1
+   \                     ??utils_hmac_md5_1: (+1)
+   \       0x66   0x2840             CMP      R0,#+64
+   \       0x68   0xDBF2             BLT.N    ??utils_hmac_md5_2
+    329          
+    330              /* perform inner MD5 */
+    331              utils_md5_init(&context);                                      /* init context for 1st pass */
+   \       0x6A   0xA824             ADD      R0,SP,#+144
+   \       0x6C   0x....'....        BL       utils_md5_init
+    332              utils_md5_starts(&context);                                    /* setup context for 1st pass */
+   \       0x70   0xA824             ADD      R0,SP,#+144
+   \       0x72   0x....'....        BL       utils_md5_starts
+    333              utils_md5_update(&context, k_ipad, MD5_KEY_IOPAD_SIZE);            /* start with inner pad */
+   \       0x76   0x2240             MOVS     R2,#+64
+   \       0x78   0xA914             ADD      R1,SP,#+80
+   \       0x7A   0xA824             ADD      R0,SP,#+144
+   \       0x7C   0x....'....        BL       utils_md5_update
+    334              utils_md5_update(&context, (unsigned char *) msg, msg_len);    /* then text of datagram */
+   \       0x80   0x463A             MOV      R2,R7
+   \       0x82   0x4629             MOV      R1,R5
+   \       0x84   0xA824             ADD      R0,SP,#+144
+   \       0x86   0x....'....        BL       utils_md5_update
+    335              utils_md5_finish(&context, out);                               /* finish up 1st pass */
+   \       0x8A   0x4669             MOV      R1,SP
+   \       0x8C   0xA824             ADD      R0,SP,#+144
+   \       0x8E   0x....'....        BL       utils_md5_finish
+    336          
+    337              /* perform outer MD5 */
+    338              utils_md5_init(&context);                              /* init context for 2nd pass */
+   \       0x92   0xA824             ADD      R0,SP,#+144
+   \       0x94   0x....'....        BL       utils_md5_init
+    339              utils_md5_starts(&context);                            /* setup context for 2nd pass */
+   \       0x98   0xA824             ADD      R0,SP,#+144
+   \       0x9A   0x....'....        BL       utils_md5_starts
+    340              utils_md5_update(&context, k_opad, MD5_KEY_IOPAD_SIZE);    /* start with outer pad */
+   \       0x9E   0x2240             MOVS     R2,#+64
+   \       0xA0   0xA904             ADD      R1,SP,#+16
+   \       0xA2   0xA824             ADD      R0,SP,#+144
+   \       0xA4   0x....'....        BL       utils_md5_update
+    341              utils_md5_update(&context, out, MD5_DIGEST_SIZE);      /* then results of 1st hash */
+   \       0xA8   0x2210             MOVS     R2,#+16
+   \       0xAA   0x4669             MOV      R1,SP
+   \       0xAC   0xA824             ADD      R0,SP,#+144
+   \       0xAE   0x....'....        BL       utils_md5_update
+    342              utils_md5_finish(&context, out);                       /* finish up 2nd pass */
+   \       0xB2   0x4669             MOV      R1,SP
+   \       0xB4   0xA824             ADD      R0,SP,#+144
+   \       0xB6   0x....'....        BL       utils_md5_finish
+    343          
+    344              for (i = 0; i < MD5_DIGEST_SIZE; ++i) {
+   \       0xBA   0x2500             MOVS     R5,#+0
+   \       0xBC   0x466E             MOV      R6,SP
+   \       0xBE   0xE00C             B.N      ??utils_hmac_md5_3
+    345                  digest[i * 2] = utils_hb2hex(out[i] >> 4);
+   \                     ??utils_hmac_md5_4: (+1)
+   \       0xC0   0x5D70             LDRB     R0,[R6, R5]
+   \       0xC2   0x0900             LSRS     R0,R0,#+4
+   \       0xC4   0x....'....        BL       utils_hb2hex
+   \       0xC8   0xF804 0x0015      STRB     R0,[R4, R5, LSL #+1]
+    346                  digest[i * 2 + 1] = utils_hb2hex(out[i]);
+   \       0xCC   0x5D70             LDRB     R0,[R6, R5]
+   \       0xCE   0x....'....        BL       utils_hb2hex
+   \       0xD2   0xEB04 0x0145      ADD      R1,R4,R5, LSL #+1
+   \       0xD6   0x7048             STRB     R0,[R1, #+1]
+    347              }
+   \       0xD8   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??utils_hmac_md5_3: (+1)
+   \       0xDA   0x2D10             CMP      R5,#+16
+   \       0xDC   0xDBF0             BLT.N    ??utils_hmac_md5_4
+    348          }
+   \                     ??utils_hmac_md5_0: (+1)
+   \       0xDE   0xB03A             ADD      SP,SP,#+232
+   \       0xE0   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \        0x0   0x6745'2301        DC32     0x67452301
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \        0x0   0xEFCD'AB89        DC32     0xefcdab89
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \        0x0   0x98BA'DCFE        DC32     0x98badcfe
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \        0x0   0x1032'5476        DC32     0x10325476
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_4:
+   \        0x0   0xD76A'A478        DC32     0xd76aa478
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_5:
+   \        0x0   0xE8C7'B756        DC32     0xe8c7b756
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_6:
+   \        0x0   0x2420'70DB        DC32     0x242070db
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_7:
+   \        0x0   0xC1BD'CEEE        DC32     0xc1bdceee
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_8:
+   \        0x0   0xF57C'0FAF        DC32     0xf57c0faf
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_9:
+   \        0x0   0x4787'C62A        DC32     0x4787c62a
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_10:
+   \        0x0   0xA830'4613        DC32     0xa8304613
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_11:
+   \        0x0   0xFD46'9501        DC32     0xfd469501
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_12:
+   \        0x0   0x6980'98D8        DC32     0x698098d8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_13:
+   \        0x0   0x8B44'F7AF        DC32     0x8b44f7af
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_14:
+   \        0x0   0xFFFF'5BB1        DC32     0xffff5bb1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_15:
+   \        0x0   0x895C'D7BE        DC32     0x895cd7be
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_16:
+   \        0x0   0x6B90'1122        DC32     0x6b901122
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_17:
+   \        0x0   0xFD98'7193        DC32     0xfd987193
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_18:
+   \        0x0   0xA679'438E        DC32     0xa679438e
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_19:
+   \        0x0   0x49B4'0821        DC32     0x49b40821
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_20:
+   \        0x0   0xF61E'2562        DC32     0xf61e2562
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_21:
+   \        0x0   0xC040'B340        DC32     0xc040b340
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_22:
+   \        0x0   0x265E'5A51        DC32     0x265e5a51
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_23:
+   \        0x0   0xE9B6'C7AA        DC32     0xe9b6c7aa
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_24:
+   \        0x0   0xD62F'105D        DC32     0xd62f105d
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_25:
+   \        0x0   0x0244'1453        DC32     0x2441453
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_26:
+   \        0x0   0xD8A1'E681        DC32     0xd8a1e681
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_27:
+   \        0x0   0xE7D3'FBC8        DC32     0xe7d3fbc8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_28:
+   \        0x0   0x21E1'CDE6        DC32     0x21e1cde6
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_29:
+   \        0x0   0xC337'07D6        DC32     0xc33707d6
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_30:
+   \        0x0   0xF4D5'0D87        DC32     0xf4d50d87
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_31:
+   \        0x0   0x455A'14ED        DC32     0x455a14ed
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_32:
+   \        0x0   0xA9E3'E905        DC32     0xa9e3e905
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_33:
+   \        0x0   0xFCEF'A3F8        DC32     0xfcefa3f8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_34:
+   \        0x0   0x676F'02D9        DC32     0x676f02d9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_35:
+   \        0x0   0x8D2A'4C8A        DC32     0x8d2a4c8a
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_36:
+   \        0x0   0xFFFA'3942        DC32     0xfffa3942
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_37:
+   \        0x0   0x8771'F681        DC32     0x8771f681
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_38:
+   \        0x0   0x6D9D'6122        DC32     0x6d9d6122
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_39:
+   \        0x0   0xFDE5'380C        DC32     0xfde5380c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_40:
+   \        0x0   0xA4BE'EA44        DC32     0xa4beea44
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_41:
+   \        0x0   0x4BDE'CFA9        DC32     0x4bdecfa9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_42:
+   \        0x0   0xF6BB'4B60        DC32     0xf6bb4b60
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_43:
+   \        0x0   0xBEBF'BC70        DC32     0xbebfbc70
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_44:
+   \        0x0   0x289B'7EC6        DC32     0x289b7ec6
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_45:
+   \        0x0   0xEAA1'27FA        DC32     0xeaa127fa
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_46:
+   \        0x0   0xD4EF'3085        DC32     0xd4ef3085
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_47:
+   \        0x0   0x0488'1D05        DC32     0x4881d05
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_48:
+   \        0x0   0xD9D4'D039        DC32     0xd9d4d039
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_49:
+   \        0x0   0xE6DB'99E5        DC32     0xe6db99e5
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_50:
+   \        0x0   0x1FA2'7CF8        DC32     0x1fa27cf8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_51:
+   \        0x0   0xC4AC'5665        DC32     0xc4ac5665
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_52:
+   \        0x0   0xF429'2244        DC32     0xf4292244
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_53:
+   \        0x0   0x432A'FF97        DC32     0x432aff97
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_54:
+   \        0x0   0xAB94'23A7        DC32     0xab9423a7
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_55:
+   \        0x0   0xFC93'A039        DC32     0xfc93a039
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_56:
+   \        0x0   0x655B'59C3        DC32     0x655b59c3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_57:
+   \        0x0   0x8F0C'CC92        DC32     0x8f0ccc92
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_58:
+   \        0x0   0xFFEF'F47D        DC32     0xffeff47d
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_59:
+   \        0x0   0x8584'5DD1        DC32     0x85845dd1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_60:
+   \        0x0   0x6FA8'7E4F        DC32     0x6fa87e4f
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_61:
+   \        0x0   0xFE2C'E6E0        DC32     0xfe2ce6e0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_62:
+   \        0x0   0xA301'4314        DC32     0xa3014314
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_63:
+   \        0x0   0x4E08'11A1        DC32     0x4e0811a1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_64:
+   \        0x0   0xF753'7E82        DC32     0xf7537e82
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_65:
+   \        0x0   0xBD3A'F235        DC32     0xbd3af235
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_66:
+   \        0x0   0x2AD7'D2BB        DC32     0x2ad7d2bb
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_67:
+   \        0x0   0xEB86'D391        DC32     0xeb86d391
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_68:
+   \        0x0   0x....'....        DC32     iot_md5_padding
+    349          
+    350          #endif
+    351          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   utils_hb2hex
+     256   utils_hmac_md5
+       256   -> __aeabi_memcpy
+       256   -> __aeabi_memset4
+       256   -> utils_hb2hex
+       256   -> utils_md5_finish
+       256   -> utils_md5_init
+       256   -> utils_md5_starts
+       256   -> utils_md5_update
+     104   utils_md5
+       104   -> utils_md5_finish
+       104   -> utils_md5_free
+       104   -> utils_md5_init
+       104   -> utils_md5_starts
+       104   -> utils_md5_update
+       0   utils_md5_clone
+         0   -> __aeabi_memcpy4
+      24   utils_md5_finish
+        24   -> utils_md5_update
+       0   utils_md5_free
+         0   -> utils_md5_zeroize
+       0   utils_md5_init
+         0   -> __aeabi_memset4
+      72   utils_md5_process
+       0   utils_md5_starts
+      24   utils_md5_update
+         0   -> __aeabi_memcpy
+        24   -> __aeabi_memcpy
+        24   -> utils_md5_process
+       0   utils_md5_zeroize
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_10
+       4  ??DataTable3_11
+       4  ??DataTable3_12
+       4  ??DataTable3_13
+       4  ??DataTable3_14
+       4  ??DataTable3_15
+       4  ??DataTable3_16
+       4  ??DataTable3_17
+       4  ??DataTable3_18
+       4  ??DataTable3_19
+       4  ??DataTable3_2
+       4  ??DataTable3_20
+       4  ??DataTable3_21
+       4  ??DataTable3_22
+       4  ??DataTable3_23
+       4  ??DataTable3_24
+       4  ??DataTable3_25
+       4  ??DataTable3_26
+       4  ??DataTable3_27
+       4  ??DataTable3_28
+       4  ??DataTable3_29
+       4  ??DataTable3_3
+       4  ??DataTable3_30
+       4  ??DataTable3_31
+       4  ??DataTable3_32
+       4  ??DataTable3_33
+       4  ??DataTable3_34
+       4  ??DataTable3_35
+       4  ??DataTable3_36
+       4  ??DataTable3_37
+       4  ??DataTable3_38
+       4  ??DataTable3_39
+       4  ??DataTable3_4
+       4  ??DataTable3_40
+       4  ??DataTable3_41
+       4  ??DataTable3_42
+       4  ??DataTable3_43
+       4  ??DataTable3_44
+       4  ??DataTable3_45
+       4  ??DataTable3_46
+       4  ??DataTable3_47
+       4  ??DataTable3_48
+       4  ??DataTable3_49
+       4  ??DataTable3_5
+       4  ??DataTable3_50
+       4  ??DataTable3_51
+       4  ??DataTable3_52
+       4  ??DataTable3_53
+       4  ??DataTable3_54
+       4  ??DataTable3_55
+       4  ??DataTable3_56
+       4  ??DataTable3_57
+       4  ??DataTable3_58
+       4  ??DataTable3_59
+       4  ??DataTable3_6
+       4  ??DataTable3_60
+       4  ??DataTable3_61
+       4  ??DataTable3_62
+       4  ??DataTable3_63
+       4  ??DataTable3_64
+       4  ??DataTable3_65
+       4  ??DataTable3_66
+       4  ??DataTable3_67
+       4  ??DataTable3_68
+       4  ??DataTable3_7
+       4  ??DataTable3_8
+       4  ??DataTable3_9
+      64  iot_md5_padding
+      20  utils_hb2hex
+     228  utils_hmac_md5
+      50  utils_md5
+       6  utils_md5_clone
+     188  utils_md5_finish
+      10  utils_md5_free
+       8  utils_md5_init
+    2088  utils_md5_process
+      32  utils_md5_starts
+     132  utils_md5_update
+      18  utils_md5_zeroize
+
+ 
+    64 bytes in section .rodata
+ 3 056 bytes in section .text
+ 
+ 3 056 bytes of CODE  memory
+    64 bytes of CONST memory
+
+Errors: none
+Warnings: none

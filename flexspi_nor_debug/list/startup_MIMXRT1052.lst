@@ -1,0 +1,1406 @@
+###############################################################################
+#                                                                             #
+#     IAR Assembler V8.32.3.193/W32 for ARM 29/May/2019  13:12:03             #
+#     Copyright 1999-2019 IAR Systems AB.                                     #
+#                                                                             #
+#           Source file   =  C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\devices\MIMXRT1052\iar\startup_MIMXRT1052.s#
+#           List file     =  C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\list\startup_MIMXRT1052.lst#
+#           Object file   =  C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\obj\startup_MIMXRT1052.o#
+#           Command line  =  -f                                               #
+#                            C:\Users\nxf42695\AppData\Local\Temp\1\EW4C35.tmp #
+#                            (C:\nxp\SDK_2.6.0_EVKB-IMXRT1050\devices\MIMXRT1052\iar\startup_MIMXRT1052.s #
+#                            -OC:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\obj #
+#                            -s+ -M{} -w- -r -j -DDEBUG                       #
+#                            -D__STARTUP_INITIALIZE_NONCACHEDATA              #
+#                            -LC:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar\flexspi_nor_debug\list #
+#                            -cEAOM -B -t8 --cpu Cortex-M7 --fpu VFPv5_d16    #
+#                            -IC:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/..\ #
+#                            -IC:\nxp\SDK_2.6.0_EVKB-IMXRT1050\boards\evkbimxrt1050\rtos_examples\csdk\iar/../../..\) #
+#                                                                             #
+###############################################################################
+
+    1                           ; --------------------------------------------
+                                -----------------------------
+    2                           ;  @file:    startup_MIMXRT1052.s
+    3                           ;  @purpose: CMSIS Cortex-M7 Core Device
+                                 Startup File
+    4                           ;            MIMXRT1052
+    5                           ;  @version: 1.2
+    6                           ;  @date:    2018-11-27
+    7                           ;  @build:   b190124
+    8                           ; --------------------------------------------
+                                -----------------------------
+    9                           ;
+   10                           ; Copyright 1997-2016 Freescale Semiconductor,
+                                 Inc.
+   11                           ; Copyright 2016-2019 NXP
+   12                           ; All rights reserved.
+   13                           ;
+   14                           ; SPDX-License-Identifier: BSD-3-Clause
+   15                           ;
+   16                           ; The modules in this file are included in the
+                                 libraries, and may be replaced
+   17                           ; by any user-defined modules that define the
+                                 PUBLIC symbol _program_start or
+   18                           ; a user defined start symbol.
+   19                           ; To override the cstartup defined in the
+                                 library, simply add your modified
+   20                           ; version to the workbench project.
+   21                           ;
+   22                           ; The vector table is normally located at
+                                 address 0.
+   23                           ; When debugging in RAM, it can be located in
+                                 RAM, aligned to at least 2^6.
+   24                           ; The name "__vector_table" has special
+                                 meaning for C-SPY:
+   25                           ; it is where the SP start value is found, and
+                                 the NVIC vector
+   26                           ; table register (VTOR) is initialized to this
+                                 address if != 0.
+   27                           ;
+   28                           ; Cortex-M version
+   29                           ;
+   30                           
+   31                                   MODULE  ?cstartup
+   32                           
+   33                                   ;; Forward declaration of sections.
+   34                                   SECTION CSTACK:DATA:NOROOT(3)
+   35                           
+   36                                   SECTION .intvec:CODE:NOROOT(2)
+   37                           
+   38                                   EXTERN  __iar_program_start
+   39                                   EXTERN  SystemInit
+   40                                   PUBLIC  __vector_table
+   41                                   PUBLIC  __vector_table_0x1c
+   42                                   PUBLIC  __Vectors
+   43                                   PUBLIC  __Vectors_End
+   44                                   PUBLIC  __Vectors_Size
+   45                           
+   46                                   DATA
+   47                           
+   48                           __vector_table
+   49    00000000 ........              DCD     sfe(CSTACK)
+   50    00000004 ........              DCD     Reset_Handler
+   51                           
+   52    00000008 ........              DCD     NMI_Handler                    
+                ;NMI Handler
+   53    0000000C ........              DCD     HardFault_Handler              
+                ;Hard Fault Handler
+   54    00000010 ........              DCD     MemManage_Handler              
+                ;MPU Fault Handler
+   55    00000014 ........              DCD     BusFault_Handler               
+                ;Bus Fault Handler
+   56    00000018 ........              DCD     UsageFault_Handler             
+                ;Usage Fault Handler
+   57                           __vector_table_0x1c
+   58    0000001C 00000000              DCD     0                              
+                ;Reserved
+   59    00000020 00000000              DCD     0                              
+                ;Reserved
+   60    00000024 00000000              DCD     0                              
+                ;Reserved
+   61    00000028 00000000              DCD     0                              
+                ;Reserved
+   62    0000002C ........              DCD     SVC_Handler                    
+                ;SVCall Handler
+   63    00000030 ........              DCD     DebugMon_Handler               
+                ;Debug Monitor Handler
+   64    00000034 00000000              DCD     0                              
+                ;Reserved
+   65    00000038 ........              DCD     PendSV_Handler                 
+                ;PendSV Handler
+   66    0000003C ........              DCD     SysTick_Handler                
+                ;SysTick Handler
+   67                           
+   68                                                                         
+                                                ;External Interrupts
+   69    00000040 ........              DCD     DMA0_DMA16_IRQHandler          
+                ;DMA channel 0/16 transfer complete
+   70    00000044 ........              DCD     DMA1_DMA17_IRQHandler          
+                ;DMA channel 1/17 transfer complete
+   71    00000048 ........              DCD     DMA2_DMA18_IRQHandler          
+                ;DMA channel 2/18 transfer complete
+   72    0000004C ........              DCD     DMA3_DMA19_IRQHandler          
+                ;DMA channel 3/19 transfer complete
+   73    00000050 ........              DCD     DMA4_DMA20_IRQHandler          
+                ;DMA channel 4/20 transfer complete
+   74    00000054 ........              DCD     DMA5_DMA21_IRQHandler          
+                ;DMA channel 5/21 transfer complete
+   75    00000058 ........              DCD     DMA6_DMA22_IRQHandler          
+                ;DMA channel 6/22 transfer complete
+   76    0000005C ........              DCD     DMA7_DMA23_IRQHandler          
+                ;DMA channel 7/23 transfer complete
+   77    00000060 ........              DCD     DMA8_DMA24_IRQHandler          
+                ;DMA channel 8/24 transfer complete
+   78    00000064 ........              DCD     DMA9_DMA25_IRQHandler          
+                ;DMA channel 9/25 transfer complete
+   79    00000068 ........              DCD     DMA10_DMA26_IRQHandler         
+                ;DMA channel 10/26 transfer complete
+   80    0000006C ........              DCD     DMA11_DMA27_IRQHandler         
+                ;DMA channel 11/27 transfer complete
+   81    00000070 ........              DCD     DMA12_DMA28_IRQHandler         
+                ;DMA channel 12/28 transfer complete
+   82    00000074 ........              DCD     DMA13_DMA29_IRQHandler         
+                ;DMA channel 13/29 transfer complete
+   83    00000078 ........              DCD     DMA14_DMA30_IRQHandler         
+                ;DMA channel 14/30 transfer complete
+   84    0000007C ........              DCD     DMA15_DMA31_IRQHandler         
+                ;DMA channel 15/31 transfer complete
+   85    00000080 ........              DCD     DMA_ERROR_IRQHandler           
+                ;DMA error interrupt channels 0-15 / 16-31
+   86    00000084 ........              DCD     CTI0_ERROR_IRQHandler          
+                ;CTI0_Error
+   87    00000088 ........              DCD     CTI1_ERROR_IRQHandler          
+                ;CTI1_Error
+   88    0000008C ........              DCD     CORE_IRQHandler                
+                ;CorePlatform exception IRQ
+   89    00000090 ........              DCD     LPUART1_IRQHandler             
+                ;LPUART1 TX interrupt and RX interrupt
+   90    00000094 ........              DCD     LPUART2_IRQHandler             
+                ;LPUART2 TX interrupt and RX interrupt
+   91    00000098 ........              DCD     LPUART3_IRQHandler             
+                ;LPUART3 TX interrupt and RX interrupt
+   92    0000009C ........              DCD     LPUART4_IRQHandler             
+                ;LPUART4 TX interrupt and RX interrupt
+   93    000000A0 ........              DCD     LPUART5_IRQHandler             
+                ;LPUART5 TX interrupt and RX interrupt
+   94    000000A4 ........              DCD     LPUART6_IRQHandler             
+                ;LPUART6 TX interrupt and RX interrupt
+   95    000000A8 ........              DCD     LPUART7_IRQHandler             
+                ;LPUART7 TX interrupt and RX interrupt
+   96    000000AC ........              DCD     LPUART8_IRQHandler             
+                ;LPUART8 TX interrupt and RX interrupt
+   97    000000B0 ........              DCD     LPI2C1_IRQHandler              
+                ;LPI2C1 interrupt
+   98    000000B4 ........              DCD     LPI2C2_IRQHandler              
+                ;LPI2C2 interrupt
+   99    000000B8 ........              DCD     LPI2C3_IRQHandler              
+                ;LPI2C3 interrupt
+  100    000000BC ........              DCD     LPI2C4_IRQHandler              
+                ;LPI2C4 interrupt
+  101    000000C0 ........              DCD     LPSPI1_IRQHandler              
+                ;LPSPI1 single interrupt vector for all sources
+  102    000000C4 ........              DCD     LPSPI2_IRQHandler              
+                ;LPSPI2 single interrupt vector for all sources
+  103    000000C8 ........              DCD     LPSPI3_IRQHandler              
+                ;LPSPI3 single interrupt vector for all sources
+  104    000000CC ........              DCD     LPSPI4_IRQHandler              
+                ;LPSPI4  single interrupt vector for all sources
+  105    000000D0 ........              DCD     CAN1_IRQHandler                
+                ;CAN1 interrupt
+  106    000000D4 ........              DCD     CAN2_IRQHandler                
+                ;CAN2 interrupt
+  107    000000D8 ........              DCD     FLEXRAM_IRQHandler             
+                ;FlexRAM address out of range Or access hit IRQ
+  108    000000DC ........              DCD     KPP_IRQHandler                 
+                ;Keypad nterrupt
+  109    000000E0 ........              DCD     TSC_DIG_IRQHandler             
+                ;TSC interrupt
+  110    000000E4 ........              DCD     GPR_IRQ_IRQHandler             
+                ;GPR interrupt
+  111    000000E8 ........              DCD     LCDIF_IRQHandler               
+                ;LCDIF interrupt
+  112    000000EC ........              DCD     CSI_IRQHandler                 
+                ;CSI interrupt
+  113    000000F0 ........              DCD     PXP_IRQHandler                 
+                ;PXP interrupt
+  114    000000F4 ........              DCD     WDOG2_IRQHandler               
+                ;WDOG2 interrupt
+  115    000000F8 ........              DCD     SNVS_HP_WRAPPER_IRQHandler     
+                ;SRTC Consolidated Interrupt. Non TZ
+  116    000000FC ........              DCD     SNVS_HP_WRAPPER_TZ_IRQHandler  
+                ;SRTC Security Interrupt. TZ
+  117    00000100 ........              DCD     SNVS_LP_WRAPPER_IRQHandler     
+                ;ON-OFF button press shorter than 5 secs (pulse event)
+  118    00000104 ........              DCD     CSU_IRQHandler                 
+                ;CSU interrupt
+  119    00000108 ........              DCD     DCP_IRQHandler                 
+                ;DCP_IRQ interrupt
+  120    0000010C ........              DCD     DCP_VMI_IRQHandler             
+                ;DCP_VMI_IRQ interrupt
+  121    00000110 ........              DCD     Reserved68_IRQHandler          
+                ;Reserved interrupt
+  122    00000114 ........              DCD     TRNG_IRQHandler                
+                ;TRNG interrupt
+  123    00000118 ........              DCD     SJC_IRQHandler                 
+                ;SJC interrupt
+  124    0000011C ........              DCD     BEE_IRQHandler                 
+                ;BEE interrupt
+  125    00000120 ........              DCD     SAI1_IRQHandler                
+                ;SAI1 interrupt
+  126    00000124 ........              DCD     SAI2_IRQHandler                
+                ;SAI1 interrupt
+  127    00000128 ........              DCD     SAI3_RX_IRQHandler             
+                ;SAI3 interrupt
+  128    0000012C ........              DCD     SAI3_TX_IRQHandler             
+                ;SAI3 interrupt
+  129    00000130 ........              DCD     SPDIF_IRQHandler               
+                ;SPDIF interrupt
+  130    00000134 ........              DCD     PMU_EVENT_IRQHandler           
+                ;Brown-out event interrupt
+  131    00000138 ........              DCD     Reserved78_IRQHandler          
+                ;Reserved interrupt
+  132    0000013C ........              DCD     TEMP_LOW_HIGH_IRQHandler       
+                ;TempSensor low/high interrupt
+  133    00000140 ........              DCD     TEMP_PANIC_IRQHandler          
+                ;TempSensor panic interrupt
+  134    00000144 ........              DCD     USB_PHY1_IRQHandler            
+                ;USBPHY (UTMI0), Interrupt
+  135    00000148 ........              DCD     USB_PHY2_IRQHandler            
+                ;USBPHY (UTMI0), Interrupt
+  136    0000014C ........              DCD     ADC1_IRQHandler                
+                ;ADC1 interrupt
+  137    00000150 ........              DCD     ADC2_IRQHandler                
+                ;ADC2 interrupt
+  138    00000154 ........              DCD     DCDC_IRQHandler                
+                ;DCDC interrupt
+  139    00000158 ........              DCD     Reserved86_IRQHandler          
+                ;Reserved interrupt
+  140    0000015C ........              DCD     Reserved87_IRQHandler          
+                ;Reserved interrupt
+  141    00000160 ........              DCD     GPIO1_INT0_IRQHandler          
+                ;Active HIGH Interrupt from INT0 from GPIO
+  142    00000164 ........              DCD     GPIO1_INT1_IRQHandler          
+                ;Active HIGH Interrupt from INT1 from GPIO
+  143    00000168 ........              DCD     GPIO1_INT2_IRQHandler          
+                ;Active HIGH Interrupt from INT2 from GPIO
+  144    0000016C ........              DCD     GPIO1_INT3_IRQHandler          
+                ;Active HIGH Interrupt from INT3 from GPIO
+  145    00000170 ........              DCD     GPIO1_INT4_IRQHandler          
+                ;Active HIGH Interrupt from INT4 from GPIO
+  146    00000174 ........              DCD     GPIO1_INT5_IRQHandler          
+                ;Active HIGH Interrupt from INT5 from GPIO
+  147    00000178 ........              DCD     GPIO1_INT6_IRQHandler          
+                ;Active HIGH Interrupt from INT6 from GPIO
+  148    0000017C ........              DCD     GPIO1_INT7_IRQHandler          
+                ;Active HIGH Interrupt from INT7 from GPIO
+  149    00000180 ........              DCD     GPIO1_Combined_0_15_IRQHandler 
+                ;Combined interrupt indication for GPIO1 signal 0 throughout
+  15
+  150    00000184 ........              DCD     GPIO1_Combined_16_31_IRQHandler
+                ;Combined interrupt indication for GPIO1 signal 16 throughout
+  31
+  151    00000188 ........              DCD     GPIO2_Combined_0_15_IRQHandler 
+                ;Combined interrupt indication for GPIO2 signal 0 throughout
+  15
+  152    0000018C ........              DCD     GPIO2_Combined_16_31_IRQHandler
+                ;Combined interrupt indication for GPIO2 signal 16 throughout
+  31
+  153    00000190 ........              DCD     GPIO3_Combined_0_15_IRQHandler 
+                ;Combined interrupt indication for GPIO3 signal 0 throughout
+  15
+  154    00000194 ........              DCD     GPIO3_Combined_16_31_IRQHandler
+                ;Combined interrupt indication for GPIO3 signal 16 throughout
+  31
+  155    00000198 ........              DCD     GPIO4_Combined_0_15_IRQHandler 
+                ;Combined interrupt indication for GPIO4 signal 0 throughout
+  15
+  156    0000019C ........              DCD     GPIO4_Combined_16_31_IRQHandler
+                ;Combined interrupt indication for GPIO4 signal 16 throughout
+  31
+  157    000001A0 ........              DCD     GPIO5_Combined_0_15_IRQHandler 
+                ;Combined interrupt indication for GPIO5 signal 0 throughout
+  15
+  158    000001A4 ........              DCD     GPIO5_Combined_16_31_IRQHandler
+                ;Combined interrupt indication for GPIO5 signal 16 throughout
+  31
+  159    000001A8 ........              DCD     FLEXIO1_IRQHandler             
+                ;FLEXIO1 interrupt
+  160    000001AC ........              DCD     FLEXIO2_IRQHandler             
+                ;FLEXIO2 interrupt
+  161    000001B0 ........              DCD     WDOG1_IRQHandler               
+                ;WDOG1 interrupt
+  162    000001B4 ........              DCD     RTWDOG_IRQHandler              
+                ;RTWDOG interrupt
+  163    000001B8 ........              DCD     EWM_IRQHandler                 
+                ;EWM interrupt
+  164    000001BC ........              DCD     CCM_1_IRQHandler               
+                ;CCM IRQ1 interrupt
+  165    000001C0 ........              DCD     CCM_2_IRQHandler               
+                ;CCM IRQ2 interrupt
+  166    000001C4 ........              DCD     GPC_IRQHandler                 
+                ;GPC interrupt
+  167    000001C8 ........              DCD     SRC_IRQHandler                 
+                ;SRC interrupt
+  168    000001CC ........              DCD     Reserved115_IRQHandler         
+                ;Reserved interrupt
+  169    000001D0 ........              DCD     GPT1_IRQHandler                
+                ;GPT1 interrupt
+  170    000001D4 ........              DCD     GPT2_IRQHandler                
+                ;GPT2 interrupt
+  171    000001D8 ........              DCD     PWM1_0_IRQHandler              
+                ;PWM1 capture 0, compare 0, or reload 0 interrupt
+  172    000001DC ........              DCD     PWM1_1_IRQHandler              
+                ;PWM1 capture 1, compare 1, or reload 0 interrupt
+  173    000001E0 ........              DCD     PWM1_2_IRQHandler              
+                ;PWM1 capture 2, compare 2, or reload 0 interrupt
+  174    000001E4 ........              DCD     PWM1_3_IRQHandler              
+                ;PWM1 capture 3, compare 3, or reload 0 interrupt
+  175    000001E8 ........              DCD     PWM1_FAULT_IRQHandler          
+                ;PWM1 fault or reload error interrupt
+  176    000001EC ........              DCD     Reserved123_IRQHandler         
+                ;Reserved interrupt
+  177    000001F0 ........              DCD     FLEXSPI_IRQHandler             
+                ;FlexSPI0 interrupt
+  178    000001F4 ........              DCD     SEMC_IRQHandler                
+                ;Reserved interrupt
+  179    000001F8 ........              DCD     USDHC1_IRQHandler              
+                ;USDHC1 interrupt
+  180    000001FC ........              DCD     USDHC2_IRQHandler              
+                ;USDHC2 interrupt
+  181    00000200 ........              DCD     USB_OTG2_IRQHandler            
+                ;USBO2 USB OTG2
+  182    00000204 ........              DCD     USB_OTG1_IRQHandler            
+                ;USBO2 USB OTG1
+  183    00000208 ........              DCD     ENET_IRQHandler                
+                ;ENET interrupt
+  184    0000020C ........              DCD     ENET_1588_Timer_IRQHandler     
+                ;ENET_1588_Timer interrupt
+  185    00000210 ........              DCD     XBAR1_IRQ_0_1_IRQHandler       
+                ;XBAR1 interrupt
+  186    00000214 ........              DCD     XBAR1_IRQ_2_3_IRQHandler       
+                ;XBAR1 interrupt
+  187    00000218 ........              DCD     ADC_ETC_IRQ0_IRQHandler        
+                ;ADCETC IRQ0 interrupt
+  188    0000021C ........              DCD     ADC_ETC_IRQ1_IRQHandler        
+                ;ADCETC IRQ1 interrupt
+  189    00000220 ........              DCD     ADC_ETC_IRQ2_IRQHandler        
+                ;ADCETC IRQ2 interrupt
+  190    00000224 ........              DCD     ADC_ETC_ERROR_IRQ_IRQHandler   
+                ;ADCETC Error IRQ interrupt
+  191    00000228 ........              DCD     PIT_IRQHandler                 
+                ;PIT interrupt
+  192    0000022C ........              DCD     ACMP1_IRQHandler               
+                ;ACMP interrupt
+  193    00000230 ........              DCD     ACMP2_IRQHandler               
+                ;ACMP interrupt
+  194    00000234 ........              DCD     ACMP3_IRQHandler               
+                ;ACMP interrupt
+  195    00000238 ........              DCD     ACMP4_IRQHandler               
+                ;ACMP interrupt
+  196    0000023C ........              DCD     Reserved143_IRQHandler         
+                ;Reserved interrupt
+  197    00000240 ........              DCD     Reserved144_IRQHandler         
+                ;Reserved interrupt
+  198    00000244 ........              DCD     ENC1_IRQHandler                
+                ;ENC1 interrupt
+  199    00000248 ........              DCD     ENC2_IRQHandler                
+                ;ENC2 interrupt
+  200    0000024C ........              DCD     ENC3_IRQHandler                
+                ;ENC3 interrupt
+  201    00000250 ........              DCD     ENC4_IRQHandler                
+                ;ENC4 interrupt
+  202    00000254 ........              DCD     TMR1_IRQHandler                
+                ;TMR1 interrupt
+  203    00000258 ........              DCD     TMR2_IRQHandler                
+                ;TMR2 interrupt
+  204    0000025C ........              DCD     TMR3_IRQHandler                
+                ;TMR3 interrupt
+  205    00000260 ........              DCD     TMR4_IRQHandler                
+                ;TMR4 interrupt
+  206    00000264 ........              DCD     PWM2_0_IRQHandler              
+                ;PWM2 capture 0, compare 0, or reload 0 interrupt
+  207    00000268 ........              DCD     PWM2_1_IRQHandler              
+                ;PWM2 capture 1, compare 1, or reload 0 interrupt
+  208    0000026C ........              DCD     PWM2_2_IRQHandler              
+                ;PWM2 capture 2, compare 2, or reload 0 interrupt
+  209    00000270 ........              DCD     PWM2_3_IRQHandler              
+                ;PWM2 capture 3, compare 3, or reload 0 interrupt
+  210    00000274 ........              DCD     PWM2_FAULT_IRQHandler          
+                ;PWM2 fault or reload error interrupt
+  211    00000278 ........              DCD     PWM3_0_IRQHandler              
+                ;PWM3 capture 0, compare 0, or reload 0 interrupt
+  212    0000027C ........              DCD     PWM3_1_IRQHandler              
+                ;PWM3 capture 1, compare 1, or reload 0 interrupt
+  213    00000280 ........              DCD     PWM3_2_IRQHandler              
+                ;PWM3 capture 2, compare 2, or reload 0 interrupt
+  214    00000284 ........              DCD     PWM3_3_IRQHandler              
+                ;PWM3 capture 3, compare 3, or reload 0 interrupt
+  215    00000288 ........              DCD     PWM3_FAULT_IRQHandler          
+                ;PWM3 fault or reload error interrupt
+  216    0000028C ........              DCD     PWM4_0_IRQHandler              
+                ;PWM4 capture 0, compare 0, or reload 0 interrupt
+  217    00000290 ........              DCD     PWM4_1_IRQHandler              
+                ;PWM4 capture 1, compare 1, or reload 0 interrupt
+  218    00000294 ........              DCD     PWM4_2_IRQHandler              
+                ;PWM4 capture 2, compare 2, or reload 0 interrupt
+  219    00000298 ........              DCD     PWM4_3_IRQHandler              
+                ;PWM4 capture 3, compare 3, or reload 0 interrupt
+  220    0000029C ........              DCD     PWM4_FAULT_IRQHandler          
+                ;PWM4 fault or reload error interrupt
+  221    000002A0 ........              DCD     DefaultISR                     
+                ;168
+  222    000002A4 ........              DCD     DefaultISR                     
+                ;169
+  223    000002A8 ........              DCD     DefaultISR                     
+                ;170
+  224    000002AC ........              DCD     DefaultISR                     
+                ;171
+  225    000002B0 ........              DCD     DefaultISR                     
+                ;172
+  226    000002B4 ........              DCD     DefaultISR                     
+                ;173
+  227    000002B8 ........              DCD     DefaultISR                     
+                ;174
+  228    000002BC ........              DCD     DefaultISR                     
+                ;175
+  229    000002C0 ........              DCD     DefaultISR                     
+                ;176
+  230    000002C4 ........              DCD     DefaultISR                     
+                ;177
+  231    000002C8 ........              DCD     DefaultISR                     
+                ;178
+  232    000002CC ........              DCD     DefaultISR                     
+                ;179
+  233    000002D0 ........              DCD     DefaultISR                     
+                ;180
+  234    000002D4 ........              DCD     DefaultISR                     
+                ;181
+  235    000002D8 ........              DCD     DefaultISR                     
+                ;182
+  236    000002DC ........              DCD     DefaultISR                     
+                ;183
+  237    000002E0 ........              DCD     DefaultISR                     
+                ;184
+  238    000002E4 ........              DCD     DefaultISR                     
+                ;185
+  239    000002E8 ........              DCD     DefaultISR                     
+                ;186
+  240    000002EC ........              DCD     DefaultISR                     
+                ;187
+  241    000002F0 ........              DCD     DefaultISR                     
+                ;188
+  242    000002F4 ........              DCD     DefaultISR                     
+                ;189
+  243    000002F8 ........              DCD     DefaultISR                     
+                ;190
+  244    000002FC ........              DCD     DefaultISR                     
+                ;191
+  245    00000300 ........              DCD     DefaultISR                     
+                ;192
+  246    00000304 ........              DCD     DefaultISR                     
+                ;193
+  247    00000308 ........              DCD     DefaultISR                     
+                ;194
+  248    0000030C ........              DCD     DefaultISR                     
+                ;195
+  249    00000310 ........              DCD     DefaultISR                     
+                ;196
+  250    00000314 ........              DCD     DefaultISR                     
+                ;197
+  251    00000318 ........              DCD     DefaultISR                     
+                ;198
+  252    0000031C ........              DCD     DefaultISR                     
+                ;199
+  253    00000320 ........              DCD     DefaultISR                     
+                ;200
+  254    00000324 ........              DCD     DefaultISR                     
+                ;201
+  255    00000328 ........              DCD     DefaultISR                     
+                ;202
+  256    0000032C ........              DCD     DefaultISR                     
+                ;203
+  257    00000330 ........              DCD     DefaultISR                     
+                ;204
+  258    00000334 ........              DCD     DefaultISR                     
+                ;205
+  259    00000338 ........              DCD     DefaultISR                     
+                ;206
+  260    0000033C ........              DCD     DefaultISR                     
+                ;207
+  261    00000340 ........              DCD     DefaultISR                     
+                ;208
+  262    00000344 ........              DCD     DefaultISR                     
+                ;209
+  263    00000348 ........              DCD     DefaultISR                     
+                ;210
+  264    0000034C ........              DCD     DefaultISR                     
+                ;211
+  265    00000350 ........              DCD     DefaultISR                     
+                ;212
+  266    00000354 ........              DCD     DefaultISR                     
+                ;213
+  267    00000358 ........              DCD     DefaultISR                     
+                ;214
+  268    0000035C ........              DCD     DefaultISR                     
+                ;215
+  269    00000360 ........              DCD     DefaultISR                     
+                ;216
+  270    00000364 ........              DCD     DefaultISR                     
+                ;217
+  271    00000368 ........              DCD     DefaultISR                     
+                ;218
+  272    0000036C ........              DCD     DefaultISR                     
+                ;219
+  273    00000370 ........              DCD     DefaultISR                     
+                ;220
+  274    00000374 ........              DCD     DefaultISR                     
+                ;221
+  275    00000378 ........              DCD     DefaultISR                     
+                ;222
+  276    0000037C ........              DCD     DefaultISR                     
+                ;223
+  277    00000380 ........              DCD     DefaultISR                     
+                ;224
+  278    00000384 ........              DCD     DefaultISR                     
+                ;225
+  279    00000388 ........              DCD     DefaultISR                     
+                ;226
+  280    0000038C ........              DCD     DefaultISR                     
+                ;227
+  281    00000390 ........              DCD     DefaultISR                     
+                ;228
+  282    00000394 ........              DCD     DefaultISR                     
+                ;229
+  283    00000398 ........              DCD     DefaultISR                     
+                ;230
+  284    0000039C ........              DCD     DefaultISR                     
+                ;231
+  285    000003A0 ........              DCD     DefaultISR                     
+                ;232
+  286    000003A4 ........              DCD     DefaultISR                     
+                ;233
+  287    000003A8 ........              DCD     DefaultISR                     
+                ;234
+  288    000003AC ........              DCD     DefaultISR                     
+                ;235
+  289    000003B0 ........              DCD     DefaultISR                     
+                ;236
+  290    000003B4 ........              DCD     DefaultISR                     
+                ;237
+  291    000003B8 ........              DCD     DefaultISR                     
+                ;238
+  292    000003BC ........              DCD     DefaultISR                     
+                ;239
+  293    000003C0 ........              DCD     DefaultISR                     
+                ;240
+  294    000003C4 ........              DCD     DefaultISR                     
+                ;241
+  295    000003C8 ........              DCD     DefaultISR                     
+                ;242
+  296    000003CC ........              DCD     DefaultISR                     
+                ;243
+  297    000003D0 ........              DCD     DefaultISR                     
+                ;244
+  298    000003D4 ........              DCD     DefaultISR                     
+                ;245
+  299    000003D8 ........              DCD     DefaultISR                     
+                ;246
+  300    000003DC ........              DCD     DefaultISR                     
+                ;247
+  301    000003E0 ........              DCD     DefaultISR                     
+                ;248
+  302    000003E4 ........              DCD     DefaultISR                     
+                ;249
+  303    000003E8 ........              DCD     DefaultISR                     
+                ;250
+  304    000003EC ........              DCD     DefaultISR                     
+                ;251
+  305    000003F0 ........              DCD     DefaultISR                     
+                ;252
+  306    000003F4 ........              DCD     DefaultISR                     
+                ;253
+  307    000003F8 ........              DCD     DefaultISR                     
+                ;254
+  308    000003FC FFFFFFFF              DCD     0xFFFFFFFF                     
+                ; Reserved for user TRIM value
+  309                           __Vectors_End
+  310                           
+  311                           __Vectors       EQU   __vector_table
+  312                           __Vectors_Size  EQU   __Vectors_End -
+                                 __Vectors
+  313                           
+  314                           
+  315                           ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                ;;;;;;
+  316                           ;;
+  317                           ;; Default interrupt handlers.
+  318                           ;;
+  319                                   THUMB
+  320                           
+  321                                   PUBWEAK Reset_Handler
+  322                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  323                           Reset_Handler
+  324    00000000 72B6                  CPSID   I               ; Mask
+                                                                 interrupts
+  325    00000002 0548                  LDR     R0, =0xE000ED08
+  326    00000004 0549                  LDR     R1, =__vector_table
+  327    00000006 0160                  STR     R1, [R0]
+  328    00000008 0A68                  LDR     R2, [R1]
+  329    0000000A 82F30888              MSR     MSP, R2
+  330    0000000E 0448                  LDR     R0, =SystemInit
+  331    00000010 8047                  BLX     R0
+  332    00000012 62B6                  CPSIE   I               ; Unmask
+                                                                 interrupts
+  333    00000014 0348                  LDR     R0, =__iar_program_start
+  334    00000016 0047                  BX      R0
+  335                           
+  336                                   PUBWEAK NMI_Handler
+  336.1                                  TABLE
+  336.2  00000018 08ED00E0              Reference on line 325
+  336.3  0000001C ........              Reference on line 326
+  336.4  00000020 ........              Reference on line 330
+  336.5  00000024 ........              Reference on line 333
+  337                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  338                           NMI_Handler
+  339    00000000 FEE7                  B .
+  340                           
+  341                                   PUBWEAK HardFault_Handler
+  342                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  343                           HardFault_Handler
+  344    00000000 FEE7                  B .
+  345                           
+  346                                   PUBWEAK MemManage_Handler
+  347                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  348                           MemManage_Handler
+  349    00000000 FEE7                  B .
+  350                           
+  351                                   PUBWEAK BusFault_Handler
+  352                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  353                           BusFault_Handler
+  354    00000000 FEE7                  B .
+  355                           
+  356                                   PUBWEAK UsageFault_Handler
+  357                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  358                           UsageFault_Handler
+  359    00000000 FEE7                  B .
+  360                           
+  361                                   PUBWEAK SVC_Handler
+  362                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  363                           SVC_Handler
+  364    00000000 FEE7                  B .
+  365                           
+  366                                   PUBWEAK DebugMon_Handler
+  367                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  368                           DebugMon_Handler
+  369    00000000 FEE7                  B .
+  370                           
+  371                                   PUBWEAK PendSV_Handler
+  372                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  373                           PendSV_Handler
+  374    00000000 FEE7                  B .
+  375                           
+  376                                   PUBWEAK SysTick_Handler
+  377                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  378                           SysTick_Handler
+  379    00000000 FEE7                  B .
+  380                           
+  381                                   PUBWEAK DMA0_DMA16_IRQHandler
+  382                                   PUBWEAK DMA0_DMA16_DriverIRQHandler
+  383                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  384                           DMA0_DMA16_IRQHandler
+  385    00000000 0048                  LDR     R0, =DMA0_DMA16_DriverIRQHandle
+                                                     r
+  386    00000002 0047                  BX      R0
+  387                           
+  388                                   PUBWEAK DMA1_DMA17_IRQHandler
+  389                                   PUBWEAK DMA1_DMA17_DriverIRQHandler
+  389.1                                  TABLE
+  389.2  00000004 ........              Reference on line 385
+  390                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  391                           DMA1_DMA17_IRQHandler
+  392    00000000 0048                  LDR     R0, =DMA1_DMA17_DriverIRQHandle
+                                                     r
+  393    00000002 0047                  BX      R0
+  394                           
+  395                                   PUBWEAK DMA2_DMA18_IRQHandler
+  396                                   PUBWEAK DMA2_DMA18_DriverIRQHandler
+  396.1                                  TABLE
+  396.2  00000004 ........              Reference on line 392
+  397                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  398                           DMA2_DMA18_IRQHandler
+  399    00000000 0048                  LDR     R0, =DMA2_DMA18_DriverIRQHandle
+                                                     r
+  400    00000002 0047                  BX      R0
+  401                           
+  402                                   PUBWEAK DMA3_DMA19_IRQHandler
+  403                                   PUBWEAK DMA3_DMA19_DriverIRQHandler
+  403.1                                  TABLE
+  403.2  00000004 ........              Reference on line 399
+  404                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  405                           DMA3_DMA19_IRQHandler
+  406    00000000 0048                  LDR     R0, =DMA3_DMA19_DriverIRQHandle
+                                                     r
+  407    00000002 0047                  BX      R0
+  408                           
+  409                                   PUBWEAK DMA4_DMA20_IRQHandler
+  410                                   PUBWEAK DMA4_DMA20_DriverIRQHandler
+  410.1                                  TABLE
+  410.2  00000004 ........              Reference on line 406
+  411                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  412                           DMA4_DMA20_IRQHandler
+  413    00000000 0048                  LDR     R0, =DMA4_DMA20_DriverIRQHandle
+                                                     r
+  414    00000002 0047                  BX      R0
+  415                           
+  416                                   PUBWEAK DMA5_DMA21_IRQHandler
+  417                                   PUBWEAK DMA5_DMA21_DriverIRQHandler
+  417.1                                  TABLE
+  417.2  00000004 ........              Reference on line 413
+  418                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  419                           DMA5_DMA21_IRQHandler
+  420    00000000 0048                  LDR     R0, =DMA5_DMA21_DriverIRQHandle
+                                                     r
+  421    00000002 0047                  BX      R0
+  422                           
+  423                                   PUBWEAK DMA6_DMA22_IRQHandler
+  424                                   PUBWEAK DMA6_DMA22_DriverIRQHandler
+  424.1                                  TABLE
+  424.2  00000004 ........              Reference on line 420
+  425                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  426                           DMA6_DMA22_IRQHandler
+  427    00000000 0048                  LDR     R0, =DMA6_DMA22_DriverIRQHandle
+                                                     r
+  428    00000002 0047                  BX      R0
+  429                           
+  430                                   PUBWEAK DMA7_DMA23_IRQHandler
+  431                                   PUBWEAK DMA7_DMA23_DriverIRQHandler
+  431.1                                  TABLE
+  431.2  00000004 ........              Reference on line 427
+  432                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  433                           DMA7_DMA23_IRQHandler
+  434    00000000 0048                  LDR     R0, =DMA7_DMA23_DriverIRQHandle
+                                                     r
+  435    00000002 0047                  BX      R0
+  436                           
+  437                                   PUBWEAK DMA8_DMA24_IRQHandler
+  438                                   PUBWEAK DMA8_DMA24_DriverIRQHandler
+  438.1                                  TABLE
+  438.2  00000004 ........              Reference on line 434
+  439                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  440                           DMA8_DMA24_IRQHandler
+  441    00000000 0048                  LDR     R0, =DMA8_DMA24_DriverIRQHandle
+                                                     r
+  442    00000002 0047                  BX      R0
+  443                           
+  444                                   PUBWEAK DMA9_DMA25_IRQHandler
+  445                                   PUBWEAK DMA9_DMA25_DriverIRQHandler
+  445.1                                  TABLE
+  445.2  00000004 ........              Reference on line 441
+  446                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  447                           DMA9_DMA25_IRQHandler
+  448    00000000 0048                  LDR     R0, =DMA9_DMA25_DriverIRQHandle
+                                                     r
+  449    00000002 0047                  BX      R0
+  450                           
+  451                                   PUBWEAK DMA10_DMA26_IRQHandler
+  452                                   PUBWEAK DMA10_DMA26_DriverIRQHandler
+  452.1                                  TABLE
+  452.2  00000004 ........              Reference on line 448
+  453                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  454                           DMA10_DMA26_IRQHandler
+  455    00000000 0048                  LDR     R0, =DMA10_DMA26_DriverIRQHandl
+                                                     er
+  456    00000002 0047                  BX      R0
+  457                           
+  458                                   PUBWEAK DMA11_DMA27_IRQHandler
+  459                                   PUBWEAK DMA11_DMA27_DriverIRQHandler
+  459.1                                  TABLE
+  459.2  00000004 ........              Reference on line 455
+  460                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  461                           DMA11_DMA27_IRQHandler
+  462    00000000 0048                  LDR     R0, =DMA11_DMA27_DriverIRQHandl
+                                                     er
+  463    00000002 0047                  BX      R0
+  464                           
+  465                                   PUBWEAK DMA12_DMA28_IRQHandler
+  466                                   PUBWEAK DMA12_DMA28_DriverIRQHandler
+  466.1                                  TABLE
+  466.2  00000004 ........              Reference on line 462
+  467                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  468                           DMA12_DMA28_IRQHandler
+  469    00000000 0048                  LDR     R0, =DMA12_DMA28_DriverIRQHandl
+                                                     er
+  470    00000002 0047                  BX      R0
+  471                           
+  472                                   PUBWEAK DMA13_DMA29_IRQHandler
+  473                                   PUBWEAK DMA13_DMA29_DriverIRQHandler
+  473.1                                  TABLE
+  473.2  00000004 ........              Reference on line 469
+  474                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  475                           DMA13_DMA29_IRQHandler
+  476    00000000 0048                  LDR     R0, =DMA13_DMA29_DriverIRQHandl
+                                                     er
+  477    00000002 0047                  BX      R0
+  478                           
+  479                                   PUBWEAK DMA14_DMA30_IRQHandler
+  480                                   PUBWEAK DMA14_DMA30_DriverIRQHandler
+  480.1                                  TABLE
+  480.2  00000004 ........              Reference on line 476
+  481                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  482                           DMA14_DMA30_IRQHandler
+  483    00000000 0048                  LDR     R0, =DMA14_DMA30_DriverIRQHandl
+                                                     er
+  484    00000002 0047                  BX      R0
+  485                           
+  486                                   PUBWEAK DMA15_DMA31_IRQHandler
+  487                                   PUBWEAK DMA15_DMA31_DriverIRQHandler
+  487.1                                  TABLE
+  487.2  00000004 ........              Reference on line 483
+  488                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  489                           DMA15_DMA31_IRQHandler
+  490    00000000 0048                  LDR     R0, =DMA15_DMA31_DriverIRQHandl
+                                                     er
+  491    00000002 0047                  BX      R0
+  492                           
+  493                                   PUBWEAK DMA_ERROR_IRQHandler
+  494                                   PUBWEAK DMA_ERROR_DriverIRQHandler
+  494.1                                  TABLE
+  494.2  00000004 ........              Reference on line 490
+  495                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  496                           DMA_ERROR_IRQHandler
+  497    00000000 0048                  LDR     R0, =DMA_ERROR_DriverIRQHandler
+  498    00000002 0047                  BX      R0
+  499                           
+  500                                   PUBWEAK CTI0_ERROR_IRQHandler
+  501                                   PUBWEAK CTI1_ERROR_IRQHandler
+  502                                   PUBWEAK CORE_IRQHandler
+  503                                   PUBWEAK LPUART1_IRQHandler
+  504                                   PUBWEAK LPUART1_DriverIRQHandler
+  504.1                                  TABLE
+  504.2  00000004 ........              Reference on line 497
+  505                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  506                           LPUART1_IRQHandler
+  507    00000000 0048                  LDR     R0, =LPUART1_DriverIRQHandler
+  508    00000002 0047                  BX      R0
+  509                           
+  510                                   PUBWEAK LPUART2_IRQHandler
+  511                                   PUBWEAK LPUART2_DriverIRQHandler
+  511.1                                  TABLE
+  511.2  00000004 ........              Reference on line 507
+  512                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  513                           LPUART2_IRQHandler
+  514    00000000 0048                  LDR     R0, =LPUART2_DriverIRQHandler
+  515    00000002 0047                  BX      R0
+  516                           
+  517                                   PUBWEAK LPUART3_IRQHandler
+  518                                   PUBWEAK LPUART3_DriverIRQHandler
+  518.1                                  TABLE
+  518.2  00000004 ........              Reference on line 514
+  519                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  520                           LPUART3_IRQHandler
+  521    00000000 0048                  LDR     R0, =LPUART3_DriverIRQHandler
+  522    00000002 0047                  BX      R0
+  523                           
+  524                                   PUBWEAK LPUART4_IRQHandler
+  525                                   PUBWEAK LPUART4_DriverIRQHandler
+  525.1                                  TABLE
+  525.2  00000004 ........              Reference on line 521
+  526                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  527                           LPUART4_IRQHandler
+  528    00000000 0048                  LDR     R0, =LPUART4_DriverIRQHandler
+  529    00000002 0047                  BX      R0
+  530                           
+  531                                   PUBWEAK LPUART5_IRQHandler
+  532                                   PUBWEAK LPUART5_DriverIRQHandler
+  532.1                                  TABLE
+  532.2  00000004 ........              Reference on line 528
+  533                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  534                           LPUART5_IRQHandler
+  535    00000000 0048                  LDR     R0, =LPUART5_DriverIRQHandler
+  536    00000002 0047                  BX      R0
+  537                           
+  538                                   PUBWEAK LPUART6_IRQHandler
+  539                                   PUBWEAK LPUART6_DriverIRQHandler
+  539.1                                  TABLE
+  539.2  00000004 ........              Reference on line 535
+  540                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  541                           LPUART6_IRQHandler
+  542    00000000 0048                  LDR     R0, =LPUART6_DriverIRQHandler
+  543    00000002 0047                  BX      R0
+  544                           
+  545                                   PUBWEAK LPUART7_IRQHandler
+  546                                   PUBWEAK LPUART7_DriverIRQHandler
+  546.1                                  TABLE
+  546.2  00000004 ........              Reference on line 542
+  547                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  548                           LPUART7_IRQHandler
+  549    00000000 0048                  LDR     R0, =LPUART7_DriverIRQHandler
+  550    00000002 0047                  BX      R0
+  551                           
+  552                                   PUBWEAK LPUART8_IRQHandler
+  553                                   PUBWEAK LPUART8_DriverIRQHandler
+  553.1                                  TABLE
+  553.2  00000004 ........              Reference on line 549
+  554                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  555                           LPUART8_IRQHandler
+  556    00000000 0048                  LDR     R0, =LPUART8_DriverIRQHandler
+  557    00000002 0047                  BX      R0
+  558                           
+  559                                   PUBWEAK LPI2C1_IRQHandler
+  560                                   PUBWEAK LPI2C1_DriverIRQHandler
+  560.1                                  TABLE
+  560.2  00000004 ........              Reference on line 556
+  561                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  562                           LPI2C1_IRQHandler
+  563    00000000 0048                  LDR     R0, =LPI2C1_DriverIRQHandler
+  564    00000002 0047                  BX      R0
+  565                           
+  566                                   PUBWEAK LPI2C2_IRQHandler
+  567                                   PUBWEAK LPI2C2_DriverIRQHandler
+  567.1                                  TABLE
+  567.2  00000004 ........              Reference on line 563
+  568                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  569                           LPI2C2_IRQHandler
+  570    00000000 0048                  LDR     R0, =LPI2C2_DriverIRQHandler
+  571    00000002 0047                  BX      R0
+  572                           
+  573                                   PUBWEAK LPI2C3_IRQHandler
+  574                                   PUBWEAK LPI2C3_DriverIRQHandler
+  574.1                                  TABLE
+  574.2  00000004 ........              Reference on line 570
+  575                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  576                           LPI2C3_IRQHandler
+  577    00000000 0048                  LDR     R0, =LPI2C3_DriverIRQHandler
+  578    00000002 0047                  BX      R0
+  579                           
+  580                                   PUBWEAK LPI2C4_IRQHandler
+  581                                   PUBWEAK LPI2C4_DriverIRQHandler
+  581.1                                  TABLE
+  581.2  00000004 ........              Reference on line 577
+  582                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  583                           LPI2C4_IRQHandler
+  584    00000000 0048                  LDR     R0, =LPI2C4_DriverIRQHandler
+  585    00000002 0047                  BX      R0
+  586                           
+  587                                   PUBWEAK LPSPI1_IRQHandler
+  588                                   PUBWEAK LPSPI1_DriverIRQHandler
+  588.1                                  TABLE
+  588.2  00000004 ........              Reference on line 584
+  589                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  590                           LPSPI1_IRQHandler
+  591    00000000 0048                  LDR     R0, =LPSPI1_DriverIRQHandler
+  592    00000002 0047                  BX      R0
+  593                           
+  594                                   PUBWEAK LPSPI2_IRQHandler
+  595                                   PUBWEAK LPSPI2_DriverIRQHandler
+  595.1                                  TABLE
+  595.2  00000004 ........              Reference on line 591
+  596                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  597                           LPSPI2_IRQHandler
+  598    00000000 0048                  LDR     R0, =LPSPI2_DriverIRQHandler
+  599    00000002 0047                  BX      R0
+  600                           
+  601                                   PUBWEAK LPSPI3_IRQHandler
+  602                                   PUBWEAK LPSPI3_DriverIRQHandler
+  602.1                                  TABLE
+  602.2  00000004 ........              Reference on line 598
+  603                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  604                           LPSPI3_IRQHandler
+  605    00000000 0048                  LDR     R0, =LPSPI3_DriverIRQHandler
+  606    00000002 0047                  BX      R0
+  607                           
+  608                                   PUBWEAK LPSPI4_IRQHandler
+  609                                   PUBWEAK LPSPI4_DriverIRQHandler
+  609.1                                  TABLE
+  609.2  00000004 ........              Reference on line 605
+  610                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  611                           LPSPI4_IRQHandler
+  612    00000000 0048                  LDR     R0, =LPSPI4_DriverIRQHandler
+  613    00000002 0047                  BX      R0
+  614                           
+  615                                   PUBWEAK CAN1_IRQHandler
+  616                                   PUBWEAK CAN1_DriverIRQHandler
+  616.1                                  TABLE
+  616.2  00000004 ........              Reference on line 612
+  617                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  618                           CAN1_IRQHandler
+  619    00000000 0048                  LDR     R0, =CAN1_DriverIRQHandler
+  620    00000002 0047                  BX      R0
+  621                           
+  622                                   PUBWEAK CAN2_IRQHandler
+  623                                   PUBWEAK CAN2_DriverIRQHandler
+  623.1                                  TABLE
+  623.2  00000004 ........              Reference on line 619
+  624                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  625                           CAN2_IRQHandler
+  626    00000000 0048                  LDR     R0, =CAN2_DriverIRQHandler
+  627    00000002 0047                  BX      R0
+  628                           
+  629                                   PUBWEAK FLEXRAM_IRQHandler
+  630                                   PUBWEAK KPP_IRQHandler
+  631                                   PUBWEAK TSC_DIG_IRQHandler
+  632                                   PUBWEAK GPR_IRQ_IRQHandler
+  633                                   PUBWEAK LCDIF_IRQHandler
+  634                                   PUBWEAK CSI_IRQHandler
+  635                                   PUBWEAK PXP_IRQHandler
+  636                                   PUBWEAK WDOG2_IRQHandler
+  637                                   PUBWEAK SNVS_HP_WRAPPER_IRQHandler
+  638                                   PUBWEAK SNVS_HP_WRAPPER_TZ_IRQHandler
+  639                                   PUBWEAK SNVS_LP_WRAPPER_IRQHandler
+  640                                   PUBWEAK CSU_IRQHandler
+  641                                   PUBWEAK DCP_IRQHandler
+  642                                   PUBWEAK DCP_VMI_IRQHandler
+  643                                   PUBWEAK Reserved68_IRQHandler
+  644                                   PUBWEAK TRNG_IRQHandler
+  645                                   PUBWEAK SJC_IRQHandler
+  646                                   PUBWEAK BEE_IRQHandler
+  647                                   PUBWEAK SAI1_IRQHandler
+  648                                   PUBWEAK SAI1_DriverIRQHandler
+  648.1                                  TABLE
+  648.2  00000004 ........              Reference on line 626
+  649                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  650                           SAI1_IRQHandler
+  651    00000000 0048                  LDR     R0, =SAI1_DriverIRQHandler
+  652    00000002 0047                  BX      R0
+  653                           
+  654                                   PUBWEAK SAI2_IRQHandler
+  655                                   PUBWEAK SAI2_DriverIRQHandler
+  655.1                                  TABLE
+  655.2  00000004 ........              Reference on line 651
+  656                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  657                           SAI2_IRQHandler
+  658    00000000 0048                  LDR     R0, =SAI2_DriverIRQHandler
+  659    00000002 0047                  BX      R0
+  660                           
+  661                                   PUBWEAK SAI3_RX_IRQHandler
+  662                                   PUBWEAK SAI3_RX_DriverIRQHandler
+  662.1                                  TABLE
+  662.2  00000004 ........              Reference on line 658
+  663                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  664                           SAI3_RX_IRQHandler
+  665    00000000 0048                  LDR     R0, =SAI3_RX_DriverIRQHandler
+  666    00000002 0047                  BX      R0
+  667                           
+  668                                   PUBWEAK SAI3_TX_IRQHandler
+  669                                   PUBWEAK SAI3_TX_DriverIRQHandler
+  669.1                                  TABLE
+  669.2  00000004 ........              Reference on line 665
+  670                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  671                           SAI3_TX_IRQHandler
+  672    00000000 0048                  LDR     R0, =SAI3_TX_DriverIRQHandler
+  673    00000002 0047                  BX      R0
+  674                           
+  675                                   PUBWEAK SPDIF_IRQHandler
+  676                                   PUBWEAK SPDIF_DriverIRQHandler
+  676.1                                  TABLE
+  676.2  00000004 ........              Reference on line 672
+  677                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  678                           SPDIF_IRQHandler
+  679    00000000 0048                  LDR     R0, =SPDIF_DriverIRQHandler
+  680    00000002 0047                  BX      R0
+  681                           
+  682                                   PUBWEAK PMU_EVENT_IRQHandler
+  683                                   PUBWEAK Reserved78_IRQHandler
+  684                                   PUBWEAK TEMP_LOW_HIGH_IRQHandler
+  685                                   PUBWEAK TEMP_PANIC_IRQHandler
+  686                                   PUBWEAK USB_PHY1_IRQHandler
+  687                                   PUBWEAK USB_PHY2_IRQHandler
+  688                                   PUBWEAK ADC1_IRQHandler
+  689                                   PUBWEAK ADC2_IRQHandler
+  690                                   PUBWEAK DCDC_IRQHandler
+  691                                   PUBWEAK Reserved86_IRQHandler
+  692                                   PUBWEAK Reserved87_IRQHandler
+  693                                   PUBWEAK GPIO1_INT0_IRQHandler
+  694                                   PUBWEAK GPIO1_INT1_IRQHandler
+  695                                   PUBWEAK GPIO1_INT2_IRQHandler
+  696                                   PUBWEAK GPIO1_INT3_IRQHandler
+  697                                   PUBWEAK GPIO1_INT4_IRQHandler
+  698                                   PUBWEAK GPIO1_INT5_IRQHandler
+  699                                   PUBWEAK GPIO1_INT6_IRQHandler
+  700                                   PUBWEAK GPIO1_INT7_IRQHandler
+  701                                   PUBWEAK GPIO1_Combined_0_15_IRQHandler
+  702                                   PUBWEAK GPIO1_Combined_16_31_IRQHandle
+                                r
+  703                                   PUBWEAK GPIO2_Combined_0_15_IRQHandler
+  704                                   PUBWEAK GPIO2_Combined_16_31_IRQHandle
+                                r
+  705                                   PUBWEAK GPIO3_Combined_0_15_IRQHandler
+  706                                   PUBWEAK GPIO3_Combined_16_31_IRQHandle
+                                r
+  707                                   PUBWEAK GPIO4_Combined_0_15_IRQHandler
+  708                                   PUBWEAK GPIO4_Combined_16_31_IRQHandle
+                                r
+  709                                   PUBWEAK GPIO5_Combined_0_15_IRQHandler
+  710                                   PUBWEAK GPIO5_Combined_16_31_IRQHandle
+                                r
+  711                                   PUBWEAK FLEXIO1_IRQHandler
+  712                                   PUBWEAK FLEXIO1_DriverIRQHandler
+  712.1                                  TABLE
+  712.2  00000004 ........              Reference on line 679
+  713                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  714                           FLEXIO1_IRQHandler
+  715    00000000 0048                  LDR     R0, =FLEXIO1_DriverIRQHandler
+  716    00000002 0047                  BX      R0
+  717                           
+  718                                   PUBWEAK FLEXIO2_IRQHandler
+  719                                   PUBWEAK FLEXIO2_DriverIRQHandler
+  719.1                                  TABLE
+  719.2  00000004 ........              Reference on line 715
+  720                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  721                           FLEXIO2_IRQHandler
+  722    00000000 0048                  LDR     R0, =FLEXIO2_DriverIRQHandler
+  723    00000002 0047                  BX      R0
+  724                           
+  725                                   PUBWEAK WDOG1_IRQHandler
+  726                                   PUBWEAK RTWDOG_IRQHandler
+  727                                   PUBWEAK EWM_IRQHandler
+  728                                   PUBWEAK CCM_1_IRQHandler
+  729                                   PUBWEAK CCM_2_IRQHandler
+  730                                   PUBWEAK GPC_IRQHandler
+  731                                   PUBWEAK SRC_IRQHandler
+  732                                   PUBWEAK Reserved115_IRQHandler
+  733                                   PUBWEAK GPT1_IRQHandler
+  734                                   PUBWEAK GPT2_IRQHandler
+  735                                   PUBWEAK PWM1_0_IRQHandler
+  736                                   PUBWEAK PWM1_1_IRQHandler
+  737                                   PUBWEAK PWM1_2_IRQHandler
+  738                                   PUBWEAK PWM1_3_IRQHandler
+  739                                   PUBWEAK PWM1_FAULT_IRQHandler
+  740                                   PUBWEAK Reserved123_IRQHandler
+  741                                   PUBWEAK FLEXSPI_IRQHandler
+  742                                   PUBWEAK FLEXSPI_DriverIRQHandler
+  742.1                                  TABLE
+  742.2  00000004 ........              Reference on line 722
+  743                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  744                           FLEXSPI_IRQHandler
+  745    00000000 0048                  LDR     R0, =FLEXSPI_DriverIRQHandler
+  746    00000002 0047                  BX      R0
+  747                           
+  748                                   PUBWEAK SEMC_IRQHandler
+  749                                   PUBWEAK USDHC1_IRQHandler
+  750                                   PUBWEAK USDHC1_DriverIRQHandler
+  750.1                                  TABLE
+  750.2  00000004 ........              Reference on line 745
+  751                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  752                           USDHC1_IRQHandler
+  753    00000000 0048                  LDR     R0, =USDHC1_DriverIRQHandler
+  754    00000002 0047                  BX      R0
+  755                           
+  756                                   PUBWEAK USDHC2_IRQHandler
+  757                                   PUBWEAK USDHC2_DriverIRQHandler
+  757.1                                  TABLE
+  757.2  00000004 ........              Reference on line 753
+  758                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  759                           USDHC2_IRQHandler
+  760    00000000 0048                  LDR     R0, =USDHC2_DriverIRQHandler
+  761    00000002 0047                  BX      R0
+  762                           
+  763                                   PUBWEAK USB_OTG2_IRQHandler
+  764                                   PUBWEAK USB_OTG1_IRQHandler
+  765                                   PUBWEAK ENET_IRQHandler
+  766                                   PUBWEAK ENET_DriverIRQHandler
+  766.1                                  TABLE
+  766.2  00000004 ........              Reference on line 760
+  767                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  768                           ENET_IRQHandler
+  769    00000000 0048                  LDR     R0, =ENET_DriverIRQHandler
+  770    00000002 0047                  BX      R0
+  771                           
+  772                                   PUBWEAK ENET_1588_Timer_IRQHandler
+  773                                   PUBWEAK ENET_1588_Timer_DriverIRQHandl
+                                er
+  773.1                                  TABLE
+  773.2  00000004 ........              Reference on line 769
+  774                                   SECTION .text:CODE:REORDER:NOROOT(2)
+  775                           ENET_1588_Timer_IRQHandler
+  776    00000000 0048                  LDR     R0, =ENET_1588_Timer_DriverIRQH
+                                                     andler
+  777    00000002 0047                  BX      R0
+  778                           
+  779                                   PUBWEAK XBAR1_IRQ_0_1_IRQHandler
+  780                                   PUBWEAK XBAR1_IRQ_2_3_IRQHandler
+  781                                   PUBWEAK ADC_ETC_IRQ0_IRQHandler
+  782                                   PUBWEAK ADC_ETC_IRQ1_IRQHandler
+  783                                   PUBWEAK ADC_ETC_IRQ2_IRQHandler
+  784                                   PUBWEAK ADC_ETC_ERROR_IRQ_IRQHandler
+  785                                   PUBWEAK PIT_IRQHandler
+  786                                   PUBWEAK ACMP1_IRQHandler
+  787                                   PUBWEAK ACMP2_IRQHandler
+  788                                   PUBWEAK ACMP3_IRQHandler
+  789                                   PUBWEAK ACMP4_IRQHandler
+  790                                   PUBWEAK Reserved143_IRQHandler
+  791                                   PUBWEAK Reserved144_IRQHandler
+  792                                   PUBWEAK ENC1_IRQHandler
+  793                                   PUBWEAK ENC2_IRQHandler
+  794                                   PUBWEAK ENC3_IRQHandler
+  795                                   PUBWEAK ENC4_IRQHandler
+  796                                   PUBWEAK TMR1_IRQHandler
+  797                                   PUBWEAK TMR2_IRQHandler
+  798                                   PUBWEAK TMR3_IRQHandler
+  799                                   PUBWEAK TMR4_IRQHandler
+  800                                   PUBWEAK PWM2_0_IRQHandler
+  801                                   PUBWEAK PWM2_1_IRQHandler
+  802                                   PUBWEAK PWM2_2_IRQHandler
+  803                                   PUBWEAK PWM2_3_IRQHandler
+  804                                   PUBWEAK PWM2_FAULT_IRQHandler
+  805                                   PUBWEAK PWM3_0_IRQHandler
+  806                                   PUBWEAK PWM3_1_IRQHandler
+  807                                   PUBWEAK PWM3_2_IRQHandler
+  808                                   PUBWEAK PWM3_3_IRQHandler
+  809                                   PUBWEAK PWM3_FAULT_IRQHandler
+  810                                   PUBWEAK PWM4_0_IRQHandler
+  811                                   PUBWEAK PWM4_1_IRQHandler
+  812                                   PUBWEAK PWM4_2_IRQHandler
+  813                                   PUBWEAK PWM4_3_IRQHandler
+  814                                   PUBWEAK PWM4_FAULT_IRQHandler
+  815                                   PUBWEAK DefaultISR
+  815.1                                  TABLE
+  815.2  00000004 ........              Reference on line 776
+  816                                   SECTION .text:CODE:REORDER:NOROOT(1)
+  817                           DMA0_DMA16_DriverIRQHandler
+  818                           DMA1_DMA17_DriverIRQHandler
+  819                           DMA2_DMA18_DriverIRQHandler
+  820                           DMA3_DMA19_DriverIRQHandler
+  821                           DMA4_DMA20_DriverIRQHandler
+  822                           DMA5_DMA21_DriverIRQHandler
+  823                           DMA6_DMA22_DriverIRQHandler
+  824                           DMA7_DMA23_DriverIRQHandler
+  825                           DMA8_DMA24_DriverIRQHandler
+  826                           DMA9_DMA25_DriverIRQHandler
+  827                           DMA10_DMA26_DriverIRQHandler
+  828                           DMA11_DMA27_DriverIRQHandler
+  829                           DMA12_DMA28_DriverIRQHandler
+  830                           DMA13_DMA29_DriverIRQHandler
+  831                           DMA14_DMA30_DriverIRQHandler
+  832                           DMA15_DMA31_DriverIRQHandler
+  833                           DMA_ERROR_DriverIRQHandler
+  834                           CTI0_ERROR_IRQHandler
+  835                           CTI1_ERROR_IRQHandler
+  836                           CORE_IRQHandler
+  837                           LPUART1_DriverIRQHandler
+  838                           LPUART2_DriverIRQHandler
+  839                           LPUART3_DriverIRQHandler
+  840                           LPUART4_DriverIRQHandler
+  841                           LPUART5_DriverIRQHandler
+  842                           LPUART6_DriverIRQHandler
+  843                           LPUART7_DriverIRQHandler
+  844                           LPUART8_DriverIRQHandler
+  845                           LPI2C1_DriverIRQHandler
+  846                           LPI2C2_DriverIRQHandler
+  847                           LPI2C3_DriverIRQHandler
+  848                           LPI2C4_DriverIRQHandler
+  849                           LPSPI1_DriverIRQHandler
+  850                           LPSPI2_DriverIRQHandler
+  851                           LPSPI3_DriverIRQHandler
+  852                           LPSPI4_DriverIRQHandler
+  853                           CAN1_DriverIRQHandler
+  854                           CAN2_DriverIRQHandler
+  855                           FLEXRAM_IRQHandler
+  856                           KPP_IRQHandler
+  857                           TSC_DIG_IRQHandler
+  858                           GPR_IRQ_IRQHandler
+  859                           LCDIF_IRQHandler
+  860                           CSI_IRQHandler
+  861                           PXP_IRQHandler
+  862                           WDOG2_IRQHandler
+  863                           SNVS_HP_WRAPPER_IRQHandler
+  864                           SNVS_HP_WRAPPER_TZ_IRQHandler
+  865                           SNVS_LP_WRAPPER_IRQHandler
+  866                           CSU_IRQHandler
+  867                           DCP_IRQHandler
+  868                           DCP_VMI_IRQHandler
+  869                           Reserved68_IRQHandler
+  870                           TRNG_IRQHandler
+  871                           SJC_IRQHandler
+  872                           BEE_IRQHandler
+  873                           SAI1_DriverIRQHandler
+  874                           SAI2_DriverIRQHandler
+  875                           SAI3_RX_DriverIRQHandler
+  876                           SAI3_TX_DriverIRQHandler
+  877                           SPDIF_DriverIRQHandler
+  878                           PMU_EVENT_IRQHandler
+  879                           Reserved78_IRQHandler
+  880                           TEMP_LOW_HIGH_IRQHandler
+  881                           TEMP_PANIC_IRQHandler
+  882                           USB_PHY1_IRQHandler
+  883                           USB_PHY2_IRQHandler
+  884                           ADC1_IRQHandler
+  885                           ADC2_IRQHandler
+  886                           DCDC_IRQHandler
+  887                           Reserved86_IRQHandler
+  888                           Reserved87_IRQHandler
+  889                           GPIO1_INT0_IRQHandler
+  890                           GPIO1_INT1_IRQHandler
+  891                           GPIO1_INT2_IRQHandler
+  892                           GPIO1_INT3_IRQHandler
+  893                           GPIO1_INT4_IRQHandler
+  894                           GPIO1_INT5_IRQHandler
+  895                           GPIO1_INT6_IRQHandler
+  896                           GPIO1_INT7_IRQHandler
+  897                           GPIO1_Combined_0_15_IRQHandler
+  898                           GPIO1_Combined_16_31_IRQHandler
+  899                           GPIO2_Combined_0_15_IRQHandler
+  900                           GPIO2_Combined_16_31_IRQHandler
+  901                           GPIO3_Combined_0_15_IRQHandler
+  902                           GPIO3_Combined_16_31_IRQHandler
+  903                           GPIO4_Combined_0_15_IRQHandler
+  904                           GPIO4_Combined_16_31_IRQHandler
+  905                           GPIO5_Combined_0_15_IRQHandler
+  906                           GPIO5_Combined_16_31_IRQHandler
+  907                           FLEXIO1_DriverIRQHandler
+  908                           FLEXIO2_DriverIRQHandler
+  909                           WDOG1_IRQHandler
+  910                           RTWDOG_IRQHandler
+  911                           EWM_IRQHandler
+  912                           CCM_1_IRQHandler
+  913                           CCM_2_IRQHandler
+  914                           GPC_IRQHandler
+  915                           SRC_IRQHandler
+  916                           Reserved115_IRQHandler
+  917                           GPT1_IRQHandler
+  918                           GPT2_IRQHandler
+  919                           PWM1_0_IRQHandler
+  920                           PWM1_1_IRQHandler
+  921                           PWM1_2_IRQHandler
+  922                           PWM1_3_IRQHandler
+  923                           PWM1_FAULT_IRQHandler
+  924                           Reserved123_IRQHandler
+  925                           FLEXSPI_DriverIRQHandler
+  926                           SEMC_IRQHandler
+  927                           USDHC1_DriverIRQHandler
+  928                           USDHC2_DriverIRQHandler
+  929                           USB_OTG2_IRQHandler
+  930                           USB_OTG1_IRQHandler
+  931                           ENET_DriverIRQHandler
+  932                           ENET_1588_Timer_DriverIRQHandler
+  933                           XBAR1_IRQ_0_1_IRQHandler
+  934                           XBAR1_IRQ_2_3_IRQHandler
+  935                           ADC_ETC_IRQ0_IRQHandler
+  936                           ADC_ETC_IRQ1_IRQHandler
+  937                           ADC_ETC_IRQ2_IRQHandler
+  938                           ADC_ETC_ERROR_IRQ_IRQHandler
+  939                           PIT_IRQHandler
+  940                           ACMP1_IRQHandler
+  941                           ACMP2_IRQHandler
+  942                           ACMP3_IRQHandler
+  943                           ACMP4_IRQHandler
+  944                           Reserved143_IRQHandler
+  945                           Reserved144_IRQHandler
+  946                           ENC1_IRQHandler
+  947                           ENC2_IRQHandler
+  948                           ENC3_IRQHandler
+  949                           ENC4_IRQHandler
+  950                           TMR1_IRQHandler
+  951                           TMR2_IRQHandler
+  952                           TMR3_IRQHandler
+  953                           TMR4_IRQHandler
+  954                           PWM2_0_IRQHandler
+  955                           PWM2_1_IRQHandler
+  956                           PWM2_2_IRQHandler
+  957                           PWM2_3_IRQHandler
+  958                           PWM2_FAULT_IRQHandler
+  959                           PWM3_0_IRQHandler
+  960                           PWM3_1_IRQHandler
+  961                           PWM3_2_IRQHandler
+  962                           PWM3_3_IRQHandler
+  963                           PWM3_FAULT_IRQHandler
+  964                           PWM4_0_IRQHandler
+  965                           PWM4_1_IRQHandler
+  966                           PWM4_2_IRQHandler
+  967                           PWM4_3_IRQHandler
+  968                           PWM4_FAULT_IRQHandler
+  969                           DefaultISR
+  970    00000000 ........              B DefaultISR
+  971                           
+  972                                   END
+##############################
+#           CRC:0            #
+#        Errors:   0         #
+#        Warnings: 0         #
+#        Bytes: 1462         #
+##############################
+
+
+
+

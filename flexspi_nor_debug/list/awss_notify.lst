@@ -1,0 +1,1912 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V8.32.3.193/W32 for ARM         10/Jun/2019  13:48:00
+# Copyright 1999-2019 IAR Systems AB.
+#
+#    Cpu mode     =  
+#    Endian       =  little
+#    Source file  =  
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_notify.c
+#    Command line =  
+#        -f C:\Users\nxf42695\AppData\Local\Temp\1\EW8E2D.tmp
+#        (C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_notify.c
+#        -D DEBUG -D USE_RTOS -D XIP_EXTERNAL_FLASH=1 -D
+#        XIP_BOOT_HEADER_ENABLE=1 -D CPU_MIMXRT1052DVL6B -D FSL_RTOS_FREE_RTOS
+#        -D PRINTF_ADVANCED_ENABLE -D
+#        "MBEDTLS_CONFIG_FILE=\"ksdk_mbedtls_config.h\"" -lC
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list -lA
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list
+#        --diag_suppress Pa082,Pa050 -o
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj
+#        --no_cse --no_unroll --no_inline --no_code_motion --no_tbaa
+#        --no_clustering --no_scheduling --debug --endian=little
+#        --cpu=Cortex-M7 -e --fpu=VFPv5_d16 --dlib_config "C:\Program Files
+#        (x86)\IAR Systems\Embedded Workbench
+#        8.2\arm\inc\c\DLib_Config_Normal.h" --preinclude
+#        C:\Development\smart_washing_machine_3080/source\app_preinclude.h -I
+#        C:\Development\smart_washing_machine_3080/board\ -I
+#        C:\Development\smart_washing_machine_3080/source\ -I
+#        C:\Development\smart_washing_machine_3080/CMSIS\ -I
+#        C:\Development\smart_washing_machine_3080/amazon-freertos/freertos/portable\
+#        -I C:\Development\smart_washing_machine_3080/amazon-freertos/include\
+#        -I C:\Development\smart_washing_machine_3080/component/lists\ -I
+#        C:\Development\smart_washing_machine_3080/component/serial_manager\ -I
+#        C:\Development\smart_washing_machine_3080/component/uart\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv\ -I
+#        C:\Development\smart_washing_machine_3080/component/kv/include\ -I
+#        C:\Development\smart_washing_machine_3080/device\ -I
+#        C:\Development\smart_washing_machine_3080/doc\ -I
+#        C:\Development\smart_washing_machine_3080/drivers\ -I
+#        C:\Development\smart_washing_machine_3080/src\ -I
+#        C:\Development\smart_washing_machine_3080/startup\ -I
+#        C:\Development\smart_washing_machine_3080/utilities\ -I
+#        C:\Development\smart_washing_machine_3080/xip\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\atm\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_model\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_sign\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\infra\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\mqtt\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\wrappers\external_libs\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\coap_cloud\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\CoAPPacket\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\coap_server\server\
+#        -I C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\ -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\
+#        -I
+#        C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_reset\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\mbedtls\
+#        -I C:\Development\smart_washing_machine_3080\mbedtls\include\ -I
+#        C:\Development\smart_washing_machine_3080\mbedtls\port\ksdk\ -Om)
+#    Locale       =  C
+#    List file    =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\list\awss_notify.lst
+#    Object file  =  
+#        C:\Development\smart_washing_machine_3080\flexspi_nor_debug\obj\awss_notify.o
+#
+###############################################################################
+
+C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\awss_notify.c
+      1          /*
+      2           * Copyright (C) 2015-2018 Alibaba Group Holding Limited
+      3           */
+      4          #include "dev_bind_internal.h"
+
+  typedef void *p_HAL_Aes128_t;
+                ^
+"C:\Development\smart_washing_machine_3080\csdk\eng\dev_bind\impl\os\os.h",49  Warning[Pe301]: 
+          typedef name has already been declared (with same type)
+      5          
+      6          #if defined(__cplusplus) /* If this is a C++ compiler, use C linkage */
+      7          extern "C" {
+      8          #endif
+      9          
+     10          #define AWSS_CHECK_RESP_TIME (300)
+     11          #define AWSS_NOTIFY_PORT     (5683)
+     12          #define AWSS_NOTIFY_HOST     "255.255.255.255"
+     13          #define AWSS_DEV_NOTIFY_FMT  "{\"id\":\"%u\",\"version\":\"1.0\",\"method\":\"%s\",\"params\":{%s}}"
+     14          
+     15          struct notify_map_t {
+     16              uint8_t notify_type;
+     17              char *notify_method;
+     18              char *notify_topic;
+     19              void *cb;
+     20          };
+     21          
+
+   \                                 In section .bss, align 1
+     22          static uint8_t g_notify_id;
+   \                     g_notify_id:
+   \        0x0                      DS8 1
+
+   \                                 In section .bss, align 4
+     23          static char awss_notify_resp[AWSS_NOTIFY_TYPE_MAX] = {0};
+   \                     awss_notify_resp:
+   \        0x0                      DS8 4
+
+   \                                 In section .bss, align 4
+     24          static uint16_t g_notify_msg_id[AWSS_NOTIFY_TYPE_MAX] = {0};
+   \                     g_notify_msg_id:
+   \        0x0                      DS8 8
+     25          
+     26          #ifdef WIFI_PROVISION_ENABLED
+     27          static void *success_notify_timer = NULL;
+     28          static void *devinfo_notify_timer = NULL;
+     29          static void *success_notify_mutex = NULL;
+     30          static void *devinfo_notify_mutex = NULL;
+     31          #endif
+
+   \                                 In section .bss, align 4
+     32          static void *dev_bind_notify_timer = NULL;
+   \                     dev_bind_notify_timer:
+   \        0x0                      DS8 4
+
+   \                                 In section .bss, align 4
+     33          static void *get_devinfo_timer  = NULL;
+   \                     get_devinfo_timer:
+   \        0x0                      DS8 4
+
+   \                                 In section .bss, align 4
+     34          static void *dev_bind_notify_mutex = NULL;
+   \                     dev_bind_notify_mutex:
+   \        0x0                      DS8 4
+     35          
+     36          extern char awss_report_token_suc;
+     37          extern char awss_report_token_cnt;
+     38          
+     39          static int awss_dev_bind_notify_resp(void *context, int result,
+     40                                               void *userdata, void *remote,
+     41                                               void *message);
+     42          #ifdef WIFI_PROVISION_ENABLED
+     43          static int awss_devinfo_notify_resp(void *context, int result,
+     44                                              void *userdata, void *remote,
+     45                                              void *message);
+     46          static int awss_suc_notify_resp(void *context, int result,
+     47                                          void *userdata, void *remote,
+     48                                          void *message);
+     49          int awss_devinfo_notify();
+     50          int awss_suc_notify();
+     51          #endif
+     52          static int awss_notify_response(int type, int result, void *message);
+     53          static int awss_process_get_devinfo();
+     54          int awss_dev_bind_notify();
+     55          
+
+   \                                 In section .rodata, align 4
+     56          static const struct notify_map_t notify_map[] = {
+   \                     notify_map:
+   \        0x0   0x01 0x00          DC8 1, 0, 0, 0
+   \              0x00 0x00    
+   \        0x4   0x....'....        DC32 ?_0, ?_1, awss_dev_bind_notify_resp
+   \              0x....'....  
+   \              0x....'....  
+     57              {AWSS_NOTIFY_DEV_BIND_TOKEN, METHOD_DEV_INFO_NOTIFY,       TOPIC_NOTIFY,                (void *)awss_dev_bind_notify_resp},
+     58          #ifdef WIFI_PROVISION_ENABLED
+     59              {AWSS_NOTIFY_DEV_RAND_SIGN,  METHOD_AWSS_DEV_INFO_NOTIFY,  TOPIC_AWSS_NOTIFY,           awss_devinfo_notify_resp},
+     60              {AWSS_NOTIFY_SUCCESS,        METHOD_AWSS_CONNECTAP_NOTIFY, TOPIC_AWSS_CONNECTAP_NOTIFY, awss_suc_notify_resp}
+     61          #endif
+     62          };
+     63          
+     64          /*
+     65           * {
+     66           *  "id": "123",
+     67           *  "code": 200,
+     68           *  "data": {}
+     69           * }
+     70           */
+
+   \                                 In section .text, align 2, keep-with-next
+     71          static int awss_dev_bind_notify_resp(void *context, int result,
+     72                                               void *userdata, void *remote,
+     73                                               void *message)
+     74          {
+   \                     awss_dev_bind_notify_resp: (+1)
+   \        0x0   0xB510             PUSH     {R4,LR}
+   \        0x2   0x9A02             LDR      R2,[SP, #+8]
+     75              int res = awss_notify_response(AWSS_NOTIFY_DEV_BIND_TOKEN, result, message);
+   \        0x4   0x2001             MOVS     R0,#+1
+   \        0x6   0x....'....        BL       awss_notify_response
+   \        0xA   0x4604             MOV      R4,R0
+     76              if (res == 1) {
+   \        0xC   0x2C01             CMP      R4,#+1
+   \        0xE   0xD101             BNE.N    ??awss_dev_bind_notify_resp_0
+     77                  awss_update_token();
+   \       0x10   0x....'....        BL       awss_update_token
+     78          #ifdef DEV_BIND_TEST
+     79                  HAL_Reboot();
+     80          #endif
+     81              }
+     82              return res;
+   \                     ??awss_dev_bind_notify_resp_0: (+1)
+   \       0x14   0x4620             MOV      R0,R4
+   \       0x16   0xBD10             POP      {R4,PC}          ;; return
+     83          }
+     84          
+     85          #ifdef WIFI_PROVISION_ENABLED
+     86          static int awss_devinfo_notify_resp(void *context, int result,
+     87                                              void *userdata, void *remote,
+     88                                              void *message)
+     89          {
+     90              return awss_notify_response(AWSS_NOTIFY_DEV_RAND_SIGN, result, message);
+     91          }
+     92          
+     93          static int awss_suc_notify_resp(void *context, int result,
+     94                                          void *userdata, void *remote,
+     95                                          void *message)
+     96          {
+     97              return awss_notify_response(AWSS_NOTIFY_SUCCESS, result, message);
+     98          }
+     99          #endif
+    100          
+
+   \                                 In section .text, align 2, keep-with-next
+    101          static int awss_notify_response(int type, int result, void *message)
+    102          {
+   \                     awss_notify_response: (+1)
+   \        0x0   0xB57F             PUSH     {R0-R6,LR}
+   \        0x2   0x4605             MOV      R5,R0
+   \        0x4   0x4614             MOV      R4,R2
+    103              uint8_t i = 0;
+   \        0x6   0x2600             MOVS     R6,#+0
+    104          
+    105              awss_flow("%s, type:%d,result:%u\r\n", __func__, type, result);
+    106          
+    107              if (message == NULL) {
+   \        0x8   0x2C00             CMP      R4,#+0
+   \        0xA   0xD102             BNE.N    ??awss_notify_response_0
+    108                  return -1;
+   \        0xC   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x10   0xE044             B.N      ??awss_notify_response_1
+    109              }
+    110          
+    111              if (result != 0) {
+   \                     ??awss_notify_response_0: (+1)
+   \       0x12   0x2900             CMP      R1,#+0
+   \       0x14   0xD134             BNE.N    ??awss_notify_response_2
+    112                  return 0;
+    113              }
+    114          
+    115              if (awss_cmp_get_coap_code(message) >= 0x60) {
+   \       0x16   0x4620             MOV      R0,R4
+   \       0x18   0x....'....        BL       awss_cmp_get_coap_code
+   \       0x1C   0x2860             CMP      R0,#+96
+   \       0x1E   0xDA2F             BGE.N    ??awss_notify_response_2
+    116                  return 0;
+    117              }
+    118          
+    119              do {
+    120                  int val = 0;
+    121                  int len = 0, mlen = 0;
+   \       0x20   0x4630             MOV      R0,R6
+   \       0x22   0x9001             STR      R0,[SP, #+4]
+   \       0x24   0x9002             STR      R0,[SP, #+8]
+    122                  char *payload = NULL, *elem = NULL;
+    123          
+    124                  if ((payload = awss_cmp_get_coap_payload(message, &len)) == NULL ||
+    125                      len > 0x40 || len == 0) {
+   \       0x26   0xA901             ADD      R1,SP,#+4
+   \       0x28   0x4620             MOV      R0,R4
+   \       0x2A   0x....'....        BL       awss_cmp_get_coap_payload
+   \       0x2E   0x0004             MOVS     R4,R0
+   \       0x30   0xD026             BEQ.N    ??awss_notify_response_2
+   \       0x32   0x9801             LDR      R0,[SP, #+4]
+   \       0x34   0x2841             CMP      R0,#+65
+   \       0x36   0xDA23             BGE.N    ??awss_notify_response_2
+   \       0x38   0x2800             CMP      R0,#+0
+   \       0x3A   0xD021             BEQ.N    ??awss_notify_response_2
+    126                      return 0;
+    127                  }
+    128          
+    129                  awss_debug("payload:%s\r\n", payload);
+    130          
+    131                  elem = json_get_value_by_name(payload, len, AWSS_JSON_ID, &mlen, 0);
+   \       0x3C   0x4630             MOV      R0,R6
+   \       0x3E   0x9000             STR      R0,[SP, #+0]
+   \       0x40   0xAB02             ADD      R3,SP,#+8
+   \       0x42   0x....             ADR.N    R2,??DataTable2  ;; 0x69, 0x64, 0x00, 0x00
+   \       0x44   0x9901             LDR      R1,[SP, #+4]
+   \       0x46   0x4620             MOV      R0,R4
+   \       0x48   0x....'....        BL       json_get_value_by_name
+    132                  if (elem == NULL) {
+   \       0x4C   0x2800             CMP      R0,#+0
+   \       0x4E   0xD017             BEQ.N    ??awss_notify_response_2
+    133                      return 0;
+    134                  }
+    135          
+    136                  val = atoi(elem);
+   \       0x50   0x....'....        BL       atoi
+    137                  if (val != 123 && val > g_notify_id) {
+   \       0x54   0x287B             CMP      R0,#+123
+   \       0x56   0xD004             BEQ.N    ??awss_notify_response_3
+   \       0x58   0x....'....        LDR.W    R1,??DataTable7
+   \       0x5C   0x7809             LDRB     R1,[R1, #+0]
+   \       0x5E   0x4281             CMP      R1,R0
+   \       0x60   0xDB0E             BLT.N    ??awss_notify_response_2
+    138                      return 0;
+    139                  }
+    140          
+    141                  elem = json_get_value_by_name(payload, len, AWSS_JSON_CODE, &mlen, 0);
+   \                     ??awss_notify_response_3: (+1)
+   \       0x62   0x4630             MOV      R0,R6
+   \       0x64   0x9000             STR      R0,[SP, #+0]
+   \       0x66   0xAB02             ADD      R3,SP,#+8
+   \       0x68   0x....'....        LDR.W    R2,??DataTable7_1
+   \       0x6C   0x9901             LDR      R1,[SP, #+4]
+   \       0x6E   0x4620             MOV      R0,R4
+   \       0x70   0x....'....        BL       json_get_value_by_name
+    142                  if (elem == NULL) {
+   \       0x74   0x2800             CMP      R0,#+0
+   \       0x76   0xD003             BEQ.N    ??awss_notify_response_2
+    143                      return 0;
+    144                  }
+    145          
+    146                  val = atoi(elem);
+    147                  if (val != 200) {
+   \       0x78   0x....'....        BL       atoi
+   \       0x7C   0x28C8             CMP      R0,#+200
+   \       0x7E   0xD002             BEQ.N    ??awss_notify_response_4
+    148                      return 0;
+   \                     ??awss_notify_response_2: (+1)
+   \       0x80   0x4630             MOV      R0,R6
+   \       0x82   0xE00B             B.N      ??awss_notify_response_1
+    149                  }
+    150              } while (0);
+    151          
+    152              for (i = 0; i < sizeof(notify_map) / sizeof(notify_map[0]); i ++) {
+    153                  if (notify_map[i].notify_type != type) {
+    154                      continue;
+   \                     ??awss_notify_response_5: (+1)
+   \       0x84   0x2601             MOVS     R6,#+1
+   \                     ??awss_notify_response_4: (+1)
+   \       0x86   0x2E00             CMP      R6,#+0
+   \       0x88   0xD105             BNE.N    ??awss_notify_response_6
+   \       0x8A   0x2D01             CMP      R5,#+1
+   \       0x8C   0xD1FA             BNE.N    ??awss_notify_response_5
+    155                  }
+    156          
+    157                  awss_notify_resp[type] = 1;
+   \       0x8E   0x2001             MOVS     R0,#+1
+   \       0x90   0x....'....        LDR.W    R1,??DataTable7_2
+   \       0x94   0x7048             STRB     R0,[R1, #+1]
+    158                  break;
+    159              }
+    160          
+    161              return awss_notify_resp[type];
+   \                     ??awss_notify_response_6: (+1)
+   \       0x96   0x....'....        LDR.W    R0,??DataTable7_2
+   \       0x9A   0x5D40             LDRB     R0,[R0, R5]
+   \                     ??awss_notify_response_1: (+1)
+   \       0x9C   0xB004             ADD      SP,SP,#+16
+   \       0x9E   0xBD70             POP      {R4-R6,PC}       ;; return
+    162          }
+    163          
+
+   \                                 In section .text, align 2, keep-with-next
+    164          int awss_notify_dev_info(int type, int count)
+    165          {
+   \                     awss_notify_dev_info: (+1)
+   \        0x0   0xE92D 0x4FF0      PUSH     {R4-R11,LR}
+   \        0x4   0xB087             SUB      SP,SP,#+28
+   \        0x6   0x4607             MOV      R7,R0
+   \        0x8   0x468B             MOV      R11,R1
+    166              char *buf = NULL;
+   \        0xA   0x2500             MOVS     R5,#+0
+    167              char *dev_info = NULL;
+   \        0xC   0x462C             MOV      R4,R5
+    168              int i;
+    169              platform_netaddr_t notify_sa;
+    170              memset(&notify_sa, 0, sizeof(notify_sa));
+   \        0xE   0x4622             MOV      R2,R4
+   \       0x10   0x2112             MOVS     R1,#+18
+   \       0x12   0xA802             ADD      R0,SP,#+8
+   \       0x14   0x....'....        BL       __aeabi_memset4
+    171          
+    172              do {
+    173                  void *cb = NULL;
+   \       0x18   0x46A2             MOV      R10,R4
+    174                  char *method = NULL, *topic = NULL;
+   \       0x1A   0x46A0             MOV      R8,R4
+   \       0x1C   0x4626             MOV      R6,R4
+    175                  for (i = 0; i < sizeof(notify_map) / sizeof(notify_map[0]); i ++) {
+   \       0x1E   0x4620             MOV      R0,R4
+   \       0x20   0xE000             B.N      ??awss_notify_dev_info_0
+    176                      if (notify_map[i].notify_type != type) {
+    177                          continue;
+   \                     ??awss_notify_dev_info_1: (+1)
+   \       0x22   0x2001             MOVS     R0,#+1
+   \                     ??awss_notify_dev_info_0: (+1)
+   \       0x24   0x2800             CMP      R0,#+0
+   \       0x26   0xD108             BNE.N    ??awss_notify_dev_info_2
+   \       0x28   0x2F01             CMP      R7,#+1
+   \       0x2A   0xD1FA             BNE.N    ??awss_notify_dev_info_1
+    178                      }
+    179          
+    180                      method = notify_map[i].notify_method;
+   \       0x2C   0x....'....        LDR.W    R0,??DataTable7_3
+   \       0x30   0xF8D0 0x8004      LDR      R8,[R0, #+4]
+    181                      topic = notify_map[i].notify_topic;
+   \       0x34   0x6886             LDR      R6,[R0, #+8]
+    182                      cb = notify_map[i].cb;
+   \       0x36   0xF8D0 0xA00C      LDR      R10,[R0, #+12]
+    183                      break;
+    184                  }
+    185                  if (method == NULL || topic == NULL) {
+   \                     ??awss_notify_dev_info_2: (+1)
+   \       0x3A   0xF1B8 0x0F00      CMP      R8,#+0
+   \       0x3E   0xD05C             BEQ.N    ??awss_notify_dev_info_3
+   \       0x40   0x2E00             CMP      R6,#+0
+   \       0x42   0xD05A             BEQ.N    ??awss_notify_dev_info_3
+    186                      awss_err("parametes invalid");
+    187                      break;
+    188                  }
+    189          
+    190                  buf = os_zalloc(DEV_INFO_LEN_MAX);
+   \       0x44   0xF44F 0x7000      MOV      R0,#+512
+   \       0x48   0x....'....        BL       os_zalloc
+   \       0x4C   0x4605             MOV      R5,R0
+    191                  dev_info = os_zalloc(DEV_INFO_LEN_MAX);
+   \       0x4E   0xF44F 0x7000      MOV      R0,#+512
+   \       0x52   0x....'....        BL       os_zalloc
+   \       0x56   0x4604             MOV      R4,R0
+    192                  if (buf == NULL || dev_info == NULL) {
+   \       0x58   0x2D00             CMP      R5,#+0
+   \       0x5A   0xD04E             BEQ.N    ??awss_notify_dev_info_3
+   \       0x5C   0x2C00             CMP      R4,#+0
+   \       0x5E   0xD04C             BEQ.N    ??awss_notify_dev_info_3
+    193                      awss_err("alloc mem fail");
+    194                      break;
+    195                  }
+    196          
+    197                  memset(&notify_sa, 0, sizeof(notify_sa));
+   \       0x60   0x2200             MOVS     R2,#+0
+   \       0x62   0x2112             MOVS     R1,#+18
+   \       0x64   0xA802             ADD      R0,SP,#+8
+   \       0x66   0x....'....        BL       __aeabi_memset4
+    198                  memcpy(notify_sa.host, AWSS_NOTIFY_HOST, strlen(AWSS_NOTIFY_HOST));
+   \       0x6A   0x220F             MOVS     R2,#+15
+   \       0x6C   0x....'....        LDR.W    R1,??DataTable7_4
+   \       0x70   0xA802             ADD      R0,SP,#+8
+   \       0x72   0x....'....        BL       __aeabi_memcpy4
+    199                  notify_sa.port = AWSS_NOTIFY_PORT;
+   \       0x76   0xF241 0x6033      MOVW     R0,#+5683
+   \       0x7A   0xF8AD 0x0018      STRH     R0,[SP, #+24]
+    200          
+    201                  awss_build_dev_info(type, dev_info, DEV_INFO_LEN_MAX);
+   \       0x7E   0xF44F 0x7200      MOV      R2,#+512
+   \       0x82   0x4621             MOV      R1,R4
+   \       0x84   0x4638             MOV      R0,R7
+   \       0x86   0x....'....        BL       awss_build_dev_info
+    202          
+    203                  HAL_Snprintf(buf, DEV_INFO_LEN_MAX - 1, AWSS_DEV_NOTIFY_FMT, ++ g_notify_id, method, dev_info);
+   \       0x8A   0x....'....        LDR.W    R0,??DataTable7
+   \       0x8E   0x7801             LDRB     R1,[R0, #+0]
+   \       0x90   0x1C49             ADDS     R1,R1,#+1
+   \       0x92   0x7001             STRB     R1,[R0, #+0]
+   \       0x94   0x9401             STR      R4,[SP, #+4]
+   \       0x96   0xF8CD 0x8000      STR      R8,[SP, #+0]
+   \       0x9A   0x7803             LDRB     R3,[R0, #+0]
+   \       0x9C   0x....'....        LDR.W    R2,??DataTable7_5
+   \       0xA0   0xF240 0x11FF      MOVW     R1,#+511
+   \       0xA4   0x4628             MOV      R0,R5
+   \       0xA6   0x....'....        BL       HAL_Snprintf
+    204          
+    205                  awss_info("topic:%s\n", topic);
+    206                  awss_debug("payload:%s\n", buf);
+    207                  for (i = 0; i < count; i ++) {
+   \       0xAA   0x2000             MOVS     R0,#+0
+   \       0xAC   0x46D8             MOV      R8,R11
+   \       0xAE   0x46A9             MOV      R9,R5
+   \       0xB0   0x4655             MOV      R5,R10
+   \       0xB2   0x4682             MOV      R10,R0
+   \                     ??awss_notify_dev_info_4: (+1)
+   \       0xB4   0x45C2             CMP      R10,R8
+   \       0xB6   0xDA1F             BGE.N    ??awss_notify_dev_info_5
+    208                      int ret = awss_cmp_coap_send(buf, strlen(buf), &notify_sa, topic, cb, &g_notify_msg_id[type]);
+   \       0xB8   0x4648             MOV      R0,R9
+   \       0xBA   0x....'....        BL       strlen
+   \       0xBE   0x....'....        LDR.W    R1,??DataTable7_6
+   \       0xC2   0xEB01 0x0147      ADD      R1,R1,R7, LSL #+1
+   \       0xC6   0x9101             STR      R1,[SP, #+4]
+   \       0xC8   0x9500             STR      R5,[SP, #+0]
+   \       0xCA   0x4633             MOV      R3,R6
+   \       0xCC   0xAA02             ADD      R2,SP,#+8
+   \       0xCE   0x4601             MOV      R1,R0
+   \       0xD0   0x4648             MOV      R0,R9
+   \       0xD2   0x....'....        BL       awss_cmp_coap_send
+    209                      awss_info("send notify %s", ret == 0 ? "success" : "fail");
+    210                      if (count > 1) {
+   \       0xD6   0xF1B8 0x0F02      CMP      R8,#+2
+   \       0xDA   0xDB05             BLT.N    ??awss_notify_dev_info_6
+    211                          HAL_SleepMs(200 + 100 * i);
+   \       0xDC   0x2064             MOVS     R0,#+100
+   \       0xDE   0xFB00 0xF00A      MUL      R0,R0,R10
+   \       0xE2   0x30C8             ADDS     R0,R0,#+200
+   \       0xE4   0x....'....        BL       HAL_SleepMs
+    212                      }
+    213          
+    214                      if (awss_notify_resp[type]) {
+   \                     ??awss_notify_dev_info_6: (+1)
+   \       0xE8   0x....'....        LDR.W    R0,??DataTable7_2
+   \       0xEC   0x5DC0             LDRB     R0,[R0, R7]
+   \       0xEE   0x2800             CMP      R0,#+0
+   \       0xF0   0xD102             BNE.N    ??awss_notify_dev_info_5
+    215                          break;
+    216                      }
+    217                  }
+   \       0xF2   0xF10A 0x0A01      ADD      R10,R10,#+1
+   \       0xF6   0xE7DD             B.N      ??awss_notify_dev_info_4
+    218              } while (0);
+   \                     ??awss_notify_dev_info_5: (+1)
+   \       0xF8   0x464D             MOV      R5,R9
+    219          
+    220              if (buf) {
+   \                     ??awss_notify_dev_info_3: (+1)
+   \       0xFA   0x2D00             CMP      R5,#+0
+   \       0xFC   0xD002             BEQ.N    ??awss_notify_dev_info_7
+    221                  HAL_Free(buf);
+   \       0xFE   0x4628             MOV      R0,R5
+   \      0x100   0x....'....        BL       HAL_Free
+    222              }
+    223              if (dev_info) {
+   \                     ??awss_notify_dev_info_7: (+1)
+   \      0x104   0x2C00             CMP      R4,#+0
+   \      0x106   0xD002             BEQ.N    ??awss_notify_dev_info_8
+    224                  HAL_Free(dev_info);
+   \      0x108   0x4620             MOV      R0,R4
+   \      0x10A   0x....'....        BL       HAL_Free
+    225              }
+    226          
+    227              return awss_notify_resp[type];
+   \                     ??awss_notify_dev_info_8: (+1)
+   \      0x10E   0x....'....        LDR.W    R0,??DataTable7_2
+   \      0x112   0x5DC0             LDRB     R0,[R0, R7]
+   \      0x114   0xB007             ADD      SP,SP,#+28
+   \      0x116   0xE8BD 0x8FF0      POP      {R4-R11,PC}      ;; return
+    228          }
+    229          
+    230          #define AWSS_NOTIFY_CNT_MAX (30)
+    231          
+
+   \                                 In section .bss, align 4
+    232          volatile static void *coap_session_ctx = NULL;
+   \                     coap_session_ctx:
+   \        0x0                      DS8 4
+    233          
+
+   \                                 In section .text, align 2, keep-with-next
+    234          static int awss_process_get_devinfo()
+    235          {
+   \                     awss_process_get_devinfo: (+1)
+   \        0x0   0xE92D 0x41F8      PUSH     {R3-R8,LR}
+   \        0x4   0xB0AB             SUB      SP,SP,#+172
+    236              char *buf = NULL;
+    237              char *dev_info = NULL;
+   \        0x6   0x2400             MOVS     R4,#+0
+    238          
+    239              if (awss_report_token_suc == 0) {
+   \        0x8   0x....'....        LDR.W    R0,??DataTable7_7
+   \        0xC   0x7800             LDRB     R0,[R0, #+0]
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD108             BNE.N    ??awss_process_get_devinfo_0
+    240                  awss_debug("try to report token to cloud");
+    241                  HAL_Timer_Start(get_devinfo_timer, AWSS_CHECK_RESP_TIME);
+   \       0x12   0xF44F 0x7196      MOV      R1,#+300
+   \       0x16   0x....'....        LDR.W    R0,??DataTable7_8
+   \       0x1A   0x6800             LDR      R0,[R0, #+0]
+   \       0x1C   0x....'....        BL       HAL_Timer_Start
+    242                  return 0;
+   \       0x20   0x4620             MOV      R0,R4
+   \       0x22   0xE099             B.N      ??awss_process_get_devinfo_1
+    243              }
+    244          
+    245              if (coap_session_ctx == NULL) {
+   \                     ??awss_process_get_devinfo_0: (+1)
+   \       0x24   0x....'....        LDR.W    R6,??DataTable7_9
+   \       0x28   0x6830             LDR      R0,[R6, #+0]
+   \       0x2A   0x2800             CMP      R0,#+0
+   \       0x2C   0xF000 0x8092      BEQ.W    ??awss_process_get_devinfo_2
+    246                  awss_debug("no get req");
+    247                  return -1;
+    248              }
+    249          
+    250              do {
+    251                  int len = 0, id_len = 0;
+   \       0x30   0x4620             MOV      R0,R4
+   \       0x32   0x9005             STR      R0,[SP, #+20]
+   \       0x34   0x9004             STR      R0,[SP, #+16]
+    252                  char *msg = NULL, *id = NULL;
+    253                  char req_msg_id[MSG_REQ_ID_LEN + 1];
+    254                  char topic[TOPIC_LEN_MAX] = { 0 };
+   \       0x36   0xA80B             ADD      R0,SP,#+44
+   \       0x38   0x2180             MOVS     R1,#+128
+   \       0x3A   0x....'....        BL       __aeabi_memclr4
+    255                  struct coap_session_ctx_t *ctx = (struct coap_session_ctx_t *)coap_session_ctx;
+   \       0x3E   0x6837             LDR      R7,[R6, #+0]
+    256          
+    257                  buf = os_zalloc(DEV_INFO_LEN_MAX);
+   \       0x40   0xF44F 0x7000      MOV      R0,#+512
+   \       0x44   0x....'....        BL       os_zalloc
+   \       0x48   0x0005             MOVS     R5,R0
+    258                  if (buf == NULL) {
+   \       0x4A   0xD06E             BEQ.N    ??awss_process_get_devinfo_3
+    259                      goto GET_DEV_INFO_ERR;
+    260                  }
+    261          
+    262                  dev_info = os_zalloc(DEV_INFO_LEN_MAX);
+   \       0x4C   0xF44F 0x7000      MOV      R0,#+512
+   \       0x50   0x....'....        BL       os_zalloc
+   \       0x54   0x0004             MOVS     R4,R0
+    263                  if (dev_info == NULL) {
+   \       0x56   0xD068             BEQ.N    ??awss_process_get_devinfo_3
+    264                      goto GET_DEV_INFO_ERR;
+    265                  }
+    266          
+    267                  msg = awss_cmp_get_coap_payload(ctx->request, &len);
+   \       0x58   0xA905             ADD      R1,SP,#+20
+   \       0x5A   0x6838             LDR      R0,[R7, #+0]
+   \       0x5C   0x....'....        BL       awss_cmp_get_coap_payload
+    268                  if (msg == NULL) {
+   \       0x60   0x2800             CMP      R0,#+0
+   \       0x62   0xD062             BEQ.N    ??awss_process_get_devinfo_3
+    269                      goto GET_DEV_INFO_ERR;
+    270                  }
+    271          
+    272                  id = json_get_value_by_name(msg, len, "id", &id_len, 0);
+   \       0x64   0x2100             MOVS     R1,#+0
+   \       0x66   0x9100             STR      R1,[SP, #+0]
+   \       0x68   0xAB04             ADD      R3,SP,#+16
+   \       0x6A   0x....             ADR.N    R2,??DataTable4  ;; 0x69, 0x64, 0x00, 0x00
+   \       0x6C   0x9905             LDR      R1,[SP, #+20]
+   \       0x6E   0x....'....        BL       json_get_value_by_name
+   \       0x72   0x4680             MOV      R8,R0
+    273                  memset(req_msg_id, 0, sizeof(req_msg_id));
+   \       0x74   0x2200             MOVS     R2,#+0
+   \       0x76   0x2111             MOVS     R1,#+17
+   \       0x78   0xA806             ADD      R0,SP,#+24
+   \       0x7A   0x....'....        BL       __aeabi_memset4
+    274          
+    275                  if(id_len > MSG_REQ_ID_LEN) {
+   \       0x7E   0x9804             LDR      R0,[SP, #+16]
+   \       0x80   0x2811             CMP      R0,#+17
+   \       0x82   0xDA52             BGE.N    ??awss_process_get_devinfo_3
+    276                      goto GET_DEV_INFO_ERR;     
+    277                  }
+    278                  memcpy(req_msg_id, id, id_len);
+   \       0x84   0x4602             MOV      R2,R0
+   \       0x86   0x4641             MOV      R1,R8
+   \       0x88   0xA806             ADD      R0,SP,#+24
+   \       0x8A   0x....'....        BL       __aeabi_memcpy
+    279          
+    280                  awss_build_dev_info(AWSS_NOTIFY_DEV_BIND_TOKEN, buf, DEV_INFO_LEN_MAX);
+   \       0x8E   0xF44F 0x7200      MOV      R2,#+512
+   \       0x92   0x4629             MOV      R1,R5
+   \       0x94   0x2001             MOVS     R0,#+1
+   \       0x96   0x....'....        BL       awss_build_dev_info
+    281                  HAL_Snprintf(dev_info, DEV_INFO_LEN_MAX - 1, "{%s}", buf);
+   \       0x9A   0xF240 0x18FF      MOVW     R8,#+511
+   \       0x9E   0x462B             MOV      R3,R5
+   \       0xA0   0x....             LDR.N    R2,??DataTable7_10
+   \       0xA2   0x4641             MOV      R1,R8
+   \       0xA4   0x4620             MOV      R0,R4
+   \       0xA6   0x....'....        BL       HAL_Snprintf
+    282                  memset(buf, 0x00, DEV_INFO_LEN_MAX);
+   \       0xAA   0x2200             MOVS     R2,#+0
+   \       0xAC   0xF44F 0x7100      MOV      R1,#+512
+   \       0xB0   0x4628             MOV      R0,R5
+   \       0xB2   0x....'....        BL       __aeabi_memset
+    283                  HAL_Snprintf(buf, DEV_INFO_LEN_MAX - 1, AWSS_ACK_FMT, req_msg_id, 200, dev_info);
+   \       0xB6   0x9401             STR      R4,[SP, #+4]
+   \       0xB8   0x20C8             MOVS     R0,#+200
+   \       0xBA   0x9000             STR      R0,[SP, #+0]
+   \       0xBC   0xAB06             ADD      R3,SP,#+24
+   \       0xBE   0x....             LDR.N    R2,??DataTable7_11
+   \       0xC0   0x4641             MOV      R1,R8
+   \       0xC2   0x4628             MOV      R0,R5
+   \       0xC4   0x....'....        BL       HAL_Snprintf
+    284                  HAL_Free(dev_info);
+   \       0xC8   0x4620             MOV      R0,R4
+   \       0xCA   0x....'....        BL       HAL_Free
+    285          
+    286                  awss_info("sending message to app: %s", buf);
+    287                  if (ctx->is_mcast) {
+   \       0xCE   0x7A38             LDRB     R0,[R7, #+8]
+   \       0xD0   0x2800             CMP      R0,#+0
+   \       0xD2   0xD005             BEQ.N    ??awss_process_get_devinfo_4
+    288                      awss_build_topic((const char *)TOPIC_GETDEVICEINFO_MCAST, topic, TOPIC_LEN_MAX);
+   \       0xD4   0x2280             MOVS     R2,#+128
+   \       0xD6   0xA90B             ADD      R1,SP,#+44
+   \       0xD8   0x....             LDR.N    R0,??DataTable7_12
+   \       0xDA   0x....'....        BL       awss_build_topic
+   \       0xDE   0xE004             B.N      ??awss_process_get_devinfo_5
+    289                  } else {
+    290                      awss_build_topic((const char *)TOPIC_GETDEVICEINFO_UCAST, topic, TOPIC_LEN_MAX);
+   \                     ??awss_process_get_devinfo_4: (+1)
+   \       0xE0   0x2280             MOVS     R2,#+128
+   \       0xE2   0xA90B             ADD      R1,SP,#+44
+   \       0xE4   0x....             LDR.N    R0,??DataTable7_13
+   \       0xE6   0x....'....        BL       awss_build_topic
+    291                  }
+    292          
+    293                  /*before tx to app, clear token suc flag*/
+    294                  awss_update_token();
+   \                     ??awss_process_get_devinfo_5: (+1)
+   \       0xEA   0x....'....        BL       awss_update_token
+    295          
+    296                  if (0 != awss_cmp_coap_send_resp(buf, strlen(buf), ctx->remote, topic, ctx->request, NULL, NULL, 0)) {
+   \       0xEE   0x4628             MOV      R0,R5
+   \       0xF0   0x....'....        BL       strlen
+   \       0xF4   0x4601             MOV      R1,R0
+   \       0xF6   0x2000             MOVS     R0,#+0
+   \       0xF8   0x9003             STR      R0,[SP, #+12]
+   \       0xFA   0x9002             STR      R0,[SP, #+8]
+   \       0xFC   0x9001             STR      R0,[SP, #+4]
+   \       0xFE   0x6838             LDR      R0,[R7, #+0]
+   \      0x100   0x9000             STR      R0,[SP, #+0]
+   \      0x102   0xAB0B             ADD      R3,SP,#+44
+   \      0x104   0x687A             LDR      R2,[R7, #+4]
+   \      0x106   0x4628             MOV      R0,R5
+   \      0x108   0x....'....        BL       awss_cmp_coap_send_resp
+    297                      awss_err("sending failed.");
+    298                  }
+    299          
+    300                  HAL_Free(buf);
+   \      0x10C   0x4628             MOV      R0,R5
+   \      0x10E   0x....'....        BL       HAL_Free
+    301                  awss_release_coap_ctx((void *)coap_session_ctx);
+   \      0x112   0x6830             LDR      R0,[R6, #+0]
+   \      0x114   0x....'....        BL       awss_release_coap_ctx
+    302                  coap_session_ctx = NULL;
+   \      0x118   0x2000             MOVS     R0,#+0
+   \      0x11A   0x6030             STR      R0,[R6, #+0]
+    303                  awss_stop_timer(get_devinfo_timer);
+   \      0x11C   0x....             LDR.N    R4,??DataTable7_8
+   \      0x11E   0x6820             LDR      R0,[R4, #+0]
+   \      0x120   0x....'....        BL       awss_stop_timer
+    304                  get_devinfo_timer = NULL;
+   \      0x124   0x2000             MOVS     R0,#+0
+   \      0x126   0x6020             STR      R0,[R4, #+0]
+    305              } while (0);
+    306          
+    307              return 0;
+   \      0x128   0xE016             B.N      ??awss_process_get_devinfo_1
+    308          
+    309          GET_DEV_INFO_ERR:
+    310              awss_release_coap_ctx((void *)coap_session_ctx);
+   \                     ??awss_process_get_devinfo_3: (+1)
+   \      0x12A   0x6830             LDR      R0,[R6, #+0]
+   \      0x12C   0x....'....        BL       awss_release_coap_ctx
+    311              coap_session_ctx = NULL;
+   \      0x130   0x2000             MOVS     R0,#+0
+   \      0x132   0x6030             STR      R0,[R6, #+0]
+    312              awss_stop_timer(get_devinfo_timer);
+   \      0x134   0x....             LDR.N    R6,??DataTable7_8
+   \      0x136   0x6830             LDR      R0,[R6, #+0]
+   \      0x138   0x....'....        BL       awss_stop_timer
+    313              get_devinfo_timer = NULL;
+   \      0x13C   0x2000             MOVS     R0,#+0
+   \      0x13E   0x6030             STR      R0,[R6, #+0]
+    314          
+    315              if (buf) {
+   \      0x140   0x2D00             CMP      R5,#+0
+   \      0x142   0xD002             BEQ.N    ??awss_process_get_devinfo_6
+    316                  HAL_Free(buf);
+   \      0x144   0x4628             MOV      R0,R5
+   \      0x146   0x....'....        BL       HAL_Free
+    317              }
+    318              if (dev_info) {
+   \                     ??awss_process_get_devinfo_6: (+1)
+   \      0x14A   0x2C00             CMP      R4,#+0
+   \      0x14C   0xD002             BEQ.N    ??awss_process_get_devinfo_2
+    319                  HAL_Free(dev_info);
+   \      0x14E   0x4620             MOV      R0,R4
+   \      0x150   0x....'....        BL       HAL_Free
+    320              }
+    321          
+    322              return -1;
+   \                     ??awss_process_get_devinfo_2: (+1)
+   \      0x154   0xF04F 0x30FF      MOV      R0,#-1
+   \                     ??awss_process_get_devinfo_1: (+1)
+   \      0x158   0xB02C             ADD      SP,SP,#+176
+   \      0x15A   0xE8BD 0x81F0      POP      {R4-R8,PC}       ;; return
+    323          }
+    324          
+
+   \                                 In section .text, align 2, keep-with-next
+    325          static int online_get_device_info(void *ctx, void *resource, void *remote,
+    326                                            void *request, char is_mcast)
+    327          {
+   \                     online_get_device_info: (+1)
+   \        0x0   0xB570             PUSH     {R4-R6,LR}
+   \        0x2   0x4614             MOV      R4,R2
+   \        0x4   0x461D             MOV      R5,R3
+    328              int timeout = 0;
+    329          
+    330              if(awss_check_reset()) {
+   \        0x6   0x....'....        BL       awss_check_reset
+   \        0xA   0x2800             CMP      R0,#+0
+   \        0xC   0xD10B             BNE.N    ??online_get_device_info_0
+    331                  return -1;
+    332              }
+    333              /*
+    334               * if the last one is not finished, drop current request
+    335               */
+    336              if (coap_session_ctx != NULL) {
+   \        0xE   0x....             LDR.N    R6,??DataTable7_9
+   \       0x10   0x6830             LDR      R0,[R6, #+0]
+   \       0x12   0x2800             CMP      R0,#+0
+   \       0x14   0xD107             BNE.N    ??online_get_device_info_0
+   \       0x16   0x9A04             LDR      R2,[SP, #+16]
+    337                  awss_debug("no req");
+    338                  return -1;
+    339              }
+    340              /*
+    341               * copy coap session context
+    342               */
+    343              coap_session_ctx = awss_cpy_coap_ctx(request, remote, is_mcast);
+   \       0x18   0x4621             MOV      R1,R4
+   \       0x1A   0x4628             MOV      R0,R5
+   \       0x1C   0x....'....        BL       awss_cpy_coap_ctx
+   \       0x20   0x6030             STR      R0,[R6, #+0]
+    344              if (coap_session_ctx == NULL) {
+   \       0x22   0x2800             CMP      R0,#+0
+   \       0x24   0xD102             BNE.N    ??online_get_device_info_1
+    345                  awss_err("cpy req ctx fail");
+    346                  return -1;
+   \                     ??online_get_device_info_0: (+1)
+   \       0x26   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x2A   0xBD70             POP      {R4-R6,PC}
+    347              }
+    348          
+    349              timeout = awss_token_timeout();
+   \                     ??online_get_device_info_1: (+1)
+   \       0x2C   0x....'....        BL       awss_token_timeout
+   \       0x30   0x0004             MOVS     R4,R0
+    350              if (timeout) {
+   \       0x32   0xD005             BEQ.N    ??online_get_device_info_2
+    351                  produce_random(aes_random, sizeof(aes_random));
+   \       0x34   0x2110             MOVS     R1,#+16
+   \       0x36   0x....             LDR.N    R0,??DataTable7_14
+   \       0x38   0x....'....        BL       produce_random
+    352                  awss_report_token();
+   \       0x3C   0x....'....        BL       awss_report_token
+    353              }
+    354          
+    355              if (get_devinfo_timer == NULL) {
+   \                     ??online_get_device_info_2: (+1)
+   \       0x40   0x....             LDR.N    R5,??DataTable7_8
+   \       0x42   0x6828             LDR      R0,[R5, #+0]
+   \       0x44   0x2800             CMP      R0,#+0
+   \       0x46   0xD105             BNE.N    ??online_get_device_info_3
+    356                  get_devinfo_timer = HAL_Timer_Create("get_devinfo", (void (*)(void *))awss_process_get_devinfo, NULL);
+   \       0x48   0x2200             MOVS     R2,#+0
+   \       0x4A   0x....             LDR.N    R1,??DataTable7_15
+   \       0x4C   0x....             LDR.N    R0,??DataTable7_16
+   \       0x4E   0x....'....        BL       HAL_Timer_Create
+   \       0x52   0x6028             STR      R0,[R5, #+0]
+    357              }
+    358              HAL_Timer_Stop(get_devinfo_timer);
+   \                     ??online_get_device_info_3: (+1)
+   \       0x54   0x6828             LDR      R0,[R5, #+0]
+   \       0x56   0x....'....        BL       HAL_Timer_Stop
+    359              HAL_Timer_Start(get_devinfo_timer, timeout ? AWSS_CHECK_RESP_TIME : 1);
+   \       0x5A   0x2C00             CMP      R4,#+0
+   \       0x5C   0xD002             BEQ.N    ??online_get_device_info_4
+   \       0x5E   0xF44F 0x7196      MOV      R1,#+300
+   \       0x62   0xE000             B.N      ??online_get_device_info_5
+   \                     ??online_get_device_info_4: (+1)
+   \       0x64   0x2101             MOVS     R1,#+1
+   \                     ??online_get_device_info_5: (+1)
+   \       0x66   0x6828             LDR      R0,[R5, #+0]
+   \       0x68   0x....'....        BL       HAL_Timer_Start
+    360          
+    361              return 0;
+   \       0x6C   0x2000             MOVS     R0,#+0
+   \       0x6E   0xBD70             POP      {R4-R6,PC}       ;; return
+    362          }
+    363          
+
+   \                                 In section .text, align 2, keep-with-next
+    364          int online_mcast_get_device_info(void *ctx, void *resource, void *remote, void *request)
+    365          {
+   \                     online_mcast_get_device_info: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+    366              return online_get_device_info(ctx, resource, remote, request, 1);
+   \        0x2   0x2401             MOVS     R4,#+1
+   \        0x4   0x9400             STR      R4,[SP, #+0]
+   \        0x6   0x....'....        BL       online_get_device_info
+   \        0xA   0xBD16             POP      {R1,R2,R4,PC}    ;; return
+    367          }
+    368          
+
+   \                                 In section .text, align 2, keep-with-next
+    369          int online_ucast_get_device_info(void *ctx, void *resource, void *remote, void *request)
+    370          {
+   \                     online_ucast_get_device_info: (+1)
+   \        0x0   0xB51C             PUSH     {R2-R4,LR}
+    371              return online_get_device_info(ctx, resource, remote, request, 0);
+   \        0x2   0x2400             MOVS     R4,#+0
+   \        0x4   0x9400             STR      R4,[SP, #+0]
+   \        0x6   0x....'....        BL       online_get_device_info
+   \        0xA   0xBD16             POP      {R1,R2,R4,PC}    ;; return
+    372          }
+    373          
+
+   \                                 In section .bss, align 4
+    374          static int dev_bind_interval = 0;
+   \                     dev_bind_interval:
+   \        0x0                      DS8 4
+
+   \                                 In section .bss, align 1
+    375          static char dev_bind_cnt = 0;
+   \                     dev_bind_cnt:
+   \        0x0                      DS8 1
+
+   \                                 In section .text, align 2, keep-with-next
+    376          static int __awss_dev_bind_notify()
+    377          {
+   \                     __awss_dev_bind_notify: (+1)
+   \        0x0   0xB5F8             PUSH     {R3-R7,LR}
+    378              /*
+    379               * wait for token is sent to cloud and rx reply from cloud
+    380               */
+    381              if (awss_report_token_suc == 0) {
+   \        0x2   0x....             LDR.N    R0,??DataTable7_7
+   \        0x4   0x7800             LDRB     R0,[R0, #+0]
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD113             BNE.N    ??__awss_dev_bind_notify_0
+    382                  if (dev_bind_notify_timer == NULL) {
+   \        0xA   0x....             LDR.N    R4,??DataTable7_17
+   \        0xC   0x6820             LDR      R0,[R4, #+0]
+   \        0xE   0x2800             CMP      R0,#+0
+   \       0x10   0xD105             BNE.N    ??__awss_dev_bind_notify_1
+    383                      dev_bind_notify_timer = HAL_Timer_Create("dev_bind", (void (*)(void *))__awss_dev_bind_notify, NULL);
+   \       0x12   0x2200             MOVS     R2,#+0
+   \       0x14   0x....             LDR.N    R1,??DataTable7_18
+   \       0x16   0x....             LDR.N    R0,??DataTable7_19
+   \       0x18   0x....'....        BL       HAL_Timer_Create
+   \       0x1C   0x6020             STR      R0,[R4, #+0]
+    384                  }
+    385                  HAL_Timer_Stop(dev_bind_notify_timer);
+   \                     ??__awss_dev_bind_notify_1: (+1)
+   \       0x1E   0x6820             LDR      R0,[R4, #+0]
+   \       0x20   0x....'....        BL       HAL_Timer_Stop
+    386                  HAL_Timer_Start(dev_bind_notify_timer, AWSS_CHECK_RESP_TIME);
+   \       0x24   0xF44F 0x7196      MOV      R1,#+300
+   \       0x28   0x6820             LDR      R0,[R4, #+0]
+   \       0x2A   0x....'....        BL       HAL_Timer_Start
+    387                  return 0;
+   \       0x2E   0x2000             MOVS     R0,#+0
+   \       0x30   0xBDF2             POP      {R1,R4-R7,PC}
+    388              }
+    389          
+    390              if (dev_bind_notify_mutex == NULL) {
+   \                     ??__awss_dev_bind_notify_0: (+1)
+   \       0x32   0x....             LDR.N    R4,??DataTable7_20
+   \       0x34   0x6820             LDR      R0,[R4, #+0]
+   \       0x36   0x2800             CMP      R0,#+0
+   \       0x38   0xD107             BNE.N    ??__awss_dev_bind_notify_2
+    391                  dev_bind_notify_mutex = HAL_MutexCreate();
+   \       0x3A   0x....'....        BL       HAL_MutexCreate
+   \       0x3E   0x6020             STR      R0,[R4, #+0]
+    392                  if (dev_bind_notify_mutex == NULL) {
+   \       0x40   0x2800             CMP      R0,#+0
+   \       0x42   0xD102             BNE.N    ??__awss_dev_bind_notify_2
+    393                      return -1;
+   \       0x44   0xF04F 0x30FF      MOV      R0,#-1
+   \       0x48   0xBDF2             POP      {R1,R4-R7,PC}
+    394                  }
+    395              }
+    396          
+    397              if (dev_bind_cnt == 0) {
+   \                     ??__awss_dev_bind_notify_2: (+1)
+   \       0x4A   0x....             LDR.N    R5,??DataTable7_21
+   \       0x4C   0x7828             LDRB     R0,[R5, #+0]
+   \       0x4E   0x2800             CMP      R0,#+0
+   \       0x50   0xD103             BNE.N    ??__awss_dev_bind_notify_3
+    398                  awss_event_post(IOTX_AWSS_BIND_NOTIFY);
+   \       0x52   0xF241 0x000F      MOVW     R0,#+4111
+   \       0x56   0x....'....        BL       awss_event_post
+    399              }
+    400          
+    401              HAL_MutexLock(dev_bind_notify_mutex);
+   \                     ??__awss_dev_bind_notify_3: (+1)
+   \       0x5A   0x6820             LDR      R0,[R4, #+0]
+   \       0x5C   0x....'....        BL       HAL_MutexLock
+    402          
+    403              do {
+    404                  uint8_t i = 0;
+   \       0x60   0x2100             MOVS     R1,#+0
+    405          
+    406                  if (awss_notify_resp[AWSS_NOTIFY_DEV_BIND_TOKEN] != 0) {
+   \       0x62   0x....             LDR.N    R6,??DataTable7_2
+   \       0x64   0x7870             LDRB     R0,[R6, #+1]
+   \       0x66   0x2800             CMP      R0,#+0
+   \       0x68   0xD024             BEQ.N    ??__awss_dev_bind_notify_4
+    407                      break;
+    408                  }
+    409          
+    410                  for (i = 0; i < RANDOM_MAX_LEN; i ++)
+    411                      if (aes_random[i] != 0x00) {
+    412                          break;
+    413                      }
+    414          
+    415                  if (i >= RANDOM_MAX_LEN) {
+    416                      produce_random(aes_random, sizeof(aes_random));
+    417                  }
+    418          
+    419                  if (awss_token_timeout() == 0) {
+    420                      awss_notify_dev_info(AWSS_NOTIFY_DEV_BIND_TOKEN, 1);
+    421                      dev_bind_interval += 100;
+    422                      dev_bind_cnt ++;
+    423                  }
+    424          #ifdef DEV_BIND_TEST
+    425                  if (dev_bind_cnt > 3) {
+    426                      HAL_Reboot();
+    427                  }
+    428          #endif
+    429          
+    430                  if (dev_bind_cnt < AWSS_NOTIFY_CNT_MAX &&
+    431                      awss_notify_resp[AWSS_NOTIFY_DEV_BIND_TOKEN] == 0) {
+    432                      if (dev_bind_notify_timer == NULL) {
+    433                          dev_bind_notify_timer = HAL_Timer_Create("dev_bind", (void (*)(void *))awss_dev_bind_notify, NULL);
+    434                      }
+    435                      HAL_Timer_Stop(dev_bind_notify_timer);
+    436                      HAL_Timer_Start(dev_bind_notify_timer, dev_bind_interval);
+    437                      HAL_MutexUnlock(dev_bind_notify_mutex);
+    438                      return 0;
+    439                  }
+    440              } while (0);
+    441          
+    442              awss_cmp_coap_cancel_packet(g_notify_msg_id[AWSS_NOTIFY_DEV_BIND_TOKEN]);
+   \                     ??__awss_dev_bind_notify_5: (+1)
+   \       0x6A   0x....             LDR.N    R7,??DataTable7_6
+   \       0x6C   0x8878             LDRH     R0,[R7, #+2]
+   \       0x6E   0x....'....        BL       awss_cmp_coap_cancel_packet
+    443              g_notify_msg_id[AWSS_NOTIFY_DEV_BIND_TOKEN] = 0;
+   \       0x72   0x2000             MOVS     R0,#+0
+   \       0x74   0x8078             STRH     R0,[R7, #+2]
+    444              awss_notify_resp[AWSS_NOTIFY_DEV_BIND_TOKEN] = 0;
+   \       0x76   0x7070             STRB     R0,[R6, #+1]
+    445              dev_bind_interval = 0;
+   \       0x78   0x....             LDR.N    R1,??DataTable7_22
+   \       0x7A   0x6008             STR      R0,[R1, #+0]
+    446              dev_bind_cnt = 0;
+   \       0x7C   0x7028             STRB     R0,[R5, #+0]
+    447              if (dev_bind_notify_timer) {
+   \       0x7E   0x....             LDR.N    R5,??DataTable7_17
+   \       0x80   0x6828             LDR      R0,[R5, #+0]
+   \       0x82   0x2800             CMP      R0,#+0
+   \       0x84   0xD003             BEQ.N    ??__awss_dev_bind_notify_6
+    448                  awss_stop_timer(dev_bind_notify_timer);
+   \       0x86   0x....'....        BL       awss_stop_timer
+    449                  dev_bind_notify_timer = NULL;
+   \       0x8A   0x2000             MOVS     R0,#+0
+   \       0x8C   0x6028             STR      R0,[R5, #+0]
+    450              }
+    451              if (dev_bind_notify_mutex) {
+   \                     ??__awss_dev_bind_notify_6: (+1)
+   \       0x8E   0x6820             LDR      R0,[R4, #+0]
+   \       0x90   0x2800             CMP      R0,#+0
+   \       0x92   0xD006             BEQ.N    ??__awss_dev_bind_notify_7
+    452                  HAL_MutexUnlock(dev_bind_notify_mutex);
+   \       0x94   0x....'....        BL       HAL_MutexUnlock
+    453                  HAL_MutexDestroy(dev_bind_notify_mutex);
+   \       0x98   0x6820             LDR      R0,[R4, #+0]
+   \       0x9A   0x....'....        BL       HAL_MutexDestroy
+    454                  dev_bind_notify_mutex = NULL;
+   \       0x9E   0x2000             MOVS     R0,#+0
+   \       0xA0   0x6020             STR      R0,[R4, #+0]
+    455              }
+    456              return 1;
+   \                     ??__awss_dev_bind_notify_7: (+1)
+   \       0xA2   0x2001             MOVS     R0,#+1
+   \       0xA4   0xBDF2             POP      {R1,R4-R7,PC}    ;; return
+   \                     ??__awss_dev_bind_notify_8: (+1)
+   \       0xA6   0x....             LDR.N    R0,??DataTable7_14
+   \       0xA8   0x460A             MOV      R2,R1
+   \       0xAA   0xB2D2             UXTB     R2,R2
+   \       0xAC   0x5C80             LDRB     R0,[R0, R2]
+   \       0xAE   0x2800             CMP      R0,#+0
+   \       0xB0   0xD104             BNE.N    ??__awss_dev_bind_notify_9
+   \       0xB2   0x1C49             ADDS     R1,R1,#+1
+   \                     ??__awss_dev_bind_notify_4: (+1)
+   \       0xB4   0x4608             MOV      R0,R1
+   \       0xB6   0xB2C0             UXTB     R0,R0
+   \       0xB8   0x2810             CMP      R0,#+16
+   \       0xBA   0xDBF4             BLT.N    ??__awss_dev_bind_notify_8
+   \                     ??__awss_dev_bind_notify_9: (+1)
+   \       0xBC   0xB2C9             UXTB     R1,R1
+   \       0xBE   0x2910             CMP      R1,#+16
+   \       0xC0   0xDB03             BLT.N    ??__awss_dev_bind_notify_10
+   \       0xC2   0x2110             MOVS     R1,#+16
+   \       0xC4   0x....             LDR.N    R0,??DataTable7_14
+   \       0xC6   0x....'....        BL       produce_random
+   \                     ??__awss_dev_bind_notify_10: (+1)
+   \       0xCA   0x....'....        BL       awss_token_timeout
+   \       0xCE   0x2800             CMP      R0,#+0
+   \       0xD0   0xD10A             BNE.N    ??__awss_dev_bind_notify_11
+   \       0xD2   0x2101             MOVS     R1,#+1
+   \       0xD4   0x4608             MOV      R0,R1
+   \       0xD6   0x....'....        BL       awss_notify_dev_info
+   \       0xDA   0x....             LDR.N    R0,??DataTable7_22
+   \       0xDC   0x6801             LDR      R1,[R0, #+0]
+   \       0xDE   0x3164             ADDS     R1,R1,#+100
+   \       0xE0   0x6001             STR      R1,[R0, #+0]
+   \       0xE2   0x7828             LDRB     R0,[R5, #+0]
+   \       0xE4   0x1C40             ADDS     R0,R0,#+1
+   \       0xE6   0x7028             STRB     R0,[R5, #+0]
+   \                     ??__awss_dev_bind_notify_11: (+1)
+   \       0xE8   0x7828             LDRB     R0,[R5, #+0]
+   \       0xEA   0x281E             CMP      R0,#+30
+   \       0xEC   0xDABD             BGE.N    ??__awss_dev_bind_notify_5
+   \       0xEE   0x7870             LDRB     R0,[R6, #+1]
+   \       0xF0   0x2800             CMP      R0,#+0
+   \       0xF2   0xD1BA             BNE.N    ??__awss_dev_bind_notify_5
+   \       0xF4   0x....             LDR.N    R7,??DataTable7_17
+   \       0xF6   0x6838             LDR      R0,[R7, #+0]
+   \       0xF8   0x2800             CMP      R0,#+0
+   \       0xFA   0xD106             BNE.N    ??__awss_dev_bind_notify_12
+   \       0xFC   0x2200             MOVS     R2,#+0
+   \       0xFE   0x....'....        ADR.W    R1,awss_dev_bind_notify
+   \      0x102   0x....             LDR.N    R0,??DataTable7_19
+   \      0x104   0x....'....        BL       HAL_Timer_Create
+   \      0x108   0x6038             STR      R0,[R7, #+0]
+   \                     ??__awss_dev_bind_notify_12: (+1)
+   \      0x10A   0x6838             LDR      R0,[R7, #+0]
+   \      0x10C   0x....'....        BL       HAL_Timer_Stop
+   \      0x110   0x....             LDR.N    R0,??DataTable7_22
+   \      0x112   0x6801             LDR      R1,[R0, #+0]
+   \      0x114   0x6838             LDR      R0,[R7, #+0]
+   \      0x116   0x....'....        BL       HAL_Timer_Start
+   \      0x11A   0x6820             LDR      R0,[R4, #+0]
+   \      0x11C   0x....'....        BL       HAL_MutexUnlock
+   \      0x120   0x2000             MOVS     R0,#+0
+   \      0x122   0xBDF2             POP      {R1,R4-R7,PC}
+    457          }
+    458          
+
+   \                                 In section .text, align 4, keep-with-next
+    459          int awss_dev_bind_notify()
+    460          {
+    461              dev_bind_cnt = 0;
+   \                     awss_dev_bind_notify: (+1)
+   \        0x0   0x2000             MOVS     R0,#+0
+   \        0x2   0x....             LDR.N    R1,??DataTable7_21
+   \        0x4   0x7008             STRB     R0,[R1, #+0]
+    462              dev_bind_interval = 0;
+   \        0x6   0x....             LDR.N    R1,??DataTable7_22
+   \        0x8   0x6008             STR      R0,[R1, #+0]
+    463              awss_notify_resp[AWSS_NOTIFY_DEV_BIND_TOKEN] = 0;
+   \        0xA   0x....             LDR.N    R1,??DataTable7_2
+   \        0xC   0x7048             STRB     R0,[R1, #+1]
+    464          
+    465              return __awss_dev_bind_notify();
+   \        0xE   0x....             B.N      __awss_dev_bind_notify
+    466          }
+    467          
+
+   \                                 In section .text, align 2, keep-with-next
+    468          int awss_dev_bind_notify_stop()
+    469          {
+   \                     awss_dev_bind_notify_stop: (+1)
+   \        0x0   0xB538             PUSH     {R3-R5,LR}
+    470              if (dev_bind_notify_mutex) {
+   \        0x2   0x....             LDR.N    R4,??DataTable7_20
+   \        0x4   0x6820             LDR      R0,[R4, #+0]
+   \        0x6   0x2800             CMP      R0,#+0
+   \        0x8   0xD001             BEQ.N    ??awss_dev_bind_notify_stop_0
+    471                  HAL_MutexLock(dev_bind_notify_mutex);
+   \        0xA   0x....'....        BL       HAL_MutexLock
+    472              }
+    473          
+    474              do {
+    475                  awss_notify_resp[AWSS_NOTIFY_DEV_BIND_TOKEN] = 1;
+   \                     ??awss_dev_bind_notify_stop_0: (+1)
+   \        0xE   0x2001             MOVS     R0,#+1
+   \       0x10   0x....             LDR.N    R1,??DataTable7_2
+   \       0x12   0x7048             STRB     R0,[R1, #+1]
+    476                  dev_bind_cnt = AWSS_NOTIFY_CNT_MAX;
+   \       0x14   0x201E             MOVS     R0,#+30
+   \       0x16   0x....             LDR.N    R1,??DataTable7_21
+   \       0x18   0x7008             STRB     R0,[R1, #+0]
+    477                  if (dev_bind_notify_timer == NULL) {
+   \       0x1A   0x....             LDR.N    R5,??DataTable7_17
+   \       0x1C   0x6828             LDR      R0,[R5, #+0]
+   \       0x1E   0x2800             CMP      R0,#+0
+   \       0x20   0xD003             BEQ.N    ??awss_dev_bind_notify_stop_1
+    478                      break;
+    479                  }
+    480          
+    481                  awss_stop_timer(dev_bind_notify_timer);
+   \       0x22   0x....'....        BL       awss_stop_timer
+    482                  dev_bind_notify_timer = NULL;
+   \       0x26   0x2000             MOVS     R0,#+0
+   \       0x28   0x6028             STR      R0,[R5, #+0]
+    483              } while (0);
+    484          
+    485              awss_cmp_coap_cancel_packet(g_notify_msg_id[AWSS_NOTIFY_DEV_BIND_TOKEN]);
+   \                     ??awss_dev_bind_notify_stop_1: (+1)
+   \       0x2A   0x....             LDR.N    R5,??DataTable7_6
+   \       0x2C   0x8868             LDRH     R0,[R5, #+2]
+   \       0x2E   0x....'....        BL       awss_cmp_coap_cancel_packet
+    486              g_notify_msg_id[AWSS_NOTIFY_DEV_BIND_TOKEN] = 0;
+   \       0x32   0x2000             MOVS     R0,#+0
+   \       0x34   0x8068             STRH     R0,[R5, #+2]
+    487          
+    488              if (dev_bind_notify_mutex) {
+   \       0x36   0x6820             LDR      R0,[R4, #+0]
+   \       0x38   0x2800             CMP      R0,#+0
+   \       0x3A   0xD006             BEQ.N    ??awss_dev_bind_notify_stop_2
+    489                  HAL_MutexUnlock(dev_bind_notify_mutex);
+   \       0x3C   0x....'....        BL       HAL_MutexUnlock
+    490                  HAL_MutexDestroy(dev_bind_notify_mutex);
+   \       0x40   0x6820             LDR      R0,[R4, #+0]
+   \       0x42   0x....'....        BL       HAL_MutexDestroy
+    491                  dev_bind_notify_mutex = NULL;
+   \       0x46   0x2000             MOVS     R0,#+0
+   \       0x48   0x6020             STR      R0,[R4, #+0]
+    492              }
+    493              return 0;
+   \                     ??awss_dev_bind_notify_stop_2: (+1)
+   \       0x4A   0x2000             MOVS     R0,#+0
+   \       0x4C   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+    494          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable2:
+   \        0x0   0x69 0x64          DC8      0x69, 0x64, 0x00, 0x00
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \        0x0   0x69 0x64          DC8      0x69, 0x64, 0x00, 0x00
+   \              0x00 0x00    
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7:
+   \        0x0   0x....'....        DC32     g_notify_id
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_1:
+   \        0x0   0x....'....        DC32     ?_3
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_2:
+   \        0x0   0x....'....        DC32     awss_notify_resp
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_3:
+   \        0x0   0x....'....        DC32     notify_map
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_4:
+   \        0x0   0x....'....        DC32     ?_4
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_5:
+   \        0x0   0x....'....        DC32     ?_5
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_6:
+   \        0x0   0x....'....        DC32     g_notify_msg_id
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_7:
+   \        0x0   0x....'....        DC32     awss_report_token_suc
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_8:
+   \        0x0   0x....'....        DC32     get_devinfo_timer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_9:
+   \        0x0   0x....'....        DC32     coap_session_ctx
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_10:
+   \        0x0   0x....'....        DC32     ?_7
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_11:
+   \        0x0   0x....'....        DC32     ?_8
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_12:
+   \        0x0   0x....'....        DC32     ?_9
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_13:
+   \        0x0   0x....'....        DC32     ?_10
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_14:
+   \        0x0   0x....'....        DC32     aes_random
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_15:
+   \        0x0   0x....'....        DC32     awss_process_get_devinfo
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_16:
+   \        0x0   0x....'....        DC32     ?_11
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_17:
+   \        0x0   0x....'....        DC32     dev_bind_notify_timer
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_18:
+   \        0x0   0x....'....        DC32     __awss_dev_bind_notify
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_19:
+   \        0x0   0x....'....        DC32     ?_12
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_20:
+   \        0x0   0x....'....        DC32     dev_bind_notify_mutex
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_21:
+   \        0x0   0x....'....        DC32     dev_bind_cnt
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable7_22:
+   \        0x0   0x....'....        DC32     dev_bind_interval
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \        0x0   0x64 0x65          DC8 "device.info.notify"
+   \              0x76 0x69    
+   \              0x63 0x65    
+   \              0x2E 0x69    
+   \              0x6E 0x66    
+   \              0x6F 0x2E    
+   \              0x6E 0x6F    
+   \              0x74 0x69    
+   \              0x66 0x79    
+   \              0x00         
+   \       0x13   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_1:
+   \        0x0   0x2F 0x73          DC8 "/sys/device/info/notify"
+   \              0x79 0x73    
+   \              0x2F 0x64    
+   \              0x65 0x76    
+   \              0x69 0x63    
+   \              0x65 0x2F    
+   \              0x69 0x6E    
+   \              0x66 0x6F    
+   \              0x2F 0x6E    
+   \              0x6F 0x74    
+   \              0x69 0x66    
+   \              0x79 0x00    
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x69 0x64          DC8 "id"
+   \              0x00         
+   \        0x3   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_3:
+   \        0x0   0x63 0x6F          DC8 "code"
+   \              0x64 0x65    
+   \              0x00         
+   \        0x5   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_4:
+   \        0x0   0x32 0x35          DC8 "255.255.255.255"
+   \              0x35 0x2E    
+   \              0x32 0x35    
+   \              0x35 0x2E    
+   \              0x32 0x35    
+   \              0x35 0x2E    
+   \              0x32 0x35    
+   \              0x35 0x00    
+
+   \                                 In section .rodata, align 4
+   \                     ?_5:
+   \        0x0   0x7B 0x22          DC8 7BH, 22H, 69H, 64H, 22H, 3AH, 22H, 25H
+   \              0x69 0x64    
+   \              0x22 0x3A    
+   \              0x22 0x25    
+   \        0x8   0x75 0x22          DC8 75H, 22H, 2CH, 22H, 76H, 65H, 72H, 73H
+   \              0x2C 0x22    
+   \              0x76 0x65    
+   \              0x72 0x73    
+   \       0x10   0x69 0x6F          DC8 69H, 6FH, 6EH, 22H, 3AH, 22H, 31H, 2EH
+   \              0x6E 0x22    
+   \              0x3A 0x22    
+   \              0x31 0x2E    
+   \       0x18   0x30 0x22          DC8 30H, 22H, 2CH, 22H, 6DH, 65H, 74H, 68H
+   \              0x2C 0x22    
+   \              0x6D 0x65    
+   \              0x74 0x68    
+   \       0x20   0x6F 0x64          DC8 6FH, 64H, 22H, 3AH, 22H, 25H, 73H, 22H
+   \              0x22 0x3A    
+   \              0x22 0x25    
+   \              0x73 0x22    
+   \       0x28   0x2C 0x22          DC8 2CH, 22H, 70H, 61H, 72H, 61H, 6DH, 73H
+   \              0x70 0x61    
+   \              0x72 0x61    
+   \              0x6D 0x73    
+   \       0x30   0x22 0x3A          DC8 22H, 3AH, 7BH, 25H, 73H, 7DH, 7DH, 0
+   \              0x7B 0x25    
+   \              0x73 0x7D    
+   \              0x7D 0x00    
+
+   \                                 In section .rodata, align 4
+   \        0x0   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x17   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x2E   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x45   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x5C   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+   \       0x73   0x00 0x00          DC8 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00 0x00    
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_7:
+   \        0x0   0x7B 0x25          DC8 "{%s}"
+   \              0x73 0x7D    
+   \              0x00         
+   \        0x5   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_8:
+   \        0x0   0x7B 0x22          DC8 "{\"id\":%s,\"code\":%d,\"data\":%s}"
+   \              0x69 0x64    
+   \              0x22 0x3A    
+   \              0x25 0x73    
+   \              0x2C 0x22    
+   \              0x63 0x6F    
+   \              0x64 0x65    
+   \              0x22 0x3A    
+   \              0x25 0x64    
+   \              0x2C 0x22    
+   \              0x64 0x61    
+   \              0x74 0x61    
+   \              0x22 0x3A    
+   \              0x25 0x73    
+   \              0x7D 0x00    
+   \       0x1E   0x00 0x00          DC8 0, 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_9:
+   \        0x0   0x2F 0x73          DC8 "/sys/device/info/get"
+   \              0x79 0x73    
+   \              0x2F 0x64    
+   \              0x65 0x76    
+   \              0x69 0x63    
+   \              0x65 0x2F    
+   \              0x69 0x6E    
+   \              0x66 0x6F    
+   \              0x2F 0x67    
+   \              0x65 0x74    
+   \              0x00         
+   \       0x15   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   \                                 In section .rodata, align 4
+   \                     ?_10:
+   \        0x0   0x2F 0x73          DC8 "/sys/%s/%s/device/info/get"
+   \              0x79 0x73    
+   \              0x2F 0x25    
+   \              0x73 0x2F    
+   \              0x25 0x73    
+   \              0x2F 0x64    
+   \              0x65 0x76    
+   \              0x69 0x63    
+   \              0x65 0x2F    
+   \              0x69 0x6E    
+   \              0x66 0x6F    
+   \              0x2F 0x67    
+   \              0x65 0x74    
+   \              0x00         
+   \       0x1B   0x00               DC8 0
+
+   \                                 In section .rodata, align 4
+   \                     ?_11:
+   \        0x0   0x67 0x65          DC8 "get_devinfo"
+   \              0x74 0x5F    
+   \              0x64 0x65    
+   \              0x76 0x69    
+   \              0x6E 0x66    
+   \              0x6F 0x00    
+
+   \                                 In section .rodata, align 4
+   \                     ?_12:
+   \        0x0   0x64 0x65          DC8 "dev_bind"
+   \              0x76 0x5F    
+   \              0x62 0x69    
+   \              0x6E 0x64    
+   \              0x00         
+   \        0x9   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+    495          
+    496          #ifdef WIFI_PROVISION_ENABLED
+    497          static int suc_interval = 0;
+    498          static char suc_cnt = 0;
+    499          static int __awss_suc_notify()
+    500          {
+    501              awss_debug("resp:%d\r\n", awss_notify_resp[AWSS_NOTIFY_SUCCESS]);
+    502          
+    503              if (success_notify_mutex == NULL) {
+    504                  success_notify_mutex = HAL_MutexCreate();
+    505                  if (success_notify_mutex == NULL) {
+    506                      return -1;
+    507                  }
+    508              }
+    509          
+    510              if (suc_cnt == 0) {
+    511                  awss_event_post(IOTX_AWSS_SUC_NOTIFY);
+    512              }
+    513          
+    514              HAL_MutexLock(success_notify_mutex);
+    515          
+    516              do {
+    517                  if (awss_notify_resp[AWSS_NOTIFY_SUCCESS] != 0) {
+    518                      break;
+    519                  }
+    520          
+    521                  awss_notify_dev_info(AWSS_NOTIFY_SUCCESS, 1);
+    522          
+    523                  suc_interval += 100;
+    524                  if (suc_cnt ++ < AWSS_NOTIFY_CNT_MAX &&
+    525                      awss_notify_resp[AWSS_NOTIFY_SUCCESS] == 0) {
+    526                      if (success_notify_timer == NULL) {
+    527                          success_notify_timer = HAL_Timer_Create("awss_suc", (void (*)(void *))__awss_suc_notify, NULL);
+    528                      }
+    529                      HAL_Timer_Stop(success_notify_timer);
+    530                      HAL_Timer_Start(success_notify_timer, suc_interval);
+    531                      HAL_MutexUnlock(success_notify_mutex);
+    532                      return 0;
+    533                  }
+    534              } while (0);
+    535          
+    536              awss_cmp_coap_cancel_packet(g_notify_msg_id[AWSS_NOTIFY_SUCCESS]);
+    537              g_notify_msg_id[AWSS_NOTIFY_SUCCESS] = 0;
+    538          
+    539              awss_notify_resp[AWSS_NOTIFY_SUCCESS] = 0;
+    540              suc_interval = 0;
+    541              suc_cnt = 0;
+    542              if (success_notify_timer) {
+    543                  awss_stop_timer(success_notify_timer);
+    544                  success_notify_timer = NULL;
+    545              }
+    546          
+    547              if (success_notify_mutex) {
+    548                  HAL_MutexUnlock(success_notify_mutex);
+    549                  HAL_MutexDestroy(success_notify_mutex);
+    550                  success_notify_mutex = NULL;
+    551              }
+    552              return 1;
+    553          }
+    554          
+    555          int awss_suc_notify()
+    556          {
+    557              suc_cnt = 0;
+    558              suc_interval = 0;
+    559              awss_notify_resp[AWSS_NOTIFY_SUCCESS] = 0;
+    560              return __awss_suc_notify();
+    561          }
+    562          
+    563          int awss_suc_notify_stop()
+    564          {
+    565              if (success_notify_mutex) {
+    566                  HAL_MutexLock(success_notify_mutex);
+    567              }
+    568          
+    569              do {
+    570                  awss_notify_resp[AWSS_NOTIFY_SUCCESS] = 1;
+    571                  suc_cnt = AWSS_NOTIFY_CNT_MAX;
+    572                  if (success_notify_timer == NULL) {
+    573                      break;
+    574                  }
+    575          
+    576                  awss_stop_timer(success_notify_timer);
+    577                  success_notify_timer = NULL;
+    578              } while (0);
+    579          
+    580              awss_cmp_coap_cancel_packet(g_notify_msg_id[AWSS_NOTIFY_SUCCESS]);
+    581              g_notify_msg_id[AWSS_NOTIFY_SUCCESS] = 0;
+    582          
+    583              if (success_notify_mutex) {
+    584                  HAL_MutexUnlock(success_notify_mutex);
+    585                  HAL_MutexDestroy(success_notify_mutex);
+    586                  success_notify_mutex = NULL;
+    587              }
+    588              return 0;
+    589          }
+    590          
+    591          
+    592          static int devinfo_interval = 0;
+    593          static char devinfo_cnt = 0;
+    594          static int __awss_devinfo_notify()
+    595          {
+    596              if (devinfo_notify_mutex == NULL) {
+    597                  devinfo_notify_mutex = HAL_MutexCreate();
+    598                  if (devinfo_notify_mutex == NULL) {
+    599                      return -1;
+    600                  }
+    601              }
+    602              HAL_MutexLock(devinfo_notify_mutex);
+    603          
+    604              do {
+    605                  if (awss_notify_resp[AWSS_NOTIFY_DEV_RAND_SIGN] != 0) {
+    606                      break;
+    607                  }
+    608          
+    609                  awss_notify_dev_info(AWSS_NOTIFY_DEV_RAND_SIGN, 1);
+    610          
+    611                  devinfo_interval += 100;
+    612                  if (devinfo_cnt ++ < AWSS_NOTIFY_CNT_MAX &&
+    613                      awss_notify_resp[AWSS_NOTIFY_DEV_RAND_SIGN] == 0) {
+    614                      if (devinfo_notify_timer == NULL) {
+    615                          devinfo_notify_timer = HAL_Timer_Create("devinfo", (void (*)(void *))__awss_devinfo_notify, NULL);
+    616                      }
+    617                      HAL_Timer_Stop(devinfo_notify_timer);
+    618                      HAL_Timer_Start(devinfo_notify_timer, devinfo_interval);
+    619                      HAL_MutexUnlock(devinfo_notify_mutex);
+    620                      return 0;
+    621                  }
+    622              } while (0);
+    623          
+    624              awss_cmp_coap_cancel_packet(g_notify_msg_id[AWSS_NOTIFY_DEV_RAND_SIGN]);
+    625              g_notify_msg_id[AWSS_NOTIFY_DEV_RAND_SIGN] = 0;
+    626          
+    627              awss_notify_resp[AWSS_NOTIFY_DEV_RAND_SIGN] = 0;
+    628              devinfo_interval = 0;
+    629              devinfo_cnt = 0;
+    630              if (devinfo_notify_timer) {
+    631                  awss_stop_timer(devinfo_notify_timer);
+    632                  devinfo_notify_timer = NULL;
+    633              }
+    634              if (devinfo_notify_mutex) {
+    635                  HAL_MutexUnlock(devinfo_notify_mutex);
+    636                  HAL_MutexDestroy(devinfo_notify_mutex);
+    637                  devinfo_notify_mutex = NULL;
+    638              }
+    639              return 1;
+    640          }
+    641          
+    642          int awss_devinfo_notify()
+    643          {
+    644              devinfo_cnt = 0;
+    645              devinfo_interval = 0;
+    646              awss_notify_resp[AWSS_NOTIFY_DEV_RAND_SIGN] = 0;
+    647              return __awss_devinfo_notify();
+    648          }
+    649          
+    650          int awss_devinfo_notify_stop()
+    651          {
+    652              if (devinfo_notify_mutex) {
+    653                  HAL_MutexLock(devinfo_notify_mutex);
+    654              }
+    655          
+    656              do {
+    657                  awss_notify_resp[AWSS_NOTIFY_DEV_RAND_SIGN] = 1;
+    658                  devinfo_cnt = AWSS_NOTIFY_CNT_MAX;
+    659                  if (devinfo_notify_timer == NULL) {
+    660                      break;
+    661                  }
+    662          
+    663                  awss_stop_timer(devinfo_notify_timer);
+    664                  devinfo_notify_timer = NULL;
+    665              } while (0);
+    666          
+    667              awss_cmp_coap_cancel_packet(g_notify_msg_id[AWSS_NOTIFY_DEV_RAND_SIGN]);
+    668              g_notify_msg_id[AWSS_NOTIFY_DEV_RAND_SIGN] = 0;
+    669          
+    670              if (devinfo_notify_mutex) {
+    671                  HAL_MutexUnlock(devinfo_notify_mutex);
+    672                  HAL_MutexDestroy(devinfo_notify_mutex);
+    673                  devinfo_notify_mutex = NULL;
+    674              }
+    675              return 0;
+    676          }
+    677          
+    678          #endif
+    679          
+    680          #if defined(__cplusplus) /* If this is a C++ compiler, use C linkage */
+    681          }
+    682          #endif
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      24   __awss_dev_bind_notify
+        24   -> HAL_MutexCreate
+        24   -> HAL_MutexDestroy
+        24   -> HAL_MutexLock
+        24   -> HAL_MutexUnlock
+        24   -> HAL_Timer_Create
+        24   -> HAL_Timer_Start
+        24   -> HAL_Timer_Stop
+        24   -> awss_cmp_coap_cancel_packet
+        24   -> awss_event_post
+        24   -> awss_notify_dev_info
+        24   -> awss_stop_timer
+        24   -> awss_token_timeout
+        24   -> produce_random
+       0   awss_dev_bind_notify
+         0   -> __awss_dev_bind_notify
+       8   awss_dev_bind_notify_resp
+         8   -> awss_notify_response
+         8   -> awss_update_token
+      16   awss_dev_bind_notify_stop
+        16   -> HAL_MutexDestroy
+        16   -> HAL_MutexLock
+        16   -> HAL_MutexUnlock
+        16   -> awss_cmp_coap_cancel_packet
+        16   -> awss_stop_timer
+      64   awss_notify_dev_info
+        64   -> HAL_Free
+        64   -> HAL_SleepMs
+        64   -> HAL_Snprintf
+        64   -> __aeabi_memcpy4
+        64   -> __aeabi_memset4
+        64   -> awss_build_dev_info
+        64   -> awss_cmp_coap_send
+        64   -> os_zalloc
+        64   -> strlen
+      32   awss_notify_response
+        32   -> atoi
+        32   -> awss_cmp_get_coap_code
+        32   -> awss_cmp_get_coap_payload
+        32   -> json_get_value_by_name
+     200   awss_process_get_devinfo
+       200   -> HAL_Free
+       200   -> HAL_Snprintf
+       200   -> HAL_Timer_Start
+       200   -> __aeabi_memclr4
+       200   -> __aeabi_memcpy
+       200   -> __aeabi_memset
+       200   -> __aeabi_memset4
+       200   -> awss_build_dev_info
+       200   -> awss_build_topic
+       200   -> awss_cmp_coap_send_resp
+       200   -> awss_cmp_get_coap_payload
+       200   -> awss_release_coap_ctx
+       200   -> awss_stop_timer
+       200   -> awss_update_token
+       200   -> json_get_value_by_name
+       200   -> os_zalloc
+       200   -> strlen
+      16   online_get_device_info
+        16   -> HAL_Timer_Create
+        16   -> HAL_Timer_Start
+        16   -> HAL_Timer_Stop
+        16   -> awss_check_reset
+        16   -> awss_cpy_coap_ctx
+        16   -> awss_report_token
+        16   -> awss_token_timeout
+        16   -> produce_random
+      16   online_mcast_get_device_info
+        16   -> online_get_device_info
+      16   online_ucast_get_device_info
+        16   -> online_get_device_info
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable2
+       4  ??DataTable4
+       4  ??DataTable7
+       4  ??DataTable7_1
+       4  ??DataTable7_10
+       4  ??DataTable7_11
+       4  ??DataTable7_12
+       4  ??DataTable7_13
+       4  ??DataTable7_14
+       4  ??DataTable7_15
+       4  ??DataTable7_16
+       4  ??DataTable7_17
+       4  ??DataTable7_18
+       4  ??DataTable7_19
+       4  ??DataTable7_2
+       4  ??DataTable7_20
+       4  ??DataTable7_21
+       4  ??DataTable7_22
+       4  ??DataTable7_3
+       4  ??DataTable7_4
+       4  ??DataTable7_5
+       4  ??DataTable7_6
+       4  ??DataTable7_7
+       4  ??DataTable7_8
+       4  ??DataTable7_9
+      20  ?_0
+      24  ?_1
+      28  ?_10
+      12  ?_11
+      12  ?_12
+       4  ?_2
+       8  ?_3
+      16  ?_4
+      56  ?_5
+     128  ?_6
+       8  ?_7
+      32  ?_8
+      24  ?_9
+     292  __awss_dev_bind_notify
+      16  awss_dev_bind_notify
+      24  awss_dev_bind_notify_resp
+      78  awss_dev_bind_notify_stop
+     282  awss_notify_dev_info
+       4  awss_notify_resp
+     160  awss_notify_response
+     350  awss_process_get_devinfo
+       4  coap_session_ctx
+       1  dev_bind_cnt
+       4  dev_bind_interval
+       4  dev_bind_notify_mutex
+       4  dev_bind_notify_timer
+       1  g_notify_id
+       8  g_notify_msg_id
+       4  get_devinfo_timer
+      16  notify_map
+     112  online_get_device_info
+      12  online_mcast_get_device_info
+      12  online_ucast_get_device_info
+
+ 
+    34 bytes in section .bss
+   388 bytes in section .rodata
+ 1 438 bytes in section .text
+ 
+ 1 438 bytes of CODE  memory
+   388 bytes of CONST memory
+    34 bytes of DATA  memory
+
+Errors: none
+Warnings: 1
