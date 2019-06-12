@@ -47,7 +47,7 @@ typedef struct{
 #define IP4_ANY_ADDR            "0.0.0.0"
 
 at_udp_conn_t atu[MAX_UDP_CONN_SUPPORTED];
-
+#define AT_DEBUG_MODE
 
 #ifdef AT_DEBUG_MODE
 #define at_conn_hal_err(...)               do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
@@ -359,6 +359,7 @@ static void handle_udp_broadcast_data(void ){
 	char *recvdata = NULL;
 	
 	at_read(reader,256);
+        HAL_Printf("udp broadcast rxed\r\n");
 	if (!strstr(reader, "DP_BROADCAST,")) {
 		at_conn_hal_err("0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x invalid event format!!!\r\n",
 			 reader[0], reader[1], reader[2], reader[3], reader[4], reader[5]);
@@ -414,6 +415,7 @@ static void handle_udp_broadcast_data(void ){
 		}
        i++;
 	}
+        HAL_Printf("udp broadcast len %d\r\n",pinfo->udp_len);
         if(pinfo->udp_len > 250){
 		debug_udp++;
 	}
@@ -799,7 +801,7 @@ int HAL_AT_CONN_Send(int fd,
         at_conn_hal_err("No connection found for fd (%d) in %s", fd, __func__);
         return -1;
     }
-
+	
     /* AT+CIPSEND=id, */
     HAL_Snprintf(cmd, SEND_CMD_LEN - 1, "%s=%d,", SEND_CMD, link_id);
     /* [remote_port,] */
@@ -809,10 +811,10 @@ int HAL_AT_CONN_Send(int fd,
     /* data_length */
     HAL_Snprintf(cmd + strlen(cmd), DATA_LEN_MAX + 1, "%d", len);
     at_conn_hal_debug("\r\n%s %d - AT cmd to run: %s\r\n", __func__, __LINE__, cmd);
-
+    
     at_send_wait_reply((const char *)cmd, strlen(cmd), true, (const char *)data, len,
                        out, sizeof(out), NULL);
-
+ 
     at_conn_hal_debug("\r\nThe AT response is: %s\r\n", out);
 
     if (strstr(out, CMD_FAIL_RSP) != NULL) {
@@ -1005,7 +1007,7 @@ intptr_t HAL_UDP_create_without_connect(const char *host, unsigned short port)
 	atu[fd].used = 1;
 	atu[fd].socket_id = fd + UDP_CONN_LINKID_BASE;
 	atu[fd].r_port = port;
-	
+	atu[fd].l_port = port;
     return (intptr_t)fd;
 }
 
@@ -1113,7 +1115,7 @@ int HAL_UDP_sendto(intptr_t sockfd,
     }
 
     /* AT+CIPSEND=id, */
-    HAL_Snprintf(cmd, SEND_CMD_LEN - 1, "%s=%d,", SEND_CMD, sockfd + 3);
+    HAL_Snprintf(cmd, SEND_CMD_LEN - 1, "%s=%d,", SEND_CMD, sockfd + UDP_CONN_LINKID_BASE);
 
     /* data_length */
     HAL_Snprintf(cmd + strlen(cmd), DATA_LEN_MAX + 1, "%d", datalen);
@@ -1197,12 +1199,12 @@ char *HAL_Wifi_Get_Mac(char mac_str[HAL_MAC_LEN])
 {
 	char out[128] = {0};
 	char *at_mac_str = CMD_OBTAIN_MAC;
-
+	atcmd_config_t atcfg={0};
+	atcfg.reply_prefix = RSP_MAC_PREFIX;
+	HAL_Printf("Get mac address\r\n");
 
 	if (at_send_wait_reply(at_mac_str, strlen(at_mac_str), true,
-	                   NULL, 0, out, sizeof(out), NULL) == 0) {
-	
-	} else {
+	                   NULL, 0, out, sizeof(out), NULL) != 0) {
 
 		return (char *)1;
 	}

@@ -224,7 +224,7 @@ int LPUART_RTOS_Send(lpuart_rtos_handle_t *handle, const uint8_t *buffer, uint32
         return kStatus_InvalidArgument;
     }
 
-    if (pdFALSE == xSemaphoreTake(handle->txSemaphore, timeout))
+    if (pdFALSE == xSemaphoreTake(handle->txSemaphore, portMAX_DELAY))
     {
         /* We could not take the semaphore, exit with 0 data received */
         return kStatus_Fail;
@@ -237,10 +237,21 @@ int LPUART_RTOS_Send(lpuart_rtos_handle_t *handle, const uint8_t *buffer, uint32
     LPUART_TransferSendNonBlocking(handle->base, handle->t_state, &handle->txTransfer);
 
     ev = xEventGroupWaitBits(handle->txEvent, RTOS_LPUART_COMPLETE, pdTRUE, pdFALSE, timeout);
-    if (!(ev & RTOS_LPUART_COMPLETE))
-    {
-        retval = kStatus_Fail;
-    }
+	
+    //if (!(ev & RTOS_LPUART_COMPLETE))
+    //{
+    ///	LPUART_TransferAbortSend(handle->base, handle->t_state);
+    //    retval = kStatus_Fail;
+   // }
+	//retval = ev;
+	if(ev&RTOS_LPUART_COMPLETE){
+
+		retval = kStatus_Success;
+
+	}else{
+		HAL_Printf("lpuart tx failed, event 0x%x\r\n",ev);
+		retval = kStatus_Fail;
+	}
 
     if (pdFALSE == xSemaphoreGive(handle->txSemaphore))
     {
@@ -333,6 +344,15 @@ int LPUART_RTOS_Receive(lpuart_rtos_handle_t *handle, uint8_t *buffer, uint32_t 
     {
         retval         = kStatus_Success;
         local_received = length;
+    }else{
+		/* Stop data transfer to application buffer, ring buffer is still active */
+        LPUART_TransferAbortReceive(handle->base, handle->t_state);
+        /* Prevent false indication of successful transfer in next call of LPUART_RTOS_Receive.
+           RTOS_LPUART_COMPLETE flag could be set meanwhile overrun is handled */
+        xEventGroupClearBits(handle->rxEvent, RTOS_LPUART_COMPLETE);
+		retval		   = kStatus_Timeout;
+		local_received = 0;
+
     }
 
     /* Prevent repetitive NULL check */

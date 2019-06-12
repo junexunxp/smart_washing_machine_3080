@@ -25,7 +25,7 @@
 #define AT_SEND_DELIMITER       "\r"
 
 #if defined(AT_TCP_HAL_SIM800)
-#define AT_CMD_DATA_INTERVAL_MS 50
+#define AT_CMD_DATA_INTERVAL_MS 500
 #endif
 
 #ifdef PLATFORM_HAS_OS

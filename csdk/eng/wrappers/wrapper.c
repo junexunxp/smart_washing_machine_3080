@@ -26,7 +26,7 @@ unsigned char srandom_inited = 0;
 #define PRODUCT_SECRET_D   "S56FG57Rqjr24CHo"
 #define DEVICE_NAME_D      "smart_wm_test1"
 #define DEVICE_SECRET_D    "3qLxqnrCCxhEVJUJjq88jEYkPwi2CZCr"
-#define FIRMWARE_VER_D	 "1.0.0"
+#define FIRMWARE_VER_D	 "1.1.1"
 #endif
 
 #ifndef EIO
@@ -170,6 +170,7 @@ void uart2_interrupt_handle_task( void *pvParameters )
 #if USE_LPUART_RTOS
 #include "fsl_lpuart_freertos.h"
 lpuart_rtos_handle_t handle;
+
 struct _lpuart_handle t_handle;
 uint8_t background_buffer[512];
 lpuart_rtos_config_t lpuart_config = {
@@ -301,6 +302,9 @@ int32_t HAL_AT_Uart_Recv(uart_dev_t *uart, void *data, uint32_t expect_size,
 {
   #if USE_LPUART_RTOS
   int ret = LPUART_RTOS_Receive(&handle, data, expect_size, recv_size,timeout/portTICK_PERIOD_MS);
+  if(ret != 0){
+	ret = EIO;
+  }
   return ret;
 #else
 	if(uart_rxstatus == kStatus_LPUART_RxBusy){
@@ -361,8 +365,19 @@ int32_t HAL_AT_Uart_Recv(uart_dev_t *uart, void *data, uint32_t expect_size,
 int32_t HAL_AT_Uart_Send(uart_dev_t *uart, const void *data, uint32_t size, uint32_t timeout)
 {
   #if USE_LPUART_RTOS
-  LPUART_RTOS_Send(&handle, (uint8_t *)data, size,timeout/portTICK_PERIOD_MS);
-  return 0;
+  if (timeout == 0)
+  {
+	  timeout = 1000;
+  }
+  int ret = 0;
+  ret = LPUART_RTOS_Send(&handle, (uint8_t *)data, size,timeout/portTICK_PERIOD_MS);
+  if(ret != 0){
+	
+
+	ret = EIO;
+
+  }
+  return ret;
 #else
 	if(uart_status == kStatus_LPUART_TxBusy){
 		return EIO;

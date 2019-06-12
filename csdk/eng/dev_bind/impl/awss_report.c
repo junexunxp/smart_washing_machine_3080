@@ -58,7 +58,7 @@ int awss_update_token()
         report_token_timer = HAL_Timer_Create("rp_token", (void (*)(void *))awss_report_token_to_cloud, NULL);
     }
     HAL_Timer_Stop(report_token_timer);
-    HAL_Timer_Start(report_token_timer, 10);
+    HAL_Timer_Start(report_token_timer, 3000);
     awss_info("update token");
 
     produce_random(aes_random, sizeof(aes_random));

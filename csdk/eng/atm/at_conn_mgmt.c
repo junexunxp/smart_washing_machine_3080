@@ -25,7 +25,7 @@
 #define AT_MAX_PAYLOAD_SIZE          1512
 
 #define UNUSED_ATCONN                -1
-
+#define AT_DEBUG_MODE
 #ifdef AT_DEBUG_MODE
 #define AT_DEBUG(...)       do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
 #define AT_ERROR(...)       do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)

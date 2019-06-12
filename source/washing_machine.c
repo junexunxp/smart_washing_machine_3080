@@ -694,11 +694,12 @@ int wm_run(int argc, char **argv)
     int domain_type = 0, dynamic_register = 0, post_reply_need = 0;
 
 #ifdef ATM_ENABLED
-    if (IOT_ATM_Init() < 0) {
-        EXAMPLE_TRACE("IOT ATM init failed!\n");
-        return -1;
-    }
-#endif
+      if (IOT_ATM_Init() < 0) {
+              EXAMPLE_TRACE("IOT ATM init failed!\n");
+      
+      }
+  #endif
+  	app_wait_wifi_connect();
     
 
     gpio_pin_config_t led_config = {

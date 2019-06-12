@@ -81,12 +81,13 @@ typedef struct
 #endif
 
 #ifndef AT_UART_TIMEOUT_MS
-#define AT_UART_TIMEOUT_MS     1000
+#define AT_UART_TIMEOUT_MS     2000
 #endif
 
 #ifndef AT_CMD_DATA_INTERVAL_MS
-#define AT_CMD_DATA_INTERVAL_MS   0
+#define AT_CMD_DATA_INTERVAL_MS   500
 #endif
+#define AT_DEBUG_MODE
 
 #ifdef AT_DEBUG_MODE
 #define atpsr_err(...)               do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
@@ -463,6 +464,8 @@ int at_send_wait_reply(const char *cmd, int cmdlen, bool delimiter,
             goto end;
         }
     }
+	
+	
 
     if ((ret = HAL_SemaphoreWait(tsk->smpr, TASK_DEFAULT_WAIT_TIME)) != 0) {
         atpsr_err("sem_wait failed");
