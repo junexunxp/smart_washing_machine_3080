@@ -421,10 +421,10 @@ static void handle_udp_broadcast_data(void ){
 	}
 	memcpy(pinfo->udp_read,reader + i,pinfo->udp_len);
 
-	list_add_tail(&udp_broad_list,(dlist_t *)pinfo);
+	list_add((dlist_t *)pinfo,&udp_broad_list);
 	#if 0
 	/* Eat the "DP_BROADCAST," */
-	at_read(reader, 13);
+	at_read(reader, 13);w
 	if (memcmp(reader, "DP_BROADCAST,", strlen("DP_BROADCAST,")) != 0) {
 		at_conn_hal_err("0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x invalid event format!!!\r\n",
 			 reader[0], reader[1], reader[2], reader[3], reader[4], reader[5]);
