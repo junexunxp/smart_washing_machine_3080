@@ -81,13 +81,13 @@ typedef struct
 #endif
 
 #ifndef AT_UART_TIMEOUT_MS
-#define AT_UART_TIMEOUT_MS     2000
+#define AT_UART_TIMEOUT_MS     1000
 #endif
 
 #ifndef AT_CMD_DATA_INTERVAL_MS
-#define AT_CMD_DATA_INTERVAL_MS   500
+#define AT_CMD_DATA_INTERVAL_MS   50
 #endif
-#define AT_DEBUG_MODE
+//#define AT_DEBUG_MODE
 
 #ifdef AT_DEBUG_MODE
 #define atpsr_err(...)               do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)

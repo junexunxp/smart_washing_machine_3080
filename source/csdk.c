@@ -112,10 +112,10 @@ void app_process_recive_cmd(char *buff, uint8_t len){
 			while(buff[ptr] != '\r' && (ptr<len)){
 				wifi_key[i++] = buff[ptr++];
 			}
-			//if(app_wifi_ib_same(wifi_ssid,wifi_key) == 0){
-				//HAL_Kv_Set("wifi_ssid", wifi_ssid, strlen(wifi_ssid), 0);
-				//HAL_Kv_Set("wifi_key", wifi_key, strlen(wifi_key), 0);
-			//}
+			if(app_wifi_ib_same(wifi_ssid,wifi_key) == 0){
+				HAL_Kv_Set("wifi_ssid", wifi_ssid, strlen(wifi_ssid), 0);
+				HAL_Kv_Set("wifi_key", wifi_key, strlen(wifi_key), 0);
+			}
 			at_wifi_join(wifi_ssid,wifi_key);
                         HAL_Printf("join wifi:%s....\r\n",wifi_ssid);
 		}
@@ -133,7 +133,12 @@ void app_process_recive_cmd(char *buff, uint8_t len){
   }
   
 }
-
+void HardFault_Handler(void ){
+   portENTER_CRITICAL();
+   while(1);
+  
+  
+}
 
 /*******************************************************************************
  * Definitions
@@ -167,8 +172,8 @@ int main(void)
     GPIO_PinInit(BOARD_USER_LED_GPIO, BOARD_USER_LED_GPIO_PIN, &led_config);
     log_init();
     //linkkit_init();
-	//linkkitcsdk_init();
-        smart_wm_init();
+	linkkitcsdk_init();
+        //smart_wm_init();
     vTaskStartScheduler();
     while(1);
 }

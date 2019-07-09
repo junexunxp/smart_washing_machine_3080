@@ -184,10 +184,20 @@ lpuart_rtos_config_t lpuart_config = {
 int32_t HAL_AT_Uart_Init(uart_dev_t *uart)
 {
 #if USE_LPUART_RTOS
-  lpuart_config.srcclk = BOARD_DebugConsoleSrcFreq();
-  lpuart_config.base   = (LPUART_Type *)s_uartBaseAddrs[uart->port];
-  NVIC_SetPriority(LPUART3_IRQn, 5);
-  LPUART_RTOS_Init(&handle, &t_handle, &lpuart_config);
+	uint8_t *addr;
+	size_t size;
+	lpuart_config.srcclk = BOARD_DebugConsoleSrcFreq();
+	lpuart_config.base   = (LPUART_Type *)s_uartBaseAddrs[uart->port];
+	LPUART_RTOS_Init(&handle, &t_handle, &lpuart_config);
+	NVIC_SetPriority(LPUART3_IRQn, (1<<__NVIC_PRIO_BITS) - 1);
+	size = 512;
+	addr = HAL_Malloc(size);
+	if (addr != NULL){
+		LPUART_TransferStartRingBuffer((LPUART_Type *)s_uartBaseAddrs[uart->port], &s_handle[uart->port],
+	                            		addr, size);
+	}else{
+		return -1;
+	}
 #else
 	lpuart_config_t config = {0};
 	status_t status;

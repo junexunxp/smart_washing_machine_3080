@@ -284,11 +284,43 @@ static int awss_reboot_system()
 }
 #endif
 
+static uint8_t awss_first_run = 1;
+static uint8_t awss_timeout_cb_called = 0;
+static int awss_report_token_to_cloud();
+
+static void *awss_report_task(void *args){
+	while(1){
+
+		if(awss_timeout_cb_called){
+			awss_report_token_to_cloud();
+		}
+		HAL_SleepMs(100);
+	}
+
+
+}
 static int awss_report_token_to_cloud()
 {
     int packet_len, ret;
     char *packet;
     char topic[TOPIC_LEN_MAX] = {0};
+	if(awss_first_run){
+		void *task;
+		hal_os_thread_param_t task_parms = {0};
+		task_parms.priority = os_thread_priority_normal;
+		task_parms.stack_size = 2048;
+		task_parms.name = "awss_report";
+		int stack_used;
+		HAL_ThreadCreate(&task, awss_report_task, NULL, &task_parms, &stack_used);
+		awss_first_run = 0;
+
+	}
+	if(!awss_timeout_cb_called){
+		awss_timeout_cb_called = 1;
+		return 0;
+
+	}
+	awss_timeout_cb_called = 0;
 #define REPORT_TOKEN_PARAM_LEN  (64)
     if (awss_report_token_suc) { /* success ,no need to report */
         return 0;

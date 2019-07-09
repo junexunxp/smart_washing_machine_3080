@@ -4,7 +4,8 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include "FreeRTOS.h"
+#include "task.h"
 #include "infra_config.h"
 #include "infra_compat.h"
 #include "mqtt_api.h"
@@ -47,7 +48,7 @@ typedef struct{
 #define IP4_ANY_ADDR            "0.0.0.0"
 
 at_udp_conn_t atu[MAX_UDP_CONN_SUPPORTED];
-#define AT_DEBUG_MODE
+//#define AT_DEBUG_MODE
 
 #ifdef AT_DEBUG_MODE
 #define at_conn_hal_err(...)               do{HAL_Printf(__VA_ARGS__);HAL_Printf("\r\n");}while(0)
@@ -95,7 +96,9 @@ static uint8_t gotip = 0;
 #ifndef PLATFORM_HAS_DYNMEM
 static uint8_t payload[MK3080_MAX_PAYLOAD_SIZE] = {0};
 #endif
-void *coap_udpmutex, *coap_udpseamhore;
+void *coap_udpmutex;
+static TaskHandle_t udpTaskNotify;
+
 typedef struct{
 	struct dlist_s *prev;
 	struct dlist_s *next;
@@ -415,8 +418,7 @@ static void handle_udp_broadcast_data(void ){
 		}
        i++;
 	}
-        HAL_Printf("udp broadcast len %d\r\n",pinfo->udp_len);
-        if(pinfo->udp_len > 250){
+    if(pinfo->udp_len > 250){
 		debug_udp++;
 	}
 	memcpy(pinfo->udp_read,reader + i,pinfo->udp_len);
@@ -424,7 +426,7 @@ static void handle_udp_broadcast_data(void ){
 	list_add((dlist_t *)pinfo,&udp_broad_list);
 	#if 0
 	/* Eat the "DP_BROADCAST," */
-	at_read(reader, 13);w
+	at_read(reader, 13);
 	if (memcmp(reader, "DP_BROADCAST,", strlen("DP_BROADCAST,")) != 0) {
 		at_conn_hal_err("0x%02x 0x%02x 0x%02x 0x%02x 0x%02x 0x%02x invalid event format!!!\r\n",
 			 reader[0], reader[1], reader[2], reader[3], reader[4], reader[5]);
@@ -453,8 +455,9 @@ static void handle_udp_broadcast_data(void ){
 	socket_data_info_get(udp_read_ptr,udp_len,NULL);
 #endif
 	HAL_MutexUnlock(coap_udpmutex);
-
-	HAL_SemaphorePost(coap_udpseamhore);
+	if(udpTaskNotify){
+		xTaskNotify(udpTaskNotify, 1, eNoAction);
+	}
 	return;
 }
 
@@ -600,7 +603,6 @@ int HAL_AT_CONN_Init(void)
     }
 	list_init(&udp_broad_list);
     coap_udpmutex = HAL_MutexCreate();
-	coap_udpseamhore = HAL_SemaphoreCreate();
     if (NULL == (g_link_mutex = HAL_MutexCreate())) {
         at_conn_hal_err("Creating link mutex failed (%s %d).", __func__, __LINE__);
         return -1;
@@ -1028,7 +1030,7 @@ int HAL_UDP_joinmulticast(intptr_t sockfd,
 	ac.r_port = atu[sockfd].r_port;
 	ac.addr = atu[sockfd].domain_udp;
 	
-	return HAL_AT_CONN_Start(&ac);;
+	return HAL_AT_CONN_Start(&ac);
 }
 
 
@@ -1048,9 +1050,9 @@ int HAL_UDP_recvfrom(intptr_t sockfd,
 		return -1;
 	}
 	if(list_empty(&udp_broad_list)){
-
-		HAL_SemaphoreWait(coap_udpseamhore,timeout_ms);
-
+		udpTaskNotify = xTaskGetCurrentTaskHandle();
+		ulTaskNotifyTake(pdTRUE,timeout_ms/portTICK_PERIOD_MS);
+		udpTaskNotify = NULL;
 	}
 	HAL_MutexLock(coap_udpmutex);
 	if(!list_empty(&udp_broad_list)){
@@ -1109,28 +1111,7 @@ int HAL_UDP_sendto(intptr_t sockfd,
 		return -1;
 	}
 
-    char cmd[SEND_CMD_LEN] = {0}, out[128] = {0};
-    if (!p_data) {
-        return -1;
-    }
-
-    /* AT+CIPSEND=id, */
-    HAL_Snprintf(cmd, SEND_CMD_LEN - 1, "%s=%d,", SEND_CMD, sockfd + UDP_CONN_LINKID_BASE);
-
-    /* data_length */
-    HAL_Snprintf(cmd + strlen(cmd), DATA_LEN_MAX + 1, "%d", datalen);
-
-    at_send_wait_reply((const char *)cmd, strlen(cmd), true, (const char *)p_data, datalen,
-                       out, sizeof(out), NULL);
-	
-	if (strstr(out, CMD_FAIL_RSP) != NULL) {
-	
-		return -1;
-	}
-	
-
-    return 0;
-
+    return HAL_AT_CONN_Send(sockfd + UDP_CONN_LINKID_BASE,(uint8_t *)p_data,datalen,NULL,-1,timeout_ms);
 }
 
 
@@ -1194,15 +1175,22 @@ uint32_t HAL_Wifi_Get_IP(char ip_str[NETWORK_ADDR_LEN], const char *ifname)
 
 #define CMD_OBTAIN_MAC "AT+WMAC?"
 #define RSP_MAC_PREFIX "+WMAC"
+static char mac_str_3080[HAL_MAC_LEN];
 
 char *HAL_Wifi_Get_Mac(char mac_str[HAL_MAC_LEN])
 {
+
+	if(strlen(mac_str_3080)){
+		strncpy(mac_str,mac_str_3080,strlen(mac_str_3080));
+		return 0;
+	}
+
+	
 	char out[128] = {0};
 	char *at_mac_str = CMD_OBTAIN_MAC;
 	atcmd_config_t atcfg={0};
 	atcfg.reply_prefix = RSP_MAC_PREFIX;
-	HAL_Printf("Get mac address\r\n");
-
+	
 	if (at_send_wait_reply(at_mac_str, strlen(at_mac_str), true,
 	                   NULL, 0, out, sizeof(out), NULL) != 0) {
 
@@ -1220,7 +1208,9 @@ char *HAL_Wifi_Get_Mac(char mac_str[HAL_MAC_LEN])
 	while(i<len){
 		if(out[i++] == ':'){
 			while(out[i]!='\r' && (is_len < HAL_MAC_LEN)){
+				mac_str_3080[is_len] = out[i];
 				mac_str[is_len++] = out[i++];
+				
 			}
 			break;
 		}
