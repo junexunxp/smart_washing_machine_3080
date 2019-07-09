@@ -50,6 +50,57 @@
 #define ETH_ALEN                        (6)
 #endif
 
+static void BOARD_USDHCClockConfiguration(void)
+{
+    /*configure system pll PFD2 fractional divider to 24*/
+    CLOCK_InitSysPfd(kCLOCK_Pfd2, 24U);
+    /* Configure USDHC clock source and divider */
+    CLOCK_SetDiv(kCLOCK_Usdhc1Div, 0U);
+    CLOCK_SetMux(kCLOCK_Usdhc1Mux, 0U);
+}
+
+
+
+/*!
+ * @brief The main function containing client thread.
+ */
+static void demo_task(void *arg)
+{
+   
+#if (DEMO_OPTION == DEMO_WASHING_MACHINE)
+	PRINTF("Run Washing Machine Demo...\r\n");
+    wm_run(NULL, NULL);
+#endif
+}
+/*******************************************************************************
+* FUNCTION:
+*   GuiThread
+*
+* DESCRIPTION:
+*   The EwThread processes the Embeded Wizard application.
+*
+* ARGUMENTS:
+*   arg - not used.
+*
+* RETURN VALUE:
+*   None.
+*
+*******************************************************************************/
+static void GuiThread( void* arg )
+{
+  /* initialize Embedded Wizard application */
+  if ( EwInit() == 0 )
+    return;
+
+  EwPrintSystemInfo();
+
+  /* process the Embedded Wizard main loop */
+  while( EwProcess())
+    ;
+
+  /* de-initialize Embedded Wizard application */
+  EwDone();
+}
 
 void app_wait_wifi_connect(void ){
 
@@ -97,47 +148,18 @@ static uint8_t app_wifi_ib_same(char *ssid, char *key){
 
 }
 
-void app_process_recive_cmd(char *buff, uint8_t len){
-  uint8_t ptr = 2;
-  uint8_t i = 0;
-  if(buff[0] == 'c'){//connect wifi
-		char wifi_ssid[40]={0};
-		char wifi_key[40] = {0};
-		if(buff[1] == ' '){
-			while(buff[ptr] != ' '){
-				wifi_ssid[i++] = buff[ptr++];
-			}
-			ptr++;
-			i=0;
-			while(buff[ptr] != '\r' && (ptr<len)){
-				wifi_key[i++] = buff[ptr++];
-			}
-			if(app_wifi_ib_same(wifi_ssid,wifi_key) == 0){
-				HAL_Kv_Set("wifi_ssid", wifi_ssid, strlen(wifi_ssid), 0);
-				HAL_Kv_Set("wifi_key", wifi_key, strlen(wifi_key), 0);
-			}
-			at_wifi_join(wifi_ssid,wifi_key);
-                        HAL_Printf("join wifi:%s....\r\n",wifi_ssid);
-		}
+void app_process_wifi_config(char *ssid, char *key){
+	if((ssid == NULL) && (key == NULL)){
+		uint8_t value_invalid = 0xff;
+		HAL_Kv_Set("wifi_ssid", &value_invalid, 1, 0);
+		HAL_Kv_Set("wifi_key", &value_invalid, 1, 0);
+		at_wifi_factory_new();
 
-  }else if(buff[0] == 'f'){//factory new module
-  	uint8_t value_invalid = 0xff;
-	HAL_Kv_Set("wifi_ssid", &value_invalid, 1, 0);
-	HAL_Kv_Set("wifi_key", &value_invalid, 1, 0);
-	at_wifi_factory_new();
-        HAL_Printf("Factory wifi module....\r\n");
-  }else{
+	}else if(app_wifi_ib_same(ssid,key) == 0){
+		HAL_Kv_Set("wifi_ssid", ssid, strlen(ssid), 0);
+		HAL_Kv_Set("wifi_key", key, strlen(key), 0);
+	}
 
-  	HAL_Printf("Unknown command\r\n");
-
-  }
-  
-}
-void HardFault_Handler(void ){
-   portENTER_CRITICAL();
-   while(1);
-  
-  
 }
 
 /*******************************************************************************
@@ -158,24 +180,35 @@ void HardFault_Handler(void ){
  */
 int main(void)
 {
-    /* Init board hardware. */
     BOARD_ConfigMPU();
     BOARD_InitPins();
 	
     BOARD_BootClockRUN();
+	BOARD_USDHCClockConfiguration();
+    BOARD_InitDebugConsole();
+	ShellInit();
+
     flexspi_hyper_flash_init();
     kv_init();
     
     
-    gpio_pin_config_t led_config = {kGPIO_DigitalOutput, 0, kGPIO_NoIntmode};
-	/* Init output LED GPIO. */
-    GPIO_PinInit(BOARD_USER_LED_GPIO, BOARD_USER_LED_GPIO_PIN, &led_config);
-    log_init();
-    //linkkit_init();
-	linkkitcsdk_init();
-        //smart_wm_init();
+
+#if (DEMO_OPTION == DEMO_WASHING_MACHINE)
+	BOARD_InitI2C1Pins();
+	BOARD_InitSemcPins();
+    /* create thread that drives the Embedded Wizard GUI application... */
+    EwPrint( "Create UI thread...                          " );
+    xTaskCreate( GuiThread, "EmWi_Task", 1280, NULL, 2, NULL );
+    EwPrint( "[OK]\n" );
+#endif
+
+    if (xTaskCreate(demo_task, "demo_task", 2048, NULL, 1, NULL) != pdPASS)
+    {
+        PRINTF("Task creation failed!.\r\n");
+        while (1);
+    }
+	
     vTaskStartScheduler();
-    while(1);
+
+    return 0;
 }
-
-

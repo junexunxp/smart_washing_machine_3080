@@ -1,5 +1,5 @@
 /*
- * Copyright 2017-2018 NXP
+ * Copyright 2018-2019 NXP
  * All rights reserved.
  *
  * SPDX-License-Identifier: BSD-3-Clause
@@ -44,12 +44,29 @@ extern "C" {
  */
 void BOARD_InitBootPins(void);
 
+/* GPIO_B1_14 (coord C14), SD0_VSELECT */
+#define BOARD_INITPINS_SD0_VSELECT_GPIO                                    GPIO2   /*!< GPIO device name: GPIO2 */
+#define BOARD_INITPINS_SD0_VSELECT_PORT                                    GPIO2   /*!< PORT device name: GPIO2 */
+#define BOARD_INITPINS_SD0_VSELECT_PIN                                       30U   /*!< GPIO2 pin index: 30 */
+
 
 /*!
  * @brief Configures pin routing and optionally pin electrical features.
  *
  */
 void BOARD_InitPins(void);
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitSemcPins(void);
+
+/*!
+ * @brief Configures pin routing and optionally pin electrical features.
+ *
+ */
+void BOARD_InitI2C1Pins(void);
 
 #if defined(__cplusplus)
 }
