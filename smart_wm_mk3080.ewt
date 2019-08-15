@@ -7923,6 +7923,114 @@
                 </file>
             </group>
             <group>
+                <name>wifi_provision</name>
+                <group>
+                    <name>frameworks</name>
+                    <group>
+                        <name>aplist</name>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\aplist\awss_aplist.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\aplist\awss_aplist.h</name>
+                        </file>
+                    </group>
+                    <group>
+                        <name>ieee80211</name>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\ieee80211\zconfig_ieee80211.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\ieee80211\zconfig_ieee80211.h</name>
+                        </file>
+                    </group>
+                    <group>
+                        <name>statics</name>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\statics\awss_statis.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\statics\awss_statis.h</name>
+                        </file>
+                    </group>
+                    <group>
+                        <name>utils</name>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\utils\awss_aes_wrapper.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\utils\awss_aes_wrapper.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\utils\awss_crypt.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\utils\awss_crypt.h</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\utils\zconfig_utils.c</name>
+                        </file>
+                        <file>
+                            <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\utils\zconfig_utils.h</name>
+                        </file>
+                    </group>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\aws_lib.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\awss.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\awss_main.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\awss_main.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\awss_smartconfig.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\zconfig_lib.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\zconfig_protocol.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\zconfig_protocol.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\frameworks\zconfig_vendor_common.c</name>
+                    </file>
+                </group>
+                <group>
+                    <name>p2p</name>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\p2p\awss_wps.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\p2p\awss_wps.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\p2p\p2p_wrapper.h</name>
+                    </file>
+                </group>
+                <group>
+                    <name>smartconfig</name>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\smartconfig\awss_smartconfig.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\csdk\eng\wifi_provision\smartconfig\smartconfig_wrapper.h</name>
+                    </file>
+                </group>
+                <file>
+                    <name>$PROJ_DIR$\csdk\eng\wifi_provision\wifi_provision_api.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\csdk\eng\wifi_provision\wifi_provision_internal.h</name>
+                </file>
+            </group>
+            <group>
                 <name>wrappers</name>
                 <group>
                     <name>at_tcp</name>
@@ -8977,6 +9085,18 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\source\common_drivers\virtual_com.h</name>
+            </file>
+        </group>
+        <group>
+            <name>demo_rgb</name>
+            <file>
+                <name>$PROJ_DIR$\source\demo_rgb\i2c.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\demo_rgb\pca9634.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\source\demo_rgb\rgb_light.c</name>
             </file>
         </group>
         <group>

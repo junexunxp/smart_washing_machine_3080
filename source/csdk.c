@@ -22,6 +22,13 @@
 #include "fsl_lpuart.h"
 #include "pin_mux.h"
 #include "clock_config.h"
+#include "fsl_common.h"
+
+#include "kv_api.h"
+#include "flexspi_hyper_flash_ops.h"
+
+#include "ewmain.h"
+
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
@@ -66,8 +73,19 @@ static void BOARD_USDHCClockConfiguration(void)
  */
 static void demo_task(void *arg)
 {
-   
-#if (DEMO_OPTION == DEMO_WASHING_MACHINE)
+    PRINTF("\r\n************************************************\r\n");
+    PRINTF(" CSDK Demo task example\r\n");
+    PRINTF("************************************************\r\n");
+
+    
+    
+#if (DEMO_OPTION == DEMO_DIM_LIGHT)
+	PRINTF("Run Dimmable Light Demo...\r\n");
+    lighting_run(NULL,NULL);
+#elif (DEMO_OPTION == DEMO_RGB_LIGHT)
+	PRINTF("Run RGB Lighting Demo...\r\n");
+	rgb_light_run(NULL,NULL);
+#elif (DEMO_OPTION == DEMO_WASHING_MACHINE)
 	PRINTF("Run Washing Machine Demo...\r\n");
     wm_run(NULL, NULL);
 #endif
@@ -101,33 +119,66 @@ static void GuiThread( void* arg )
   /* de-initialize Embedded Wizard application */
   EwDone();
 }
+static uint8_t app_wifi_ib_stored_valid(void ){
+	char wifi_ssid[40]={0};
+	char wifi_key[40] = {0};
+	int ssid_len = 40;
+	int key_len = 40;
+	if(HAL_Kv_Get("wifi_ssid", wifi_ssid, &ssid_len) != 0){
 
+		return 0;
+	}
+	if(ssid_len == 1 && wifi_ssid[0] == 0xff){
+		return 0;
+
+	}
+	return 1;
+
+}
 void app_wait_wifi_connect(void ){
 
 	char wifi_ssid[40]={0};
 	char wifi_key[40] = {0};
 	int ssid_len = 40;
 	int key_len = 40;
-	if(HAL_Kv_Get("wifi_ssid", wifi_ssid, &ssid_len) == 0){
-          if(ssid_len != 1 || wifi_ssid[0] != 0xff){
-
-
-            if(HAL_Kv_Get("wifi_key", wifi_key, &key_len) == 0){
-               if(key_len != 1){
-                  at_wifi_join(wifi_ssid,wifi_key);
-                  HAL_Printf("join wifi:%s....\r\n",wifi_ssid);
-                  HAL_SleepMs(2000);
-               }
-            }
-          }
-	}
-	if(!HAL_Wifi_Connected()){
-	    HAL_Printf("Wifi not connected, join the AP first\r\n");
-	    HAL_SleepMs(1000);
-	    while(!HAL_Wifi_Connected()){
-	      HAL_SleepMs(500);
+	int cnt = 0x0e;
+	while(HAL_Wifi_Connected()){
+		if(HAL_Kv_Get("wifi_ssid", wifi_ssid, &ssid_len) == 0){
+	          if(ssid_len != 1 || wifi_ssid[0] != 0xff){
+	            if(HAL_Kv_Get("wifi_key", wifi_key, &key_len) == 0){
+	               if(key_len != 1){
+	                  at_wifi_join(wifi_ssid,wifi_key);
+	                  HAL_Printf("join wifi:%s....\r\n",wifi_ssid);
+	                  HAL_SleepMs(2000);
+	               }
+	            }
+	          }
+		}
+	    if((cnt++ & 0x0f) == 0x0f){
+	      PRINTF("Join AP failed by using KV info\r\n");
 	    }
-	}
+#if 1//USE_SMART_CONFIG
+		static uint8_t first_run = 0;
+		if(!first_run && !app_wifi_ib_stored_valid()){
+			first_run = 1;
+		    #if 1
+			PRINTF("start smart config\r\n");
+			extern int awss_config_press();
+			awss_config_press();
+			awss_start();
+		    #else
+		    awss_dev_ap_start();
+		    #endif
+			
+		}else{
+			first_run = 1;
+		}
+    
+#else
+		PRINTF("Scan test start..\r\n");
+		HAL_SleepMs(5000);
+#endif
+    } 
 
 }
 static uint8_t app_wifi_ib_same(char *ssid, char *key){
@@ -202,7 +253,7 @@ int main(void)
     EwPrint( "[OK]\n" );
 #endif
 
-    if (xTaskCreate(demo_task, "demo_task", 2048, NULL, 1, NULL) != pdPASS)
+    if (xTaskCreate(demo_task, "demo_task", 1000, NULL, 3, NULL) != pdPASS)
     {
         PRINTF("Task creation failed!.\r\n");
         while (1);

@@ -54,14 +54,14 @@ int awss_update_token()
     awss_report_token_cnt = 0;
     awss_report_token_suc = 0;
 
+    produce_random(aes_random, sizeof(aes_random));
     if (report_token_timer == NULL) {
         report_token_timer = HAL_Timer_Create("rp_token", (void (*)(void *))awss_report_token_to_cloud, NULL);
     }
     HAL_Timer_Stop(report_token_timer);
-    HAL_Timer_Start(report_token_timer, 3000);
+    HAL_Timer_Start(report_token_timer, 10);
     awss_info("update token");
 
-    produce_random(aes_random, sizeof(aes_random));
     return 0;
 }
 
@@ -283,7 +283,6 @@ static int awss_reboot_system()
     return 0;
 }
 #endif
-
 
 static int awss_report_token_to_cloud()
 {
